@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.ROMHacking.Vectors
+﻿namespace Nintenlord.Geometry.Vectors
 {
     public interface IRGBColor
     {

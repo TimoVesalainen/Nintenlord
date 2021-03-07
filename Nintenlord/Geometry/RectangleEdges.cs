@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Forms.Utility
+namespace Nintenlord.Geometry
 {
     [Flags]
     public enum RectangleEdges

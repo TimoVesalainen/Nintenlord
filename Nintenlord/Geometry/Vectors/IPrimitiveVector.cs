@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.ROMHacking.Vectors
+﻿namespace Nintenlord.Geometry.Vectors
 {
     interface IPrimitiveVector<T>
     {

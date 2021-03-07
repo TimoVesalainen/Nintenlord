@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
-namespace Nintenlord.Forms.Utility
+namespace Nintenlord.Drawing
 {
     public static class BitmapHelpers
     {
@@ -296,7 +296,7 @@ namespace Nintenlord.Forms.Utility
                 throw new ArgumentException("Out of bitmap's area", "rect");
             }
             Bitmap subBitmap = new Bitmap(rect.Width, rect.Height, bitmap.PixelFormat);
-            Copy(bitmap, subBitmap, rect, Point.Empty);
+            bitmap.Copy(subBitmap, rect, Point.Empty);
 
             return subBitmap;
         }
@@ -362,7 +362,7 @@ namespace Nintenlord.Forms.Utility
 
         public static IEnumerable<Color> GetPixelEnumerator(this Bitmap bitmap)
         {
-            return GetPixelEnumerator(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+            return bitmap.GetPixelEnumerator(new Rectangle(Point.Empty, bitmap.Size));
         }
 
         public static IEnumerable<Color> GetPixelEnumerator(this Bitmap bitmap, Rectangle area)
@@ -411,7 +411,7 @@ namespace Nintenlord.Forms.Utility
 
         public static IEnumerable<Tuple<Point, Color>> GetPixelAndPosEnumerator(this Bitmap bitmap)
         {
-            return GetPixelAndPosEnumerator(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+            return bitmap.GetPixelAndPosEnumerator(new Rectangle(Point.Empty, bitmap.Size));
         }
 
         public static IEnumerable<Tuple<Point, Color>> GetPixelAndPosEnumerator(this Bitmap bitmap, Rectangle area)
@@ -565,7 +565,7 @@ namespace Nintenlord.Forms.Utility
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         #endregion

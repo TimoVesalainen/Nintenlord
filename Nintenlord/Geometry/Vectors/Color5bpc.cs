@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Nintenlord.ROMHacking.Vectors
+namespace Nintenlord.Geometry.Vectors
 {
     [StructLayout(LayoutKind.Explicit, Pack = 2, Size = 2)]
     public struct Color5bpc : IPrimitiveVector<ushort>, IPrimitiveVector<short>, IRGBColor
@@ -66,13 +66,13 @@ namespace Nintenlord.ROMHacking.Vectors
         {
             get
             {
-                return (value >> 5) & 0x1F;
+                return value >> 5 & 0x1F;
             }
             set
             {
                 int newValue = this.value;
                 newValue &= ~(Mask << 5);
-                newValue |= (value >> Shift) << 5;
+                newValue |= value >> Shift << 5;
                 this.value = (ushort)newValue;
             }
         }
@@ -81,13 +81,13 @@ namespace Nintenlord.ROMHacking.Vectors
         {
             get
             {
-                return (value >> 10) & 0x1F;
+                return value >> 10 & 0x1F;
             }
             set
             {
                 int newValue = this.value;
                 newValue &= ~(Mask << 10);
-                newValue |= (value >> Shift) << 10;
+                newValue |= value >> Shift << 10;
                 this.value = (ushort)newValue;
             }
         }

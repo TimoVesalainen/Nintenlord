@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Nintenlord.Forms
+namespace Nintenlord.Drawing
 {
     public static class ColorHelpers
     {
@@ -44,7 +44,7 @@ namespace Nintenlord.Forms
                 // The color wheel consists of 6 sectors.
                 // Figure out which sector you're in.
                 sectorPos = h / 60;
-                sectorNumber = (int)(Math.Floor(sectorPos));
+                sectorNumber = (int)Math.Floor(sectorPos);
 
                 // get the fractional part of the sector.
                 // That is, how many degrees into the sector
@@ -54,8 +54,8 @@ namespace Nintenlord.Forms
                 // Calculate values for the three axes
                 // of the color. 
                 p = v * (1 - s);
-                q = v * (1 - (s * fractionalSector));
-                t = v * (1 - (s * (1 - fractionalSector)));
+                q = v * (1 - s * fractionalSector);
+                t = v * (1 - s * (1 - fractionalSector));
 
                 // Assign the fractional colors to r, g, and b
                 // based on the sector the angle is in.
@@ -182,7 +182,7 @@ namespace Nintenlord.Forms
         public static Color GetAntiColor(this Color color)
         {
             int h, s, v;
-            ToHsv(color, out h, out s, out v);
+            color.ToHsv(out h, out s, out v);
             h = (h + 180) % 360;
             v = 100 - v;
             return ToRgb(h, s, v);
@@ -191,7 +191,7 @@ namespace Nintenlord.Forms
         public static int GetBrightness(this Color color)
         {
             int value, saturation, hue;
-            ToHsv(color, out hue, out saturation, out value);
+            color.ToHsv(out hue, out saturation, out value);
             return value;
         }
     }

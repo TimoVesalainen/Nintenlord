@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Nintenlord.Forms.Utility
+namespace Nintenlord.Geometry
 {
     public static class RectangleExtensions
     {
@@ -152,9 +152,9 @@ namespace Nintenlord.Forms.Utility
 
         public static bool RangesCollide(int min1, int max1, int min2, int max2)
         {
-            return ((min1 <= min2 && max1 >= max2) ||
+            return min1 <= min2 && max1 >= max2 ||
                    min1.IsInRange(min2, max2) ||
-                   max1.IsInRange(min2, max2));
+                   max1.IsInRange(min2, max2);
         }
     }
 }
