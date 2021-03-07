@@ -7,9 +7,6 @@
 namespace Nintenlord.Utility
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Remembers the previous assigned value as well as the current one.
@@ -18,7 +15,7 @@ namespace Nintenlord.Utility
     {
         public T Current
         {
-            get 
+            get
             {
                 return current;
             }

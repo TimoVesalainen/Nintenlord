@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Grammars
 {
-    public sealed class HistoryKeepingStateMachine<TState, TInput> 
+    public sealed class HistoryKeepingStateMachine<TState, TInput>
         : IStateMachine<TState[], HistoryKeepingStateMachine<TState, TInput>.Input>
     {
         public sealed class Input
@@ -59,7 +57,7 @@ namespace Nintenlord.Grammars
 
             if (!input.returnToPrevious)
             {
-                newState  = new TState[currentState.Length + 1];
+                newState = new TState[currentState.Length + 1];
                 newState[currentState.Length] =
                     stateMachine.Transition(currentState[currentState.Length - 1],
                     input.toMove);

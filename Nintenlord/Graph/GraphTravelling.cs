@@ -2,13 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public static class GraphTraversal
     {
         public static IEnumerable<TNode> BreadthFirstTraversal<TNode>(
-            this IGraph<TNode> graph, 
+            this IGraph<TNode> graph,
             TNode startNode)
         {
             HashSet<TNode> travelledNodes = new HashSet<TNode>();
@@ -20,8 +18,8 @@
             while (queue.Count > 0)
             {
                 var nextNode = queue.Dequeue();
-                
-                yield return nextNode;                
+
+                yield return nextNode;
 
                 foreach (var node in graph.GetNeighbours(nextNode))
                 {

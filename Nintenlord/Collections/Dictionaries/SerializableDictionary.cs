@@ -27,7 +27,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             this.baseDictionary = baseDictionary;
         }
-        
+
         #region ISerializable Members
 
         public SerializableDictionary(SerializationInfo info, StreamingContext context)

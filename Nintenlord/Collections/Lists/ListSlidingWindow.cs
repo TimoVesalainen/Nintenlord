@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Collections.Lists
 {
     public sealed class ListSlidingWindow<T> : IList<T>
     {
-        readonly IList<T> items;        
+        readonly IList<T> items;
         readonly int windowSize;
 
         int start;
@@ -24,7 +22,7 @@ namespace Nintenlord.Collections.Lists
         public IList<T> Items
         {
             get { return items; }
-        } 
+        }
 
         public int WindowSize
         {
@@ -41,7 +39,7 @@ namespace Nintenlord.Collections.Lists
         }
 
         #region IList<T> Members
-        
+
         public int IndexOf(T item)
         {
             for (int i = start; i < end; i++)

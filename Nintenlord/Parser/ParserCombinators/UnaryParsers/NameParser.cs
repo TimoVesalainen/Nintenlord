@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
-    public sealed class NameParser<TIn,TOut> : Parser<TIn,TOut>
+    public sealed class NameParser<TIn, TOut> : Parser<TIn, TOut>
     {
         readonly string name;
         readonly IParser<TIn, TOut> parser;
@@ -26,7 +23,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             TOut result = parser.Parse(scanner, out match);
             if (!match.Success)
             {
-                match = new Match<TIn>(scanner, 
+                match = new Match<TIn>(scanner,
                     result == null ? "Expected {0}" : "Expected {0}, got {1}", name, result);
                 result = default(TOut);
             }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nintenlord.IO.Scanners;
+﻿using Nintenlord.IO.Scanners;
+using System;
 
 namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
-    public sealed class SatisfyParser<T> : Parser<T,T>
+    public sealed class SatisfyParser<T> : Parser<T, T>
     {
         readonly Predicate<T> comparer;
 
@@ -20,7 +17,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         protected override T ParseMain(IScanner<T> scanner, out Match<T> match)
         {
-            if(scanner.IsAtEnd)
+            if (scanner.IsAtEnd)
             {
                 match = new Match<T>(scanner, "No token to test.");
                 return default(T);

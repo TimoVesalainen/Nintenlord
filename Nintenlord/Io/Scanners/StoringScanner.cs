@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.IO.Scanners
 {
@@ -67,7 +65,7 @@ namespace Nintenlord.IO.Scanners
 
         public T Current
         {
-            get 
+            get
             {
                 T result;
 
@@ -81,7 +79,7 @@ namespace Nintenlord.IO.Scanners
         public bool MoveNext()
         {
             offset++;
-            var result =  GenerateItemsToOffset(offset);
+            var result = GenerateItemsToOffset(offset);
             this.IsAtEnd = !result;
             return result;
         }

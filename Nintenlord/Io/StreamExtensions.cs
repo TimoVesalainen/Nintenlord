@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace Nintenlord.IO
@@ -31,7 +29,7 @@ namespace Nintenlord.IO
 
             return streamReader != null
                               ? (streamReader.BaseStream is FileStream
-                                     ? ((FileStream) streamReader.BaseStream).Name
+                                     ? ((FileStream)streamReader.BaseStream).Name
                                      : streamReader.BaseStream.GetType().Name)
                               : "Standard input";
         }

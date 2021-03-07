@@ -7,9 +7,6 @@
 namespace Nintenlord.Utility
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -38,7 +35,7 @@ namespace Nintenlord.Utility
                 }
                 return item;
             }
-        }        
+        }
 
         public UpdateOnDemand(Func<T> valueFactory)
         {

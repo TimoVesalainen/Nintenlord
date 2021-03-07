@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using Nintenlord.Utility.Primitives;
+using System;
 using System.Collections.Generic;
-using Nintenlord.Utility.Primitives;
+using System.Drawing;
 
 namespace Nintenlord.Forms.Utility
 {
@@ -93,7 +93,7 @@ namespace Nintenlord.Forms.Utility
             //    ClingToEdges(ref areaToClingTo, ref area, RectangleEdges.Right);
             //}
         }
-        
+
         public static void ClingToEdges(ref Rectangle areaToClingTo, ref Rectangle area, RectangleEdges edge, RectangleEdges edgeToClingTo)
         {
             if ((edge & RectangleEdges.Top) == RectangleEdges.Top)
@@ -114,14 +114,14 @@ namespace Nintenlord.Forms.Utility
             }
         }
 
-        public static KeyValuePair<RectangleEdges, RectangleEdges>[] 
+        public static KeyValuePair<RectangleEdges, RectangleEdges>[]
             WhichEdgesAreClose(ref Rectangle area1, ref Rectangle area2, int distance)
         {
             RectangleEdges result = RectangleEdges.None;
 
             if ((Math.Abs(area1.Top - area2.Top) <= distance ||
                 Math.Abs(area1.Top - area2.Bottom) <= distance) &&
-                RangesCollide(area1.Left,area1.Right, area1.Left,area1.Right))
+                RangesCollide(area1.Left, area1.Right, area1.Left, area1.Right))
             {
                 result |= RectangleEdges.Top;
             }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 namespace Nintenlord.Utility
@@ -56,7 +54,7 @@ namespace Nintenlord.Utility
 
             #endregion
 
-            
+
             #region IEnumerable<T> Members
 
             public IEnumerator<T> GetEnumerator()

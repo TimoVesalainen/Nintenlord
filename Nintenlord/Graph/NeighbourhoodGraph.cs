@@ -6,10 +6,7 @@
 
 namespace Nintenlord.Graph
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -50,7 +47,7 @@ namespace Nintenlord.Graph
         {
             neighbours[from].Remove(to);
         }
-        
+
         public bool this[TNode from, TNode to]
         {
             get

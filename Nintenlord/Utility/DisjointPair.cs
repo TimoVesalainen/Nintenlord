@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -21,7 +18,7 @@ namespace Nintenlord.Utility
         }
         public T1 First
         {
-            get 
+            get
             {
                 if (!hasFirst)
                     throw new InvalidOperationException();

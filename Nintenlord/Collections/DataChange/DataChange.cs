@@ -18,7 +18,7 @@ namespace Nintenlord.Collections.DataChange
         {
             get
             {
-                int lastKey = dataToChange.Keys[dataToChange.Count-1];
+                int lastKey = dataToChange.Keys[dataToChange.Count - 1];
                 return lastKey + dataToChange[lastKey].Length;
             }
         }
@@ -100,8 +100,8 @@ namespace Nintenlord.Collections.DataChange
         /// <returns></returns>
         private IEnumerable<int> GetIntersectingKeys(int offset, int count)
         {
-            return from item in (IEnumerable<KeyValuePair<int, T[]>>) this 
-                   where Intersects(offset, count, item.Key, item.Value.Length) 
+            return from item in (IEnumerable<KeyValuePair<int, T[]>>)this
+                   where Intersects(offset, count, item.Key, item.Value.Length)
                    select item.Key;
         }
 
@@ -114,7 +114,7 @@ namespace Nintenlord.Collections.DataChange
                     Array.Resize(ref data, this.LastOffset);
                 }
 
-                ApplyTo(data);                
+                ApplyTo(data);
             }
         }
 
@@ -152,7 +152,7 @@ namespace Nintenlord.Collections.DataChange
                 return dataToChange.Values.Sum(item => item.Length);
             }
         }
-        
+
         public bool Equals(IDataChange<T> other)
         {
             throw new NotImplementedException();
@@ -162,9 +162,9 @@ namespace Nintenlord.Collections.DataChange
         {
             IEqualityComparer<T> comp = EqualityComparer<T>.Default;
 
-            return !(from item in dataToChange 
-                     let offset = item.Key 
-                     where item.Value.Where((t, i) => !comp.Equals(other[offset + i], t)).Any() 
+            return !(from item in dataToChange
+                     let offset = item.Key
+                     where item.Value.Where((t, i) => !comp.Equals(other[offset + i], t)).Any()
                      select item).Any();
         }
 
@@ -279,7 +279,7 @@ namespace Nintenlord.Collections.DataChange
             }
 
             DataChange<T> result = new DataChange<T>();
-            foreach (var item in (overlay as IEnumerable<KeyValuePair<int,int>>))
+            foreach (var item in (overlay as IEnumerable<KeyValuePair<int, int>>))
             {
                 T[] temp = new T[item.Value];
                 Array.Copy(array, item.Key, temp, 0, temp.Length);

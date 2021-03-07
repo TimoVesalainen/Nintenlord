@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Nintenlord.Utility;
 
 namespace Nintenlord.Collections.DataChange
 {
@@ -41,7 +41,7 @@ namespace Nintenlord.Collections.DataChange
 
         public int LastIndex
         {
-            get { return indexes.Last().Apply((x,y) => x + y); }
+            get { return indexes.Last().Apply((x, y) => x + y); }
         }
 
         public bool ContainsIndex(int index)
@@ -51,8 +51,8 @@ namespace Nintenlord.Collections.DataChange
                 throw new IndexOutOfRangeException();
             }
             //Works?
-            return (from item in indexes 
-                    where item.Key + item.Value >= index 
+            return (from item in indexes
+                    where item.Key + item.Value >= index
                     select index >= item.Key).FirstOrDefault();
         }
 
@@ -90,7 +90,7 @@ namespace Nintenlord.Collections.DataChange
                 indexes[index] = 1;
             }
         }
-        
+
         public void AddIndexes(int index, int length)
         {
             if (index < 0 || length <= 0)
@@ -104,7 +104,7 @@ namespace Nintenlord.Collections.DataChange
             {
                 int newStart = Math.Min(touchingIndexes[0], index);
                 int newEnd = Math.Max(
-                    LastIndexOf(touchingIndexes[touchingIndexes.Count - 1]), 
+                    LastIndexOf(touchingIndexes[touchingIndexes.Count - 1]),
                     index + length);
 
                 foreach (var item in touchingIndexes)
@@ -169,7 +169,7 @@ namespace Nintenlord.Collections.DataChange
                 indexes.Remove(right);
                 result = true;
             }
-            
+
             return result;
         }
 
@@ -250,7 +250,7 @@ namespace Nintenlord.Collections.DataChange
             //}
             //return false;
         }
-        
+
         public bool ContainsAllIndexes(int index, int length)
         {
             int endLeft, endRight;
@@ -258,7 +258,7 @@ namespace Nintenlord.Collections.DataChange
 
             return endLeft != -1 && (endLeft <= index && LastIndexOf(endLeft) >= index + length);
         }
-        
+
         public IEnumerator<KeyValuePair<int, int>> GetRanges(int min, int max)
         {
             return indexes.Where(range => range.Key >= min && range.Key + range.Value <= max).GetEnumerator();
@@ -278,7 +278,7 @@ namespace Nintenlord.Collections.DataChange
         }
 
         #endregion
-        
+
         #region IEnumerable<int> Members
 
         public IEnumerator<int> GetEnumerator()
@@ -362,8 +362,8 @@ namespace Nintenlord.Collections.DataChange
 
         private bool IsContained(int index, int inIndex)
         {
-            return inIndex != -1 
-                && inIndex <= index 
+            return inIndex != -1
+                && inIndex <= index
                 && index < LastIndexOf(inIndex);
         }
 
@@ -390,7 +390,7 @@ namespace Nintenlord.Collections.DataChange
             latest = enumerator.Current;
             while (enumerator.MoveNext())
             {
-                if (latest.Apply((x,y)=> x+y) >= enumerator.Current.Key //Not touching or overlapping with next
+                if (latest.Apply((x, y) => x + y) >= enumerator.Current.Key //Not touching or overlapping with next
                     || enumerator.Current.Key < 0
                     || enumerator.Current.Value <= 0)
                 {

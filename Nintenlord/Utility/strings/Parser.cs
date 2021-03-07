@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nintenlord.Collections;
+using Nintenlord.Utility.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Nintenlord.Collections;
-using Nintenlord.Utility.Primitives;
 
 namespace Nintenlord.Utility.Strings
 {
@@ -31,7 +31,7 @@ namespace Nintenlord.Utility.Strings
 
         public static string[] ShuntingYardAlgorithm(string s)
         {
-            return ShuntingYardAlgorithm(s, new OperatorComparer(), 
+            return ShuntingYardAlgorithm(s, new OperatorComparer(),
                 x => binaryOperators.ContainsKey(x), x => x.IsHexDigit() || x == 'x');
         }
 
@@ -111,7 +111,7 @@ namespace Nintenlord.Utility.Strings
 
             return output.ToArray();
         }
-        
+
         private class OperatorComparer : IComparer<string>
         {
             #region IComparer<char> Members
@@ -174,7 +174,7 @@ namespace Nintenlord.Utility.Strings
                 return c == "&" || c == "|" || c == "^";
             }
         }
-        
+
 
         public static int EvaluateReversePolishNotation(string[] s)
         {
@@ -354,7 +354,7 @@ namespace Nintenlord.Utility.Strings
             }
             return cool;
         }
-        
+
         public static bool ReplaceCommentsWith(StringBuilder line, char c, ref int blockCommentDepth)
         {
             if (line.Length == 0)
@@ -393,7 +393,7 @@ namespace Nintenlord.Utility.Strings
 
             if (endOfLine < line.Length)
             {
-                line.Remove(endOfLine,  line.Length - endOfLine);
+                line.Remove(endOfLine, line.Length - endOfLine);
             }
             for (int i = endOfLine - 1; i >= 0; i--)
             {

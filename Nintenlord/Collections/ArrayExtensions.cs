@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Collections
 {
@@ -16,7 +15,7 @@ namespace Nintenlord.Collections
         {
             return Array.LastIndexOf(array, match);
         }
-        
+
 
         public static int IndexOf<T>(this T[] array, T[] toFind)
         {
@@ -46,7 +45,7 @@ namespace Nintenlord.Collections
 
 
         public static bool ContainsAnyOf<T>(this T[] array, T[] toContain)
-        {            
+        {
             return array.ContainsAnyOf(toContain, EqualityComparer<T>.Default);
         }
 
@@ -124,7 +123,7 @@ namespace Nintenlord.Collections
 
         public static int Total(this int[] array)
         {
-            return array.Aggregate(1, (current, item) => current*item);
+            return array.Aggregate(1, (current, item) => current * item);
         }
 
         public static int AmountOfSame<T>(T[] array1, int index1, T[] array2, int index2)

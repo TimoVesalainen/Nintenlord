@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace Nintenlord.Collections
 {
-    public interface IPriorityQueue<TPriority, TValue> : 
+    public interface IPriorityQueue<TPriority, TValue> :
         IEnumerable<KeyValuePair<TPriority, TValue>>, ICollection
     {
         TValue Dequeue();

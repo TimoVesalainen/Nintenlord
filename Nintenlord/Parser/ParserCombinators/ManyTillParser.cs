@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Nintenlord.IO.Scanners;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nintenlord.IO.Scanners;
 
 namespace Nintenlord.Parser.ParserCombinators
 {
@@ -30,7 +28,7 @@ namespace Nintenlord.Parser.ParserCombinators
                 Match<TIn> latestMatch;
                 ender.Parse(scanner, out latestMatch);
                 if (latestMatch.Success)
-                {                    
+                {
                     InnerMatch += latestMatch;
                     yield break;
                 }

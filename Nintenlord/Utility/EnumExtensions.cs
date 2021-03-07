@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -12,7 +10,7 @@ namespace Nintenlord.Utility
             Type type = typeof(T);
             if (!Enum.GetNames(type).Contains(name))
             {
-                result = default(T); 
+                result = default(T);
                 return false;
             }
 

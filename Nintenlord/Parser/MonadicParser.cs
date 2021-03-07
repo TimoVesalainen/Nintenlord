@@ -6,11 +6,8 @@
 
 namespace Nintenlord.Parser
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Nintenlord.IO.Scanners;
+    using System;
 
     public delegate Tuple<TOut, Match<TIn>> MonadicParser<TIn, TOut>(IScanner<TIn> scanner);
 
@@ -53,8 +50,8 @@ namespace Nintenlord.Parser
             return scanner =>
             {
                 var firsstResult = parser(scanner);
-                return Tuple.Create(!firsstResult.Item2.Success ? 
-                    default(TOut) : 
+                return Tuple.Create(!firsstResult.Item2.Success ?
+                    default(TOut) :
                     resultSelector(firsstResult.Item1), firsstResult.Item2);
             };
         }

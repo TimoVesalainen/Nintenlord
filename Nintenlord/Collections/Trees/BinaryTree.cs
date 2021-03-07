@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Nintenlord.Utility;
 
 namespace Nintenlord.Collections.Trees
 {
@@ -28,7 +26,7 @@ namespace Nintenlord.Collections.Trees
             get;
             private set;
         }
-        
+
         public BinaryTree(BinaryTree<T> left, BinaryTree<T> right)
         {
             this.Count = left.Count + right.Count;
@@ -41,7 +39,7 @@ namespace Nintenlord.Collections.Trees
             this.Count = 1;
             this.MaxDepth = 1;
         }
-        
+
         #region ICollection<T> Members
 
         public void Add(T item)

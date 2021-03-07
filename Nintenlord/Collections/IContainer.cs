@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nintenlord.Collections
+﻿namespace Nintenlord.Collections
 {
     public interface IContainer<in T>
     {

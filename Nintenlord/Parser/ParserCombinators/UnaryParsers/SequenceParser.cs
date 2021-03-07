@@ -6,11 +6,10 @@
 
 namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
+    using Nintenlord.IO.Scanners;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using Nintenlord.IO.Scanners;
 
     /// <summary>
     /// TODO: Update summary.
@@ -52,8 +51,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             }
 
             //Reached end without failing?
-            match = (i == sequence.Length) 
-                  ? new Match<T>(scanner, startOffset, sequence.Length) 
+            match = (i == sequence.Length)
+                  ? new Match<T>(scanner, startOffset, sequence.Length)
                   : new Match<T>(scanner, "Failed to match the sequence.");
 
             return default(TOut);

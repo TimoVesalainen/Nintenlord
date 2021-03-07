@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Collections.DataChange
 {
-    public interface IIndexOverlay : IEnumerable<int>, IEnumerable<KeyValuePair<int,int>>
+    public interface IIndexOverlay : IEnumerable<int>, IEnumerable<KeyValuePair<int, int>>
     {
         bool ContainsIndexes { get; }
         int AmountOfIndexes { get; }

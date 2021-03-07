@@ -6,11 +6,8 @@
 
 namespace Nintenlord.IO
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.IO;
+    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Parser
 {
@@ -23,8 +21,8 @@ namespace Nintenlord.Parser
 
 
         public static List<T> ShuntingYardAlgorithm<T>(
-            IEnumerable<T> tokens, 
-            IDictionary<T, T> parenthesis, 
+            IEnumerable<T> tokens,
+            IDictionary<T, T> parenthesis,
             IDictionary<T, OperatorInfo<T>> operators,
             Predicate<T> isFunction,
             Predicate<T> isParameterSeparator,
@@ -62,11 +60,11 @@ namespace Nintenlord.Parser
                         throw new ArgumentException("Missmatched parenthesis.");
                     }
 
-                    if (operatorStack.Count > 0 && 
+                    if (operatorStack.Count > 0 &&
                         isFunction(operatorStack.Peek()))
                     {
                         output.Add(operatorStack.Pop());
-                    } 
+                    }
                 }
                 else
                 {
@@ -167,7 +165,7 @@ namespace Nintenlord.Parser
             }
             else if (stack.Count > 1)
             {
-                throw new ArgumentException("Too many values left.");                
+                throw new ArgumentException("Too many values left.");
             }
             else
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nintenlord.Collections;
 
 namespace Nintenlord.Utility
 {
@@ -45,13 +44,13 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T, TError> NoError(T result)
         {
-            var results = new CanCauseError<T, TError> {result = result, error = false};
+            var results = new CanCauseError<T, TError> { result = result, error = false };
             return results;
         }
 
         public static CanCauseError<T, TError> Error(TError error)
         {
-            var result = new CanCauseError<T, TError> {error = true, errorState = error};
+            var result = new CanCauseError<T, TError> { error = true, errorState = error };
             return result;
         }
 
@@ -67,7 +66,7 @@ namespace Nintenlord.Utility
     /// <typeparam name="T">Type of succesful value</typeparam>
     public sealed class CanCauseError<T>
     {
-        private static readonly Dictionary<string, CanCauseError<T>> cachedErrors 
+        private static readonly Dictionary<string, CanCauseError<T>> cachedErrors
             = new Dictionary<string, CanCauseError<T>>();
 
         T result;
@@ -93,7 +92,7 @@ namespace Nintenlord.Utility
         }
         public T Result
         {
-            get 
+            get
             {
                 if (error)
                 {
@@ -118,17 +117,17 @@ namespace Nintenlord.Utility
                 throw new InvalidOperationException();
             }
             var result = new CanCauseError<TOut>
-                {
-                    error = this.error,
-                    result = default(TOut),
-                    errorMessage = this.errorMessage
-                };
+            {
+                error = this.error,
+                result = default(TOut),
+                errorMessage = this.errorMessage
+            };
             return result;
         }
 
         public static CanCauseError<T> NoError(T result)
         {
-            CanCauseError<T> results = new CanCauseError<T> {result = result, error = false};
+            CanCauseError<T> results = new CanCauseError<T> { result = result, error = false };
             return results;
         }
 
@@ -138,10 +137,10 @@ namespace Nintenlord.Utility
             if (!cachedErrors.TryGetValue(errorMessages, out result))
             {
                 result = new CanCauseError<T>
-                    {
-                        error = true, 
-                        errorMessage = new Lazy<string>(() => errorMessages)
-                    };
+                {
+                    error = true,
+                    errorMessage = new Lazy<string>(() => errorMessages)
+                };
                 cachedErrors[errorMessages] = result;
             }
             return result;
@@ -150,19 +149,19 @@ namespace Nintenlord.Utility
         public static CanCauseError<T> Error(string errorMessages, params object[] objects)
         {
             CanCauseError<T> result = new CanCauseError<T>
-                {
-                    error = true,
-                    errorMessage = new Lazy<string>(() => string.Format(errorMessages, objects))
-                };
+            {
+                error = true,
+                errorMessage = new Lazy<string>(() => string.Format(errorMessages, objects))
+            };
 
             return result;
         }
-        
+
         public static implicit operator bool(CanCauseError<T> error)
         {
             return error.CausedError;
         }
-        
+
         public static implicit operator CanCauseError<T>(T value)
         {
             return NoError(value);
@@ -190,7 +189,7 @@ namespace Nintenlord.Utility
 
         static CanCauseError()
         {
-            noError = new CanCauseError {error = false};
+            noError = new CanCauseError { error = false };
         }
 
         bool error;
@@ -201,7 +200,7 @@ namespace Nintenlord.Utility
         }
         public string ErrorMessage
         {
-            get 
+            get
             {
                 if (error)
                 {
@@ -224,7 +223,7 @@ namespace Nintenlord.Utility
             CanCauseError result;
             if (!cachedErrors.TryGetValue(errorMessages, out result))
             {
-                result = new CanCauseError {error = true, errorMessage = errorMessages};
+                result = new CanCauseError { error = true, errorMessage = errorMessages };
                 cachedErrors[errorMessages] = result;
             }
             return result;
@@ -234,7 +233,7 @@ namespace Nintenlord.Utility
         {
             return Error(string.Format(errorFormat, objects));
         }
-        
+
         public static implicit operator bool(CanCauseError error)
         {
             return error.CausedError;
@@ -245,7 +244,7 @@ namespace Nintenlord.Utility
             return errorMessage;
         }
     }
-    
+
     public static class CanCauseErrorHelpers
     {
         public static CanCauseError<C> SelectMany<A, B, C>(
@@ -258,7 +257,7 @@ namespace Nintenlord.Utility
             else
             {
                 var b = func(a.Result);
-                return b.CausedError ? b.ConvertError<C>() : 
+                return b.CausedError ? b.ConvertError<C>() :
                                        select(a.Result, b.Result);
             }
         }
@@ -273,7 +272,7 @@ namespace Nintenlord.Utility
             else
             {
                 var b = func(a.Result);
-                return b.CausedError ? CanCauseError<C, Error>.Error(b.ErrorState) : 
+                return b.CausedError ? CanCauseError<C, Error>.Error(b.ErrorState) :
                                        select(a.Result, b.Result);
             }
         }
@@ -283,7 +282,7 @@ namespace Nintenlord.Utility
         {
             return f.Map(x);
         }
-        
+
         public static CanCauseError<T> Where<T>(this CanCauseError<T> error, Func<T, bool> predicate)
         {
             if (error.CausedError || predicate(error.Result))
@@ -307,7 +306,7 @@ namespace Nintenlord.Utility
                 return CanCauseError<T>.Error("Value {0} failed predicate", value);
             }
         }
-        
+
         public static CanCauseError ActionIfSuccess<T>(this Func<CanCauseError<T>> function, Action<T> action)
         {
             var result = function();
@@ -371,7 +370,7 @@ namespace Nintenlord.Utility
                 return error;
             }
         }
-                
+
         public static Func<CanCauseError<TIn>, CanCauseError<TOut>> Map<TIn, TOut>(this Func<TIn, TOut> f)
         {
             return f.Map;
@@ -466,7 +465,7 @@ namespace Nintenlord.Utility
             }
             return result;
         }
-        
+
         public static CanCauseError Bind(this Func<CanCauseError> first, Func<CanCauseError> second)
         {
             CanCauseError firstResult = first();
@@ -490,8 +489,8 @@ namespace Nintenlord.Utility
         public static CanCauseError<TValue> TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
         {
             TValue value;
-            return dict.TryGetValue(key, out value) 
-                ? value 
+            return dict.TryGetValue(key, out value)
+                ? value
                 : CanCauseError<TValue>.Error("No value with key {0} found.", key);
         }
     }

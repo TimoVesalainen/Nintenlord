@@ -6,10 +6,7 @@
 
 namespace Nintenlord.IO.Scanners
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// A scanner that keeps old tokens and allows them to be accessed.

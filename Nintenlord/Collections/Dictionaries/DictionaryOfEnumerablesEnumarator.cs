@@ -27,7 +27,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         public KeyValuePair<TKey, TValue> Current
         {
-            get 
+            get
             {
                 return new KeyValuePair<TKey, TValue>(
                     currentCollection.Current.Key, currentValue.Current
@@ -77,12 +77,12 @@ namespace Nintenlord.Collections.Dictionaries
                         if (currentCollection.MoveNext())
                         {
                             currentValue.Dispose();
-                            currentValue = currentCollection.Current.Value.GetEnumerator();  
+                            currentValue = currentCollection.Current.Value.GetEnumerator();
                         }
                         else
                         {
                             return false;
-                        }                      
+                        }
                     }
                     return true;
                 }

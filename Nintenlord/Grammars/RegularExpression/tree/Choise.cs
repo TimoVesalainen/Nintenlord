@@ -6,10 +6,7 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -20,7 +17,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
         readonly IRegExExpressionTree<TLetter> secondChoise;
 
         public Choise(
-            IRegExExpressionTree<TLetter> firstChoise, 
+            IRegExExpressionTree<TLetter> firstChoise,
             IRegExExpressionTree<TLetter> secondChoise)
         {
             this.firstChoise = firstChoise;

@@ -6,17 +6,15 @@
 
 namespace Nintenlord.Grammars.RegularExpression
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Numerics;
-    using Nintenlord.Grammars.RegularExpression.Tree;
     using Nintenlord.Collections;
+    using Nintenlord.Grammars.RegularExpression.Tree;
     using Nintenlord.Graph;
     using Nintenlord.Graph.PathFinding;
     using Nintenlord.Utility;
     using Nintenlord.Utility.Primitives;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// TODO: Update summary.
@@ -89,17 +87,17 @@ namespace Nintenlord.Grammars.RegularExpression
         {
             int n = 0;
             var epsNFA = GetNFA(exp, () => n++);
-            
+
             bool[] startState = new bool[n];
             startState[epsNFA.startState] = true;
 
             var finalState = epsNFA.finalState;
             Predicate<bool[]> isFinal = x => x[finalState];
 
-            List<Tuple<bool[], TLetter, bool[]>> transitions = new List<Tuple<bool[],TLetter,bool[]>>();
+            List<Tuple<bool[], TLetter, bool[]>> transitions = new List<Tuple<bool[], TLetter, bool[]>>();
 
             foreach (var letter in alphabet)
-	        {
+            {
                 transitions.AddRange(GetPWSTransitionsWithLetter(n, epsNFA, letter));
             }
 
@@ -153,7 +151,7 @@ namespace Nintenlord.Grammars.RegularExpression
                     yield return values.Clone() as bool[];
                 }
             }
-            else if (length <=64)
+            else if (length <= 64)
             {
                 long pow = (long)1 << length;
                 yield return values.Clone() as bool[];
@@ -178,7 +176,7 @@ namespace Nintenlord.Grammars.RegularExpression
             {
                 case RegExNodeTypes.Letter:
                     return EpsilonDFA<TState, TLetter>.Letter(
-                        ((Letter<TLetter>)exp).LetterToMatch, 
+                        ((Letter<TLetter>)exp).LetterToMatch,
                         getNewState);
 
                 case RegExNodeTypes.EmptyWord:
@@ -208,7 +206,7 @@ namespace Nintenlord.Grammars.RegularExpression
                     throw new ArgumentException();
             }
         }
-        
+
         public static IRegExExpressionTree<TLetter> Simplify<TLetter>(IRegExExpressionTree<TLetter> exp)
         {
             switch (exp.Type)
@@ -333,7 +331,7 @@ namespace Nintenlord.Grammars.RegularExpression
 
             public static EpsilonDFA<TState, TLetter> Choise(
                 EpsilonDFA<TState, TLetter> first,
-                EpsilonDFA<TState, TLetter> second, 
+                EpsilonDFA<TState, TLetter> second,
                 Func<TState> getNewState)
             {
                 var start = getNewState();
@@ -364,7 +362,7 @@ namespace Nintenlord.Grammars.RegularExpression
 
                 var transitions = first.transitions.Concat(second.transitions);
 
-                return new EpsilonDFA<TState, TLetter>(transitions, epsilonTransitions, 
+                return new EpsilonDFA<TState, TLetter>(transitions, epsilonTransitions,
                     first.startState, second.finalState);
             }
 
@@ -389,7 +387,7 @@ namespace Nintenlord.Grammars.RegularExpression
                 return new EpsilonDFA<TState, TLetter>(
                     Tuple.Create(start, letter, final).GetArray(),
                     Enumerable.Empty<Tuple<TState, TState>>(),
-                    start, 
+                    start,
                     final);
             }
 
@@ -434,8 +432,8 @@ namespace Nintenlord.Grammars.RegularExpression
 
             public IEnumerable<TState> GetNeighbours(TState node)
             {
-                return from item in epsilonTransitions 
-                       where EqualityComparer<TState>.Default.Equals(item.Item1, node) 
+                return from item in epsilonTransitions
+                       where EqualityComparer<TState>.Default.Equals(item.Item1, node)
                        select item.Item2;
             }
 

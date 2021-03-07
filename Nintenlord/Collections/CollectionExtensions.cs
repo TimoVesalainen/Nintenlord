@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nintenlord.Collections.DataChange;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Nintenlord.Collections.DataChange;
+using System.Text;
 
 namespace Nintenlord.Collections
 {
@@ -108,7 +108,7 @@ namespace Nintenlord.Collections
 
             if (text.Length > 1)
             {
-                text.Remove(text.Length-2, 2);
+                text.Remove(text.Length - 2, 2);
             }
             text.Append("}");
 
@@ -167,7 +167,7 @@ namespace Nintenlord.Collections
             }
             return result;
         }
-        
+
         public static bool Contains<T>(this IEnumerable<T> array, Predicate<T> test)
         {
             return array.Any(item2 => test(item2));
@@ -232,7 +232,7 @@ namespace Nintenlord.Collections
         {
             IEnumerator<T> enume1 = list1.GetEnumerator();
             IEnumerator<T> enume2 = list2.GetEnumerator();
-            
+
             bool moveFirstToNext = true;
             bool moveSecondToNext = true;
 
@@ -380,7 +380,7 @@ namespace Nintenlord.Collections
         {
             return list1.OrderedUnion(list2, Comparer<T>.Default);
         }
-        
+
         public static IEnumerable<T> Repeat<T>(this IEnumerable<T> toRepeat)
         {
             while (true)
@@ -440,7 +440,7 @@ namespace Nintenlord.Collections
         {
             return a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
         }
-        
+
 
         public static IndexOverlay GetOverlay<T>(this IDictionary<int, T> dict, Func<T, int> measurement)
         {
@@ -531,7 +531,7 @@ namespace Nintenlord.Collections
         }
 
         public static TValue GetValueOrDefault<TKey, TValue>(
-            this IDictionary<TKey, TValue> dict, 
+            this IDictionary<TKey, TValue> dict,
             TKey key, TValue def = default(TValue))
         {
             TValue value;
@@ -543,14 +543,14 @@ namespace Nintenlord.Collections
         }
 
         public static TValue GetValue<TKey, TValue>(
-            this IDictionary<TKey, TValue> dict, 
-            TKey key, 
+            this IDictionary<TKey, TValue> dict,
+            TKey key,
             TValue defaultVal = default(TValue))
         {
             TValue val;
             return dict.TryGetValue(key, out val) ? val : defaultVal;
         }
-        
+
         public static Tuple<TAccumulate1, TAccumulate2> Aggregate<TAccumulate1, TAccumulate2, TSource>(
             this IEnumerable<TSource> source,
             TAccumulate1 seed1,
@@ -561,9 +561,9 @@ namespace Nintenlord.Collections
             var seed = Tuple.Create(seed1, seed2);
 
             Func<
-                Tuple<TAccumulate1, TAccumulate2>, 
-                TSource, 
-                Tuple<TAccumulate1, TAccumulate2>> func = 
+                Tuple<TAccumulate1, TAccumulate2>,
+                TSource,
+                Tuple<TAccumulate1, TAccumulate2>> func =
                 (accum, sourceItem) => Tuple.Create(func1(accum.Item1, sourceItem), func2(accum.Item2, sourceItem));
 
             return source.Aggregate(seed, func);
@@ -585,7 +585,7 @@ namespace Nintenlord.Collections
                 Tuple<TAccumulate1, TAccumulate2, TAccumulate3>,
                 TSource,
                 Tuple<TAccumulate1, TAccumulate2, TAccumulate3>> func =
-                (accum, sourceItem) => 
+                (accum, sourceItem) =>
                     Tuple.Create(
                         func1(accum.Item1, sourceItem),
                         func2(accum.Item2, sourceItem),

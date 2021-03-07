@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.Algebra
 {
@@ -10,7 +7,7 @@ namespace Nintenlord.Algebra
         IEnumerable<T> GetItems();
 
         T Inverse(T item);
-        
+
         T Operation(T left, T right);
     }
 }

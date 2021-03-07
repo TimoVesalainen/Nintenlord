@@ -1,10 +1,10 @@
-﻿using System;
-using Nintenlord.IO.Scanners;
+﻿using Nintenlord.IO.Scanners;
 using Nintenlord.Parser.ParserCombinators.BinaryParsers;
+using System;
 
 namespace Nintenlord.Parser
 {
-    public abstract class Parser<TIn, TOut> : IParser<TIn,TOut>
+    public abstract class Parser<TIn, TOut> : IParser<TIn, TOut>
     {
         protected Parser()
         {
@@ -29,9 +29,9 @@ namespace Nintenlord.Parser
             }
             return result;
         }
-        
+
         public event EventHandler<ParsingEventArgs<TIn, TOut>> ParseEvent;
-        
+
         public override string ToString()
         {
             return this.GetType().Name;

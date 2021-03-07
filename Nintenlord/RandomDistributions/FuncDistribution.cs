@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.RandomDistributions
 {
-    public sealed class FormulaeDistribution<T1,TResult> : IDistribution<TResult>
+    public sealed class FormulaeDistribution<T1, TResult> : IDistribution<TResult>
     {
         readonly Func<T1, TResult> formulae;
         readonly IDistribution<T1> baseDistribution;
@@ -33,7 +30,7 @@ namespace Nintenlord.RandomDistributions
         readonly IDistribution<T2> baseDistribution2;
 
         public FormulaeDistribution(
-            IDistribution<T1> baseDistribution1, 
+            IDistribution<T1> baseDistribution1,
             IDistribution<T2> baseDistribution2,
             Func<T1, T2, TResult> formulae)
         {
@@ -77,7 +74,7 @@ namespace Nintenlord.RandomDistributions
         {
             return formulae(
                 baseDistribution1.NextValue(),
-                baseDistribution2.NextValue(), 
+                baseDistribution2.NextValue(),
                 baseDistribution3.NextValue()
                 );
         }

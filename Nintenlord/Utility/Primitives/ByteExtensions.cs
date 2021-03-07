@@ -27,7 +27,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static int Clamp(this byte i, byte min, byte max)
         {
-            return i < min ? min : 
+            return i < min ? min :
                    i > max ? max : i;
         }
 
@@ -123,8 +123,8 @@ namespace Nintenlord.Utility.Primitives
 
             int toTrim = resultLength - byteLength;
             if (bitLength > 0) toTrim--;
-            
-            Array.Copy(i, byteIndex, result, 0, Math.Min(result.Length,i.Length));
+
+            Array.Copy(i, byteIndex, result, 0, Math.Min(result.Length, i.Length));
 
             if (bitIndex != 0)
                 result = result.ShiftRight(bitIndex);
@@ -188,7 +188,7 @@ namespace Nintenlord.Utility.Primitives
                 result[i] = value;
             }
 
-            return result; 
+            return result;
         }
 
         private static byte[] ShiftRight(this byte[] array, int toShift)
@@ -213,11 +213,11 @@ namespace Nintenlord.Utility.Primitives
 
             return result;
         }
-        
+
 
         public static byte[] And(this byte[] array, byte[] array2)
         {
-            byte[] result = new byte[Math.Max(array.Length,array2.Length)];
+            byte[] result = new byte[Math.Max(array.Length, array2.Length)];
             int index = Math.Min(array.Length, array2.Length);
             for (int i = 0; i < index; i++)
             {
@@ -326,7 +326,7 @@ namespace Nintenlord.Utility.Primitives
                 array[destByteIndex] &= (byte)~destMask;
                 if ((source[srcByteIndex] & srcMask) != 0)
                 {
-                    array[destByteIndex] |= (byte)(1 << destbitIndex);                    
+                    array[destByteIndex] |= (byte)(1 << destbitIndex);
                 }
             }
         }

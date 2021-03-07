@@ -22,13 +22,13 @@ namespace Nintenlord.Collections.Lists
 
         public T Current
         {
-            get 
+            get
             {
                 if (index < startIndex || index >= endIndex)
                 {
                     throw new InvalidOperationException();
                 }
-                return list[index]; 
+                return list[index];
             }
         }
 

@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Nintenlord.Collections.DataChange;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Nintenlord.Collections;
-using Nintenlord.Collections.DataChange;
 
 namespace Nintenlord.IO
 {

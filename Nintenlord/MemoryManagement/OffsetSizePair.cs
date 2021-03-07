@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Nintenlord.Utility.Primitives;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nintenlord.Utility;
-using Nintenlord.Utility.Primitives;
 
 namespace Nintenlord.MemoryManagement
 {
@@ -69,12 +66,12 @@ namespace Nintenlord.MemoryManagement
         {
             return Offset ^ Size;
         }
-        
+
         public override string ToString()
         {
             return string.Format("Offset: ${0} Size: 0x{1}", Offset.ToHexString(""), Size.ToHexString(""));
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

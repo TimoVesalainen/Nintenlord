@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Nintenlord.Collections.Lists;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nintenlord.Collections.Lists;
 
 namespace Nintenlord.Collections
 {

@@ -6,10 +6,8 @@
 
 namespace Nintenlord.Graph
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -55,7 +53,7 @@ namespace Nintenlord.Graph
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();            
+            return this.GetEnumerator();
         }
 
         #endregion

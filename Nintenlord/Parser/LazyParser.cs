@@ -6,11 +6,8 @@
 
 namespace Nintenlord.Parser
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Nintenlord.IO.Scanners;
+    using System;
 
     /// <summary>
     /// Parser that's initialized only when it is used for actual parsing.

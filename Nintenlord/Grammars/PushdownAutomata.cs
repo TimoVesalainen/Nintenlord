@@ -8,8 +8,6 @@ namespace Nintenlord.Grammars
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -43,9 +41,9 @@ namespace Nintenlord.Grammars
 
                 if (epsilonTransitions.TryGetValue(Tuple.Create(currentState, top), out transition))
                 {
-                    
+
                 }
-                else if (index < word.Length && 
+                else if (index < word.Length &&
                     transitions.TryGetValue(Tuple.Create(currentState, word[index], top), out transition))
                 {
                     index++;

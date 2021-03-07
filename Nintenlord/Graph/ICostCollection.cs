@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Nintenlord.Graph
+﻿namespace Nintenlord.Graph
 {
     public interface ICostCollection<in TNode>
     {

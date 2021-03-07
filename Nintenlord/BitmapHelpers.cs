@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing.Imaging;
 using System.Drawing;
-using Nintenlord.Collections;
-using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 
 namespace Nintenlord.Forms.Utility
 {
     public static class BitmapHelpers
-    {        
+    {
         static IDictionary<string, ImageFormat> formats;
-        
+
         static BitmapHelpers()
         {
             formats = new Dictionary<string, ImageFormat>(StringComparer.OrdinalIgnoreCase);
@@ -23,7 +20,7 @@ namespace Nintenlord.Forms.Utility
             //Add more at some point.
         }
 
-        public static unsafe Rectangle FindMatch2D(byte* bigImage, Size bigSize, Rectangle findIn, 
+        public static unsafe Rectangle FindMatch2D(byte* bigImage, Size bigSize, Rectangle findIn,
             byte* smallImage, Size smallSize, Rectangle findWhat)
         {
             Rectangle result = Rectangle.Empty;
@@ -46,7 +43,7 @@ namespace Nintenlord.Forms.Utility
             }
 
             //add test for small rect not fitting to big rect here
-                        
+
             for (int y = findIn.Y; y < findIn.Bottom - findWhat.Height + 1; y++)
             {
                 byte* rowPointer = bigImage + y * bigSize.Width + findIn.X;
@@ -75,7 +72,7 @@ namespace Nintenlord.Forms.Utility
                     rowPointer++;
                 }
             }
-            matchFound:
+        matchFound:
             return result;
         }
 
@@ -107,7 +104,7 @@ namespace Nintenlord.Forms.Utility
             int bpp = Image.GetPixelFormatSize(bigImage.PixelFormat);
             Size bigSize = bigImage.Size;
             bigSize.Width = bigSize.Width * bpp / 8;
-            Size smallSize = smallImage.Size; 
+            Size smallSize = smallImage.Size;
             smallSize.Width = smallSize.Width * bpp / 8;
 
             findIn.X = findIn.X * bpp / 8;
@@ -133,8 +130,8 @@ namespace Nintenlord.Forms.Utility
         {
             int temp = rect.Y;
             rect.Y = rect.X;
-            rect.X = temp; 
-            
+            rect.X = temp;
+
             temp = rect.Width;
             rect.Height = rect.Width;
             rect.Width = temp;
@@ -191,7 +188,7 @@ namespace Nintenlord.Forms.Utility
             {
                 foreach (var item in bitmap.Palette.Entries)
                 {
-                    palette.Add(item);                    
+                    palette.Add(item);
                 }
             }
             else
@@ -293,14 +290,14 @@ namespace Nintenlord.Forms.Utility
 
         public static unsafe Bitmap GetArea(this Bitmap bitmap, Rectangle rect)
         {
-            if (rect.X < 0 || rect.Y < 0 || 
+            if (rect.X < 0 || rect.Y < 0 ||
                 rect.Right > bitmap.Width || rect.Bottom > bitmap.Height)
             {
                 throw new ArgumentException("Out of bitmap's area", "rect");
             }
             Bitmap subBitmap = new Bitmap(rect.Width, rect.Height, bitmap.PixelFormat);
             Copy(bitmap, subBitmap, rect, Point.Empty);
-            
+
             return subBitmap;
         }
 
@@ -320,7 +317,7 @@ namespace Nintenlord.Forms.Utility
             {
                 throw new ArgumentException("Out of bitmaps area", "destPos");
             }
-            
+
             using (BitmapLocker sourceLock = new BitmapLocker(source, ImageLockMode.ReadOnly))
             {
                 using (BitmapLocker destLock = new BitmapLocker(dest, ImageLockMode.WriteOnly))
@@ -331,13 +328,13 @@ namespace Nintenlord.Forms.Utility
                     {
                         MemCopy(
                             sourceLock[sourceRect.X, sourceRect.Y + i],
-                            destLock[destPos.X, destPos.Y + i], 
+                            destLock[destPos.X, destPos.Y + i],
                             copyLength);
                     }
                 }
             }
         }
-        
+
 
         private static unsafe void MemCopy(IntPtr source, IntPtr destination, int length)
         {
@@ -361,7 +358,7 @@ namespace Nintenlord.Forms.Utility
             }
         }
 
-        
+
 
         public static IEnumerable<Color> GetPixelEnumerator(this Bitmap bitmap)
         {
@@ -404,7 +401,7 @@ namespace Nintenlord.Forms.Utility
                     {
                         for (int x = 0; x < tileSize.Width; x++)
                         {
-                            yield return bitmap.GetPixel(sx + x, sy + y);                        
+                            yield return bitmap.GetPixel(sx + x, sy + y);
                         }
                     }
                 }
@@ -487,7 +484,7 @@ namespace Nintenlord.Forms.Utility
         }
         public int PixelByteWidth
         {
-            get 
+            get
             {
                 return PixelSize * BitmapData.Width;
             }
@@ -512,7 +509,7 @@ namespace Nintenlord.Forms.Utility
         {
 
         }
-                
+
         private BitmapLocker(Bitmap bitmapToLock, ImageLockMode lockMode, Rectangle rect)
         {
             bitmap = bitmapToLock;

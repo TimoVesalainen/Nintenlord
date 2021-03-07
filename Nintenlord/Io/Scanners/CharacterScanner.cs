@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace Nintenlord.IO.Scanners
@@ -62,12 +60,12 @@ namespace Nintenlord.IO.Scanners
         {
             get { return true; }
         }
-        
+
         public IEnumerable<char> Substring(long Offset, int Length)
         {
             throw new NotSupportedException();
         }
-        
+
         public bool CanTakeSubstring
         {
             get { return false; }

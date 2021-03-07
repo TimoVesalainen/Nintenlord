@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Parser.ParserCombinators
 {
@@ -15,7 +12,7 @@ namespace Nintenlord.Parser.ParserCombinators
                 throw new ArgumentNullException("toRepeat");
             this.toRepeat = toRepeat;
         }
-        
+
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
         {
             match = new Match<TIn>(scanner, 0);

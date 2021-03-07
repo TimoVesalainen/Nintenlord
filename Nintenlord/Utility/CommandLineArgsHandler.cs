@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -9,7 +8,7 @@ namespace Nintenlord.Utility
     {
         private readonly Dictionary<string, Action<string>> flags;
         private readonly Action<string>[] parameters;
-        
+
         public CommandLineArgsHandler(
             IEnumerable<Action<string>> parameters,
             IEnumerable<KeyValuePair<string, Action<string>>> flags)

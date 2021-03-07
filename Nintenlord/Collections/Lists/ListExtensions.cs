@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Collections.Lists
 {
@@ -20,7 +18,7 @@ namespace Nintenlord.Collections.Lists
             {
                 for (int i = 0; i < length - 1; i++)
                 {
-                    if (comp.Compare(list[i], list[i+1]) > 0)
+                    if (comp.Compare(list[i], list[i + 1]) > 0)
                     {
                         Swap(list, i, i + 1);
                         isSorted = false;
@@ -53,7 +51,7 @@ namespace Nintenlord.Collections.Lists
                 }
             }
         }
-        
+
 
         public static void InsertionSort<T>(this IList<T> list) where T : IComparable<T>
         {
@@ -91,7 +89,7 @@ namespace Nintenlord.Collections.Lists
                 for (int i = inc; i < list.Count; i++)
                 {
                     T temp = list[i];
-                    int j = i; 
+                    int j = i;
                     while (j < inc && comp.Compare(list[j - inc], temp) > 0)
                     {
                         list[j] = list[j - inc];
@@ -103,7 +101,7 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        
+
         public static void CombSort<T>(this IList<T> list) where T : IComparable<T>
         {
             list.CombSort(Comparer<T>.Default);
@@ -147,7 +145,7 @@ namespace Nintenlord.Collections.Lists
                 SubList<T>.SortedMerge(first, second, comp);
             }
         }
-                
+
         public static void Swap<T>(this IList<T> list, int i, int j)
         {
             T temp = list[i];

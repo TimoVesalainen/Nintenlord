@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.IO.Scanners
 {
     public sealed class EnumerableScanner<T> : IScanner<T>
     {
         IEnumerator<T> enumerator;
-        int offset; 
+        int offset;
 
         public EnumerableScanner(IEnumerable<T> toEnum)
         {

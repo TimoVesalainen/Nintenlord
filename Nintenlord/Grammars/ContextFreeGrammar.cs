@@ -9,7 +9,6 @@ namespace Nintenlord.Grammars
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -30,7 +29,7 @@ namespace Nintenlord.Grammars
         }
         public T StartingSymbol
         {
-            get 
+            get
             {
                 return startingSymbol;
             }
@@ -43,10 +42,10 @@ namespace Nintenlord.Grammars
         {
             get { return terminals; }
         }
-        
+
         public T[] DeriveRandom(Random random)
         {
-            List<T> word = new List<T>(20) {startingSymbol};
+            List<T> word = new List<T>(20) { startingSymbol };
             while (true)
             {
                 int i;

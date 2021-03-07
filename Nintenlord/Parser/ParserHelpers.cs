@@ -6,13 +6,11 @@
 
 namespace Nintenlord.Parser
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Nintenlord.Parser.ParserCombinators;
     using Nintenlord.Parser.ParserCombinators.BinaryParsers;
     using Nintenlord.Parser.ParserCombinators.UnaryParsers;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -25,14 +23,14 @@ namespace Nintenlord.Parser
         }
 
         public static FunctionParser<TIn, TOut> Parser<TIn, TOut>(
-            this Func<Nintenlord.IO.Scanners.IScanner<TIn>, Tuple<TOut,  Match<TIn>>> fun)
+            this Func<Nintenlord.IO.Scanners.IScanner<TIn>, Tuple<TOut, Match<TIn>>> fun)
         {
             return new FunctionParser<TIn, TOut>(fun);
         }
 
         public static BetweenParser<TIn, TStart, TEnd, TOut> Between<TIn, TOut, TStart, TEnd>(
-            this IParser<TIn, TOut> parser, 
-            IParser<TIn, TStart> start, 
+            this IParser<TIn, TOut> parser,
+            IParser<TIn, TStart> start,
             IParser<TIn, TEnd> end)
         {
             return new BetweenParser<TIn, TStart, TEnd, TOut>(start, parser, end);
@@ -118,14 +116,14 @@ namespace Nintenlord.Parser
         }
 
         public static CombineParser<TIn, TMiddle1, TMiddle2, TOut> Combine<TIn, TMiddle1, TMiddle2, TOut>(
-            this IParser<TIn, TMiddle1> first, 
-            IParser<TIn, TMiddle2> second, 
+            this IParser<TIn, TMiddle1> first,
+            IParser<TIn, TMiddle2> second,
             Func<TMiddle1, TMiddle2, TOut> comb)
         {
             return new CombineParser<TIn, TMiddle1, TMiddle2, TOut>(first, second, comb);
         }
 
-        public static CombineParser<TIn, TMiddle1, TMiddle2, TMiddle3, TOut> 
+        public static CombineParser<TIn, TMiddle1, TMiddle2, TMiddle3, TOut>
             Combine<TIn, TMiddle1, TMiddle2, TMiddle3, TOut>(
             this IParser<TIn, TMiddle1> first,
             IParser<TIn, TMiddle2> second,
@@ -140,7 +138,7 @@ namespace Nintenlord.Parser
             this IParser<TIn, TMiddle1> first,
             IParser<TIn, TMiddle2> second,
             IParser<TIn, TMiddle3> third,
-            IParser<TIn,TMiddle4> fourth,
+            IParser<TIn, TMiddle4> fourth,
             Func<TMiddle1, TMiddle2, TMiddle3, TMiddle4, TOut> comb)
         {
             return new CombineParser<TIn, TMiddle1, TMiddle2, TMiddle3, TMiddle4, TOut>

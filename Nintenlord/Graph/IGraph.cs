@@ -6,10 +6,7 @@
 
 namespace Nintenlord.Graph
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// A graph of nodes and edges.

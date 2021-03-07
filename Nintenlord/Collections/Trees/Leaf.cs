@@ -6,11 +6,8 @@
 
 namespace Nintenlord.Collections.Trees
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    
+
     public sealed class Leaf<T> : IValuedTree<T>
     {
         T value;

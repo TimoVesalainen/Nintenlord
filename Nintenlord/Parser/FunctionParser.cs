@@ -6,18 +6,15 @@
 
 namespace Nintenlord.Parser
 {
+    using Nintenlord.IO.Scanners;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-using Nintenlord.IO.Scanners;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public sealed class FunctionParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly Func<IScanner<TIn>, Tuple<TOut,  Match<TIn>>> parserFunction;
+        readonly Func<IScanner<TIn>, Tuple<TOut, Match<TIn>>> parserFunction;
 
         public FunctionParser(Func<IScanner<TIn>, Tuple<TOut, Match<TIn>>> parserFunction)
         {

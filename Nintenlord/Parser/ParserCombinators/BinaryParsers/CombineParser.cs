@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nintenlord.IO.Scanners;
+﻿using Nintenlord.IO.Scanners;
+using System;
 
 namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 {
@@ -11,7 +8,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
         readonly Func<TMiddle1, TMiddle2, TOut> combiner;
         readonly IParser<TIn, TMiddle1> first;
         readonly IParser<TIn, TMiddle2> second;
-        
+
         public CombineParser(IParser<TIn, TMiddle1> first, IParser<TIn, TMiddle2> second,
             Func<TMiddle1, TMiddle2, TOut> combiner)
         {
@@ -52,7 +49,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
         readonly IParser<TIn, TMiddle3> third;
 
         public CombineParser(
-            IParser<TIn, TMiddle1> first, 
+            IParser<TIn, TMiddle1> first,
             IParser<TIn, TMiddle2> second,
             IParser<TIn, TMiddle3> third,
             Func<TMiddle1, TMiddle2, TMiddle3, TOut> combiner)
@@ -101,7 +98,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
             return combiner(mid1, mid2, mid3);
         }
     }
-    
+
     public sealed class CombineParser<TIn, TMiddle1, TMiddle2, TMiddle3, TMiddle4, TOut> : Parser<TIn, TOut>
     {
         readonly Func<TMiddle1, TMiddle2, TMiddle3, TMiddle4, TOut> combiner;

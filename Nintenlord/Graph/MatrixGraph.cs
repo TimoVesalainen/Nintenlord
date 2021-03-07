@@ -6,10 +6,7 @@
 
 namespace Nintenlord.Graph
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Graph where adjacency is implemented as matrix.
@@ -23,7 +20,7 @@ namespace Nintenlord.Graph
             neighbours = new bool[amountOfNodes, amountOfNodes];
             this.NodeCount = amountOfNodes;
         }
-        
+
         #region IEditableGraph<int> Members
 
         public bool this[int from, int to]
@@ -47,7 +44,7 @@ namespace Nintenlord.Graph
         {
             neighbours[from, to] = true;
         }
-        
+
         #endregion
 
         #region IGraph<TNode> Members

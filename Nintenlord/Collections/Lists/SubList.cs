@@ -27,7 +27,7 @@ namespace Nintenlord.Collections.Lists
             this.Length = Length;
             this.Index = Index;
         }
-        
+
         #region IList<T> Members
 
         public int IndexOf(T item)
@@ -37,7 +37,7 @@ namespace Nintenlord.Collections.Lists
                 if (EqualityComparer<T>.Default.Equals(MainList[i], item))
                 {
                     return i;
-                }                
+                }
             }
             return -1;
         }
@@ -133,14 +133,14 @@ namespace Nintenlord.Collections.Lists
         public static SubList<T> SortedMerge(SubList<T> first, SubList<T> second, IComparer<T> comp)
         {
             if ((first.Index + first.Length != second.Index &&
-                second.Index + second.Length != first.Index) || 
+                second.Index + second.Length != first.Index) ||
                 first.MainList != second.MainList)
             {
                 throw new InvalidOperationException();
             }
 
-            SubList<T> result = new SubList<T>(first.MainList, 
-                Math.Min(first.Index, second.Index), 
+            SubList<T> result = new SubList<T>(first.MainList,
+                Math.Min(first.Index, second.Index),
                 first.Length + second.Length);
 
             var mainList = first.MainList;

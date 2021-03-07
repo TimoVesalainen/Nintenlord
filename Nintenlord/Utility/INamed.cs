@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -46,13 +44,13 @@ namespace Nintenlord.Utility
             return named.Select(item => new KeyValuePair<T, TNamed>(item.Name, item));
         }
 
-        public class NamedEqualityComparer<T, TNamed> 
+        public class NamedEqualityComparer<T, TNamed>
             : IEqualityComparer<TNamed>
             where TNamed : INamed<T>
         {
             IEqualityComparer<T> coreComp;
 
-            public NamedEqualityComparer() 
+            public NamedEqualityComparer()
                 : this(EqualityComparer<T>.Default)
             {
 

@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Nintenlord.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Nintenlord.Collections;
 
 namespace Nintenlord.Graph.PathFinding
 {
@@ -50,8 +48,8 @@ namespace Nintenlord.Graph.PathFinding
             costs.Release();
             return result;
         }
-        
-        public static int GetCost<TNode>(TNode toStartFrom, TNode toEnd, 
+
+        public static int GetCost<TNode>(TNode toStartFrom, TNode toEnd,
             IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
@@ -85,7 +83,7 @@ namespace Nintenlord.Graph.PathFinding
                             costs[neighbour] = newCost;
                         }//http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html
                     }
-                }            
+                }
             }
 
             return closed.Contains(toEnd) ? costs[toEnd] : int.MinValue;
@@ -127,7 +125,7 @@ namespace Nintenlord.Graph.PathFinding
             return costs;
         }
 
-        public static HashSet<TNode> GetConnectedNodes<TNode>(TNode toStartFrom, 
+        public static HashSet<TNode> GetConnectedNodes<TNode>(TNode toStartFrom,
             IGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
             LinkedList<TNode> open = new LinkedList<TNode>();
@@ -146,7 +144,7 @@ namespace Nintenlord.Graph.PathFinding
                     {
                         open.AddLast(neighbour);
                     }
-                }                
+                }
             }
             return closed;
         }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Utility.Primitives
 {
@@ -33,7 +31,7 @@ namespace Nintenlord.Utility.Primitives
         }
         public static int Clamp(this int i, int min, int max)
         {
-            return i < min ? min : 
+            return i < min ? min :
                    i > max ? max : i;
         }
 

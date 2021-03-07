@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections
 {
-    public class SkipListPriorityQueue<TPriority, TValue> : IPriorityQueue<TPriority,TValue>
+    public class SkipListPriorityQueue<TPriority, TValue> : IPriorityQueue<TPriority, TValue>
     {
         Random random;
         int maxLevel;
@@ -111,7 +109,7 @@ namespace Nintenlord.Collections
             }
 
             currentNode = currentNode[0];
-            
+
             int newLevel = this.NewLevel();
             SkipListNode<TPriority, TValue> newNode =
                 new SkipListNode<TPriority, TValue>(priority, value, newLevel);
@@ -152,7 +150,7 @@ namespace Nintenlord.Collections
             count--;
             return first.Value;
         }
-        
+
         public TValue Dequeue(out TPriority priority)
         {
             priority = head[0].Key;
@@ -176,7 +174,7 @@ namespace Nintenlord.Collections
             }
             return head[0].Key;
         }
-        
+
         public bool Contains(TValue value, TPriority priority)
         {
             if (priority == null)
@@ -194,10 +192,10 @@ namespace Nintenlord.Collections
             }
 
             currentNode = currentNode[0];
-            
+
             while (comparer.Compare(priority, currentNode.Key) == 0)
             {
-                if (EqualityComparer<TValue>.Default.Equals(value,currentNode.Value))
+                if (EqualityComparer<TValue>.Default.Equals(value, currentNode.Value))
                 {
                     return true;
                 }
@@ -211,7 +209,7 @@ namespace Nintenlord.Collections
             SkipListNode<TPriority, TValue> currentNode = head;
             while (currentNode[0] != head)
             {
-                if (EqualityComparer<TValue>.Default.Equals(value,currentNode.Value))
+                if (EqualityComparer<TValue>.Default.Equals(value, currentNode.Value))
                 {
                     return true;
                 }
@@ -269,7 +267,7 @@ namespace Nintenlord.Collections
                     count--;
                     this.version++;
                     return true;
-                }                
+                }
                 for (int i = 0; i < currentNode.AmountOfNodes; i++)
                 {
                     toUpdate[i] = currentNode;
@@ -279,7 +277,7 @@ namespace Nintenlord.Collections
             }
             return false;
         }
-        
+
         public void Clear()
         {
             for (int i = 0; i < head.AmountOfNodes; i++)
@@ -289,7 +287,7 @@ namespace Nintenlord.Collections
             this.version++;
             count = 0;
         }
-        
+
         #region IEnumerable<KeyValuePair<TKey,TValue>> Members
 
         public IEnumerator<KeyValuePair<TPriority, TValue>> GetEnumerator()
@@ -303,7 +301,7 @@ namespace Nintenlord.Collections
                 current = current[0];
                 yield return new KeyValuePair<TPriority, TValue>(current.Key, current.Value);
             }
-            while(current != null);
+            while (current != null);
         }
 
         #endregion

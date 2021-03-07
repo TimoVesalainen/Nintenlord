@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections
 {
@@ -183,7 +181,7 @@ namespace Nintenlord.Collections
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item)
         {
             TValue value;
-            if (this.TryGetValue(item.Key, out value) 
+            if (this.TryGetValue(item.Key, out value)
                 && EqualityComparer<TValue>.Default.Equals(value, item.Value))
             {
                 return this.Remove(item.Key);
@@ -211,11 +209,11 @@ namespace Nintenlord.Collections
             }
 
             SkipListNode<TKey, TValue> currentNode = head;
-            SkipListNode<TKey, TValue>[] toUpdate = new  SkipListNode<TKey, TValue>[currentMaxLevel];
+            SkipListNode<TKey, TValue>[] toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
 
             for (int level = currentMaxLevel - 1; level >= 0; level--)
             {
-                while (currentNode[level].Key != null && 
+                while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
                     currentNode = currentNode[level];
                 toUpdate[level] = currentNode;
@@ -223,7 +221,7 @@ namespace Nintenlord.Collections
 
             currentNode = currentNode[0];
 
-            if (comparer.Compare(currentNode.Key,key) == 0)
+            if (comparer.Compare(currentNode.Key, key) == 0)
             {
                 if (addNew)
                     throw new ArgumentException("");
@@ -233,7 +231,7 @@ namespace Nintenlord.Collections
             else
             {
                 int newLevel = this.NewLevel();
-                SkipListNode<TKey, TValue> newNode = new SkipListNode<TKey,TValue>(key,value,newLevel);
+                SkipListNode<TKey, TValue> newNode = new SkipListNode<TKey, TValue>(key, value, newLevel);
                 if (newLevel == currentMaxLevel)
                 {
                     head[newLevel - 1] = newNode;//Necessary?
@@ -279,11 +277,11 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException();
 
             SkipListNode<TKey, TValue> currentNode = head;
-            SkipListNode<TKey,TValue>[] toUpdate = new SkipListNode<TKey,TValue>[currentMaxLevel];
+            SkipListNode<TKey, TValue>[] toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
 
             for (int level = currentMaxLevel - 1; level >= 0; level--)
             {
-                while (currentNode[level].Key != null && 
+                while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
                     currentNode = currentNode[level];
                 toUpdate[level] = currentNode;
@@ -291,7 +289,7 @@ namespace Nintenlord.Collections
 
             currentNode = currentNode[0];
 
-            if (comparer.Compare(currentNode.Key,key) == 0)
+            if (comparer.Compare(currentNode.Key, key) == 0)
             {
                 for (int i = 0; i < currentMaxLevel; i++)
                 {
@@ -326,8 +324,8 @@ namespace Nintenlord.Collections
 
         public ICollection<TKey> Keys
         {
-            get 
-            { 
+            get
+            {
                 ICollection<TKey> collection = new LinkedList<TKey>();
                 SkipListNode<TKey, TValue> node = head[0];
                 while (node != head)
@@ -353,7 +351,7 @@ namespace Nintenlord.Collections
                 return collection;
             }
         }
-        
+
         public TValue this[TKey key]
         {
             get
@@ -370,12 +368,12 @@ namespace Nintenlord.Collections
             }
             set
             {
-                Insert(key, value, false);                
+                Insert(key, value, false);
             }
         }
 
         #endregion
-        
+
         /// <summary>
         /// Calculates the recommended max level to use for constructing a new skiplist.
         /// </summary>
@@ -384,7 +382,7 @@ namespace Nintenlord.Collections
         /// <returns>The recomended max level for skiplist with passed propability and capacity.</returns>
         public static int RecommendedMaxLevel(double propability, int capacity)
         {
-            return (int)(- Math.Log(2 * capacity) / Math.Log(propability));
+            return (int)(-Math.Log(2 * capacity) / Math.Log(propability));
         }
 
         /// <summary>
@@ -395,7 +393,7 @@ namespace Nintenlord.Collections
         /// <returns>The recommended probapility for skiplist with passes values.</returns>
         public static double RecommendedProbapility(int maxLevel, int capacity)
         {
-            return Math.Pow(2 * capacity, 1/(double)maxLevel);
-        }        
+            return Math.Pow(2 * capacity, 1 / (double)maxLevel);
+        }
     }
 }

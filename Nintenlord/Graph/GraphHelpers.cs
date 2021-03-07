@@ -1,12 +1,9 @@
 ﻿namespace Nintenlord.Graph
 {
+    using Nintenlord.Utility;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using Nintenlord.Utility;
-    using Nintenlord.Collections.Trees;
-    using Nintenlord.Collections;
 
     public static class GraphHelpers
     {
@@ -51,8 +48,8 @@
 
         public static IEnumerable<Tuple<TNode, TNode>> GetEdges<TNode>(this IGraph<TNode> graph)
         {
-            return from node in graph 
-                   from neighbour in graph.GetNeighbours(node) 
+            return from node in graph
+                   from neighbour in graph.GetNeighbours(node)
                    select Tuple.Create(node, neighbour);
         }
 

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.Grammars
 {
     public interface IStateMachine<TState, in TInput>
     {
         TState StartState { get; }
-        
+
         IEnumerable<TState> GetStates();
         bool IsFinalState(TState state);
         TState Transition(TState currentState, TInput input);
@@ -17,7 +14,7 @@ namespace Nintenlord.Grammars
     public static class StateMachineHelpers
     {
         public static IEnumerable<TState> RunUntilFinalState<TState, TInput>(
-            this IStateMachine<TState, TInput> machine, 
+            this IStateMachine<TState, TInput> machine,
             IEnumerable<TInput> input)
         {
             return RunUntilFinalState(machine, input, machine.StartState);

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 
 namespace Nintenlord.IO.Scanners
 {
@@ -22,7 +19,7 @@ namespace Nintenlord.IO.Scanners
         /// </summary>
         /// <exception cref="NotSupportedException">If setting is not allowed.</exception>
         long Offset { get; set; }
-        
+
         /// <summary>
         /// True if offset can be set, else false.
         /// </summary>

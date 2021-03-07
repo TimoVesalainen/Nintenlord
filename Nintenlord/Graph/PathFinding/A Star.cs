@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nintenlord.Collections;
-using Nintenlord.Graph;
 
 namespace Nintenlord.Graph.PathFinding
 {
@@ -21,7 +17,7 @@ namespace Nintenlord.Graph.PathFinding
         public static List<TNode> GetPath<TNode>(TNode start, TNode goal,
             IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics, IEqualityComparer<TNode> nodeComparer)
         {
-            IPriorityQueue<int, TNode> open = 
+            IPriorityQueue<int, TNode> open =
                 new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
             ICostCollection<TNode> gCosts = map.GetTempCostCollection();
@@ -31,7 +27,7 @@ namespace Nintenlord.Graph.PathFinding
             open.Enqueue(start, 0);
             gCosts[start] = 0;
             hCosts[start] = 0;
-            while (open.Count > 0 && !nodeComparer.Equals(open.Peek(),goal))
+            while (open.Count > 0 && !nodeComparer.Equals(open.Peek(), goal))
             {
                 TNode current = open.Dequeue();
                 closed.Add(current);
@@ -49,13 +45,13 @@ namespace Nintenlord.Graph.PathFinding
                         gCosts[neighbour] = gCost;
                         open.Enqueue(neighbour, gCost + hCost);
                         parents[neighbour] = current;
-                        
+
                     }
                     else if (!closed.Contains(neighbour) && !open.Contains(neighbour))
                     {//If we got here the first time
                         int hCost = heurestics.GetCostEstimate(neighbour);
                         hCosts[neighbour] = hCost;
-                        
+
                         gCosts[neighbour] = gCost;
                         open.Enqueue(neighbour, gCost + hCost);
                         parents[neighbour] = current;
@@ -80,7 +76,7 @@ namespace Nintenlord.Graph.PathFinding
                 result.Add(last);
                 last = parents[last];
             }
-            
+
             result.Add(last);
             result.Reverse();
             return result;

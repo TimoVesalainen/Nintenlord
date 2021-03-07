@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nintenlord.Utility.Primitives;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Nintenlord.Utility.Primitives;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 namespace Nintenlord.Collections.Lists
 {
@@ -201,7 +201,7 @@ namespace Nintenlord.Collections.Lists
                     //Expand at the end
                     T[] temp = new T[firstFreeIndex - internalIndex];
                     Array.Copy(items, internalIndex, temp, 0, temp.Length);
-                    Array.Copy(temp, 0, items, internalIndex+1, temp.Length);
+                    Array.Copy(temp, 0, items, internalIndex + 1, temp.Length);
 
                     items[internalIndex] = item;
                     firstFreeIndex++;
@@ -258,7 +258,7 @@ namespace Nintenlord.Collections.Lists
                 if (IsProperInternalIndex(internalIndex))
                 {
                     if (firstReservedIndex < firstFreeIndex)
-                    {                        
+                    {
                         for (int i = internalIndex; i < firstFreeIndex; i++)
                         {
                             items[i] = items[i + 1];
@@ -313,7 +313,7 @@ namespace Nintenlord.Collections.Lists
             }
             items = newItems;
         }
-        
+
         private int ToInternalIndex(int index)
         {
             var unloopedIndex = index + firstReservedIndex;
@@ -336,7 +336,7 @@ namespace Nintenlord.Collections.Lists
             }
             else if (firstReservedIndex > firstFreeIndex)
             {
-                return index.IsInRangeHO(firstReservedIndex, items.Length) 
+                return index.IsInRangeHO(firstReservedIndex, items.Length)
                     || index.IsInRangeHO(0, firstFreeIndex);
             }
             else return false;
@@ -363,7 +363,7 @@ namespace Nintenlord.Collections.Lists
                 }
             }
         }
-        
+
         #region ICollection<T> Members
 
         public void Add(T item)
@@ -410,7 +410,7 @@ namespace Nintenlord.Collections.Lists
                 RemoveAtInternal(index);
             return index >= 0;
         }
-        
+
         #endregion
 
         #region IEnumerable<T> Members
@@ -423,10 +423,10 @@ namespace Nintenlord.Collections.Lists
         public IEnumerator<T> GetEnumerator(int start, int length)
         {
             return InternalGetEnumerator(
-                ToInternalIndex(start), 
+                ToInternalIndex(start),
                 ToInternalIndex(length));
         }
-        
+
         #endregion
 
         #region IEnumerable Members
@@ -437,7 +437,7 @@ namespace Nintenlord.Collections.Lists
         }
 
         #endregion
-        
+
         #region IList<T> Members
 
         public int IndexOf(T item)

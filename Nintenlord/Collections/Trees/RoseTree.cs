@@ -9,7 +9,6 @@ namespace Nintenlord.Collections.Trees
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -22,7 +21,7 @@ namespace Nintenlord.Collections.Trees
 
         public RoseTree<T> this[int index]
         {
-            get 
+            get
             {
                 return children[index];
             }
@@ -32,7 +31,7 @@ namespace Nintenlord.Collections.Trees
         {
             get { return children.Length; }
         }
-    
+
 
         public RoseTree(IEnumerable<RoseTree<T>> children)
         {
@@ -52,7 +51,7 @@ namespace Nintenlord.Collections.Trees
 
         public T Value
         {
-            get 
+            get
             {
                 if (!this.HasValue)
                 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Nintenlord.Utility
+﻿namespace Nintenlord.Utility
 {
     public struct UpdateOnce<T>
     {
@@ -13,12 +8,12 @@ namespace Nintenlord.Utility
         public T CurrentValue
         {
             get { return currentValue; }
-            set 
+            set
             {
                 if (!updated)
                 {
                     updated = true;
-                    currentValue = value; 
+                    currentValue = value;
                 }
             }
         }

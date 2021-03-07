@@ -1,5 +1,4 @@
-﻿using System;
-using Nintenlord.IO.Scanners;
+﻿using Nintenlord.IO.Scanners;
 
 namespace Nintenlord.Parser
 {

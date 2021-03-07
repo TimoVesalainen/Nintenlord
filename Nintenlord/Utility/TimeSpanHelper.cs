@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -9,7 +7,7 @@ namespace Nintenlord.Utility
         public static float FloatDivide(this TimeSpan timeSpan, TimeSpan divideWith)
         {
             return ((float)timeSpan.Ticks) / ((float)divideWith.Ticks);
-        } 
+        }
 
         public static TimeSpan Divide(this TimeSpan timeSpan, int divideWith)
         {
@@ -38,7 +36,7 @@ namespace Nintenlord.Utility
 
         public static TimeSpan Lerp(TimeSpan beginning, TimeSpan end, float i)
         {
-            return beginning + Multiply((end - beginning) , i);
+            return beginning + Multiply((end - beginning), i);
         }
     }
 }

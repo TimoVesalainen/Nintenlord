@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Nintenlord.IO
+﻿namespace Nintenlord.IO
 {
     public struct FilePosition
     {
@@ -30,7 +25,7 @@ namespace Nintenlord.IO
             this.line = line;
             this.column = column;
         }
-        
+
         public static FilePosition BeginningPosition(string file)
         {
             return new FilePosition(file, 1, 1);

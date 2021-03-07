@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nintenlord.Utility.Primitives;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Nintenlord.Utility.Primitives;
+using System.Text;
 
 namespace Nintenlord.Utility.Strings
 {
@@ -135,17 +135,17 @@ namespace Nintenlord.Utility.Strings
             {
                 if (parameter.StartsWith("$"))
                     parameter = parameter.Substring(1);
-                
+
                 code = Convert.ToInt32(parameter, 16);
             }
             else if (parameter.IsBinary())
             {
-                code = Convert.ToInt32(parameter.Substring(0, parameter.Length - 1), 2);                
+                code = Convert.ToInt32(parameter.Substring(0, parameter.Length - 1), 2);
             }
             else
             {
-                if (int.TryParse(parameter, 
-                    System.Globalization.NumberStyles.Integer, 
+                if (int.TryParse(parameter,
+                    System.Globalization.NumberStyles.Integer,
                     System.Globalization.CultureInfo.InvariantCulture, out code))
                 {
                     return code;
@@ -216,7 +216,7 @@ namespace Nintenlord.Utility.Strings
 
             int begIndex = 0;
             Stack<int> uniterIndexs = new Stack<int>();
-            
+
             for (int i = 0; i < line.Length; i++)
             {
                 for (int j = 0; j < uniters.Length; j++)
@@ -233,7 +233,7 @@ namespace Nintenlord.Utility.Strings
                     }
                 }
 
-                if (uniterIndexs.Count == 0 && 
+                if (uniterIndexs.Count == 0 &&
                     separators.Contains(line[i]))
                 {
                     parameters.Add(line.Substring(begIndex, i - begIndex));
@@ -250,7 +250,7 @@ namespace Nintenlord.Utility.Strings
 
             return parameters.ToArray();
         }
-        public static string[] Split(this string line, ICollection<char> separators, Dictionary<char,char> uniters)
+        public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters)
         {
             int dontCare;
             return line.Split(separators, uniters, out dontCare);
@@ -274,7 +274,7 @@ namespace Nintenlord.Utility.Strings
                         startIndex = j + 1;
                     }
                 }
-                else if (uniters.ContainsKey(currChar) 
+                else if (uniters.ContainsKey(currChar)
                     && !(uniters[currChar] == currChar
                         && uniterStack.Count > 0 && uniterStack.Peek() == currChar))
                 {
@@ -379,7 +379,7 @@ namespace Nintenlord.Utility.Strings
 
             return builder.ToString();
         }
-        
+
         public static int AmountOfLines(this string text)
         {
             int lineAmount = Math.Max(text.Amount('\r'), text.Amount('\n'));
@@ -405,7 +405,7 @@ namespace Nintenlord.Utility.Strings
                 {
                     result = 0;
                     return false;
-                }             
+                }
             }
         }
 
@@ -447,8 +447,8 @@ namespace Nintenlord.Utility.Strings
 
         public static bool FirstNonWhiteSpaceIs(this string s, char c)
         {
-            return (from t in s 
-                    where !Char.IsWhiteSpace(t) 
+            return (from t in s
+                    where !Char.IsWhiteSpace(t)
                     select t == c).FirstOrDefault();
         }
     }

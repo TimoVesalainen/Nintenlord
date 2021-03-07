@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Nintenlord.IO.Scanners;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Nintenlord.IO.Scanners;
 
 namespace Nintenlord.Parser.ParserCombinators
 {

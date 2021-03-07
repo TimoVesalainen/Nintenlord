@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -122,7 +119,7 @@ namespace Nintenlord.Utility
             func(Tuple.Create(arg1, arg2));
         }
 
-        
+
         #endregion
 
 
@@ -155,7 +152,7 @@ namespace Nintenlord.Utility
             return x => y => z => w => f => e => func(x, y, z, w, f, e);
         }
 
-        public static Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, Func<TIn5, Func<TIn6, Func<TIn7, T>>>>>>> 
+        public static Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, Func<TIn5, Func<TIn6, Func<TIn7, T>>>>>>>
             Curry<T, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7>(
             Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, T> func)
         {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Nintenlord.Collections;
 using Nintenlord.IO.Scanners;
-using Nintenlord.Collections;
+using System;
 
 namespace Nintenlord.Parser
 {
@@ -61,7 +61,7 @@ namespace Nintenlord.Parser
         {
             get
             {
-                return Length == 0; 
+                return Length == 0;
             }
         }
         /// <summary>
@@ -69,7 +69,7 @@ namespace Nintenlord.Parser
         /// </summary>
         public string Error
         {
-            get 
+            get
             {
                 if (this.Success)
                 {
@@ -89,7 +89,7 @@ namespace Nintenlord.Parser
         /// scanners current offset.
         /// </summary>
         /// <param name="scanner">Scanner in which the match was made in.</param>
-        public Match(IScanner<T> scanner) 
+        public Match(IScanner<T> scanner)
             : this(scanner, scanner.Offset, 0)
         {
 
@@ -156,7 +156,7 @@ namespace Nintenlord.Parser
             this.Offset = scanner.Offset;
             this.Length = -1;
             this.Success = false;
-            
+
             this.errorString = new Lazy<string>(() => string.Format(errorFormat, args));
         }
 
@@ -311,9 +311,9 @@ namespace Nintenlord.Parser
 
         public bool Equals(Match<T> other)
         {
-            return other.Scanner == this.Scanner 
+            return other.Scanner == this.Scanner
                 && other.Success == this.Success
-                && other.Offset == this.Offset 
+                && other.Offset == this.Offset
                 && other.Length == this.Length
                 && other.errorString == this.errorString;
         }

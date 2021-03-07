@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.IO.Scanners
 {
@@ -68,7 +66,7 @@ namespace Nintenlord.IO.Scanners
         {
             get { return true; }
         }
-        
+
         public IEnumerable<char> Substring(long Offset, int Length)
         {
             return s.Substring((int)Offset, length);
@@ -80,15 +78,16 @@ namespace Nintenlord.IO.Scanners
         }
 
         #endregion
-        
+
         #region IStoringScanner<char> Members
 
         public char this[long offset]
         {
-            get {
+            get
+            {
                 if (offset < length && offset >= 0)
                 {
-                    return s[(int)offset + startIndex]; 
+                    return s[(int)offset + startIndex];
                 }
                 else
                 {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nintenlord.IO.Scanners
 {
@@ -25,7 +23,7 @@ namespace Nintenlord.IO.Scanners
 
         public long Offset
         {
-            get 
+            get
             {
                 return read ? 1 : 0;
             }
@@ -70,7 +68,7 @@ namespace Nintenlord.IO.Scanners
         {
             get { return true; }
         }
-        
+
         public IEnumerable<T> Substring(long offset, int length)
         {
             if (offset != 0 || length < 0 || length > 1)
@@ -83,7 +81,7 @@ namespace Nintenlord.IO.Scanners
                 yield return item;
             }
         }
-        
+
         public bool CanTakeSubstring
         {
             get { return true; }

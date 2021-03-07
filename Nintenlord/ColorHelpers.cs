@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 
 namespace Nintenlord.Forms
 {
@@ -106,7 +102,7 @@ namespace Nintenlord.Forms
             // to be between 0 and 255.
             return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
         }
-        
+
         /// <summary>
         /// Stolen from... somewhere. All credits go to there >_>.
         /// </summary>

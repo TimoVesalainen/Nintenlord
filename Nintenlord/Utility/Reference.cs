@@ -43,7 +43,7 @@ namespace Nintenlord.Utility
         {
             var b = func(a.Value);
 
-            return new Reference<C>(select(a.Value, b.Value));            
+            return new Reference<C>(select(a.Value, b.Value));
         }
 
         public static Reference<TOut> Select<TIn, TOut>(

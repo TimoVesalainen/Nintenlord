@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Nintenlord.Collections.Dictionaries
 {
-    public class ArrayDictionary<TKey,TValue> : 
-        List<KeyValuePair<TKey, TValue>>, 
-        IDictionary<TKey,TValue>
+    public class ArrayDictionary<TKey, TValue> :
+        List<KeyValuePair<TKey, TValue>>,
+        IDictionary<TKey, TValue>
     {
         IEqualityComparer<TKey> comparer;
 
@@ -40,7 +40,7 @@ namespace Nintenlord.Collections.Dictionaries
             this.comparer = comparer;
         }
 
-        public ArrayDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection, 
+        public ArrayDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection,
             IEqualityComparer<TKey> comparer)
             : base(collection)
         {
@@ -55,7 +55,7 @@ namespace Nintenlord.Collections.Dictionaries
             {
                 throw new ArgumentException();
             }
-            this.Add(new KeyValuePair<TKey,TValue>(key, value));
+            this.Add(new KeyValuePair<TKey, TValue>(key, value));
         }
 
         public bool ContainsKey(TKey key)
@@ -65,7 +65,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         public ICollection<TKey> Keys
         {
-            get 
+            get
             {
                 List<TKey> keys = new List<TKey>(this.Count);
                 keys.AddRange(this.Select(item => item.Key));
@@ -133,7 +133,7 @@ namespace Nintenlord.Collections.Dictionaries
                     if (comparer.Equals(this[i].Key, key))
                     {
                         break;
-                    } 
+                    }
                 }
                 if (i < this.Count)
                 {
