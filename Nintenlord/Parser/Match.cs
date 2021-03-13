@@ -187,8 +187,7 @@ namespace Nintenlord.Parser
                 int index1 = (int)this.Offset;
                 int index2 = (int)anotherMatch.Offset;
 
-                var scanner2 = this.Scanner as IStoringScanner<T>;
-                if (scanner2 != null
+                if (this.Scanner is IStoringScanner<T> scanner2
                     && scanner2.IsStored(index1, this.Length)
                     && scanner2.IsStored(index2, anotherMatch.Length))
                 {

@@ -25,9 +25,7 @@ namespace Nintenlord.IO
 
         public static string GetReaderName(this TextReader reader)
         {
-            var streamReader = reader as StreamReader;
-
-            return streamReader != null
+            return reader is StreamReader streamReader
                               ? (streamReader.BaseStream is FileStream
                                      ? ((FileStream)streamReader.BaseStream).Name
                                      : streamReader.BaseStream.GetType().Name)
