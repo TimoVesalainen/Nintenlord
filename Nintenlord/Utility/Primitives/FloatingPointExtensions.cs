@@ -43,5 +43,15 @@ namespace Nintenlord.Utility.Primitives
                 yield return (float)i / (float)n;
             }
         }
+
+        public static double Lerp(double a, double b, double t)
+        {
+            return a + t * (b - a);
+        }
+
+        public static float Lerp(float a, float b, float t)
+        {
+            return a + t * (b - a);
+        }
     }
 }
