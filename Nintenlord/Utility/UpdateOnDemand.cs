@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateOnDemand.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
 
 namespace Nintenlord.Utility
 {
-    using System;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class UpdateOnDemand<T> : IUpdatableValue<T>
     {
         T item;
