@@ -11,7 +11,7 @@ namespace Nintenlord.Utility
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public sealed class UpdateOnDemand<T>
+    public sealed class UpdateOnDemand<T> : IUpdatableValue<T>
     {
         T item;
         bool update;
