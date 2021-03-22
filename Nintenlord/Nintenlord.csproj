@@ -6,7 +6,48 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Utility\Eithers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Eithers.tt</DependentUpon>
+    </None>
+    <None Include="Utility\Enums.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Enums.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Utility\Eithers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Eithers.cs</LastGenOutput>
+    </None>
+    <None Update="Utility\Enums.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Enums.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Utility\Eithers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Eithers.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Utility\Enums.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Enums.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
