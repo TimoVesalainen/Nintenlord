@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Nintenlord.Collections
 {
@@ -138,6 +139,67 @@ namespace Nintenlord.Collections
                 }
             }
             return i;
+        }
+
+        public static IEnumerable<T[,]> EmbedTo<T>(this T[,] array, int newRows, int newColums, T toUse = default)
+        {
+            if (array is null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+            if (newRows < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newRows));
+            }
+            if (newColums < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newColums));
+            }
+
+            int width = array.GetLength(1) + newRows;
+            int height = array.GetLength(0) + newColums;
+            for (int j = 0; j <= newColums; j++)
+            {
+                for (int i = 0; i <= newRows; i++)
+                {
+                    var result = new T[height, width];
+
+                    for (int y = 0; y < height; y++)
+                    {
+                        for (int x = 0; x < width; x++)
+                        {
+                            result[y, x] =
+                                x >= i && x < i + newRows &&
+                                y >= j && y < j + newColums
+                                ? array[y - j, x - i]
+                                : toUse;
+                        }
+                    }
+
+                    yield return result;
+                }
+            }
+        }
+
+        public static IEnumerable<IEnumerable<T>> GetRows<T>(this T[,] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                IEnumerable<T> GetRow()
+                {
+                    for (int j = 0; j < matrix.GetLength(1); j++)
+                    {
+                        yield return matrix[i, j];
+                    }
+                }
+
+                yield return GetRow();
+            }
+        }
+
+        public static string PrintMatrix<T>(this T[,] matrix)
+        {
+            return "{" + string.Join(", ", matrix.GetRows().Select(row => "{" + string.Join(", ", row) + "}")) + "}";
         }
     }
 }
