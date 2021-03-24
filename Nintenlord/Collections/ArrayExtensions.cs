@@ -156,8 +156,11 @@ namespace Nintenlord.Collections
                 throw new ArgumentOutOfRangeException(nameof(newColums));
             }
 
-            int width = array.GetLength(1) + newRows;
-            int height = array.GetLength(0) + newColums;
+            int originalWidth = array.GetLength(1);
+            int originalHeight = array.GetLength(0);
+
+            int width = originalWidth + newRows;
+            int height = originalHeight + newColums;
             for (int j = 0; j <= newColums; j++)
             {
                 for (int i = 0; i <= newRows; i++)
@@ -169,8 +172,8 @@ namespace Nintenlord.Collections
                         for (int x = 0; x < width; x++)
                         {
                             result[y, x] =
-                                x >= i && x < i + newRows &&
-                                y >= j && y < j + newColums
+                                x >= i && x < i + originalWidth &&
+                                y >= j && y < j + originalHeight
                                 ? array[y - j, x - i]
                                 : toUse;
                         }
