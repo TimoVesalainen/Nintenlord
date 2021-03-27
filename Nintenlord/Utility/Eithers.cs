@@ -17,14 +17,24 @@ namespace Nintenlord.Utility
             this.option1 = option1;
         }
 
-        public static implicit operator Either<T0, T1>(T0 item)
+        public static Either<T0, T1> From0(T0 item)
         {
             return new Either<T0, T1>(Enum2.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1>(T1 item)
+        public static Either<T0, T1> From1(T1 item)
         {
             return new Either<T0, T1>(Enum2.Item1, option1: item);
+        }
+
+        public static implicit operator Either<T0, T1>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1>(T1 item)
+        {
+            return From1(item);
         }
 
         public static explicit operator T0(Either<T0, T1> either)
@@ -81,19 +91,34 @@ namespace Nintenlord.Utility
             this.option2 = option2;
         }
 
-        public static implicit operator Either<T0, T1, T2>(T0 item)
+        public static Either<T0, T1, T2> From0(T0 item)
         {
             return new Either<T0, T1, T2>(Enum3.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1, T2>(T1 item)
+        public static Either<T0, T1, T2> From1(T1 item)
         {
             return new Either<T0, T1, T2>(Enum3.Item1, option1: item);
         }
 
-        public static implicit operator Either<T0, T1, T2>(T2 item)
+        public static Either<T0, T1, T2> From2(T2 item)
         {
             return new Either<T0, T1, T2>(Enum3.Item2, option2: item);
+        }
+
+        public static implicit operator Either<T0, T1, T2>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2>(T1 item)
+        {
+            return From1(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2>(T2 item)
+        {
+            return From2(item);
         }
 
         public static explicit operator T0(Either<T0, T1, T2> either)
@@ -163,24 +188,44 @@ namespace Nintenlord.Utility
             this.option3 = option3;
         }
 
-        public static implicit operator Either<T0, T1, T2, T3>(T0 item)
+        public static Either<T0, T1, T2, T3> From0(T0 item)
         {
             return new Either<T0, T1, T2, T3>(Enum4.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3>(T1 item)
+        public static Either<T0, T1, T2, T3> From1(T1 item)
         {
             return new Either<T0, T1, T2, T3>(Enum4.Item1, option1: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3>(T2 item)
+        public static Either<T0, T1, T2, T3> From2(T2 item)
         {
             return new Either<T0, T1, T2, T3>(Enum4.Item2, option2: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3>(T3 item)
+        public static Either<T0, T1, T2, T3> From3(T3 item)
         {
             return new Either<T0, T1, T2, T3>(Enum4.Item3, option3: item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(T1 item)
+        {
+            return From1(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(T2 item)
+        {
+            return From2(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(T3 item)
+        {
+            return From3(item);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3> either)
@@ -263,29 +308,54 @@ namespace Nintenlord.Utility
             this.option4 = option4;
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4>(T0 item)
+        public static Either<T0, T1, T2, T3, T4> From0(T0 item)
         {
             return new Either<T0, T1, T2, T3, T4>(Enum5.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4>(T1 item)
+        public static Either<T0, T1, T2, T3, T4> From1(T1 item)
         {
             return new Either<T0, T1, T2, T3, T4>(Enum5.Item1, option1: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4>(T2 item)
+        public static Either<T0, T1, T2, T3, T4> From2(T2 item)
         {
             return new Either<T0, T1, T2, T3, T4>(Enum5.Item2, option2: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4>(T3 item)
+        public static Either<T0, T1, T2, T3, T4> From3(T3 item)
         {
             return new Either<T0, T1, T2, T3, T4>(Enum5.Item3, option3: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4>(T4 item)
+        public static Either<T0, T1, T2, T3, T4> From4(T4 item)
         {
             return new Either<T0, T1, T2, T3, T4>(Enum5.Item4, option4: item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(T1 item)
+        {
+            return From1(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(T2 item)
+        {
+            return From2(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(T3 item)
+        {
+            return From3(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(T4 item)
+        {
+            return From4(item);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4> either)
@@ -381,34 +451,64 @@ namespace Nintenlord.Utility
             this.option5 = option5;
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T0 item)
+        public static Either<T0, T1, T2, T3, T4, T5> From0(T0 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5>(Enum6.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T1 item)
+        public static Either<T0, T1, T2, T3, T4, T5> From1(T1 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5>(Enum6.Item1, option1: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T2 item)
+        public static Either<T0, T1, T2, T3, T4, T5> From2(T2 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5>(Enum6.Item2, option2: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T3 item)
+        public static Either<T0, T1, T2, T3, T4, T5> From3(T3 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5>(Enum6.Item3, option3: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T4 item)
+        public static Either<T0, T1, T2, T3, T4, T5> From4(T4 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5>(Enum6.Item4, option4: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T5 item)
+        public static Either<T0, T1, T2, T3, T4, T5> From5(T5 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5>(Enum6.Item5, option5: item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T1 item)
+        {
+            return From1(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T2 item)
+        {
+            return From2(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T3 item)
+        {
+            return From3(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T4 item)
+        {
+            return From4(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T5 item)
+        {
+            return From5(item);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4, T5> either)
@@ -517,39 +617,74 @@ namespace Nintenlord.Utility
             this.option6 = option6;
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T0 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From0(T0 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T1 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From1(T1 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item1, option1: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T2 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From2(T2 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item2, option2: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T3 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From3(T3 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item3, option3: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T4 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From4(T4 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item4, option4: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T5 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From5(T5 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item5, option5: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T6 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6> From6(T6 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6>(Enum7.Item6, option6: item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T1 item)
+        {
+            return From1(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T2 item)
+        {
+            return From2(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T3 item)
+        {
+            return From3(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T4 item)
+        {
+            return From4(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T5 item)
+        {
+            return From5(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T6 item)
+        {
+            return From6(item);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4, T5, T6> either)
@@ -671,44 +806,84 @@ namespace Nintenlord.Utility
             this.option7 = option7;
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T0 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From0(T0 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item0, option0: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T1 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From1(T1 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item1, option1: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T2 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From2(T2 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item2, option2: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T3 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From3(T3 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item3, option3: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T4 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From4(T4 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item4, option4: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T5 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From5(T5 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item5, option5: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T6 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From6(T6 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item6, option6: item);
         }
 
-        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T7 item)
+        public static Either<T0, T1, T2, T3, T4, T5, T6, T7> From7(T7 item)
         {
             return new Either<T0, T1, T2, T3, T4, T5, T6, T7>(Enum8.Item7, option7: item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T0 item)
+        {
+            return From0(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T1 item)
+        {
+            return From1(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T2 item)
+        {
+            return From2(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T3 item)
+        {
+            return From3(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T4 item)
+        {
+            return From4(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T5 item)
+        {
+            return From5(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T6 item)
+        {
+            return From6(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T7 item)
+        {
+            return From7(item);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
