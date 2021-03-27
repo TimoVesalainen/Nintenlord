@@ -10,6 +10,7 @@ namespace Nintenlord.Grammars.RegularExpression
     using Nintenlord.Grammars.RegularExpression.Tree;
     using Nintenlord.Graph;
     using Nintenlord.Graph.PathFinding;
+    using Nintenlord.StateMachines.Old;
     using Nintenlord.Utility;
     using Nintenlord.Utility.Primitives;
     using System;

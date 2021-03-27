@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Nintenlord.Grammars
+namespace Nintenlord.StateMachines.Old
 {
     using System;
     using System.Collections.Generic;
@@ -37,15 +37,15 @@ namespace Nintenlord.Grammars
         public DeterministicFiniteAutomaton(IEnumerable<Tuple<TState, TAlphabet, TState>> transitions,
             Predicate<TState> finalStates, TState startState)
         {
-            this.transition = new Dictionary<Tuple<TState, TAlphabet>, TState>();
+            transition = new Dictionary<Tuple<TState, TAlphabet>, TState>();
             foreach (var item in transitions)
             {
                 transition[Tuple.Create(item.Item1, item.Item2)] = item.Item3;
             }
-            this.finalStatePredicate = finalStates;
+            finalStatePredicate = finalStates;
             this.startState = startState;
 
-            this.Reset();
+            Reset();
         }
 
         private DeterministicFiniteAutomaton(DeterministicFiniteAutomaton<TState, TAlphabet> cloneMe)
@@ -60,7 +60,7 @@ namespace Nintenlord.Grammars
             TState startState,
             TState currentState)
         {
-            this.finalStatePredicate = finalStates;
+            finalStatePredicate = finalStates;
             this.startState = startState;
             this.transition = transition;
             this.currentState = currentState;
@@ -72,8 +72,8 @@ namespace Nintenlord.Grammars
         /// <param name="nextAlphabet">Next input alphabet</param>
         public void Move(TAlphabet nextAlphabet)
         {
-            this.currentState = transition[Tuple.Create(this.currentState, nextAlphabet)];
-            IsInFinalState = finalStatePredicate(this.currentState);
+            currentState = transition[Tuple.Create(currentState, nextAlphabet)];
+            IsInFinalState = finalStatePredicate(currentState);
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace Nintenlord.Grammars
         /// </summary>
         public void Reset()
         {
-            this.currentState = startState;
-            IsInFinalState = finalStatePredicate(this.currentState);
+            currentState = startState;
+            IsInFinalState = finalStatePredicate(currentState);
         }
 
         /// <summary>
@@ -101,10 +101,10 @@ namespace Nintenlord.Grammars
         public DeterministicFiniteAutomaton<TState, TAlphabet> CloneWithCurrentStateAsStart()
         {
             return new DeterministicFiniteAutomaton<TState, TAlphabet>(
-                this.transition,
-                this.finalStatePredicate,
-                this.currentState,
-                this.currentState);
+                transition,
+                finalStatePredicate,
+                currentState,
+                currentState);
         }
     }
 }

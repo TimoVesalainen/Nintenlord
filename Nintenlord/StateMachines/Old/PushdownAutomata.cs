@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Nintenlord.Grammars
+namespace Nintenlord.StateMachines.Old
 {
     using System;
     using System.Collections.Generic;
