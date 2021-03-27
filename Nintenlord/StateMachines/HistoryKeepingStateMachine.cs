@@ -24,8 +24,8 @@ namespace Nintenlord.Grammars
             }
         }
 
-        TState[] startState;
-        IStateMachine<TState, TInput> stateMachine;
+        private readonly TState[] startState;
+        private readonly IStateMachine<TState, TInput> stateMachine;
 
         public HistoryKeepingStateMachine(IStateMachine<TState, TInput> stateMachine)
         {
@@ -35,10 +35,7 @@ namespace Nintenlord.Grammars
 
         #region IStateMachine<TState[],TInput> Members
 
-        public TState[] StartState
-        {
-            get { return startState; }
-        }
+        public TState[] StartState => startState;
 
         public IEnumerable<TState[]> GetStates()
         {

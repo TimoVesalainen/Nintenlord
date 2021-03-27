@@ -5,9 +5,9 @@ namespace Nintenlord.Grammars
 {
     public sealed class CompleteStateMachine<T> : IStateMachine<T, T>
     {
-        T startState;
-        IEnumerable<T> statesToUse;
-        Predicate<T> finalState;
+        private readonly T startState;
+        private readonly IEnumerable<T> statesToUse;
+        private readonly Predicate<T> finalState;
 
         public CompleteStateMachine(T startState, IEnumerable<T> statesToUse, Predicate<T> finalState)
         {
@@ -18,10 +18,7 @@ namespace Nintenlord.Grammars
 
         #region IStateMachine<T,T> Members
 
-        public T StartState
-        {
-            get { return startState; }
-        }
+        public T StartState => startState;
 
         public IEnumerable<T> GetStates()
         {

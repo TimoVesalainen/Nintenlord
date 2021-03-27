@@ -14,11 +14,10 @@ namespace Nintenlord.Grammars
     /// </summary>
     public sealed class DeterministicFiniteAutomaton<TState, TAlphabet>
     {
-        readonly Dictionary<Tuple<TState, TAlphabet>, TState> transition;
-        readonly Predicate<TState> finalStatePredicate;
-        readonly TState startState;
-
-        TState currentState;
+        private readonly Dictionary<Tuple<TState, TAlphabet>, TState> transition;
+        private readonly Predicate<TState> finalStatePredicate;
+        private readonly TState startState;
+        private TState currentState;
 
         /// <summary>
         /// If the DFA is in final state.

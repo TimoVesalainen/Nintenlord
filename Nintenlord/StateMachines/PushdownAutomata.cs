@@ -14,11 +14,11 @@ namespace Nintenlord.Grammars
     /// </summary>
     public class DeterministicPushdownAutomata<TStackSymbol, TState, TLetter>
     {
-        Stack<TStackSymbol> stack;
-        Dictionary<Tuple<TState, TLetter, TStackSymbol>, Tuple<TState, TStackSymbol[]>> transitions;
-        Dictionary<Tuple<TState, TStackSymbol>, Tuple<TState, TStackSymbol[]>> epsilonTransitions;
-        TStackSymbol stackStartSymbol;
-        TState startingState;
+        private readonly Stack<TStackSymbol> stack;
+        private readonly Dictionary<Tuple<TState, TLetter, TStackSymbol>, Tuple<TState, TStackSymbol[]>> transitions;
+        private readonly Dictionary<Tuple<TState, TStackSymbol>, Tuple<TState, TStackSymbol[]>> epsilonTransitions;
+        private readonly TStackSymbol stackStartSymbol;
+        private readonly TState startingState;
 
         public DeterministicPushdownAutomata()
         {
@@ -36,10 +36,9 @@ namespace Nintenlord.Grammars
 
             while (stack.Count > 0)
             {
-                Tuple<TState, TStackSymbol[]> transition;
                 TStackSymbol top = stack.Pop();
 
-                if (epsilonTransitions.TryGetValue(Tuple.Create(currentState, top), out transition))
+                if (epsilonTransitions.TryGetValue(Tuple.Create(currentState, top), out Tuple<TState, TStackSymbol[]> transition))
                 {
 
                 }
