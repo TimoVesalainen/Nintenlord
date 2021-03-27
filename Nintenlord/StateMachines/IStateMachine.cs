@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nintenlord.Grammars
+namespace Nintenlord.StateMachines
 {
     public interface IStateMachine<TState, in TInput>
     {
@@ -17,7 +17,7 @@ namespace Nintenlord.Grammars
             this IStateMachine<TState, TInput> machine,
             IEnumerable<TInput> input)
         {
-            return RunUntilFinalState(machine, input, machine.StartState);
+            return machine.RunUntilFinalState(input, machine.StartState);
         }
 
         public static IEnumerable<TState> RunUntilFinalState<TState, TInput>(

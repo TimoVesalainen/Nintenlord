@@ -1,10 +1,9 @@
-﻿using Nintenlord.Grammars;
-using Nintenlord.Utility;
+﻿using Nintenlord.Utility;
 using System.Collections.Generic;
 
 namespace Nintenlord.StateMachines
 {
-    internal class CombinedStateMachine<TState1, TState2, TInput1, TInput2> : IStateMachine<(TState1, TState2), Either<TInput1, TInput2>>
+    public class CombinedStateMachine<TState1, TState2, TInput1, TInput2> : IStateMachine<(TState1, TState2), Either<TInput1, TInput2>>
     {
         private readonly IStateMachine<TState1, TInput1> machine1;
         private readonly IStateMachine<TState2, TInput2> machine2;

@@ -1,5 +1,4 @@
-﻿using Nintenlord.Grammars;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.StateMachines
 {

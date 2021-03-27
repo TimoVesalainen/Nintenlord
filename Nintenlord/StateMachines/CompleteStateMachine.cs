@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.Grammars
+namespace Nintenlord.StateMachines
 {
     public sealed class CompleteStateMachine<T> : IStateMachine<T, T>
     {

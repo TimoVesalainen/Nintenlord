@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Grammars
+namespace Nintenlord.StateMachines
 {
     public sealed class HistoryKeepingStateMachine<TState, TInput>
         : IStateMachine<TState[], Either<TInput, HistoryKeepingStateMachine<TState, TInput>.GoBack>>
