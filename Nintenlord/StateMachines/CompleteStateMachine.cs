@@ -16,8 +16,6 @@ namespace Nintenlord.Grammars
             this.finalState = finalState;
         }
 
-        #region IStateMachine<T,T> Members
-
         public T StartState => startState;
 
         public IEnumerable<T> GetStates()
@@ -34,7 +32,5 @@ namespace Nintenlord.Grammars
         {
             return input;
         }
-
-        #endregion
     }
 }
