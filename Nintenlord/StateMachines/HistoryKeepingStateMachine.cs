@@ -1,26 +1,21 @@
-﻿using System;
+﻿using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Grammars
 {
     public sealed class HistoryKeepingStateMachine<TState, TInput>
-        : IStateMachine<TState[], HistoryKeepingStateMachine<TState, TInput>.Input>
+        : IStateMachine<TState[], Either<TInput, HistoryKeepingStateMachine<TState, TInput>.GoBack>>
     {
-        public sealed class Input
+        public static readonly GoBack GoBackInput = GoBack.Only;
+
+        public sealed class GoBack
         {
-            public readonly bool returnToPrevious;
-            public readonly TInput toMove;
+            public static readonly GoBack Only = new GoBack();
 
-            private Input(bool returnToPrevious, TInput toMove)
+            private GoBack()
             {
-                this.returnToPrevious = returnToPrevious;
-                this.toMove = toMove;
-            }
-
-            public static readonly Input Return = new Input(true, default(TInput));
-            public static Input GetMove(TInput toMove)
-            {
-                return new Input(false, toMove);
             }
         }
 
@@ -48,30 +43,28 @@ namespace Nintenlord.Grammars
             return stateMachine.IsFinalState(state[state.Length - 1]);
         }
 
-        public TState[] Transition(TState[] currentState, Input input)
+        public TState[] Transition(TState[] currentState, Either<TInput, GoBack> input)
         {
-            TState[] newState;
-
-            if (!input.returnToPrevious)
+            TState[] InnerTransition(TInput actualInput)
             {
-                newState = new TState[currentState.Length + 1];
-                newState[currentState.Length] =
-                    stateMachine.Transition(currentState[currentState.Length - 1],
-                    input.toMove);
-            }
-            else
-            {
-                newState = new TState[currentState.Length - 1];
+                if (currentState.Length == 0)
+                {
+                    return new[] { stateMachine.StartState };
+                }
+                return currentState.Concat(
+                    new[] { stateMachine.Transition(currentState.Last(), actualInput) }).ToArray();
             }
 
-            int length = Math.Min(newState.Length, currentState.Length);
-
-            for (int i = 0; i < length; i++)
+            TState[] GoBack(GoBack _)
             {
-                newState[i] = currentState[i];
+                if (currentState.Length == 0)
+                {
+                    throw new ArgumentException("Can't go back with no history", nameof(input));
+                }
+                return currentState.Take(currentState.Length - 1).ToArray();
             }
 
-            return newState;
+            return input.Apply(InnerTransition, GoBack);
         }
 
         #endregion
