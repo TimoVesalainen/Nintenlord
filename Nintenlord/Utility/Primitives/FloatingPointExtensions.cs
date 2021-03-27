@@ -53,5 +53,23 @@ namespace Nintenlord.Utility.Primitives
         {
             return a + t * (b - a);
         }
+
+        public static float Clamp(this float value, float min, float max)
+        {
+            if (min > max)
+            {
+                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
+            }
+            return min > value ? min : max < value ? max : value;
+        }
+
+        public static double Clamp(this double value, double min, double max)
+        {
+            if (min > max)
+            {
+                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
+            }
+            return min > value ? min : max < value ? max : value;
+        }
     }
 }
