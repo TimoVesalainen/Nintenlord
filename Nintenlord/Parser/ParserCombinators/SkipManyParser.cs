@@ -4,12 +4,15 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class SkipManyParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> toRepeat;
+        private readonly IParser<TIn, TOut> toRepeat;
 
         public SkipManyParser(IParser<TIn, TOut> toRepeat)
         {
             if (toRepeat == null)
+            {
                 throw new ArgumentNullException("toRepeat");
+            }
+
             this.toRepeat = toRepeat;
         }
 
@@ -18,13 +21,15 @@ namespace Nintenlord.Parser.ParserCombinators
             match = new Match<TIn>(scanner, 0);
             while (true)
             {
-                Match<TIn> latestMatch;
-                toRepeat.Parse(scanner, out latestMatch);
+                toRepeat.Parse(scanner, out Match<TIn> latestMatch);
                 if (latestMatch.Success)
                 {
                     match += latestMatch;
                 }
-                else break;
+                else
+                {
+                    break;
+                }
             }
 
             return default(TOut);

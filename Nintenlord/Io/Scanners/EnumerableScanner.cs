@@ -5,8 +5,8 @@ namespace Nintenlord.IO.Scanners
 {
     public sealed class EnumerableScanner<T> : IScanner<T>
     {
-        IEnumerator<T> enumerator;
-        int offset;
+        private readonly IEnumerator<T> enumerator;
+        private int offset;
 
         public EnumerableScanner(IEnumerable<T> toEnum)
         {
@@ -25,14 +25,8 @@ namespace Nintenlord.IO.Scanners
 
         public long Offset
         {
-            get
-            {
-                return offset;
-            }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            get => offset;
+            set => throw new NotSupportedException();
         }
 
         public bool MoveNext()
@@ -41,18 +35,9 @@ namespace Nintenlord.IO.Scanners
             return (IsAtEnd = !enumerator.MoveNext());
         }
 
-        public T Current
-        {
-            get
-            {
-                return enumerator.Current;
-            }
-        }
+        public T Current => enumerator.Current;
 
-        public bool CanSeek
-        {
-            get { return false; }
-        }
+        public bool CanSeek => false;
 
         #endregion
     }

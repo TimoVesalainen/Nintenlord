@@ -28,8 +28,7 @@ namespace Nintenlord.Utility
                     var flagName = split[0].TrimStart('-');
                     var param = split.Length == 2 ? split[1] : null;
 
-                    Action<string> flagAction;
-                    if (flags.TryGetValue(flagName, out flagAction))
+                    if (flags.TryGetValue(flagName, out Action<string> flagAction))
                     {
                         flagAction(param);
                     }

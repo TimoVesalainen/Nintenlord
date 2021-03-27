@@ -14,7 +14,7 @@ namespace Nintenlord.Parser
     /// </summary>
     public sealed class LazyParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly Lazy<IParser<TIn, TOut>> mainParser;
+        private readonly Lazy<IParser<TIn, TOut>> mainParser;
 
         public LazyParser(Lazy<IParser<TIn, TOut>> mainParser)
         {

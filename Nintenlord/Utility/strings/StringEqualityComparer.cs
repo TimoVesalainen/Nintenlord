@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Nintenlord.Utility.Strings
 {
-    class StringEqualityComparer : IEqualityComparer<string>
+    internal class StringEqualityComparer : IEqualityComparer<string>
     {
         #region IEqualityComparer<string> Members
 

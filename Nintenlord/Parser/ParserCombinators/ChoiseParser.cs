@@ -7,16 +7,21 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class ChoiseParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut>[] options;
+        private readonly IParser<TIn, TOut>[] options;
 
         public ChoiseParser(IEnumerable<IParser<TIn, TOut>> options)
         {
             if (options == null)
+            {
                 throw new ArgumentNullException("options");
+            }
+
             this.options = options.ToArray();
 
             if (this.options.Any(x => x == null))
+            {
                 throw new ArgumentNullException("options");
+            }
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)

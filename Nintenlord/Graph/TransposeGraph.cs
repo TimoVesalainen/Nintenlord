@@ -14,7 +14,7 @@ namespace Nintenlord.Graph
     /// </summary>
     public class TransposeGraph<TNode> : IGraph<TNode>
     {
-        IGraph<TNode> originalGraph;
+        private readonly IGraph<TNode> originalGraph;
 
         public TransposeGraph(IGraph<TNode> originalGraph)
         {
@@ -23,10 +23,7 @@ namespace Nintenlord.Graph
 
         #region IGraph<TNode> Members
 
-        public int NodeCount
-        {
-            get { return originalGraph.NodeCount; }
-        }
+        public int NodeCount => originalGraph.NodeCount;
 
         public IEnumerable<TNode> GetNeighbours(TNode node)
         {

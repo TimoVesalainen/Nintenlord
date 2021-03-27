@@ -17,10 +17,7 @@ namespace Nintenlord.Collections
         private int currentIndex;
         private T[] arrayToBuild;
 
-        public int ArrayLength
-        {
-            get { return currentIndex; }
-        }
+        public int ArrayLength => currentIndex;
 
         public ArrayBuilder(int startLength)
         {

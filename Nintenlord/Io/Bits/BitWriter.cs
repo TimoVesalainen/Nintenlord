@@ -5,8 +5,8 @@ namespace Nintenlord.IO.Bits
 {
     public class BitWriter : BinaryWriter
     {
-        byte buffer = 0;
-        int index = 0;
+        private byte buffer = 0;
+        private int index = 0;
 
         public BitWriter(Stream stream)
             : base(stream) { }
@@ -36,9 +36,6 @@ namespace Nintenlord.IO.Bits
             buffer = 0;
         }
 
-        public bool IsAtEnd
-        {
-            get { return this.BaseStream.Position >= this.BaseStream.Length && index > 7; }
-        }
+        public bool IsAtEnd => this.BaseStream.Position >= this.BaseStream.Length && index > 7;
     }
 }

@@ -5,11 +5,10 @@ namespace Nintenlord.Collections.Lists
 {
     public sealed class ListSlidingWindow<T> : IList<T>
     {
-        readonly IList<T> items;
-        readonly int windowSize;
-
-        int start;
-        int end;
+        private readonly IList<T> items;
+        private readonly int windowSize;
+        private int start;
+        private int end;
 
         public ListSlidingWindow(int windowSize, IList<T> listToWrap)
         {
@@ -19,15 +18,9 @@ namespace Nintenlord.Collections.Lists
             end = 0;
         }
 
-        public IList<T> Items
-        {
-            get { return items; }
-        }
+        public IList<T> Items => items;
 
-        public int WindowSize
-        {
-            get { return windowSize; }
-        }
+        public int WindowSize => windowSize;
 
         public void Advance()
         {
@@ -72,10 +65,7 @@ namespace Nintenlord.Collections.Lists
                 }
                 return items[start + index];
             }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            set => throw new NotSupportedException();
         }
 
         #endregion
@@ -106,15 +96,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return end - start; }
-        }
+        public int Count => end - start;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(T item)
         {

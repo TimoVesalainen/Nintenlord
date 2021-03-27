@@ -4,15 +4,20 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class NameParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly string name;
-        readonly IParser<TIn, TOut> parser;
+        private readonly string name;
+        private readonly IParser<TIn, TOut> parser;
 
         public NameParser(IParser<TIn, TOut> parser, string name)
         {
             if (parser == null)
+            {
                 throw new ArgumentNullException("parser");
+            }
+
             if (name == null)
+            {
                 throw new ArgumentNullException("name");
+            }
 
             this.parser = parser;
             this.name = name;

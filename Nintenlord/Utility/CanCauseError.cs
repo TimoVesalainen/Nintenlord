@@ -5,13 +5,10 @@ namespace Nintenlord.Utility
 {
     public sealed class CanCauseError<T, TError>
     {
-        bool error;
-        T result;
-        TError errorState;
-        public bool CausedError
-        {
-            get { return error; }
-        }
+        private bool error;
+        private T result;
+        private TError errorState;
+        public bool CausedError => error;
         public T Result
         {
             get
@@ -68,14 +65,10 @@ namespace Nintenlord.Utility
     {
         private static readonly Dictionary<string, CanCauseError<T>> cachedErrors
             = new Dictionary<string, CanCauseError<T>>();
-
-        T result;
-        bool error;
-        Lazy<string> errorMessage;
-        public bool CausedError
-        {
-            get { return error; }
-        }
+        private T result;
+        private bool error;
+        private Lazy<string> errorMessage;
+        public bool CausedError => error;
         public string ErrorMessage
         {
             get
@@ -133,8 +126,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> Error(string errorMessages)
         {
-            CanCauseError<T> result;
-            if (!cachedErrors.TryGetValue(errorMessages, out result))
+            if (!cachedErrors.TryGetValue(errorMessages, out CanCauseError<T> result))
             {
                 result = new CanCauseError<T>
                 {
@@ -192,12 +184,9 @@ namespace Nintenlord.Utility
             noError = new CanCauseError { error = false };
         }
 
-        bool error;
-        string errorMessage;
-        public bool CausedError
-        {
-            get { return error; }
-        }
+        private bool error;
+        private string errorMessage;
+        public bool CausedError => error;
         public string ErrorMessage
         {
             get
@@ -213,15 +202,11 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static CanCauseError NoError
-        {
-            get { return noError; }
-        }
+        public static CanCauseError NoError => noError;
 
         public static CanCauseError Error(string errorMessages)
         {
-            CanCauseError result;
-            if (!cachedErrors.TryGetValue(errorMessages, out result))
+            if (!cachedErrors.TryGetValue(errorMessages, out CanCauseError result))
             {
                 result = new CanCauseError { error = true, errorMessage = errorMessages };
                 cachedErrors[errorMessages] = result;
@@ -488,8 +473,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<TValue> TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
         {
-            TValue value;
-            return dict.TryGetValue(key, out value)
+            return dict.TryGetValue(key, out TValue value)
                 ? value
                 : CanCauseError<TValue>.Error("No value with key {0} found.", key);
         }

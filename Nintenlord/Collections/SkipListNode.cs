@@ -5,29 +5,26 @@ namespace Nintenlord.Collections
 {
     public class SkipListNode<TKey, TValue>
     {
-        TKey key;
-        TValue value;
-        SkipListNode<TKey, TValue>[] next;
+        private TKey key;
+        private TValue value;
+        private readonly SkipListNode<TKey, TValue>[] next;
 
         public TKey Key
         {
-            get { return key; }
-            internal set { key = value; }
+            get => key;
+            internal set => key = value;
         }
         public TValue Value
         {
-            get { return value; }
-            internal set { this.value = value; }
+            get => value;
+            internal set => this.value = value;
         }
         public SkipListNode<TKey, TValue> this[int index]
         {
-            get { return next[index]; }
-            internal set { next[index] = value; }
+            get => next[index];
+            internal set => next[index] = value;
         }
-        public int AmountOfNodes
-        {
-            get { return next.Length; }
-        }
+        public int AmountOfNodes => next.Length;
 
         internal SkipListNode(int amountOfNodes)
         {

@@ -5,12 +5,15 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class TryParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> parserToTry;
+        private readonly IParser<TIn, TOut> parserToTry;
 
         public TryParser(IParser<TIn, TOut> parserToTry)
         {
             if (parserToTry == null)
+            {
                 throw new ArgumentNullException("parserToTry");
+            }
+
             this.parserToTry = parserToTry;
         }
 

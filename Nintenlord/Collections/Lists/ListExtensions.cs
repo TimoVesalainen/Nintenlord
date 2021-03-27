@@ -114,7 +114,9 @@ namespace Nintenlord.Collections.Lists
             while (gap > 1 || swapped)
             {
                 if (gap > 1)
+                {
                     gap = (int)(gap / 1.247330950103979);
+                }
 
                 swapped = false;
                 for (int i = 0; i < list.Count - gap; i++)

@@ -15,23 +15,14 @@ namespace Nintenlord.Utility
     {
         public T Current
         {
-            get
-            {
-                return current;
-            }
+            get => current;
             set
             {
                 previous = current;
                 current = value;
             }
         }
-        public T Previous
-        {
-            get
-            {
-                return previous;
-            }
-        }
+        public T Previous => previous;
 
         private T current;
         private T previous;

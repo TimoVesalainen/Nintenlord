@@ -14,7 +14,7 @@ namespace Nintenlord.Graph
     /// </summary>
     public sealed class DictionaryBasedGraph<TNode> : IGraph<TNode>
     {
-        readonly IDictionary<TNode, IEnumerable<TNode>> neighbours;
+        private readonly IDictionary<TNode, IEnumerable<TNode>> neighbours;
 
         public DictionaryBasedGraph(IDictionary<TNode, IEnumerable<TNode>> neighbours)
         {
@@ -23,10 +23,7 @@ namespace Nintenlord.Graph
 
         #region IGraph<T> Members
 
-        public int NodeCount
-        {
-            get { return neighbours.Count; }
-        }
+        public int NodeCount => neighbours.Count;
 
         public IEnumerable<TNode> GetNeighbours(TNode node)
         {

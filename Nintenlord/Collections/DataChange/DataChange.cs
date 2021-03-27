@@ -12,7 +12,7 @@ namespace Nintenlord.Collections.DataChange
     /// <typeparam name="T">Type whose array is to be changed</typeparam>
     public sealed class DataChange<T> : IDataChange<T>
     {
-        SortedList<int, T[]> dataToChange;
+        private readonly SortedList<int, T[]> dataToChange;
 
         public int LastOffset
         {
@@ -33,13 +33,7 @@ namespace Nintenlord.Collections.DataChange
 
         }
 
-        public bool ChangesAnything
-        {
-            get
-            {
-                return dataToChange.Count != 0;
-            }
-        }
+        public bool ChangesAnything => dataToChange.Count != 0;
 
         /// <summary>
         /// Creates a new DataChange.
@@ -57,11 +51,19 @@ namespace Nintenlord.Collections.DataChange
         public void AddChangedData(int offset, T[] data, int index, int count)
         {
             if (offset < 0)
+            {
                 throw new IndexOutOfRangeException("Negative offset was passed.");
+            }
+
             if (data == null)
+            {
                 throw new ArgumentNullException();
+            }
+
             if (index + count > data.Length)
+            {
                 throw new IndexOutOfRangeException();
+            }
 
             List<int> intersectedKeys = GetIntersectingKeys(offset, count).ToList();
 
@@ -145,13 +147,7 @@ namespace Nintenlord.Collections.DataChange
             return text.ToString();
         }
 
-        public int AmountOfChanges
-        {
-            get
-            {
-                return dataToChange.Values.Sum(item => item.Length);
-            }
-        }
+        public int AmountOfChanges => dataToChange.Values.Sum(item => item.Length);
 
         public bool Equals(IDataChange<T> other)
         {
@@ -197,10 +193,10 @@ namespace Nintenlord.Collections.DataChange
 
         private class ChangeEnumerator : IEnumerator<T>
         {
-            IEnumerator<KeyValuePair<int, T[]>> enume;
-            DataChange<T> parent;
-            int index;
-            bool moveNext;
+            private readonly IEnumerator<KeyValuePair<int, T[]>> enume;
+            private DataChange<T> parent;
+            private int index;
+            private bool moveNext;
 
             public ChangeEnumerator(DataChange<T> parent)
             {
@@ -211,10 +207,7 @@ namespace Nintenlord.Collections.DataChange
 
             #region IEnumerator<T> Members
 
-            public T Current
-            {
-                get { return enume.Current.Value[index]; }
-            }
+            public T Current => enume.Current.Value[index];
 
             #endregion
 
@@ -231,10 +224,7 @@ namespace Nintenlord.Collections.DataChange
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return this.Current; }
-            }
+            object IEnumerator.Current => this.Current;
 
             public bool MoveNext()
             {
@@ -246,7 +236,10 @@ namespace Nintenlord.Collections.DataChange
                         moveNext = false;
                         return true;
                     }
-                    else return false;
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -291,7 +284,10 @@ namespace Nintenlord.Collections.DataChange
         public static bool Intersects(int index1, int length1, int index2, int length2)
         {
             if (length1 == 0 || length2 == 0)
+            {
                 return false;
+            }
+
             return (index1 < index2 + length2 && index1 >= index2) ||
                    (index2 < index1 + length1 && index2 >= index1);
         }

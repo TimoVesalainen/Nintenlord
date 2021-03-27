@@ -5,14 +5,19 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 {
     public sealed class OrParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> first, second;
+        private readonly IParser<TIn, TOut> first, second;
 
         public OrParser(IParser<TIn, TOut> first, IParser<TIn, TOut> second)
         {
             if (first == null)
+            {
                 throw new ArgumentNullException("first");
+            }
+
             if (second == null)
+            {
                 throw new ArgumentNullException("second");
+            }
 
             this.first = first;
             this.second = second;

@@ -5,7 +5,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
     public sealed class EqualsParser<T> : Parser<T, T>
         where T : IEquatable<T>
     {
-        readonly T item;
+        private readonly T item;
         public EqualsParser(T item)
         {
             this.item = item;

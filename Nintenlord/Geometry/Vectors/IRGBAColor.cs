@@ -1,6 +1,6 @@
 ﻿namespace Nintenlord.Geometry.Vectors
 {
-    interface IRGBAColor : IRGBColor
+    internal interface IRGBAColor : IRGBColor
     {
         int Alpha
         {

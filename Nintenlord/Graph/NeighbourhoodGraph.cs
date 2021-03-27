@@ -13,7 +13,7 @@ namespace Nintenlord.Graph
     /// </summary>
     public sealed class NeighbourhoodGraph<TNode> : IEditableGraph<TNode>
     {
-        Dictionary<TNode, List<TNode>> neighbours;
+        private readonly Dictionary<TNode, List<TNode>> neighbours;
 
         public NeighbourhoodGraph(IEnumerable<TNode> nodes)
         {
@@ -50,10 +50,7 @@ namespace Nintenlord.Graph
 
         public bool this[TNode from, TNode to]
         {
-            get
-            {
-                return neighbours[from].Contains(to);
-            }
+            get => neighbours[from].Contains(to);
             set
             {
                 if (value)
@@ -71,10 +68,7 @@ namespace Nintenlord.Graph
 
         #region IGraph<TNode> Members
 
-        public int NodeCount
-        {
-            get { return neighbours.Count; }
-        }
+        public int NodeCount => neighbours.Count;
 
         public IEnumerable<TNode> GetNeighbours(TNode node)
         {

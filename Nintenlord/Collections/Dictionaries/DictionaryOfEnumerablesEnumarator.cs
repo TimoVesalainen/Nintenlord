@@ -14,8 +14,8 @@ namespace Nintenlord.Collections.Dictionaries
     public class DictionaryOfEnumerablesEnumarator<TKey, TValue, TEnumerable> :
         IEnumerator<KeyValuePair<TKey, TValue>> where TEnumerable : IEnumerable<TValue>
     {
-        IEnumerator<KeyValuePair<TKey, TEnumerable>> currentCollection;
-        IEnumerator<TValue> currentValue;
+        private IEnumerator<KeyValuePair<TKey, TEnumerable>> currentCollection;
+        private IEnumerator<TValue> currentValue;
 
         public DictionaryOfEnumerablesEnumarator(
             IEnumerable<KeyValuePair<TKey, TEnumerable>> baseCollection)
@@ -25,15 +25,9 @@ namespace Nintenlord.Collections.Dictionaries
 
         #region IEnumerator<KeyValuePair<TKey,TValue>> Members
 
-        public KeyValuePair<TKey, TValue> Current
-        {
-            get
-            {
-                return new KeyValuePair<TKey, TValue>(
+        public KeyValuePair<TKey, TValue> Current => new KeyValuePair<TKey, TValue>(
                     currentCollection.Current.Key, currentValue.Current
                     );
-            }
-        }
 
         #endregion
 
@@ -52,10 +46,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         #region IEnumerator Members
 
-        object System.Collections.IEnumerator.Current
-        {
-            get { return this.Current; }
-        }
+        object System.Collections.IEnumerator.Current => this.Current;
 
         public bool MoveNext()
         {
@@ -69,7 +60,9 @@ namespace Nintenlord.Collections.Dictionaries
                 if (currentCollection.MoveNext())
                 {
                     if (currentValue != null)
+                    {
                         currentValue.Dispose();
+                    }
 
                     currentValue = currentCollection.Current.Value.GetEnumerator();
                     while (!currentValue.MoveNext())

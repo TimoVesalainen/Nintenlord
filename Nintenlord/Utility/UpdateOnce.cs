@@ -2,12 +2,12 @@
 {
     public struct UpdateOnce<T>
     {
-        bool updated;
+        private bool updated;
         private T currentValue;
 
         public T CurrentValue
         {
-            get { return currentValue; }
+            get => currentValue;
             set
             {
                 if (!updated)

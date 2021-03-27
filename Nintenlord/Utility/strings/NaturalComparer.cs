@@ -18,11 +18,17 @@ namespace Nintenlord.Utility.Strings
                 if (x[i] != y[i])
                 {
                     if (x[i] == '_')
+                    {
                         return 1;
+                    }
                     else if (y[i] == '_')
+                    {
                         return -1;
+                    }
                     else
+                    {
                         return x[i].CompareTo(y[i]);
+                    }
                 }
             }
             return x.Length - y.Length;

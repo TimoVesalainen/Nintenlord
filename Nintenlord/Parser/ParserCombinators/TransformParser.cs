@@ -4,15 +4,20 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class TransformParser<TIn, TMiddle, TOut> : Parser<TIn, TOut>
     {
-        IParser<TIn, TMiddle> parser;
-        Converter<TMiddle, TOut> converter;
+        private readonly IParser<TIn, TMiddle> parser;
+        private readonly Converter<TMiddle, TOut> converter;
 
         public TransformParser(IParser<TIn, TMiddle> parser, Converter<TMiddle, TOut> converter)
         {
             if (parser == null)
+            {
                 throw new ArgumentNullException("parser");
+            }
+
             if (converter == null)
+            {
                 throw new ArgumentNullException("converter");
+            }
 
             this.parser = parser;
             this.converter = converter;

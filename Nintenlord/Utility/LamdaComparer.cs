@@ -5,7 +5,7 @@ namespace Nintenlord.Utility
 {
     public class LamdaComparer<T> : IComparer<T>, IEqualityComparer<T>
     {
-        Func<T, T, int> f;
+        private readonly Func<T, T, int> f;
 
         public LamdaComparer(Func<T, T, int> f)
         {

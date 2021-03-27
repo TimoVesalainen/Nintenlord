@@ -13,7 +13,7 @@ namespace Nintenlord.Parser.CharacterParsers
     /// </summary>
     public sealed class CharacterParser : Parser<Char, Char>
     {
-        readonly char character;
+        private readonly char character;
 
         public CharacterParser(char c)
         {

@@ -13,8 +13,8 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
     /// </summary>
     public sealed class Choise<TLetter> : IRegExExpressionTree<TLetter>
     {
-        readonly IRegExExpressionTree<TLetter> firstChoise;
-        readonly IRegExExpressionTree<TLetter> secondChoise;
+        private readonly IRegExExpressionTree<TLetter> firstChoise;
+        private readonly IRegExExpressionTree<TLetter> secondChoise;
 
         public Choise(
             IRegExExpressionTree<TLetter> firstChoise,
@@ -26,10 +26,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region IRegExExpressionTree<TLetter> Members
 
-        public RegExNodeTypes Type
-        {
-            get { return RegExNodeTypes.Choise; }
-        }
+        public RegExNodeTypes Type => RegExNodeTypes.Choise;
 
         #endregion
 

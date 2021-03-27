@@ -3,7 +3,7 @@ using System;
 
 namespace Nintenlord.Parser.CharacterParsers
 {
-    class UppercaseParser : Parser<Char, Char>
+    internal class UppercaseParser : Parser<Char, Char>
     {
         protected override char ParseMain(IScanner<char> scanner, out Match<char> match)
         {

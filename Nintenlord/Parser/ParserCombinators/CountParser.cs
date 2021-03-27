@@ -6,13 +6,16 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class CountParser<TIn, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> parser;
-        readonly int count;
+        private readonly IParser<TIn, TOut> parser;
+        private readonly int count;
 
         public CountParser(IParser<TIn, TOut> parser, int count)
         {
             if (parser == null)
+            {
                 throw new ArgumentNullException("parser");
+            }
+
             this.parser = parser;
             this.count = count;
         }
@@ -21,12 +24,13 @@ namespace Nintenlord.Parser.ParserCombinators
         {
             for (int i = 0; i < count; i++)
             {
-                Match<TIn> latestMatch;
-                var temp = parser.Parse(scanner, out latestMatch);
+                var temp = parser.Parse(scanner, out Match<TIn> latestMatch);
                 InnerMatch += latestMatch;
 
                 if (!latestMatch.Success)
+                {
                     yield break;
+                }
 
                 yield return temp;
             }

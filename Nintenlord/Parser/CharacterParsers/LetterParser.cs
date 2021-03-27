@@ -3,7 +3,7 @@ using System;
 
 namespace Nintenlord.Parser.CharacterParsers
 {
-    class LetterParser : Parser<Char, Char>
+    internal class LetterParser : Parser<Char, Char>
     {
         protected override char ParseMain(IScanner<char> scanner, out Match<char> match)
         {

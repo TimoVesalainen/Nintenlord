@@ -40,7 +40,7 @@ namespace Nintenlord.Utility.Primitives
         {
             for (int i = 0; i <= n; i++)
             {
-                yield return (float)i / (float)n;
+                yield return i / (float)n;
             }
         }
 

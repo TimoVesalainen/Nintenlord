@@ -35,8 +35,7 @@ namespace Nintenlord.Graph.PathFinding
                 foreach (TNode neighbour in map.GetNeighbours(current))
                 {
                     int gCost = gCosts[current] + map.GetMovementCost(current, neighbour);
-                    int oldGcost;
-                    if (gCosts.TryGetValue(neighbour, out oldGcost) && gCost < oldGcost)
+                    if (gCosts.TryGetValue(neighbour, out int oldGcost) && gCost < oldGcost)
                     {//If we found a better route to neighbour 
                         int hCost = hCosts[neighbour];
                         open.Remove(neighbour, oldGcost + hCost);

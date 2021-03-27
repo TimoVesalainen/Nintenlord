@@ -56,7 +56,9 @@
         public static bool IsConnected<TNode>(this IGraph<TNode> graph)
         {
             if (graph.NodeCount == 0)
+            {
                 return true;
+            }
 
             var transpose = graph.GetTranspose();
 
@@ -77,7 +79,9 @@
                     }
                 }
                 if (i == graph.NodeCount)
+                {
                     break;
+                }
             }
 
             return index == graph.NodeCount - 1;//return if reached top of transpose

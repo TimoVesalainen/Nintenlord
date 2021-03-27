@@ -2,22 +2,13 @@
 {
     public struct FilePosition
     {
-        readonly string file;
-        readonly int line;
-        readonly int column;
+        private readonly string file;
+        private readonly int line;
+        private readonly int column;
 
-        public int Line
-        {
-            get { return line; }
-        }
-        public int Column
-        {
-            get { return column; }
-        }
-        public string File
-        {
-            get { return file; }
-        }
+        public int Line => line;
+        public int Column => column;
+        public string File => file;
 
         public FilePosition(string file, int line, int column)
         {

@@ -46,24 +46,12 @@ namespace Nintenlord.Parser
         /// First offset after a succesful match.
         /// Offset + Length == OffsetAfter
         /// </summary>
-        public long OffsetAfter
-        {
-            get
-            {
-                return Offset + Length;
-            }
-        }
+        public long OffsetAfter => Offset + Length;
         /// <summary>
         /// True if successful matches length was 0.
         /// False if succesful matches length isn't 0.
         /// </summary>
-        public bool Empty
-        {
-            get
-            {
-                return Length == 0;
-            }
-        }
+        public bool Empty => Length == 0;
         /// <summary>
         /// Error string of an unsuccesful match.
         /// </summary>
@@ -108,9 +96,14 @@ namespace Nintenlord.Parser
         public Match(IScanner<T> scanner, long offset, int length)
         {
             if (scanner == null)
+            {
                 throw new ArgumentNullException("scanner");
+            }
+
             if (length < 0)
+            {
                 throw new IndexOutOfRangeException("Length was negative.");
+            }
 
             this.Scanner = scanner;
             this.Offset = offset;
@@ -126,9 +119,14 @@ namespace Nintenlord.Parser
         public Match(IScanner<T> scanner, string errorString)
         {
             if (scanner == null)
+            {
                 throw new ArgumentNullException("scanner");
+            }
+
             if (errorString == null)
+            {
                 throw new ArgumentNullException("errorString");
+            }
 
             this.Scanner = scanner;
             this.Offset = scanner.Offset;
@@ -146,11 +144,19 @@ namespace Nintenlord.Parser
         public Match(IScanner<T> scanner, string errorFormat, params object[] args)
         {
             if (scanner == null)
+            {
                 throw new ArgumentNullException("scanner");
+            }
+
             if (errorFormat == null)
+            {
                 throw new ArgumentNullException("errorFormat");
+            }
+
             if (args == null)
+            {
                 throw new ArgumentNullException("args");
+            }
 
             this.Scanner = scanner;
             this.Offset = scanner.Offset;
@@ -172,14 +178,24 @@ namespace Nintenlord.Parser
         private void Concat(Match<T> anotherMatch)
         {
             if (anotherMatch == null)
+            {
                 throw new ArgumentNullException("anotherMatch");
+            }
+
             if (!anotherMatch.Success || !this.Success)
+            {
                 throw new ArgumentException("One of the matches was not successful.");
+            }
+
             if (anotherMatch.Scanner != this.Scanner)
+            {
                 throw new ArgumentException("Matches are from different scanner.");
+            }
 
             if (anotherMatch.Empty)
+            {
                 return;
+            }
 
             if (this.Disjoint(anotherMatch))
             {

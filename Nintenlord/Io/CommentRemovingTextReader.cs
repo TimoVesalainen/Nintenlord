@@ -14,10 +14,10 @@ namespace Nintenlord.IO
     /// </summary>
     public sealed class CommentRemovingTextReader : TextReader
     {
-        TextReader mainReader;
-        StringBuilder currentLine = new StringBuilder(64);
-        int index = 0;
-        int blockCommentDepth = 0;
+        private readonly TextReader mainReader;
+        private readonly StringBuilder currentLine = new StringBuilder(64);
+        private int index = 0;
+        private int blockCommentDepth = 0;
 
         public CommentRemovingTextReader(TextReader mainReader)
         {

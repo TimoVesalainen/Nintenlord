@@ -22,10 +22,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region IRegExExpressionTree<T> Members
 
-        public RegExNodeTypes Type
-        {
-            get { return RegExNodeTypes.Letter; }
-        }
+        public RegExNodeTypes Type => RegExNodeTypes.Letter;
 
         #endregion
 

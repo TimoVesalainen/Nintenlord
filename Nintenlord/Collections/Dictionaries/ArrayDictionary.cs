@@ -8,7 +8,7 @@ namespace Nintenlord.Collections.Dictionaries
         List<KeyValuePair<TKey, TValue>>,
         IDictionary<TKey, TValue>
     {
-        IEqualityComparer<TKey> comparer;
+        private readonly IEqualityComparer<TKey> comparer;
 
         public ArrayDictionary()
             : this(EqualityComparer<TKey>.Default)
@@ -115,8 +115,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             get
             {
-                TValue value;
-                if (this.TryGetValue(key, out value))
+                if (this.TryGetValue(key, out TValue value))
                 {
                     return value;
                 }

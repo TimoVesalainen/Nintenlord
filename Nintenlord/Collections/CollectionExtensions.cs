@@ -182,9 +182,13 @@ namespace Nintenlord.Collections
         {
             StringBuilder bldr;
             if (enume is ICollection<char>)
+            {
                 bldr = new StringBuilder((enume as ICollection<char>).Count);
+            }
             else
+            {
                 bldr = new StringBuilder();
+            }
 
             foreach (var item in enume)
             {
@@ -244,7 +248,10 @@ namespace Nintenlord.Collections
                     {
                         moveFirstToNext = false;
                     }
-                    else break;
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 if (moveSecondToNext)
@@ -253,7 +260,10 @@ namespace Nintenlord.Collections
                     {
                         moveSecondToNext = false;
                     }
-                    else break;
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 if (comp.Compare(enume1.Current, enume2.Current) <= 0)
@@ -318,7 +328,10 @@ namespace Nintenlord.Collections
                     {
                         moveFirstToNext = false;
                     }
-                    else break;
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 if (moveSecondToNext)
@@ -327,7 +340,10 @@ namespace Nintenlord.Collections
                     {
                         moveSecondToNext = false;
                     }
-                    else break;
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 if (comp(enume1.Current, enume2.Current) <= 0)
@@ -404,8 +420,7 @@ namespace Nintenlord.Collections
         public static TValue GetOldOrSetNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
             where TValue : new()
         {
-            TValue value;
-            if (!dict.TryGetValue(key, out value))
+            if (!dict.TryGetValue(key, out TValue value))
             {
                 value = new TValue();
                 dict[key] = value;
@@ -469,8 +484,7 @@ namespace Nintenlord.Collections
             }
             for (int i = index - 1; i >= 0; i--)
             {
-                T oldItem;
-                if (dict.TryGetValue(i, out oldItem) && i + measurement(oldItem) > index)
+                if (dict.TryGetValue(i, out T oldItem) && i + measurement(oldItem) > index)
                 {
                     return false;
                 }
@@ -534,8 +548,7 @@ namespace Nintenlord.Collections
             this IDictionary<TKey, TValue> dict,
             TKey key, TValue def = default(TValue))
         {
-            TValue value;
-            if (!dict.TryGetValue(key, out value))
+            if (!dict.TryGetValue(key, out TValue value))
             {
                 value = def;
             }
@@ -547,8 +560,7 @@ namespace Nintenlord.Collections
             TKey key,
             TValue defaultVal = default(TValue))
         {
-            TValue val;
-            return dict.TryGetValue(key, out val) ? val : defaultVal;
+            return dict.TryGetValue(key, out TValue val) ? val : defaultVal;
         }
 
         public static Tuple<TAccumulate1, TAccumulate2> Aggregate<TAccumulate1, TAccumulate2, TSource>(

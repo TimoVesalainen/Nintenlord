@@ -13,8 +13,8 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
     /// </summary>
     public sealed class Concatenation<TLetter> : IRegExExpressionTree<TLetter>
     {
-        readonly IRegExExpressionTree<TLetter> first;
-        readonly IRegExExpressionTree<TLetter> second;
+        private readonly IRegExExpressionTree<TLetter> first;
+        private readonly IRegExExpressionTree<TLetter> second;
 
         public Concatenation(
             IRegExExpressionTree<TLetter> first,
@@ -26,10 +26,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region IRegExExpressionTree<TLetter> Members
 
-        public RegExNodeTypes Type
-        {
-            get { return RegExNodeTypes.Concatenation; }
-        }
+        public RegExNodeTypes Type => RegExNodeTypes.Concatenation;
 
         #endregion
 

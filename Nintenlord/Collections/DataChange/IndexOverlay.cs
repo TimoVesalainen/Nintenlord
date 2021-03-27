@@ -12,7 +12,7 @@ namespace Nintenlord.Collections.DataChange
         /// <summary>
         /// Foreach (x,l) in indexes: x >= 0 && l > 0 && next(x) > x + l;
         /// </summary>
-        SortedDictionary<int, int> indexes;
+        private readonly SortedDictionary<int, int> indexes;
 
         public IndexOverlay()
         {
@@ -21,28 +21,13 @@ namespace Nintenlord.Collections.DataChange
 
         #region IIndexOverlay Members
 
-        public bool ContainsIndexes
-        {
-            get { return indexes.Count > 0; }
-        }
+        public bool ContainsIndexes => indexes.Count > 0;
 
-        public int AmountOfIndexes
-        {
-            get
-            {
-                return indexes.Values.Sum();
-            }
-        }
+        public int AmountOfIndexes => indexes.Values.Sum();
 
-        public int FirstIndex
-        {
-            get { return indexes.Keys.First(); }
-        }
+        public int FirstIndex => indexes.Keys.First();
 
-        public int LastIndex
-        {
-            get { return indexes.Last().Apply((x, y) => x + y); }
-        }
+        public int LastIndex => indexes.Last().Apply((x, y) => x + y);
 
         public bool ContainsIndex(int index)
         {
@@ -62,9 +47,7 @@ namespace Nintenlord.Collections.DataChange
             {
                 throw new IndexOutOfRangeException();
             }
-            int left;
-            int right;
-            FindClosestIndexes(index, out left, out right);
+            FindClosestIndexes(index, out int left, out int right);
             bool touchesRight = right - 1 == index;
             bool touchesLeft = left != -1 && LastIndexOf(left) == index;
 
@@ -131,9 +114,7 @@ namespace Nintenlord.Collections.DataChange
             {
                 throw new IndexOutOfRangeException();
             }
-            int left;
-            int right;
-            FindClosestIndexes(index, out left, out right);
+            FindClosestIndexes(index, out int left, out int right);
             bool touchesRight = right - 1 == index;
             bool touchesLeft = left != -1 && LastIndexOf(left) == index;
             bool result = false;
@@ -227,10 +208,8 @@ namespace Nintenlord.Collections.DataChange
 
         public bool ContainsAnyIndex(int index, int length)
         {
-            int startLeft, startRight;
-            FindClosestIndexes(index, out startLeft, out startRight);
-            int endLeft, endRight;
-            FindClosestIndexes(index + length, out endLeft, out endRight);
+            FindClosestIndexes(index, out int startLeft, out int startRight);
+            FindClosestIndexes(index + length, out int endLeft, out int endRight);
 
             if (index <= endLeft) // If a new range starts mid-range
             {
@@ -253,8 +232,7 @@ namespace Nintenlord.Collections.DataChange
 
         public bool ContainsAllIndexes(int index, int length)
         {
-            int endLeft, endRight;
-            FindClosestIndexes(index + length, out endLeft, out endRight);
+            FindClosestIndexes(index + length, out int endLeft, out int endRight);
 
             return endLeft != -1 && (endLeft <= index && LastIndexOf(endLeft) >= index + length);
         }

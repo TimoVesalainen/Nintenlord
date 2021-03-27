@@ -5,12 +5,15 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class OneOfParser<T> : Parser<T, T>
     {
-        readonly ICollection<T> validValues;
+        private readonly ICollection<T> validValues;
 
         public OneOfParser(ICollection<T> validValues)
         {
             if (validValues == null)
+            {
                 throw new ArgumentNullException("validValues");
+            }
+
             this.validValues = validValues;
         }
 

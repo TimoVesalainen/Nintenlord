@@ -4,10 +4,10 @@ namespace Nintenlord.Utility
 {
     public sealed class UpdateOnDemand<T> : IUpdatableValue<T>
     {
-        T item;
-        bool update;
-        readonly Func<T> valueFactory;
-        object lockObject = new object();
+        private T item;
+        private bool update;
+        private readonly Func<T> valueFactory;
+        private readonly object lockObject = new object();
 
         public T Value
         {

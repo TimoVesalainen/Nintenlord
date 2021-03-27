@@ -73,7 +73,10 @@ namespace Nintenlord.Utility.Primitives
         public static bool Intersects(int index1, int length1, int index2, int length2)
         {
             if (length1 == 0 || length2 == 0)
+            {
                 return false;
+            }
+
             return (index1 < index2 + length2 && index1 >= index2) ||
                    (index2 < index1 + length1 && index2 >= index1);
         }
@@ -97,7 +100,10 @@ namespace Nintenlord.Utility.Primitives
 
         public static int TrailingZeroCount(this int value)
         {
-            if (value == 0) return 32;
+            if (value == 0)
+            {
+                return 32;
+            }
 
             int result = 0;
 
@@ -132,7 +138,10 @@ namespace Nintenlord.Utility.Primitives
 
         public static int LeadingZeroCount(this int value)
         {
-            if (value == 0) return 32;
+            if (value == 0)
+            {
+                return 32;
+            }
 
             int result = 0;
 
@@ -167,7 +176,10 @@ namespace Nintenlord.Utility.Primitives
 
         public static int TrailingZeroCount(this long value)
         {
-            if (value == 0) return 64;
+            if (value == 0)
+            {
+                return 64;
+            }
 
             int result = 0;
 
@@ -207,7 +219,10 @@ namespace Nintenlord.Utility.Primitives
 
         public static int LeadingZeroCount(this ulong value)
         {
-            if (value == 0) return 64;
+            if (value == 0)
+            {
+                return 64;
+            }
 
             int result = 0;
 

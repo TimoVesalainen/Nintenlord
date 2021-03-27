@@ -25,17 +25,14 @@ namespace Nintenlord.Utility
 
         public struct DirtyBufferUser : IDisposable, IEnumerable<T>
         {
-            private SharedDirtyBuffer<T> listToUse;
+            private readonly SharedDirtyBuffer<T> listToUse;
 
             public T this[int index]
             {
-                get { return listToUse.array[index]; }
-                set { listToUse.array[index] = value; }
+                get => listToUse.array[index];
+                set => listToUse.array[index] = value;
             }
-            public int Length
-            {
-                get { return listToUse.array.Length; }
-            }
+            public int Length => listToUse.array.Length;
 
             public DirtyBufferUser(SharedDirtyBuffer<T> listToUse)
             {

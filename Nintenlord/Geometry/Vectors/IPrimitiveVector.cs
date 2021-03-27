@@ -1,6 +1,6 @@
 ﻿namespace Nintenlord.Geometry.Vectors
 {
-    interface IPrimitiveVector<T>
+    internal interface IPrimitiveVector<T>
     {
         T Primitive
         {

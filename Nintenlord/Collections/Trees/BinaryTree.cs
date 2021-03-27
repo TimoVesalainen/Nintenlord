@@ -66,10 +66,7 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(T item)
         {

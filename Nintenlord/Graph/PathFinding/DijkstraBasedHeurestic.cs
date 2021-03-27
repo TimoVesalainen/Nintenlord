@@ -5,8 +5,8 @@ namespace Nintenlord.Graph.PathFinding
 {
     public class DijkstraBasedHeurestic<T> : IHeurestic<T>, IDisposable
     {
-        T goal;
-        IDictionary<T, int> costs;
+        private readonly T goal;
+        private readonly IDictionary<T, int> costs;
 
         public DijkstraBasedHeurestic(T goal, IWeighedGraph<T> map,
             IEqualityComparer<T> comparer)
@@ -17,10 +17,7 @@ namespace Nintenlord.Graph.PathFinding
         }
         #region IHeurestic<Tile> Members
 
-        public T Goal
-        {
-            get { return goal; }
-        }
+        public T Goal => goal;
 
         public int GetCostEstimate(T from)
         {

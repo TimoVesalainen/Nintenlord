@@ -6,15 +6,21 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class ManyTillParser<TIn, TEnd, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> results;
-        readonly IParser<TIn, TEnd> ender;
+        private readonly IParser<TIn, TOut> results;
+        private readonly IParser<TIn, TEnd> ender;
 
         public ManyTillParser(IParser<TIn, TOut> results, IParser<TIn, TEnd> ender)
         {
             if (results == null)
+            {
                 throw new ArgumentNullException("results");
+            }
+
             if (ender == null)
+            {
                 throw new ArgumentNullException("ender");
+            }
+
             this.results = results;
             this.ender = ender;
         }
@@ -25,8 +31,7 @@ namespace Nintenlord.Parser.ParserCombinators
             while (true)
             {
                 var pos = scanner.Offset;
-                Match<TIn> latestMatch;
-                ender.Parse(scanner, out latestMatch);
+                ender.Parse(scanner, out Match<TIn> latestMatch);
                 if (latestMatch.Success)
                 {
                     InnerMatch += latestMatch;
@@ -41,9 +46,13 @@ namespace Nintenlord.Parser.ParserCombinators
                 InnerMatch += latestMatch;
 
                 if (latestMatch.Success)
+                {
                     yield return outRes;
+                }
                 else
+                {
                     yield break;
+                }
             }
 
             //InnerMatch += latestMatch;

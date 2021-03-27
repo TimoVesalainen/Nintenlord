@@ -5,8 +5,8 @@ namespace Nintenlord.IO.Bits
 {
     public class BitReader : BinaryReader
     {
-        byte buffer;
-        int index = 8;
+        private byte buffer;
+        private int index = 8;
 
         public BitReader(Stream stream)
             : base(stream) { }
@@ -32,9 +32,6 @@ namespace Nintenlord.IO.Bits
             return result;
         }
 
-        public bool IsAtEnd
-        {
-            get { return this.BaseStream.Position >= this.BaseStream.Length && index > 7; }
-        }
+        public bool IsAtEnd => this.BaseStream.Position >= this.BaseStream.Length && index > 7;
     }
 }

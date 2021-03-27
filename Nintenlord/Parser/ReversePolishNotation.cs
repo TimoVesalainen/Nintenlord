@@ -41,8 +41,7 @@ namespace Nintenlord.Parser
                     bool found = false;
                     while (operatorStack.Count > 0)
                     {
-                        T temp;
-                        if (parenthesis.TryGetValue(operatorStack.Peek(), out temp))
+                        if (parenthesis.TryGetValue(operatorStack.Peek(), out T temp))
                         {
                             if (eq.Equals(temp, token))
                             {
@@ -68,14 +67,12 @@ namespace Nintenlord.Parser
                 }
                 else
                 {
-                    OperatorInfo<T> tempInfo;
-                    if (operators.TryGetValue(token, out tempInfo))
+                    if (operators.TryGetValue(token, out OperatorInfo<T> tempInfo))
                     {
                         while (operatorStack.Count > 0)
                         {
                             T operatorToken = operatorStack.Peek();
-                            OperatorInfo<T> info;
-                            if (operators.TryGetValue(operatorToken, out info))
+                            if (operators.TryGetValue(operatorToken, out OperatorInfo<T> info))
                             {
                                 switch (tempInfo.Associativity)
                                 {
@@ -137,10 +134,9 @@ namespace Nintenlord.Parser
         public static T Evaluate<T>(IEnumerable<T> rpnValue, IDictionary<T, OperatorInfo<T>> operators)
         {
             Stack<T> stack = new Stack<T>(10);
-            OperatorInfo<T> info;
             foreach (var token in rpnValue)
             {
-                if (operators.TryGetValue(token, out info))
+                if (operators.TryGetValue(token, out OperatorInfo<T> info))
                 {
                     if (info.ArgumentCount > stack.Count)
                     {

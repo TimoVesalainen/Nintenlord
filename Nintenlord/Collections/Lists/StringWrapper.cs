@@ -6,7 +6,7 @@ namespace Nintenlord.Collections.Lists
 {
     public sealed class StringWrapper : IList<char>
     {
-        string baseString;
+        private readonly string baseString;
 
         public StringWrapper(string baseString)
         {
@@ -32,14 +32,8 @@ namespace Nintenlord.Collections.Lists
 
         public char this[int index]
         {
-            get
-            {
-                return baseString[index];
-            }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            get => baseString[index];
+            set => throw new NotSupportedException();
         }
 
         #endregion
@@ -69,15 +63,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return baseString.Length; }
-        }
+        public int Count => baseString.Length;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(char item)
         {

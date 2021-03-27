@@ -14,7 +14,7 @@ namespace Nintenlord.Parser
     /// </summary>
     public sealed class FunctionParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly Func<IScanner<TIn>, Tuple<TOut, Match<TIn>>> parserFunction;
+        private readonly Func<IScanner<TIn>, Tuple<TOut, Match<TIn>>> parserFunction;
 
         public FunctionParser(Func<IScanner<TIn>, Tuple<TOut, Match<TIn>>> parserFunction)
         {

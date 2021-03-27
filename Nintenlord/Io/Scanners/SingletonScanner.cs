@@ -5,8 +5,8 @@ namespace Nintenlord.IO.Scanners
 {
     public sealed class SingletonScanner<T> : IScanner<T>
     {
-        T item;
-        bool read;
+        private readonly T item;
+        private bool read;
 
         public SingletonScanner(T item)
         {
@@ -16,17 +16,11 @@ namespace Nintenlord.IO.Scanners
 
         #region IScanner<T> Members
 
-        public bool IsAtEnd
-        {
-            get { return read; }
-        }
+        public bool IsAtEnd => read;
 
         public long Offset
         {
-            get
-            {
-                return read ? 1 : 0;
-            }
+            get => read ? 1 : 0;
             set
             {
                 switch (value)
@@ -56,18 +50,9 @@ namespace Nintenlord.IO.Scanners
             }
         }
 
-        public T Current
-        {
-            get
-            {
-                return item;
-            }
-        }
+        public T Current => item;
 
-        public bool CanSeek
-        {
-            get { return true; }
-        }
+        public bool CanSeek => true;
 
         public IEnumerable<T> Substring(long offset, int length)
         {
@@ -82,10 +67,7 @@ namespace Nintenlord.IO.Scanners
             }
         }
 
-        public bool CanTakeSubstring
-        {
-            get { return true; }
-        }
+        public bool CanTakeSubstring => true;
 
         #endregion
     }

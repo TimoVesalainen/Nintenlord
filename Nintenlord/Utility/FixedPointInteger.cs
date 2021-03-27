@@ -5,7 +5,7 @@ namespace Nintenlord.Utility
     public struct FixedPointInteger : IEquatable<FixedPointInteger>, IComparable<FixedPointInteger>//, IConvertible
     {
         #region Static
-        static readonly int[] masks;
+        private static readonly int[] masks;
 
         static FixedPointInteger()
         {
@@ -21,11 +21,11 @@ namespace Nintenlord.Utility
             decimalMask = masks[decimals];
         }
 
-        static readonly int decimals;
-        static readonly int decimalMask;
+        private static readonly int decimals;
+        private static readonly int decimalMask;
         #endregion
 
-        readonly int rawValue;
+        private readonly int rawValue;
 
         private FixedPointInteger(int rawVal)
         {
@@ -45,7 +45,7 @@ namespace Nintenlord.Utility
         public static explicit operator float(FixedPointInteger val)
         {
             float value = (int)val;
-            value += (float)(val.rawValue & decimalMask) / (float)(decimalMask + 1);
+            value += (val.rawValue & decimalMask) / (float)(decimalMask + 1);
             return value;
         }
 
@@ -76,8 +76,7 @@ namespace Nintenlord.Utility
 
         public static FixedPointInteger operator /(FixedPointInteger val, FixedPointInteger val2)
         {
-            int quatient;
-            int remainder = Math.DivRem(val.rawValue, val2.rawValue, out quatient);
+            int remainder = Math.DivRem(val.rawValue, val2.rawValue, out int quatient);
             int result = (remainder << decimals) | (quatient / (val2.rawValue >> decimals));
             return new FixedPointInteger(result);
         }

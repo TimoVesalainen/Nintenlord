@@ -57,10 +57,7 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         #region IEnumerable<T> Members
 

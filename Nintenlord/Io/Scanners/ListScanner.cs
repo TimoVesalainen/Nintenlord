@@ -4,18 +4,15 @@ namespace Nintenlord.IO.Scanners
 {
     public sealed class ListScanner<T> : IStoringScanner<T>
     {
-        readonly IList<T> list;
-        int currentOffset;
+        private readonly IList<T> list;
+        private int currentOffset;
 
         public ListScanner(IList<T> list)
         {
             this.list = list;
         }
 
-        public T this[long offset]
-        {
-            get { return list[(int)offset]; }
-        }
+        public T this[long offset] => list[(int)offset];
 
         public bool IsStored(long offset)
         {
@@ -27,32 +24,17 @@ namespace Nintenlord.IO.Scanners
             return offset >= 0 && offset + length <= list.Count;
         }
 
-        public bool IsAtEnd
-        {
-            get { return currentOffset == list.Count; }
-        }
+        public bool IsAtEnd => currentOffset == list.Count;
 
         public long Offset
         {
-            get
-            {
-                return currentOffset;
-            }
-            set
-            {
-                currentOffset = (int)value;
-            }
+            get => currentOffset;
+            set => currentOffset = (int)value;
         }
 
-        public bool CanSeek
-        {
-            get { return true; }
-        }
+        public bool CanSeek => true;
 
-        public T Current
-        {
-            get { return list[currentOffset]; }
-        }
+        public T Current => list[currentOffset];
 
         public bool MoveNext()
         {

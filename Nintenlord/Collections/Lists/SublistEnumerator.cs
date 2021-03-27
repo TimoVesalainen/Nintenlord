@@ -5,10 +5,10 @@ namespace Nintenlord.Collections.Lists
 {
     public sealed class SublistEnumerator<T> : IEnumerator<T>
     {
-        IList<T> list;
-        int startIndex;
-        int index;
-        int endIndex;
+        private IList<T> list;
+        private int startIndex;
+        private int index;
+        private int endIndex;
 
         public SublistEnumerator(IList<T> list, int startIndex, int length)
         {
@@ -48,10 +48,7 @@ namespace Nintenlord.Collections.Lists
 
         #region IEnumerator Members
 
-        object System.Collections.IEnumerator.Current
-        {
-            get { return Current; }
-        }
+        object System.Collections.IEnumerator.Current => Current;
 
         public bool MoveNext()
         {

@@ -6,8 +6,8 @@ namespace Nintenlord.IO.Scanners
 {
     public sealed class CharacterScanner : IScanner<char>
     {
-        Stream stream;
-        char current;
+        private readonly Stream stream;
+        private char current;
 
         public CharacterScanner(Stream stream)
         {
@@ -21,21 +21,12 @@ namespace Nintenlord.IO.Scanners
 
         #region IScanner<char> Members
 
-        public bool IsAtEnd
-        {
-            get { return stream.IsAtEnd(); }
-        }
+        public bool IsAtEnd => stream.IsAtEnd();
 
         public long Offset
         {
-            get
-            {
-                return stream.Position;
-            }
-            set
-            {
-                stream.Position = value;
-            }
+            get => stream.Position;
+            set => stream.Position = value;
         }
 
         public bool MoveNext()
@@ -48,28 +39,16 @@ namespace Nintenlord.IO.Scanners
             return val == -1;
         }
 
-        public char Current
-        {
-            get
-            {
-                return current;
-            }
-        }
+        public char Current => current;
 
-        public bool CanSeek
-        {
-            get { return true; }
-        }
+        public bool CanSeek => true;
 
         public IEnumerable<char> Substring(long Offset, int Length)
         {
             throw new NotSupportedException();
         }
 
-        public bool CanTakeSubstring
-        {
-            get { return false; }
-        }
+        public bool CanTakeSubstring => false;
 
         #endregion
     }

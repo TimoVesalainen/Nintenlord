@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Utility.Strings
 {
-    static class RegexHelper
+    internal static class RegexHelper
     {
         public static string[] Substrings(this Group group)
         {

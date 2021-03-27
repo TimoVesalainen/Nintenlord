@@ -14,8 +14,8 @@ namespace Nintenlord.Parser.ParserCombinators
 
         protected Match<TIn> InnerMatch
         {
-            get { return innerMatch; }
-            set { innerMatch = value; }
+            get => innerMatch;
+            set => innerMatch = value;
         }
 
         protected override List<TOut> ParseMain(IScanner<TIn> scanner, out Match<TIn> match)

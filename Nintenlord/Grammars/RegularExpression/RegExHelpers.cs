@@ -426,10 +426,7 @@ namespace Nintenlord.Grammars.RegularExpression
 
             #region IGraph<TState> Members
 
-            public int NodeCount
-            {
-                get { throw new NotImplementedException(); }
-            }
+            public int NodeCount => throw new NotImplementedException();
 
             public IEnumerable<TState> GetNeighbours(TState node)
             {

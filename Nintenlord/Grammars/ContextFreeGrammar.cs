@@ -15,33 +15,15 @@ namespace Nintenlord.Grammars
     /// </summary>
     public sealed class ContextFreeGrammar<T>
     {
-        IDictionary<T, T[][]> productions;
-        T startingSymbol;
-        T[] variables;
-        T[] terminals;
+        private readonly IDictionary<T, T[][]> productions;
+        private readonly T startingSymbol;
+        private readonly T[] variables;
+        private readonly T[] terminals;
 
-        public T[][] this[T variable]
-        {
-            get
-            {
-                return productions[variable];
-            }
-        }
-        public T StartingSymbol
-        {
-            get
-            {
-                return startingSymbol;
-            }
-        }
-        public IEnumerable<T> Variables
-        {
-            get { return variables; }
-        }
-        public IEnumerable<T> Terminals
-        {
-            get { return terminals; }
-        }
+        public T[][] this[T variable] => productions[variable];
+        public T StartingSymbol => startingSymbol;
+        public IEnumerable<T> Variables => variables;
+        public IEnumerable<T> Terminals => terminals;
 
         public T[] DeriveRandom(Random random)
         {
@@ -52,11 +34,15 @@ namespace Nintenlord.Grammars
                 for (i = 0; i < word.Count; i++)
                 {
                     if (variables.Contains(word[i]))
+                    {
                         break;
+                    }
                 }
 
                 if (i == word.Count)
+                {
                     break;
+                }
 
                 var rules = productions[word[i]];
                 var ruleToUse = rules[random.Next(rules.Length)];

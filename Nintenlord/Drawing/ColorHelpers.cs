@@ -181,8 +181,7 @@ namespace Nintenlord.Drawing
 
         public static Color GetAntiColor(this Color color)
         {
-            int h, s, v;
-            color.ToHsv(out h, out s, out v);
+            color.ToHsv(out int h, out int s, out int v);
             h = (h + 180) % 360;
             v = 100 - v;
             return ToRgb(h, s, v);
@@ -190,8 +189,7 @@ namespace Nintenlord.Drawing
 
         public static int GetBrightness(this Color color)
         {
-            int value, saturation, hue;
-            color.ToHsv(out hue, out saturation, out value);
+            color.ToHsv(out int hue, out int saturation, out int value);
             return value;
         }
     }

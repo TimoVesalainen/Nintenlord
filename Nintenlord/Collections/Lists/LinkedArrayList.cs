@@ -13,10 +13,10 @@ namespace Nintenlord.Collections.Lists
     /// <typeparam name="T">Type of items in collection</typeparam>
     public sealed class LinkedArrayList<T> : ICollection<T>, IList<T>
     {
-        T[] items;
-        int count;
-        int firstReservedIndex;//The first reserved index
-        int firstFreeIndex;//The first free index
+        private T[] items;
+        private int count;
+        private int firstReservedIndex;//The first reserved index
+        private int firstFreeIndex;//The first free index
 
         public T First
         {
@@ -44,13 +44,19 @@ namespace Nintenlord.Collections.Lists
             get
             {
                 if (index >= count || index < 0)
+                {
                     throw new IndexOutOfRangeException();
+                }
+
                 return items[ToInternalIndex(index)];
             }
             set
             {
                 if (index >= count || index < 0)
+                {
                     throw new IndexOutOfRangeException();
+                }
+
                 items[ToInternalIndex(index)] = value;
             }
         }
@@ -90,10 +96,14 @@ namespace Nintenlord.Collections.Lists
             else
             {
                 if (count == items.Length)//Full collection
+                {
                     Resize(items.Length * 2);
+                }
 
                 if (firstReservedIndex == 0)//Reached end, looping
+                {
                     firstReservedIndex = items.Length;
+                }
 
                 firstReservedIndex--;
                 items[firstReservedIndex] = item;
@@ -113,10 +123,14 @@ namespace Nintenlord.Collections.Lists
             else
             {
                 if (count == items.Length)//Full collection
+                {
                     Resize(items.Length * 2);
+                }
 
                 if (firstFreeIndex == items.Length)//Reached end, looping
+                {
                     firstFreeIndex = 0;
+                }
 
                 items[firstFreeIndex] = item;
                 count++;
@@ -133,7 +147,9 @@ namespace Nintenlord.Collections.Lists
                 count--;
 
                 if (firstReservedIndex == items.Length)
+                {
                     firstReservedIndex = 0;
+                }
             }
         }
 
@@ -142,7 +158,9 @@ namespace Nintenlord.Collections.Lists
             if (count > 0)
             {
                 if (firstFreeIndex == 0)
+                {
                     firstFreeIndex = items.Length;
+                }
 
                 firstFreeIndex--;
                 items[firstFreeIndex] = default(T);
@@ -339,7 +357,10 @@ namespace Nintenlord.Collections.Lists
                 return index.IsInRangeHO(firstReservedIndex, items.Length)
                     || index.IsInRangeHO(0, firstFreeIndex);
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         private IEnumerator<T> InternalGetEnumerator(int start, int end)
@@ -393,21 +414,18 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public bool Remove(T item)
         {
             int index = Find(item);
             if (index >= 0)
+            {
                 RemoveAtInternal(index);
+            }
+
             return index >= 0;
         }
 

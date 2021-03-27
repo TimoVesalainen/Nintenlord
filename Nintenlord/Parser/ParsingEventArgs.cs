@@ -24,7 +24,7 @@ namespace Nintenlord.Parser
             }
         }
 
-        private TOut result;
+        private readonly TOut result;
 
         public ParsingEventArgs(Match<TIn> match, TOut result)
         {

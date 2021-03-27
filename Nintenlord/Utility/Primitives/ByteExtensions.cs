@@ -106,8 +106,14 @@ namespace Nintenlord.Utility.Primitives
         public static byte[] GetBits(this byte[] i, int position, int length)
         {
             if (position < 0 || length < 0 || position + length > i.Length * 8)
+            {
                 throw new IndexOutOfRangeException();
-            if (length == 0) return new byte[0];
+            }
+
+            if (length == 0)
+            {
+                return new byte[0];
+            }
 
             int byteIndex = position / 8;
             int bitIndex = position % 8;
@@ -117,23 +123,40 @@ namespace Nintenlord.Utility.Primitives
             int bitTail = (position + length) % 8;
 
             int resultLength = byteLength;
-            if (bitTail > 0) resultLength++;
-            if (bitIndex > 0) resultLength++;
+            if (bitTail > 0)
+            {
+                resultLength++;
+            }
+
+            if (bitIndex > 0)
+            {
+                resultLength++;
+            }
+
             byte[] result = new byte[resultLength];
 
             int toTrim = resultLength - byteLength;
-            if (bitLength > 0) toTrim--;
+            if (bitLength > 0)
+            {
+                toTrim--;
+            }
 
             Array.Copy(i, byteIndex, result, 0, Math.Min(result.Length, i.Length));
 
             if (bitIndex != 0)
+            {
                 result = result.ShiftRight(bitIndex);
+            }
 
             if (toTrim > 0)
+            {
                 Array.Resize(ref result, result.Length - toTrim);
+            }
 
             if (bitLength != 0)
+            {
                 result[result.Length - 1] &= GetMask(0, bitLength);
+            }
 
             return result;
         }
@@ -164,11 +187,17 @@ namespace Nintenlord.Utility.Primitives
         public static byte[] Shift(this byte[] array, int toShift)
         {
             if (toShift == 0)// <_<
+            {
                 return array.Clone() as byte[];
+            }
             else if (toShift > 0)
+            {
                 return ShiftLeft(array, toShift);
+            }
             else
+            {
                 return ShiftRight(array, -toShift);
+            }
         }
 
         private static byte[] ShiftLeft(this byte[] array, int toShift)
@@ -194,7 +223,9 @@ namespace Nintenlord.Utility.Primitives
         private static byte[] ShiftRight(this byte[] array, int toShift)
         {
             if (array.Length * 8 <= toShift)
+            {
                 return new byte[0];
+            }
 
             int bytesToMove = toShift / 8;
             int bitsToMove = toShift % 8;

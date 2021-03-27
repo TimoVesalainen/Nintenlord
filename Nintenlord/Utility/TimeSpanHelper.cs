@@ -6,7 +6,7 @@ namespace Nintenlord.Utility
     {
         public static float FloatDivide(this TimeSpan timeSpan, TimeSpan divideWith)
         {
-            return ((float)timeSpan.Ticks) / ((float)divideWith.Ticks);
+            return timeSpan.Ticks / ((float)divideWith.Ticks);
         }
 
         public static TimeSpan Divide(this TimeSpan timeSpan, int divideWith)

@@ -10,7 +10,7 @@ namespace Nintenlord.Collections.Trees
 
     public sealed class Leaf<T> : IValuedTree<T>
     {
-        T value;
+        private readonly T value;
 
         public Leaf(T value)
         {
@@ -24,15 +24,9 @@ namespace Nintenlord.Collections.Trees
             yield break;
         }
 
-        public T Value
-        {
-            get { return value; }
-        }
+        public T Value => value;
 
-        public bool HasValue
-        {
-            get { return true; }
-        }
+        public bool HasValue => true;
 
         #endregion
     }

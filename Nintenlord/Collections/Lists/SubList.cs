@@ -62,10 +62,7 @@ namespace Nintenlord.Collections.Lists
                 }
                 return MainList[this.Index + Index];
             }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            set => throw new NotSupportedException();
         }
 
         #endregion
@@ -95,15 +92,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return Length; }
-        }
+        public int Count => Length;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(T item)
         {

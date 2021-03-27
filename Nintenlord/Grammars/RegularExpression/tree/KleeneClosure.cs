@@ -13,7 +13,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
     /// </summary>
     public sealed class KleeneClosure<TLetter> : IRegExExpressionTree<TLetter>
     {
-        readonly IRegExExpressionTree<TLetter> toRepeat;
+        private readonly IRegExExpressionTree<TLetter> toRepeat;
 
         public KleeneClosure(IRegExExpressionTree<TLetter> toRepeat)
         {
@@ -22,10 +22,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region IRegExExpressionTree<TLetter> Members
 
-        public RegExNodeTypes Type
-        {
-            get { return RegExNodeTypes.KleeneClosure; }
-        }
+        public RegExNodeTypes Type => RegExNodeTypes.KleeneClosure;
 
         #endregion
 

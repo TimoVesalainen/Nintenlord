@@ -4,7 +4,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class ReturnParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        TOut toReturn;
+        private readonly TOut toReturn;
 
         public ReturnParser(TOut toReturn)
         {

@@ -3,7 +3,7 @@ using System;
 
 namespace Nintenlord.Parser.CharacterParsers
 {
-    class MathOperatorParser : Parser<Char, Char>
+    internal class MathOperatorParser : Parser<Char, Char>
     {
         protected override char ParseMain(IScanner<char> scanner, out Match<char> match)
         {

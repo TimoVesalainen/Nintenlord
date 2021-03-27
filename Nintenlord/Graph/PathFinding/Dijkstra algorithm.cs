@@ -18,8 +18,7 @@ namespace Nintenlord.Graph.PathFinding
 
             while (open.Count > 0)
             {
-                int cost;
-                TNode node = open.Dequeue(out cost);
+                TNode node = open.Dequeue(out int cost);
                 closed.Add(node);
 
                 if (cost < movementLimit)
@@ -27,8 +26,7 @@ namespace Nintenlord.Graph.PathFinding
                     foreach (TNode neighbour in map.GetNeighbours(node))
                     {
                         int newCost = cost + map.GetMovementCost(node, neighbour);
-                        int oldCost;
-                        if (!costs.TryGetValue(neighbour, out oldCost))
+                        if (!costs.TryGetValue(neighbour, out int oldCost))
                         {
                             open.Enqueue(neighbour, newCost);
                             costs[neighbour] = newCost;
@@ -61,17 +59,14 @@ namespace Nintenlord.Graph.PathFinding
 
             while (open.Count > 0)
             {
-                int cost;
-                TNode node = open.Dequeue(out cost);
+                TNode node = open.Dequeue(out int cost);
                 closed.Add(node);
-                int endCost;
-                if (!costs.TryGetValue(toEnd, out endCost) || cost < endCost)
+                if (!costs.TryGetValue(toEnd, out int endCost) || cost < endCost)
                 {
                     foreach (TNode neighbour in map.GetNeighbours(node))
                     {
                         int newCost = cost + map.GetMovementCost(node, neighbour);
-                        int oldCost;
-                        if (!costs.TryGetValue(neighbour, out oldCost))
+                        if (!costs.TryGetValue(neighbour, out int oldCost))
                         {
                             open.Enqueue(neighbour, newCost);
                             costs[neighbour] = newCost;
@@ -94,22 +89,21 @@ namespace Nintenlord.Graph.PathFinding
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            IDictionary<TNode, int> costs = new Dictionary<TNode, int>(nodeComparer);
-
-            costs[toStartFrom] = 0;
+            IDictionary<TNode, int> costs = new Dictionary<TNode, int>(nodeComparer)
+            {
+                [toStartFrom] = 0
+            };
             open.Enqueue(toStartFrom, 0);
 
             while (open.Count > 0)
             {
-                int cost;
-                TNode node = open.Dequeue(out cost);
+                TNode node = open.Dequeue(out int cost);
                 closed.Add(node);
 
                 foreach (TNode neighbour in map.GetNeighbours(node))
                 {
                     int newCost = cost + map.GetMovementCost(node, neighbour);
-                    int oldCost;
-                    if (!costs.TryGetValue(neighbour, out oldCost))
+                    if (!costs.TryGetValue(neighbour, out int oldCost))
                     {
                         open.Enqueue(neighbour, newCost);
                         costs[neighbour] = newCost;

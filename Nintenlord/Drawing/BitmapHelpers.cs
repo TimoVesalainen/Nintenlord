@@ -9,14 +9,16 @@ namespace Nintenlord.Drawing
 {
     public static class BitmapHelpers
     {
-        static IDictionary<string, ImageFormat> formats;
+        private static readonly IDictionary<string, ImageFormat> formats;
 
         static BitmapHelpers()
         {
-            formats = new Dictionary<string, ImageFormat>(StringComparer.OrdinalIgnoreCase);
-            formats[".bmp"] = ImageFormat.Bmp;
-            formats[".png"] = ImageFormat.Png;
-            formats[".gif"] = ImageFormat.Gif;
+            formats = new Dictionary<string, ImageFormat>(StringComparer.OrdinalIgnoreCase)
+            {
+                [".bmp"] = ImageFormat.Bmp,
+                [".png"] = ImageFormat.Png,
+                [".gif"] = ImageFormat.Gif
+            };
             //Add more at some point.
         }
 
@@ -218,7 +220,9 @@ namespace Nintenlord.Drawing
         public static ColorPalette InsertColors(this ColorPalette original, Color[] palette)
         {
             if (palette == null)
+            {
                 throw new ArgumentNullException();
+            }
 
             for (int i = 0; i < palette.Length && i < original.Entries.Length; i++)
             {
@@ -240,7 +244,9 @@ namespace Nintenlord.Drawing
         public static unsafe Bitmap Quantazase(Bitmap bitmap)
         {
             if (bitmap.PixelFormat == PixelFormat.Format8bppIndexed)
+            {
                 return bitmap;
+            }
 
             Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format8bppIndexed);
             Bitmap trueColorBitmap;
@@ -283,7 +289,9 @@ namespace Nintenlord.Drawing
 
 
             if (trueColorBitmap != bitmap)
+            {
                 trueColorBitmap.Dispose();
+            }
 
             return result;
         }
@@ -475,34 +483,16 @@ namespace Nintenlord.Drawing
             get;
             private set;
         }
-        public int PixelSize
-        {
-            get
-            {
-                return Image.GetPixelFormatSize(BitmapData.PixelFormat) / 8;
-            }
-        }
-        public int PixelByteWidth
-        {
-            get
-            {
-                return PixelSize * BitmapData.Width;
-            }
-        }
-        public IntPtr this[int x, int y]
-        {
-            get
-            {
-                return BitmapData.Scan0
+        public int PixelSize => Image.GetPixelFormatSize(BitmapData.PixelFormat) / 8;
+        public int PixelByteWidth => PixelSize * BitmapData.Width;
+        public IntPtr this[int x, int y] => BitmapData.Scan0
                     + BitmapData.Stride * y
                     + PixelSize * x;
-            }
-        }
 
-        private Bitmap bitmap;
-        private ImageLockMode lockMode;
+        private readonly Bitmap bitmap;
+        private readonly ImageLockMode lockMode;
         private Rectangle areaToLock;
-        private PixelFormat format;
+        private readonly PixelFormat format;
 
         public BitmapLocker(Bitmap bitmapToLock, ImageLockMode lockMode)
             : this(bitmapToLock, lockMode, new Rectangle(Point.Empty, bitmapToLock.Size))

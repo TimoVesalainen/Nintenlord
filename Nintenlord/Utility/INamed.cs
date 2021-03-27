@@ -48,7 +48,7 @@ namespace Nintenlord.Utility
             : IEqualityComparer<TNamed>
             where TNamed : INamed<T>
         {
-            IEqualityComparer<T> coreComp;
+            private readonly IEqualityComparer<T> coreComp;
 
             public NamedEqualityComparer()
                 : this(EqualityComparer<T>.Default)

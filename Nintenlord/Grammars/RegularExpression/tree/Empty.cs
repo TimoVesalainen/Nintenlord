@@ -15,10 +15,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
     {
         #region IRegExExpressionTree<TLetter> Members
 
-        public RegExNodeTypes Type
-        {
-            get { return RegExNodeTypes.Empty; }
-        }
+        public RegExNodeTypes Type => RegExNodeTypes.Empty;
 
         #endregion
 

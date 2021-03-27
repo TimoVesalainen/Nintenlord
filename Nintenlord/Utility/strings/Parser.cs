@@ -8,25 +8,29 @@ namespace Nintenlord.Utility.Strings
 {
     public class Parser
     {
-        static Dictionary<string, Func<int, int, int>> binaryOperators;
-        static Dictionary<string, Func<int, int>> unaryOperators;
+        private static readonly Dictionary<string, Func<int, int, int>> binaryOperators;
+        private static readonly Dictionary<string, Func<int, int>> unaryOperators;
 
         static Parser()
         {
-            binaryOperators = new Dictionary<string, Func<int, int, int>>();
-            binaryOperators["+"] = (x, y) => x + y;
-            binaryOperators["-"] = (x, y) => x - y;
+            binaryOperators = new Dictionary<string, Func<int, int, int>>
+            {
+                ["+"] = (x, y) => x + y,
+                ["-"] = (x, y) => x - y,
 
-            binaryOperators["*"] = (x, y) => x * y;
-            binaryOperators["/"] = (x, y) => x / y;
-            binaryOperators["%"] = (x, y) => x % y;
+                ["*"] = (x, y) => x * y,
+                ["/"] = (x, y) => x / y,
+                ["%"] = (x, y) => x % y,
 
-            binaryOperators["&"] = (x, y) => x & y;
-            binaryOperators["|"] = (x, y) => x | y;
-            binaryOperators["^"] = (x, y) => x ^ y;
+                ["&"] = (x, y) => x & y,
+                ["|"] = (x, y) => x | y,
+                ["^"] = (x, y) => x ^ y
+            };
 
-            unaryOperators = new Dictionary<string, Func<int, int>>();
-            unaryOperators["-"] = x => -x;
+            unaryOperators = new Dictionary<string, Func<int, int>>
+            {
+                ["-"] = x => -x
+            };
         }
 
         public static string[] ShuntingYardAlgorithm(string s)
@@ -128,30 +132,56 @@ namespace Nintenlord.Utility.Strings
                 if (IsLog(x))
                 {
                     if (IsLog(y))
+                    {
                         return 0;
-                    else return -1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
                 else if (IsAdd(x))
                 {
                     if (IsLog(y))
+                    {
                         return 1;
+                    }
+
                     if (IsAdd(y))
+                    {
                         return 0;
-                    else return -1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
                 else if (IsMul(x))
                 {
                     if (IsMul(y))
+                    {
                         return 0;
+                    }
+
                     if (IsParent(y))
+                    {
                         return -1;
-                    else return 1;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
                 else//x is ( or )
                 {
                     if (IsParent(y))
+                    {
                         return 0;
-                    else return 1;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
             }
             private static bool IsParent(string c)
@@ -255,11 +285,26 @@ namespace Nintenlord.Utility.Strings
             {
                 char c = code[i];
                 bool split = false;
-                if (c == '[') vectorDepth++;
-                else if (c == ']') vectorDepth--;
-                else if (c == '(') parenthDepth++;
-                else if (c == ')') parenthDepth--;
-                else if (c == '"') quote = !quote;
+                if (c == '[')
+                {
+                    vectorDepth++;
+                }
+                else if (c == ']')
+                {
+                    vectorDepth--;
+                }
+                else if (c == '(')
+                {
+                    parenthDepth++;
+                }
+                else if (c == ')')
+                {
+                    parenthDepth--;
+                }
+                else if (c == '"')
+                {
+                    quote = !quote;
+                }
                 else if (Char.IsWhiteSpace(c) &&
                     parenthDepth <= 0 &&
                     !quote &&
@@ -293,7 +338,9 @@ namespace Nintenlord.Utility.Strings
         private static bool RemoveComments(ref string line, ref int blockCommentDepth)
         {
             if (line.Length == 0)
+            {
                 return true;
+            }
 
             bool cool = true;
             int[] commentDepths = new int[line.Length];
@@ -304,7 +351,9 @@ namespace Nintenlord.Utility.Strings
                 for (i = 0; i < line.Length - 1; i++)
                 {
                     if (line[i] == '/' && line[i + 1] == '*')
+                    {
                         blockCommentDepth++;
+                    }
                     else if (line[i] == '/' && line[i + 1] == '/')
                     {
                         endOfLine = i;
@@ -316,9 +365,13 @@ namespace Nintenlord.Utility.Strings
                         i++;
                         commentDepths[i] = blockCommentDepth;
                         if (blockCommentDepth == 0)
+                        {
                             cool = false;
+                        }
                         else
+                        {
                             blockCommentDepth--;
+                        }
                     }
                 }
                 if (i < line.Length)
@@ -358,12 +411,12 @@ namespace Nintenlord.Utility.Strings
         public static bool ReplaceCommentsWith(StringBuilder line, char c, ref int blockCommentDepth)
         {
             if (line.Length == 0)
+            {
                 return true;
+            }
 
-            int[] commentDepths;
-            int endOfLine;
 
-            bool cool = FindComments(line, ref blockCommentDepth, out commentDepths, out endOfLine);
+            bool cool = FindComments(line, ref blockCommentDepth, out int[] commentDepths, out int endOfLine);
 
             int i = 0;
             for (; i < endOfLine; i++)
@@ -384,12 +437,12 @@ namespace Nintenlord.Utility.Strings
         public static bool RemoveComments(StringBuilder line, ref int blockCommentDepth)
         {
             if (line.Length == 0)
+            {
                 return true;
+            }
 
-            int[] commentDepths;
-            int endOfLine;
 
-            bool cool = FindComments(line, ref blockCommentDepth, out commentDepths, out endOfLine);
+            bool cool = FindComments(line, ref blockCommentDepth, out int[] commentDepths, out int endOfLine);
 
             if (endOfLine < line.Length)
             {
@@ -433,9 +486,13 @@ namespace Nintenlord.Utility.Strings
                     i++;
                     commentDepths[i] = blockCommentDepth;
                     if (blockCommentDepth == 0)
+                    {
                         cool = false;
+                    }
                     else
+                    {
                         blockCommentDepth--;
+                    }
                 }
             }
             if (i < line.Length)

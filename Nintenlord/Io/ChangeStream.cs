@@ -7,8 +7,8 @@ namespace Nintenlord.IO
 {
     public class ChangeStream : Stream
     {
-        IDataChange<byte> changes;
-        int position;
+        private readonly IDataChange<byte> changes;
+        private int position;
 
         public ChangeStream()
         {
@@ -16,41 +16,23 @@ namespace Nintenlord.IO
             changes = new DataChange<byte>();
         }
 
-        public override bool CanRead
-        {
-            get { return false; }
-        }
+        public override bool CanRead => false;
 
-        public override bool CanSeek
-        {
-            get { return true; }
-        }
+        public override bool CanSeek => true;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
         public override void Flush()
         {
             //No operation required
         }
 
-        public override long Length
-        {
-            get { return changes.LastOffset; }
-        }
+        public override long Length => changes.LastOffset;
 
         public override long Position
         {
-            get
-            {
-                return position;
-            }
-            set
-            {
-                position = (int)value;
-            }
+            get => position;
+            set => position = (int)value;
         }
 
         public override int Read(byte[] buffer, int offset, int count)

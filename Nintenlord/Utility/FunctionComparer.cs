@@ -5,7 +5,7 @@ namespace Nintenlord.Utility
 {
     public class FunctionComparer<T> : IComparer<T>
     {
-        Func<T, int> valueFunction;
+        private readonly Func<T, int> valueFunction;
 
         public FunctionComparer(Func<T, int> valueFunction)
         {

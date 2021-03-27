@@ -13,7 +13,7 @@ namespace Nintenlord.Graph
     /// </summary>
     public sealed class MatrixGraph : IEditableGraph<int>
     {
-        bool[,] neighbours;
+        private readonly bool[,] neighbours;
 
         public MatrixGraph(int amountOfNodes)
         {
@@ -25,14 +25,8 @@ namespace Nintenlord.Graph
 
         public bool this[int from, int to]
         {
-            get
-            {
-                return neighbours[from, to];
-            }
-            set
-            {
-                neighbours[from, to] = value;
-            }
+            get => neighbours[from, to];
+            set => neighbours[from, to] = value;
         }
 
         public void RemoveEdge(int from, int to)

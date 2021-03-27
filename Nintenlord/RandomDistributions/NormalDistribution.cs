@@ -4,11 +4,11 @@ namespace Nintenlord.RandomDistributions
 {
     public sealed class NormalDistribution : IDistribution<double>
     {
-        readonly UniformDistribution uin;
-        readonly WeibullDistribution weib;
-        readonly double average;
-        readonly double variance;
-        double? next;
+        private readonly UniformDistribution uin;
+        private readonly WeibullDistribution weib;
+        private readonly double average;
+        private readonly double variance;
+        private double? next;
 
         public NormalDistribution(double average, double variance, Random random)
         {

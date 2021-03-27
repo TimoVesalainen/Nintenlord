@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Collections.Dictionaries
 {
-    interface ITriDictionary<TKey1, TKey2, TValue> :
+    internal interface ITriDictionary<TKey1, TKey2, TValue> :
         IDictionary<KeyValuePair<TKey1, TKey2>, TValue>
     {
         TValue this[TKey1 key1, TKey2 key2] { get; set; }

@@ -60,8 +60,7 @@ namespace Nintenlord.Parser
         {
             return scanner =>
                 {
-                    Match<TIn> match;
-                    var result = parser.Parse(scanner, out match);
+                    var result = parser.Parse(scanner, out Match<TIn> match);
                     return Tuple.Create(result, match);
                 };
         }

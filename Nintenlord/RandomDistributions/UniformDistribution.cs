@@ -4,9 +4,9 @@ namespace Nintenlord.RandomDistributions
 {
     public sealed class UniformDistribution : IDistribution<double>
     {
-        readonly double start;
-        readonly double length;
-        readonly Random random;
+        private readonly double start;
+        private readonly double length;
+        private readonly Random random;
 
         private UniformDistribution(Random random, double start, double length)
         {

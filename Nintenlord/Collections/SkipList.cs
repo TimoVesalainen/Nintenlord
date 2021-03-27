@@ -12,14 +12,13 @@ namespace Nintenlord.Collections
     /// <typeparam name="TValue">Type of the value to use.</typeparam>
     public class SkipList<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        Random random;
-        int maxLevel;
-        double propability;
-        IComparer<TKey> comparer;
-        SkipListNode<TKey, TValue> head;
-
-        int currentMaxLevel;
-        int count;
+        private readonly Random random;
+        private readonly int maxLevel;
+        private readonly double propability;
+        private readonly IComparer<TKey> comparer;
+        private readonly SkipListNode<TKey, TValue> head;
+        private int currentMaxLevel;
+        private int count;
 
         /// <summary>
         /// Constructs a new instance of skiplist.
@@ -60,8 +59,8 @@ namespace Nintenlord.Collections
 
         private class SkipListEnumarator : IEnumerator<KeyValuePair<TKey, TValue>>
         {
-            SkipListNode<TKey, TValue> currentNode;
-            SkipList<TKey, TValue> list;
+            private SkipListNode<TKey, TValue> currentNode;
+            private SkipList<TKey, TValue> list;
 
             public SkipListEnumarator(SkipList<TKey, TValue> list)
             {
@@ -71,10 +70,7 @@ namespace Nintenlord.Collections
 
             #region IEnumerator<T> Members
 
-            public KeyValuePair<TKey, TValue> Current
-            {
-                get { return (KeyValuePair<TKey, TValue>)currentNode; }
-            }
+            public KeyValuePair<TKey, TValue> Current => (KeyValuePair<TKey, TValue>)currentNode;
 
             #endregion
 
@@ -90,10 +86,7 @@ namespace Nintenlord.Collections
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return currentNode.Value; }
-            }
+            object IEnumerator.Current => currentNode.Value;
 
             public bool MoveNext()
             {
@@ -156,15 +149,9 @@ namespace Nintenlord.Collections
             }
         }
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item)
         {
@@ -173,15 +160,13 @@ namespace Nintenlord.Collections
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item)
         {
-            TValue value;
-            return this.TryGetValue(item.Key, out value)
+            return this.TryGetValue(item.Key, out TValue value)
                 && EqualityComparer<TValue>.Default.Equals(value, item.Value);
         }
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item)
         {
-            TValue value;
-            if (this.TryGetValue(item.Key, out value)
+            if (this.TryGetValue(item.Key, out TValue value)
                 && EqualityComparer<TValue>.Default.Equals(value, item.Value))
             {
                 return this.Remove(item.Key);
@@ -215,7 +200,10 @@ namespace Nintenlord.Collections
             {
                 while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
+                {
                     currentNode = currentNode[level];
+                }
+
                 toUpdate[level] = currentNode;
             }
 
@@ -224,9 +212,13 @@ namespace Nintenlord.Collections
             if (comparer.Compare(currentNode.Key, key) == 0)
             {
                 if (addNew)
+                {
                     throw new ArgumentException("");
+                }
                 else
+                {
                     currentNode.Value = value;
+                }
             }
             else
             {
@@ -259,7 +251,9 @@ namespace Nintenlord.Collections
             {
                 while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
+                {
                     currentNode = currentNode[level];
+                }
             }
 
             currentNode = currentNode[0];
@@ -274,7 +268,9 @@ namespace Nintenlord.Collections
         public bool Remove(TKey key)
         {
             if (key == null)
+            {
                 throw new ArgumentNullException();
+            }
 
             SkipListNode<TKey, TValue> currentNode = head;
             SkipListNode<TKey, TValue>[] toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
@@ -283,7 +279,10 @@ namespace Nintenlord.Collections
             {
                 while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
+                {
                     currentNode = currentNode[level];
+                }
+
                 toUpdate[level] = currentNode;
             }
 
@@ -294,7 +293,10 @@ namespace Nintenlord.Collections
                 for (int i = 0; i < currentMaxLevel; i++)
                 {
                     if (toUpdate[i][i] != currentNode)
+                    {
                         break;
+                    }
+
                     toUpdate[i][i] = currentNode[i];
                 }
 
@@ -304,7 +306,10 @@ namespace Nintenlord.Collections
                 }
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         public bool TryGetValue(TKey key, out TValue value)
@@ -366,10 +371,7 @@ namespace Nintenlord.Collections
                     throw new KeyNotFoundException("Key not found.");
                 }
             }
-            set
-            {
-                Insert(key, value, false);
-            }
+            set => Insert(key, value, false);
         }
 
         #endregion

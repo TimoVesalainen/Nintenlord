@@ -4,21 +4,23 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class SkipMany1Parser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> toRepeat;
+        private readonly IParser<TIn, TOut> toRepeat;
 
         public SkipMany1Parser(IParser<TIn, TOut> toRepeat)
         {
             if (toRepeat == null)
+            {
                 throw new ArgumentNullException("toRepeat");
+            }
+
             this.toRepeat = toRepeat;
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
         {
             match = new Match<TIn>(scanner, 0);
-            Match<TIn> latestMatch;
 
-            toRepeat.Parse(scanner, out latestMatch);
+            toRepeat.Parse(scanner, out Match<TIn> latestMatch);
             if (!latestMatch.Success)
             {
                 match = latestMatch;
@@ -32,7 +34,10 @@ namespace Nintenlord.Parser.ParserCombinators
                     {
                         match += latestMatch;
                     }
-                    else break;
+                    else
+                    {
+                        break;
+                    }
                 }
             }
 

@@ -109,7 +109,10 @@ namespace Nintenlord.Utility.Strings
                 value = s.GetValue();
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         public static bool Same(string a, int index1, string b, int index2, int length)
@@ -134,7 +137,9 @@ namespace Nintenlord.Utility.Strings
             if (parameter.IsHexNumber())
             {
                 if (parameter.StartsWith("$"))
+                {
                     parameter = parameter.Substring(1);
+                }
 
                 code = Convert.ToInt32(parameter, 16);
             }
@@ -193,7 +198,11 @@ namespace Nintenlord.Utility.Strings
         public static int LastIndexOf(this string text, Predicate<char> match)
         {
             int i;
-            for (i = text.Length - 1; i >= 0 && match(text[i]); i--) ;
+            for (i = text.Length - 1; i >= 0 && match(text[i]); i--)
+            {
+                ;
+            }
+
             return i;
         }
 
@@ -252,8 +261,7 @@ namespace Nintenlord.Utility.Strings
         }
         public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters)
         {
-            int dontCare;
-            return line.Split(separators, uniters, out dontCare);
+            return line.Split(separators, uniters, out int dontCare);
         }
         public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters, out int nonClosedParenthesis)
         {
@@ -411,8 +419,7 @@ namespace Nintenlord.Utility.Strings
 
         public static int? GetMathStringValue(this string s)
         {
-            int result;
-            if (s.GetMathStringValue(out result))
+            if (s.GetMathStringValue(out int result))
             {
                 return result;
             }
