@@ -43,5 +43,13 @@ namespace Nintenlord.StateMachines
         {
             return new HistoryKeepingStateMachine<TState, TInput>(machine);
         }
+
+        public static CombinedStateMachine<TState1, TState2, TInput1, TInput2>
+            Combine<TState1, TState2, TInput1, TInput2>(
+            this IStateMachine<TState1, TInput1> machine1,
+            IStateMachine<TState2, TInput2> machine2)
+        {
+            return new CombinedStateMachine<TState1, TState2, TInput1, TInput2>(machine1, machine2);
+        }
     }
 }
