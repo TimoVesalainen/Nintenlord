@@ -28,15 +28,15 @@ namespace Nintenlord.Utility
         var funcNames = indicis.Select(index => $"func{index}").ToArray();
         var funcTypes = typeParamNames.Select(type => $"Func<{type}, T>").ToArray();
 #>
-	public sealed class <#= typeName #>
-	{
-        readonly <#= enumName #> mode;
+    public sealed class <#= typeName #> : IEquatable<<#= typeName #>>
+    {
+        private readonly <#= enumName #> mode;
 <#
 
         for (int i = 0; i < paramCount; i++)
         {
 #>
-        readonly <#= typeParamNames[i] #> <#= fieldNames[i] #>;
+        private readonly <#= typeParamNames[i] #> <#= fieldNames[i] #>;
 <#
         }
 
@@ -96,6 +96,53 @@ namespace Nintenlord.Utility
 <#
         }
 #>
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+<#
+            for (int i = 0; i < paramCount; i++)
+            {
+#>
+                case <#= enumItemNames[i] #>:
+                    return this.<#= fieldNames[i] #>;
+<#
+            }
+#>
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(<#= typeName #>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(<#= typeName #> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is <#= typeName #> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(<#= string.Join(", ", actionTypes.Zip(actionNames, (type, name) => $"{type} {name}")) #>)
         {
             switch (this.mode)

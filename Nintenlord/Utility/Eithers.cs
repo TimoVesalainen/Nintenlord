@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Utility
 {
-    public sealed class Either<T0, T1>
+    public sealed class Either<T0, T1> : IEquatable<Either<T0, T1>>
     {
         private readonly Enum2 mode;
         private readonly T0 option0;
@@ -47,6 +47,48 @@ namespace Nintenlord.Utility
             return either.Option1;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum2.Item0:
+                    return this.option0;
+                case Enum2.Item1:
+                    return this.option1;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1)
         {
             switch (this.mode)
@@ -72,8 +114,8 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
-    public sealed class Either<T0, T1, T2>
+	}
+    public sealed class Either<T0, T1, T2> : IEquatable<Either<T0, T1, T2>>
     {
         private readonly Enum3 mode;
         private readonly T0 option0;
@@ -136,6 +178,50 @@ namespace Nintenlord.Utility
             return either.Option2;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum3.Item0:
+                    return this.option0;
+                case Enum3.Item1:
+                    return this.option1;
+                case Enum3.Item2:
+                    return this.option2;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1, T2>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1, T2> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1, T2> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2)
         {
             switch (this.mode)
@@ -166,8 +252,8 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
-    public sealed class Either<T0, T1, T2, T3>
+	}
+    public sealed class Either<T0, T1, T2, T3> : IEquatable<Either<T0, T1, T2, T3>>
     {
         private readonly Enum4 mode;
         private readonly T0 option0;
@@ -248,6 +334,52 @@ namespace Nintenlord.Utility
             return either.Option3;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum4.Item0:
+                    return this.option0;
+                case Enum4.Item1:
+                    return this.option1;
+                case Enum4.Item2:
+                    return this.option2;
+                case Enum4.Item3:
+                    return this.option3;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1, T2, T3>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1, T2, T3> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1, T2, T3> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3)
         {
             switch (this.mode)
@@ -283,8 +415,8 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
-    public sealed class Either<T0, T1, T2, T3, T4>
+	}
+    public sealed class Either<T0, T1, T2, T3, T4> : IEquatable<Either<T0, T1, T2, T3, T4>>
     {
         private readonly Enum5 mode;
         private readonly T0 option0;
@@ -383,6 +515,54 @@ namespace Nintenlord.Utility
             return either.Option4;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum5.Item0:
+                    return this.option0;
+                case Enum5.Item1:
+                    return this.option1;
+                case Enum5.Item2:
+                    return this.option2;
+                case Enum5.Item3:
+                    return this.option3;
+                case Enum5.Item4:
+                    return this.option4;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1, T2, T3, T4>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1, T2, T3, T4> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1, T2, T3, T4> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4)
         {
             switch (this.mode)
@@ -423,8 +603,8 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
-    public sealed class Either<T0, T1, T2, T3, T4, T5>
+	}
+    public sealed class Either<T0, T1, T2, T3, T4, T5> : IEquatable<Either<T0, T1, T2, T3, T4, T5>>
     {
         private readonly Enum6 mode;
         private readonly T0 option0;
@@ -541,6 +721,56 @@ namespace Nintenlord.Utility
             return either.Option5;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum6.Item0:
+                    return this.option0;
+                case Enum6.Item1:
+                    return this.option1;
+                case Enum6.Item2:
+                    return this.option2;
+                case Enum6.Item3:
+                    return this.option3;
+                case Enum6.Item4:
+                    return this.option4;
+                case Enum6.Item5:
+                    return this.option5;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1, T2, T3, T4, T5>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1, T2, T3, T4, T5> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1, T2, T3, T4, T5> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4, Action<T5> action5)
         {
             switch (this.mode)
@@ -586,8 +816,8 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
-    public sealed class Either<T0, T1, T2, T3, T4, T5, T6>
+	}
+    public sealed class Either<T0, T1, T2, T3, T4, T5, T6> : IEquatable<Either<T0, T1, T2, T3, T4, T5, T6>>
     {
         private readonly Enum7 mode;
         private readonly T0 option0;
@@ -722,6 +952,58 @@ namespace Nintenlord.Utility
             return either.Option6;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum7.Item0:
+                    return this.option0;
+                case Enum7.Item1:
+                    return this.option1;
+                case Enum7.Item2:
+                    return this.option2;
+                case Enum7.Item3:
+                    return this.option3;
+                case Enum7.Item4:
+                    return this.option4;
+                case Enum7.Item5:
+                    return this.option5;
+                case Enum7.Item6:
+                    return this.option6;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1, T2, T3, T4, T5, T6>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1, T2, T3, T4, T5, T6> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1, T2, T3, T4, T5, T6> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4, Action<T5> action5, Action<T6> action6)
         {
             switch (this.mode)
@@ -772,8 +1054,8 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
-    public sealed class Either<T0, T1, T2, T3, T4, T5, T6, T7>
+	}
+    public sealed class Either<T0, T1, T2, T3, T4, T5, T6, T7> : IEquatable<Either<T0, T1, T2, T3, T4, T5, T6, T7>>
     {
         private readonly Enum8 mode;
         private readonly T0 option0;
@@ -926,6 +1208,60 @@ namespace Nintenlord.Utility
             return either.Option7;
         }
 
+        private object ToObject()
+        {
+            switch (this.mode)
+            {
+                case Enum8.Item0:
+                    return this.option0;
+                case Enum8.Item1:
+                    return this.option1;
+                case Enum8.Item2:
+                    return this.option2;
+                case Enum8.Item3:
+                    return this.option3;
+                case Enum8.Item4:
+                    return this.option4;
+                case Enum8.Item5:
+                    return this.option5;
+                case Enum8.Item6:
+                    return this.option6;
+                case Enum8.Item7:
+                    return this.option7;
+                default:
+                    throw new InvalidProgramException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Either<T0, T1, T2, T3, T4, T5, T6, T7>)} {this.mode} {this.ToObject()}}}";
+        }
+
+        public bool Equals(Either<T0, T1, T2, T3, T4, T5, T6, T7> other)
+        {
+            if (this.mode == other.mode)
+            {
+                return Equals(this.ToObject(), other.ToObject());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+            {
+                return Equals(either);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4, Action<T5> action5, Action<T6> action6, Action<T7> action7)
         {
             switch (this.mode)
@@ -981,5 +1317,5 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
-    }
+	}
 }
