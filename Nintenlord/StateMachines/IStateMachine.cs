@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Nintenlord.StateMachines
 {
@@ -50,6 +52,36 @@ namespace Nintenlord.StateMachines
             IStateMachine<TState2, TInput2> machine2)
         {
             return new CombinedStateMachine<TState1, TState2, TInput1, TInput2>(machine1, machine2);
+        }
+
+        public static LoggingStateMachine<TState, TInput> LogToFile<TState, TInput>(this IStateMachine<TState, TInput> original, TextWriter writer)
+        {
+            void LogState(TState state, bool isNew)
+            {
+                writer.WriteLine($"{(isNew ? "New" : "Old")} state is {state}");
+            }
+
+            void LogInput(TInput input)
+            {
+                writer.WriteLine($"Input is {input}");
+            }
+
+            return new LoggingStateMachine<TState, TInput>(original, LogState, LogInput);
+        }
+
+        public static LoggingStateMachine<TState, TInput> LogToFunc<TState, TInput>(this IStateMachine<TState, TInput> original, Action<string> writer)
+        {
+            void LogState(TState state, bool isNew)
+            {
+                writer($"{(isNew ? "New" : "Old")} state is {state}");
+            }
+
+            void LogInput(TInput input)
+            {
+                writer($"Input is {input}");
+            }
+
+            return new LoggingStateMachine<TState, TInput>(original, LogState, LogInput);
         }
     }
 }
