@@ -97,6 +97,24 @@ namespace Nintenlord.Collections
             return min;
         }
 
+        public static T MinBy<T>(this IEnumerable<T> collection, Func<T, float> comp)
+        {
+            (T, float) Min((T, float) first, T second)
+            {
+                var secondValue = comp(second);
+                if (first.Item2 <= secondValue)
+                {
+                    return first;
+                }
+                else
+                {
+                    return (second, secondValue);
+                }
+            }
+
+            return collection.Aggregate((default(T), float.MaxValue), Min, x => x.Item1);
+        }
+
         public static string ToElementWiseString<T>(this IEnumerable<T> collection)
         {
             StringBuilder text = new StringBuilder("{");
