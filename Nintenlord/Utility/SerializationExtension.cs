@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Utility
 {
-    public static class SerialazitionExtension
+    public static class SerializationExtension
     {
         public static T GetValue<T>(this SerializationInfo info, string name)
         {
