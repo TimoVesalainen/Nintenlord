@@ -16,6 +16,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Enums.tt</DependentUpon>
     </None>
+    <None Include="Utility\FunctionTupleHelpers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FunctionTupleHelpers.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +36,10 @@
     <None Update="Utility\Enums.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Enums.cs</LastGenOutput>
+    </None>
+    <None Update="Utility\FunctionTupleHelpers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FunctionTupleHelpers.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -48,6 +57,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Enums.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Utility\FunctionTupleHelpers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FunctionTupleHelpers.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

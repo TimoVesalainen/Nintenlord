@@ -1,0 +1,86 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+int startValue = 2;
+int endValue = 7;
+#>
+
+using System;
+
+namespace Nintenlord.Utility
+{
+    public static partial class FunctionExtensions
+    {
+<#
+	for (int paramCount = startValue; paramCount <= endValue; paramCount++)
+	{
+        var inputTypes = Enumerable.Range(0, paramCount).Select(index => $"TIn{index}").ToArray();
+        var tupleType = $"({string.Join(", ", inputTypes)})";
+        var referenceTupleType = $"Tuple<{string.Join(", ", inputTypes)}>";
+        var funcTypes = inputTypes.Select(type => $"Func<{type}, T>").ToArray();
+        var actionTypes = inputTypes.Select(type => $"Action<{type}>").ToArray();
+        var funcType = $"Func<{string.Join(", ", inputTypes)}, T>";
+        var actionType = $"Action<{string.Join(", ", inputTypes)}>";
+        var curriedFuncType = inputTypes.Reverse().Aggregate("T", (ret, parameter) => $"Func<{parameter},{ret}>");
+
+        var tupleProperties = Enumerable.Range(1, paramCount).Select(index => $"Item{index}").ToArray();
+        var lambdaParameters = Enumerable.Range(0, paramCount).Select(index => $"in{index}").ToArray();
+#>
+        public static T Apply<T, <#= string.Join(", ", inputTypes) #>>(this <#= tupleType #> tuple, <#= funcType #> func)
+        {
+            return func(<#= string.Join(", ", tupleProperties.Select(property => $"tuple.{property}")) #>);
+        }
+
+        public static T Apply<T, <#= string.Join(", ", inputTypes) #>>(this <#= referenceTupleType #> tuple, <#= funcType #> func)
+        {
+            return func(<#= string.Join(", ", tupleProperties.Select(property => $"tuple.{property}")) #>);
+        }
+
+        public static T Apply<T, <#= string.Join(", ", inputTypes) #>>(this Func<<#= tupleType #>, T> func, <#= string.Join(", ", inputTypes.Zip(lambdaParameters, (x,y) => $"{x} {y}")) #>)
+        {
+            return func((<#= string.Join(", ", lambdaParameters) #>));
+        }
+
+        public static T Apply<T, <#= string.Join(", ", inputTypes) #>>(this Func<<#= referenceTupleType #>, T> func, <#= string.Join(", ", inputTypes.Zip(lambdaParameters, (x,y) => $"{x} {y}")) #>)
+        {
+            return func(Tuple.Create(<#= string.Join(", ", lambdaParameters) #>));
+        }
+
+        public static void Apply<<#= string.Join(", ", inputTypes) #>>(this <#= tupleType #> tuple, <#= actionType #> action)
+        {
+            action(<#= string.Join(", ", tupleProperties.Select(property => $"tuple.{property}")) #>);
+        }
+
+        public static void Apply<<#= string.Join(", ", inputTypes) #>>(this <#= referenceTupleType #> tuple, <#= actionType #> action)
+        {
+            action(<#= string.Join(", ", tupleProperties.Select(property => $"tuple.{property}")) #>);
+        }
+
+        public static void Apply<<#= string.Join(", ", inputTypes) #>>(this Action<<#= tupleType #>> action, <#= string.Join(", ", inputTypes.Zip(lambdaParameters, (x,y) => $"{x} {y}")) #>)
+        {
+            action((<#= string.Join(", ", lambdaParameters) #>));
+        }
+
+        public static void Apply<<#= string.Join(", ", inputTypes) #>>(this Action<<#= referenceTupleType #>> action, <#= string.Join(", ", inputTypes.Zip(lambdaParameters, (x,y) => $"{x} {y}")) #>)
+        {
+            action(Tuple.Create(<#= string.Join(", ", lambdaParameters) #>));
+        }
+
+        public static <#= curriedFuncType #> Curry<T, <#= string.Join(", ", inputTypes) #>>(<#= funcType #> func)
+        {
+            return <#= string.Join(" ", lambdaParameters.Select(x => $"{x} =>")) #> func(<#= string.Join(", ", lambdaParameters) #>);
+        }
+
+        public static <#= funcType #> Uncurry<T, <#= string.Join(", ", inputTypes) #>>(<#= curriedFuncType #> func)
+        {
+            return (<#= string.Join(", ", lambdaParameters) #>) => func(<#= string.Join(")(", lambdaParameters) #>);
+        }
+<#
+    }
+#>
+    }
+}
