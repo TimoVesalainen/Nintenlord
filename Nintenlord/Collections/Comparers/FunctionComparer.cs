@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.Utility
+namespace Nintenlord.Collections.Comparers
 {
     public class FunctionComparer<T> : IComparer<T>
     {

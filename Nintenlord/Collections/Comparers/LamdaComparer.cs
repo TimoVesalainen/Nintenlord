@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.Utility
+namespace Nintenlord.Collections.Comparers
 {
     public class LamdaComparer<T> : IComparer<T>, IEqualityComparer<T>
     {
@@ -29,7 +29,7 @@ namespace Nintenlord.Utility
 
         public int GetHashCode(T obj)
         {
-            return f(default(T), obj);
+            return f(default, obj);
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.Utility
+namespace Nintenlord.Collections.Comparers
 {
     public class ReverseComparer<T> : IComparer<T>
     {
@@ -14,7 +14,7 @@ namespace Nintenlord.Utility
         {
             if (baseComparer == null)
             {
-                throw new ArgumentNullException("baseComparer");
+                throw new ArgumentNullException(nameof(baseComparer));
             }
 
             this.baseComparer = baseComparer;
