@@ -35,7 +35,7 @@ namespace Nintenlord.Utility
             this.value = value;
         }
 
-        public static Maybe<T> Create(T value)
+        public static Maybe<T> Just(T value)
         {
             if (value == null)
             {
@@ -53,7 +53,7 @@ namespace Nintenlord.Utility
             }
             else
             {
-                return Create(value);
+                return Just(value);
             }
         }
 

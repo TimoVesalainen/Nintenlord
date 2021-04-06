@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Numerics;
+using System.Reactive;
 
 namespace Nintenlord.Utility
 {
@@ -55,6 +57,107 @@ namespace Nintenlord.Utility
                 return Maybe<T>.Nothing;
             }
         }
+
+        public static IEnumerable<T> ToEnumerable<T>(this Maybe<T> maybe)
+        {
+            if (maybe.HasValue)
+            {
+                yield return maybe.Value;
+            }
+        }
+
+        public static IEnumerable<T> GetValues<T>(this IEnumerable<Maybe<T>> maybes)
+        {
+            return maybes.SelectMany(ToEnumerable);
+        }
+
+        public static T GetValueOrDefault<T>(this Maybe<T> maybe, T defaultValue = default)
+        {
+            if (maybe.HasValue)
+            {
+                return maybe.Value;
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+        
+        public static Maybe<T> Concat<T>(this Maybe<T> maybe, Maybe<T> maybeOther)
+        {
+            if (maybe.HasValue)
+            {
+                return maybe;
+            }
+            else
+            {
+                return maybeOther;
+            }
+        }
+
+        public static Maybe<T> Concat<T>(this IEnumerable<Maybe<T>> maybes)
+        {
+            return maybes.Aggregate(Maybe<T>.Nothing, Concat);
+        }
+
+        public static Maybe<T> Concat<T>(params Maybe<T>[] maybes)
+        {
+            return Concat((IEnumerable<Maybe<T>>)maybes);
+        }
+
+        public static Either<T, Unit> ToEither<T>(this Maybe<T> maybe)
+        {
+            if (maybe.HasValue)
+            {
+                return maybe.Value;
+            }
+            else
+            {
+                return Unit.Default;
+            }
+        }
+
+        public static Maybe<T> ToMaybe<T>(this Either<T, Unit> either)
+        {
+            return either.Apply(x => x, _ => Maybe<T>.Nothing);
+        }
+
+        public static Maybe<TOut> Zip<TIn1, TIn2, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Func<TIn1, TIn2, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+
+        public static Maybe<TOut> Zip<TIn1, TIn2, TIn3, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Maybe<TIn3> maybe3, Func<TIn1, TIn2, TIn3, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value, maybe3.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+
+        public static Maybe<TOut> Zip<TIn1, TIn2, TIn3, TIn4, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Maybe<TIn3> maybe3, Maybe<TIn4> maybe4, Func<TIn1, TIn2, TIn3, TIn4, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue && maybe4.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value, maybe3.Value, maybe4.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+        //TODO: More tuple helpers
 
         #region TryGetHelpers
 
@@ -158,7 +261,37 @@ namespace Nintenlord.Utility
         public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string format, IFormatProvider provider, TimeSpanStyles style) => TryGetValueHelper<string, string, IFormatProvider, TimeSpanStyles, TimeSpan>(TimeSpan.TryParseExact, text, format, provider, style);
         public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string[] formats, IFormatProvider provider, TimeSpanStyles style) => TryGetValueHelper<string, string[], IFormatProvider, TimeSpanStyles, TimeSpan>(TimeSpan.TryParseExact, text, formats, provider, style);
 
+        public static Maybe<DateTimeOffset> TryParseDateTimeOffset(this string text) => TryGetValueHelper<string, DateTimeOffset>(DateTimeOffset.TryParse, text);
+        public static Maybe<DateTimeOffset> TryParseDateTimeOffset(this string text, IFormatProvider provider, DateTimeStyles styles) => TryGetValueHelper<string, IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParse, text, provider, styles);
+        public static Maybe<DateTimeOffset> TryParseDateTimeExactOffset(this string text, string format, IFormatProvider provider, DateTimeStyles style) => TryGetValueHelper<string, string, IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParseExact, text, format, provider, style);
+        public static Maybe<DateTimeOffset> TryParseDateTimeExactOffset(this string text, string[] formats, IFormatProvider provider, DateTimeStyles style) => TryGetValueHelper<string, string[], IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParseExact, text, formats, provider, style);
 
+        public static Maybe<Guid> TryParseGuid(this string text) => TryGetValueHelper<string, Guid>(Guid.TryParse, text);
+        public static Maybe<Guid> TryParseGuidExact(this string text, string format) => TryGetValueHelper<string, string, Guid>(Guid.TryParseExact, text, format);
+
+        public static Maybe<TEnum> TryParseEnum<TEnum>(this string text) where TEnum : struct
+        {
+            if (Enum.TryParse<TEnum>(text, out var enumValue))
+            {
+                return enumValue;
+            }
+            else
+            {
+                return Maybe<TEnum>.Nothing;
+            }
+        }
+
+        public static Maybe<TEnum> TryParseEnum<TEnum>(this string text, bool ignoreCase) where TEnum : struct
+        {
+            if (Enum.TryParse<TEnum>(text, ignoreCase, out var enumValue))
+            {
+                return enumValue;
+            }
+            else
+            {
+                return Maybe<TEnum>.Nothing;
+            }
+        }
 
         public static Maybe<TValue> TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
