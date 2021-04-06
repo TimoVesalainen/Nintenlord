@@ -89,6 +89,11 @@ namespace Nintenlord.Utility
             }
         }
 
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
+        }
+
         public void Apply(Action<T0> action0, Action<T1> action1)
         {
             switch (this.mode)
@@ -220,6 +225,11 @@ namespace Nintenlord.Utility
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
         }
 
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2)
@@ -378,6 +388,11 @@ namespace Nintenlord.Utility
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
         }
 
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3)
@@ -561,6 +576,11 @@ namespace Nintenlord.Utility
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
         }
 
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4)
@@ -769,6 +789,11 @@ namespace Nintenlord.Utility
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
         }
 
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4, Action<T5> action5)
@@ -1002,6 +1027,11 @@ namespace Nintenlord.Utility
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
         }
 
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4, Action<T5> action5, Action<T6> action6)
@@ -1260,6 +1290,11 @@ namespace Nintenlord.Utility
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
         }
 
         public void Apply(Action<T0> action0, Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4, Action<T5> action5, Action<T6> action6, Action<T7> action7)

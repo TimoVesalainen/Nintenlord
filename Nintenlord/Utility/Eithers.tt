@@ -143,6 +143,11 @@ namespace Nintenlord.Utility
             }
         }
 
+        public override int GetHashCode()
+        {
+            return ToObject().GetHashCode();
+        }
+
         public void Apply(<#= string.Join(", ", actionTypes.Zip(actionNames, (type, name) => $"{type} {name}")) #>)
         {
             switch (this.mode)
