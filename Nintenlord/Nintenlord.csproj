@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Utility\EitherHelpers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EitherHelpers.tt</DependentUpon>
+    </None>
     <None Include="Utility\Eithers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -29,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Utility\EitherHelpers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EitherHelpers.cs</LastGenOutput>
+    </None>
     <None Update="Utility\Eithers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Eithers.cs</LastGenOutput>
@@ -48,6 +57,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Utility\EitherHelpers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EitherHelpers.tt</DependentUpon>
+    </Compile>
     <Compile Update="Utility\Eithers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
