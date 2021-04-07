@@ -8,8 +8,8 @@
 int startValue = 2;
 int endValue = 7;
 #>
-
 using System;
+using System.Reactive;
 
 namespace Nintenlord.Utility
 {
@@ -24,6 +24,7 @@ namespace Nintenlord.Utility
         var funcTypes = inputTypes.Select(type => $"Func<{type}, T>").ToArray();
         var actionTypes = inputTypes.Select(type => $"Action<{type}>").ToArray();
         var funcType = $"Func<{string.Join(", ", inputTypes)}, T>";
+        var funcTypeUnit = $"Func<{string.Join(", ", inputTypes)}, Unit>";
         var actionType = $"Action<{string.Join(", ", inputTypes)}>";
         var curriedFuncType = inputTypes.Reverse().Aggregate("T", (ret, parameter) => $"Func<{parameter},{ret}>");
 
@@ -78,6 +79,41 @@ namespace Nintenlord.Utility
         public static <#= funcType #> Uncurry<T, <#= string.Join(", ", inputTypes) #>>(<#= curriedFuncType #> func)
         {
             return (<#= string.Join(", ", lambdaParameters) #>) => func(<#= string.Join(")(", lambdaParameters) #>);
+        }
+
+        public static <#= funcTypeUnit #> ToFunc<<#= string.Join(", ", inputTypes) #>>(this <#= actionType #> action)
+        {
+            return (<#= string.Join(", ", lambdaParameters) #>) => { action(<#= string.Join(", ", lambdaParameters) #>); return Unit.Default; };
+        }
+
+        public static <#= actionType #> ToAction<<#= string.Join(", ", inputTypes) #>>(this <#= funcTypeUnit #> func)
+        {
+            return (<#= string.Join(", ", lambdaParameters) #>) => { func(<#= string.Join(", ", lambdaParameters) #>); };
+        }
+
+        public static Either<T, TException> TryCatch<T, <#= string.Join(", ", inputTypes) #>, TException>(this <#= funcType #> func, <#= string.Join(", ", inputTypes.Zip(lambdaParameters, (x,y) => $"{x} {y}")) #>) where TException : Exception
+        {
+            try
+            {
+                return func(<#= string.Join(", ", lambdaParameters) #>);
+            }
+            catch (TException e)
+            {
+                return e;
+            }
+        }
+
+        public static Maybe<TException> TryCatch<<#= string.Join(", ", inputTypes) #>, TException>(this <#= actionType #> func, <#= string.Join(", ", inputTypes.Zip(lambdaParameters, (x,y) => $"{x} {y}")) #>) where TException : Exception
+        {
+            try
+            {
+                func(<#= string.Join(", ", lambdaParameters) #>);
+                return Maybe<TException>.Nothing;
+            }
+            catch (TException e)
+            {
+                return Maybe<TException>.Just(e);
+            }
         }
 <#
     }

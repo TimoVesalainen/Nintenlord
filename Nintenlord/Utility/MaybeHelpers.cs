@@ -159,6 +159,19 @@ namespace Nintenlord.Utility
         }
         //TODO: More tuple helpers
 
+        public static Maybe<TException> TryCatch<TException>(this Action function) where TException : Exception
+        {
+            try
+            {
+                function();
+                return Maybe<TException>.Nothing;
+            }
+            catch (TException e)
+            {
+                return e;
+            }
+        }
+
         #region TryGetHelpers
 
         private delegate bool TryGetDelegate<TValue>(out TValue value);
