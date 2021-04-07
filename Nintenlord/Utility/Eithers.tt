@@ -182,6 +182,24 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
+<#
+            for (int i = 0; i < paramCount; i++)
+            {
+#>
+        public Maybe<<#= typeParamNames[i] #>> TryGetValue<#= i #>()
+        {
+            if(this.mode == <#= enumItemNames[i] #>)
+            {
+                return <#= fieldNames[i] #>;
+            }
+            else
+            {
+                return Maybe<<#= typeParamNames[i] #>>.Nothing;
+            }
+        }
+<#
+            }
+#>
 	}
 <#
 	}

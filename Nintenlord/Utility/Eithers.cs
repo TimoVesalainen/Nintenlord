@@ -119,6 +119,28 @@ namespace Nintenlord.Utility
                     throw new InvalidProgramException();
             }
         }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum2.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum2.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
 	}
     public sealed class Either<T0, T1, T2> : IEquatable<Either<T0, T1, T2>>
     {
@@ -260,6 +282,39 @@ namespace Nintenlord.Utility
                     return func2(this.option2);
                 default:
                     throw new InvalidProgramException();
+            }
+        }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum3.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum3.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+        public Maybe<T2> TryGetValue2()
+        {
+            if(this.mode == Enum3.Item2)
+            {
+                return option2;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
             }
         }
 	}
@@ -428,6 +483,50 @@ namespace Nintenlord.Utility
                     return func3(this.option3);
                 default:
                     throw new InvalidProgramException();
+            }
+        }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum4.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum4.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+        public Maybe<T2> TryGetValue2()
+        {
+            if(this.mode == Enum4.Item2)
+            {
+                return option2;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+        public Maybe<T3> TryGetValue3()
+        {
+            if(this.mode == Enum4.Item3)
+            {
+                return option3;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
             }
         }
 	}
@@ -621,6 +720,61 @@ namespace Nintenlord.Utility
                     return func4(this.option4);
                 default:
                     throw new InvalidProgramException();
+            }
+        }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum5.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum5.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+        public Maybe<T2> TryGetValue2()
+        {
+            if(this.mode == Enum5.Item2)
+            {
+                return option2;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+        public Maybe<T3> TryGetValue3()
+        {
+            if(this.mode == Enum5.Item3)
+            {
+                return option3;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+        public Maybe<T4> TryGetValue4()
+        {
+            if(this.mode == Enum5.Item4)
+            {
+                return option4;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
             }
         }
 	}
@@ -839,6 +993,72 @@ namespace Nintenlord.Utility
                     return func5(this.option5);
                 default:
                     throw new InvalidProgramException();
+            }
+        }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum6.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum6.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+        public Maybe<T2> TryGetValue2()
+        {
+            if(this.mode == Enum6.Item2)
+            {
+                return option2;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+        public Maybe<T3> TryGetValue3()
+        {
+            if(this.mode == Enum6.Item3)
+            {
+                return option3;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+        public Maybe<T4> TryGetValue4()
+        {
+            if(this.mode == Enum6.Item4)
+            {
+                return option4;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+        public Maybe<T5> TryGetValue5()
+        {
+            if(this.mode == Enum6.Item5)
+            {
+                return option5;
+            }
+            else
+            {
+                return Maybe<T5>.Nothing;
             }
         }
 	}
@@ -1082,6 +1302,83 @@ namespace Nintenlord.Utility
                     return func6(this.option6);
                 default:
                     throw new InvalidProgramException();
+            }
+        }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum7.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum7.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+        public Maybe<T2> TryGetValue2()
+        {
+            if(this.mode == Enum7.Item2)
+            {
+                return option2;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+        public Maybe<T3> TryGetValue3()
+        {
+            if(this.mode == Enum7.Item3)
+            {
+                return option3;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+        public Maybe<T4> TryGetValue4()
+        {
+            if(this.mode == Enum7.Item4)
+            {
+                return option4;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+        public Maybe<T5> TryGetValue5()
+        {
+            if(this.mode == Enum7.Item5)
+            {
+                return option5;
+            }
+            else
+            {
+                return Maybe<T5>.Nothing;
+            }
+        }
+        public Maybe<T6> TryGetValue6()
+        {
+            if(this.mode == Enum7.Item6)
+            {
+                return option6;
+            }
+            else
+            {
+                return Maybe<T6>.Nothing;
             }
         }
 	}
@@ -1350,6 +1647,94 @@ namespace Nintenlord.Utility
                     return func7(this.option7);
                 default:
                     throw new InvalidProgramException();
+            }
+        }
+        public Maybe<T0> TryGetValue0()
+        {
+            if(this.mode == Enum8.Item0)
+            {
+                return option0;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+        public Maybe<T1> TryGetValue1()
+        {
+            if(this.mode == Enum8.Item1)
+            {
+                return option1;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+        public Maybe<T2> TryGetValue2()
+        {
+            if(this.mode == Enum8.Item2)
+            {
+                return option2;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+        public Maybe<T3> TryGetValue3()
+        {
+            if(this.mode == Enum8.Item3)
+            {
+                return option3;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+        public Maybe<T4> TryGetValue4()
+        {
+            if(this.mode == Enum8.Item4)
+            {
+                return option4;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+        public Maybe<T5> TryGetValue5()
+        {
+            if(this.mode == Enum8.Item5)
+            {
+                return option5;
+            }
+            else
+            {
+                return Maybe<T5>.Nothing;
+            }
+        }
+        public Maybe<T6> TryGetValue6()
+        {
+            if(this.mode == Enum8.Item6)
+            {
+                return option6;
+            }
+            else
+            {
+                return Maybe<T6>.Nothing;
+            }
+        }
+        public Maybe<T7> TryGetValue7()
+        {
+            if(this.mode == Enum8.Item7)
+            {
+                return option7;
+            }
+            else
+            {
+                return Maybe<T7>.Nothing;
             }
         }
 	}
