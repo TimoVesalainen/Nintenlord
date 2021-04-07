@@ -351,5 +351,34 @@ namespace Nintenlord.Utility
                 return Maybe<T>.Nothing;
             }
         }
+
+        public static Maybe<T> FirstSafe<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Select(Maybe<T>.Just).FirstOrDefault() ?? Maybe<T>.Nothing;
+        }
+
+        public static Maybe<T> LastSafe<T>(this IEnumerable<T> enumerable)
+        {
+            //Is done like this so not to create Maybe.Just from every intermediate value
+            bool hasValue = false;
+            T latest = default;
+            using (var enumerator = enumerable.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                {
+                    hasValue = true;
+                    latest = enumerator.Current;
+                }
+            }
+
+            if (hasValue)
+            {
+                return latest;
+            }
+            else
+            {
+                return Maybe<T>.Nothing;
+            }
+        }
     }
 }
