@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Collections.Comparers;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -378,6 +379,78 @@ namespace Nintenlord.Utility
             else
             {
                 return Maybe<T>.Nothing;
+            }
+        }
+
+        public static Maybe<T> MaxSafe<T>(this IEnumerable<T> enumerable, IComparer<T> comparer = null)
+        {
+            comparer = comparer ?? Comparer<T>.Default;
+
+            bool hasValue = false;
+            T max = default;//Not used, to make compiler not complain
+
+            foreach (var item in enumerable)
+            {
+                if (!hasValue)
+                {
+                    max = item;
+                    hasValue = true;
+                }
+                else
+                {
+                    max = comparer.Max(max, item);
+                }
+            }
+
+            if (hasValue)
+            {
+                return max;
+            }
+            else
+            {
+                return Maybe<T>.Nothing;
+            }
+        }
+
+        public static Maybe<T> MinSafe<T>(this IEnumerable<T> enumerable, IComparer<T> comparer = null)
+        {
+            comparer = comparer ?? Comparer<T>.Default;
+
+            bool hasValue = false;
+            T min = default;//Not used, to make compiler not complain
+
+            foreach (var item in enumerable)
+            {
+                if (!hasValue)
+                {
+                    min = item;
+                    hasValue = true;
+                }
+                else
+                {
+                    min = comparer.Min(min, item);
+                }
+            }
+
+            if (hasValue)
+            {
+                return min;
+            }
+            else
+            {
+                return Maybe<T>.Nothing;
+            }
+        }
+
+        public static Maybe<IEnumerable<T>> NonEmpty<T>(this IEnumerable<T> enumerable)
+        {
+            if (enumerable.Any())
+            {
+                return Maybe<IEnumerable<T>>.Just(enumerable);
+            }
+            else
+            {
+                return Maybe<IEnumerable<T>>.Nothing;
             }
         }
     }
