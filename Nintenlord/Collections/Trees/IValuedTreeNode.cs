@@ -9,7 +9,7 @@ namespace Nintenlord.Collections.Trees
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public interface IValuedTree<out T> : ITree<IValuedTree<T>>
+    public interface IValuedTreeNode<out T> : ITreeNode<IValuedTreeNode<T>>
     {
         T Value { get; }
         bool HasValue { get; }

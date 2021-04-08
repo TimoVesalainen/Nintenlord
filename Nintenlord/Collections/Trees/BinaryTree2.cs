@@ -63,7 +63,7 @@ namespace Nintenlord.Collections.Trees
 
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IValuedTree<T>)Head).BreadthFirstEnumerator().GetEnumerator();
+            return ((IValuedTreeNode<T>)Head).BreadthFirstEnumerator().GetEnumerator();
         }
 
         #endregion

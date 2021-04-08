@@ -13,7 +13,7 @@ namespace Nintenlord.Collections.Trees
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public sealed class RoseTree<T> : IValuedTree<T>
+    public sealed class RoseTree<T> : IValuedTreeNode<T>
     {
         private readonly RoseTree<T>[] children;
         private readonly T value;
@@ -58,7 +58,7 @@ namespace Nintenlord.Collections.Trees
 
         #region ITree<IValuedTree<T>> Members
 
-        public IEnumerable<IValuedTree<T>> GetChildren()
+        public IEnumerable<IValuedTreeNode<T>> GetChildren()
         {
             return children;
         }

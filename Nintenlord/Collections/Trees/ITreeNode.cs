@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Collections.Trees
 {
-    public interface ITree<out TChild>
+    public interface ITreeNode<out TChild>
     {
         IEnumerable<TChild> GetChildren();
     }

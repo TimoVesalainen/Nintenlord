@@ -8,7 +8,7 @@ namespace Nintenlord.Collections.Trees
 {
     using System.Collections.Generic;
 
-    public sealed class Leaf<T> : IValuedTree<T>
+    public sealed class Leaf<T> : IValuedTreeNode<T>
     {
         private readonly T value;
 
@@ -19,7 +19,7 @@ namespace Nintenlord.Collections.Trees
 
         #region ITree<T> Members
 
-        public IEnumerable<IValuedTree<T>> GetChildren()
+        public IEnumerable<IValuedTreeNode<T>> GetChildren()
         {
             yield break;
         }

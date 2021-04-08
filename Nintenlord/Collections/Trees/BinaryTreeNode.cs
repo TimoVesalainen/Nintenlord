@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Nintenlord.Collections.Trees
 {
-    public class BinaryTreeNode<T> : IValuedTree<T>
+    public class BinaryTreeNode<T> : IValuedTreeNode<T>
     {
         public T Value
         {
@@ -106,7 +106,7 @@ namespace Nintenlord.Collections.Trees
 
         #region ITree<T> Members
 
-        public IEnumerable<IValuedTree<T>> GetChildren()
+        public IEnumerable<IValuedTreeNode<T>> GetChildren()
         {
             yield return Left;
             yield return Right;

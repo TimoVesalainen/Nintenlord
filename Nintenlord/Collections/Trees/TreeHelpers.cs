@@ -4,7 +4,7 @@ namespace Nintenlord.Collections.Trees
 {
     public static class TreeHelpers
     {
-        public static IEnumerable<T> DepthFirstEnumerator<T>(this IValuedTree<T> tree)
+        public static IEnumerable<T> DepthFirstEnumerator<T>(this IValuedTreeNode<T> tree)
         {
             foreach (var child in tree.GetChildren())
             {
@@ -19,7 +19,7 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public static IEnumerable<T> BreadthFirstEnumerator<T>(this IValuedTree<T> tree)
+        public static IEnumerable<T> BreadthFirstEnumerator<T>(this IValuedTreeNode<T> tree)
         {
             if (tree.HasValue)
             {
@@ -34,7 +34,7 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public static IEnumerable<T> NthEnumerator<T>(this IValuedTree<T> tree, int position)
+        public static IEnumerable<T> NthEnumerator<T>(this IValuedTreeNode<T> tree, int position)
         {
             foreach (var child in tree.GetChildren())
             {
@@ -57,7 +57,7 @@ namespace Nintenlord.Collections.Trees
 
 
         public static IEnumerable<T> DepthFirstEnumerator<T>(this T tree)
-            where T : ITree<T>
+            where T : ITreeNode<T>
         {
             foreach (var child in tree.GetChildren())
             {
@@ -70,7 +70,7 @@ namespace Nintenlord.Collections.Trees
         }
 
         public static IEnumerable<T> BreadthFirstEnumerator<T>(this T tree)
-            where T : ITree<T>
+            where T : ITreeNode<T>
         {
             yield return tree;
             foreach (var child in tree.GetChildren())
@@ -83,7 +83,7 @@ namespace Nintenlord.Collections.Trees
         }
 
         public static IEnumerable<T> NthEnumerator<T>(this T tree, int position)
-            where T : ITree<T>
+            where T : ITreeNode<T>
         {
             foreach (var child in tree.GetChildren())
             {
