@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections.DataChange;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -415,7 +416,7 @@ namespace Nintenlord.Collections
             return list1.OrderedUnion(list2, Comparer<T>.Default);
         }
 
-        public static IEnumerable<T> Repeat<T>(this IEnumerable<T> toRepeat)
+        public static IEnumerable<T> Cycle<T>(this IEnumerable<T> toRepeat)
         {
             while (true)
             {
@@ -423,6 +424,14 @@ namespace Nintenlord.Collections
                 {
                     yield return item;
                 }
+            }
+        }
+
+        public static IEnumerable<T> Repeat<T>(this T item)
+        {
+            while (true)
+            {
+                yield return item;
             }
         }
 
