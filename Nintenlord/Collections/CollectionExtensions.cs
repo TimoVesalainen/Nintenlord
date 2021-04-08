@@ -632,5 +632,43 @@ namespace Nintenlord.Collections
 
             return source.Aggregate(seed, func);
         }
+
+        public static IEnumerable<(T, bool isLast)> GetIsLast<T>(this IEnumerable<T> items)
+        {
+            bool hasValue = false;
+            T previousItem = default;
+
+            foreach (var item in items)
+            {
+                if (hasValue)
+                {
+                    yield return (previousItem, false);
+                }
+                else
+                {
+                    hasValue = true;
+                }
+                previousItem = item;
+            }
+            if (hasValue)
+            {
+                yield return (previousItem, true);
+            }
+        }
+
+        public static IEnumerable<TOut> ZipLong<T1, T2, TOut>(this IEnumerable<T1> items1, IEnumerable<T2> items2, Func<Maybe<T1>, Maybe<T2>, TOut> zipper)
+        {
+            foreach (var (item1, item2) in
+                items1.Select(Maybe<T1>.Just).Concat(Repeat(Maybe<T1>.Nothing))
+                .Zip(items2.Select(Maybe<T2>.Just).Concat(Repeat(Maybe<T2>.Nothing)), (x,y) => (x,y)))
+            {
+                if (!item1.HasValue && !item2.HasValue)
+                {
+                    //Both have run out
+                    yield break;
+                }
+                yield return zipper(item1, item2);
+            }
+        }
     }
 }
