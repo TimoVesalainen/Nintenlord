@@ -87,9 +87,16 @@
             return index == graph.NodeCount - 1;//return if reached top of transpose
         }
 
-        public static TransposeGraph<TNode> GetTranspose<TNode>(this IGraph<TNode> graph)
+        public static IGraph<TNode> GetTranspose<TNode>(this IGraph<TNode> graph)
         {
-            return new TransposeGraph<TNode>(graph);
+            if (graph is TransposeGraph<TNode> transposeGraph)
+            {
+                return transposeGraph.OriginalGraph;
+            }
+            else
+            {
+                return new TransposeGraph<TNode>(graph);
+            }
         }
     }
 }

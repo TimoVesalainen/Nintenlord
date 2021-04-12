@@ -16,6 +16,8 @@ namespace Nintenlord.Graph
     {
         private readonly IGraph<TNode> originalGraph;
 
+        public IGraph<TNode> OriginalGraph => originalGraph;
+
         public TransposeGraph(IGraph<TNode> originalGraph)
         {
             this.originalGraph = originalGraph;
