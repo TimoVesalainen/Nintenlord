@@ -199,6 +199,22 @@ namespace Nintenlord.Collections
             }
         }
 
+        public static IEnumerable<IEnumerable<T>> GetColumns<T>(this T[,] matrix)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                IEnumerable<T> GetColumn()
+                {
+                    for (int i = 0; i < matrix.GetLength(0); i++)
+                    {
+                        yield return matrix[i, j];
+                    }
+                }
+
+                yield return GetColumn();
+            }
+        }
+
         public static string PrintMatrix<T>(this T[,] matrix)
         {
             return "{" + string.Join(", ", matrix.GetRows().Select(row => "{" + string.Join(", ", row) + "}")) + "}";
