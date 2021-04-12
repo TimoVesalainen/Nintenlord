@@ -19,11 +19,6 @@ namespace Nintenlord.StateMachines
 
         public TState StartState => stateMachine.StartState;
 
-        public IEnumerable<TState> GetStates()
-        {
-            return stateMachine.GetStates();
-        }
-
         public bool IsFinalState(TState state)
         {
             return stateMachine.IsFinalState(state);

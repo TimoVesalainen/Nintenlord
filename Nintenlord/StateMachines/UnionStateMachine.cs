@@ -20,13 +20,6 @@ namespace Nintenlord.StateMachines
 
         public Either<TState1, TState2> StartState { get; }
 
-        public IEnumerable<Either<TState1, TState2>> GetStates()
-        {
-            return machine1.GetStates()
-                .Select(Either<TState1, TState2>.From0)
-                .Concat(machine2.GetStates().Select(Either<TState1, TState2>.From1));
-        }
-
         public bool IsFinalState(Either<TState1, TState2> state)
         {
             return state.Apply(machine1.IsFinalState, machine2.IsFinalState);

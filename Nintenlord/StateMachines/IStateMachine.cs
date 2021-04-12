@@ -7,8 +7,6 @@ namespace Nintenlord.StateMachines
     public interface IStateMachine<TState, in TInput>
     {
         TState StartState { get; }
-
-        IEnumerable<TState> GetStates();
         bool IsFinalState(TState state);
         TState Transition(TState currentState, TInput input);
     }

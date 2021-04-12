@@ -21,11 +21,6 @@ namespace Nintenlord.StateMachines
 
         public TStateOut StartState => stateConverter1(original.StartState);
 
-        public IEnumerable<TStateOut> GetStates()
-        {
-            return original.GetStates().Select(stateConverter1);
-        }
-
         public bool IsFinalState(TStateOut state)
         {
             return original.IsFinalState(stateConverter2(state));

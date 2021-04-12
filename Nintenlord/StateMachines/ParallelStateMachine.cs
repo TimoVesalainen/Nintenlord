@@ -15,17 +15,6 @@ namespace Nintenlord.StateMachines
 
         public (TState1, TState2) StartState => (machine1.StartState, machine2.StartState);
 
-        public IEnumerable<(TState1, TState2)> GetStates()
-        {
-            foreach (var state1 in machine1.GetStates())
-            {
-                foreach (var state2 in machine2.GetStates())
-                {
-                    yield return (state1, state2);
-                }
-            }
-        }
-
         public bool IsFinalState((TState1, TState2) state)
         {
             return machine1.IsFinalState(state.Item1) && machine2.IsFinalState(state.Item2);
