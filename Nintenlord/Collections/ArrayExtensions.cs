@@ -219,5 +219,34 @@ namespace Nintenlord.Collections
         {
             return "{" + string.Join(", ", matrix.GetRows().Select(row => "{" + string.Join(", ", row) + "}")) + "}";
         }
+
+        public static int[,] GetIncidencyMatrix<T>(this Func<T, IEnumerable<T>> morphism, IEnumerable<T> values, IEqualityComparer<T> comparer)
+        {
+            if (morphism is null)
+            {
+                throw new ArgumentNullException(nameof(morphism));
+            }
+
+            if (values is null)
+            {
+                throw new ArgumentNullException(nameof(values));
+            }
+
+            comparer = comparer ?? EqualityComparer<T>.Default;
+
+            (T, int)[] valuesArray = values.Select((x, i) => (x, i)).ToArray();
+
+            int[,] matrix = new int[valuesArray.Length, valuesArray.Length];
+
+            foreach (var (itemY, column) in valuesArray)
+            {
+                foreach (var (itemX, row) in valuesArray)
+                {
+                    matrix[column, row] = morphism(itemY).Count(item => comparer.Equals(item, itemX));
+                }
+            }
+
+            return matrix;
+        }
     }
 }
