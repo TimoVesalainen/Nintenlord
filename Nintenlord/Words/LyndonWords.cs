@@ -30,7 +30,7 @@ namespace Nintenlord.Words
         }
 
         /// <returns>Non-increasing sequence of Lyndon words</returns>
-        public static IEnumerable<IEnumerable<int>> GetLyndonComposition(IList<int> word)
+        public static IEnumerable<IEnumerable<int>> GetLyndonDecomposition(IList<int> word)
         {
             int k = 0;
             int m = 1;

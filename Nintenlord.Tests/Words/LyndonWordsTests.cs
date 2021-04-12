@@ -46,7 +46,7 @@ namespace Nintenlord.Tests.Words
 
             var lyndonWords = LyndonWords.GetLyndonWords(2, word.Length).ToArray();
 
-            foreach (var item in LyndonWords.GetLyndonComposition(word))
+            foreach (var item in LyndonWords.GetLyndonDecomposition(word))
             {
                 var itemArray = item.ToArray();
                 Assert.IsTrue(lyndonWords.Any(lWord =>
