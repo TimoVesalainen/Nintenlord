@@ -38,6 +38,7 @@ namespace Nintenlord.StateMachines
 
                 start = machine.Transition(start, item);
             }
+            yield return start;
         }
 
         public static HistoryKeepingStateMachine<TState, TInput>
