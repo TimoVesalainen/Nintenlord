@@ -168,6 +168,7 @@ namespace Nintenlord.Trees
 
             return forest.Aggregate<IEnumerable<TNode>, TNode>(ConcatLeaves, root);
         }
+
         public static string PrettyPrint<TNode>(this IForest<TNode> forest, TNode root, Func<TNode, string> toString = null)
         {
             if (forest is null)
@@ -229,46 +230,21 @@ namespace Nintenlord.Trees
             return forest.Aggregate<IEnumerable<string>, TNode>(GetNodeLines, root);
         }
 
-        public static IEnumerable<TAggregate> AggregateAscend<TAggregate, TNode>(this IForest<TNode> forest, Func<TNode, TAggregate, TAggregate> combine, TAggregate startValue, TNode start)
+        public static ITree<(TNode, TAggregate)> AggregateTree<TAggregate, TNode>(this IForest<TNode> forest, Func<TNode, TAggregate, TAggregate> combine, TAggregate startValue, TNode start)
         {
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            IEnumerable<TAggregate> AggregateNode(TNode node, TAggregate parentAggregate)
+            IEnumerable<(TNode, TAggregate)> GetChildren((TNode, TAggregate) pair)
             {
-                var nodeAggregate = combine(node, parentAggregate);
+                var (node, parentAggregate) = pair;
                 var children = forest.GetChildren(node);
-                if (children.Any())
-                {
-                    return from child in forest.GetChildren(node)
-                           from childAggregate in AggregateNode(child, nodeAggregate)
-                           select childAggregate;
-                }
-                else
-                {
-                    return Enumerable.Repeat(nodeAggregate, 1);
-                }
-
+                return children.Select(child => (child, combine(child, parentAggregate)));
             }
 
-            return AggregateNode(start, startValue);
-        }
-
-        public static IEnumerable<TNode> GetLeaves2<TNode>(this IForest<TNode> forest, TNode root)
-        {
-            if (forest is null)
-            {
-                throw new ArgumentNullException(nameof(forest));
-            }
-
-            TNode GetChild(TNode child, TNode parent)
-            {
-                return child;
-            }
-
-            return forest.AggregateAscend<TNode, TNode>(GetChild, default, root);
+            return new LambdaTree<(TNode, TAggregate)>((start, startValue), GetChildren);
         }
 
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this IForest<TNode> forest, TNode root)
@@ -283,7 +259,9 @@ namespace Nintenlord.Trees
                 return path.Add(child);
             }
 
-            return forest.AggregateAscend(GetPaths, ImmutableList<TNode>.Empty, root);
+            return forest.AggregateTree(GetPaths, ImmutableList<TNode>.Empty, root)
+                         .GetLeaves()
+                         .Select(pair => pair.Item2.Add(pair.Item1));
         }
 
         public static bool StructuralEquality<TNode1, TNode2>(this

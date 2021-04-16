@@ -50,19 +50,14 @@ namespace Nintenlord.Trees
             return tree.PrettyPrintLines(tree.Root, toString);
         }
 
-        public static IEnumerable<TAggregate> AggregateAscend<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, TAggregate, TAggregate> combine, TAggregate startValue)
-        {
-            return tree.AggregateAscend(combine, startValue, tree.Root);
-        }
-
-        public static IEnumerable<TNode> GetLeaves2<TNode>(this ITree<TNode> tree)
-        {
-            return tree.GetLeaves2(tree.Root);
-        }
-
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this ITree<TNode> tree)
         {
             return tree.GetPaths(tree.Root);
+        }
+
+        public static ITree<(TNode, TAggregate)> AggregateTree<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, TAggregate, TAggregate> combine, TAggregate startValue)
+        {
+            return tree.AggregateTree(combine, startValue, tree.Root);
         }
 
         public static bool StructuralEquality<TNode1, TNode2>(this ITree<TNode1> tree1, ITree<TNode2> tree2)

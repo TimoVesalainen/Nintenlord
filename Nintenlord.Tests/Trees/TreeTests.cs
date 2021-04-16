@@ -54,7 +54,6 @@ namespace Nintenlord.Tests.Trees
         {
             var leaves = new[] {0, 1, 3, 5 };
             Assert.AreEqual(leaves, tree.GetLeaves(tree.Root).Select(x => x.Value));
-            Assert.AreEqual(leaves, tree.GetLeaves2(tree.Root).Select(x => x.Value));
         }
 
         [Test]
