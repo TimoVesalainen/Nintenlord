@@ -1,41 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Collections.Trees
+namespace Nintenlord.Trees.Nodes
 {
-    public class BinaryTreeNode<T> : IValuedTreeNode<T>
+    public class BinaryTreeNode<T> : IValuedTreeNode<T, BinaryTreeNode<T>>
     {
-        public T Value
-        {
-            get;
-            private set;
-        }
+        public T Value { get; }
 
-        public BinaryTreeNode<T> Parent
-        {
-            get;
-            private set;
-        }
-        public BinaryTreeNode<T> Left
-        {
-            get;
-            private set;
-        }
-        public BinaryTreeNode<T> Right
-        {
-            get;
-            private set;
-        }
-        public bool IsLeaf
-        {
-            get;
-            private set;
-        }
-        public bool HasValue
-        {
-            get;
-            private set;
-        }
+        public BinaryTreeNode<T> Parent { get; private set; }
+        public BinaryTreeNode<T> Left { get; }
+        public BinaryTreeNode<T> Right { get; }
+        public bool IsLeaf { get; }
+        public bool HasValue { get; }
 
         public BinaryTreeNode()
         {
@@ -43,14 +19,14 @@ namespace Nintenlord.Collections.Trees
         }
         public BinaryTreeNode(T value)
         {
-            this.Value = value;
+            Value = value;
             IsLeaf = true;
             HasValue = true;
         }
         public BinaryTreeNode(BinaryTreeNode<T> left, BinaryTreeNode<T> right)
         {
-            this.Left = left;
-            this.Right = right;
+            Left = left;
+            Right = right;
             left.Parent = this;
             right.Parent = this;
             IsLeaf = false;
@@ -58,34 +34,34 @@ namespace Nintenlord.Collections.Trees
         }
         public BinaryTreeNode(BinaryTreeNode<T> left, BinaryTreeNode<T> right, T value)
         {
-            this.Left = left;
-            this.Right = right;
+            Left = left;
+            Right = right;
             left.Parent = this;
             right.Parent = this;
-            this.Value = value;
+            Value = value;
             IsLeaf = false;
             HasValue = true;
         }
 
         public void AddLeafValues(ICollection<T> collection)
         {
-            if (this.HasValue)
+            if (HasValue)
             {
-                collection.Add(this.Value);
+                collection.Add(Value);
             }
             if (Left != null)
             {
-                this.Left.AddLeafValues(collection);
+                Left.AddLeafValues(collection);
             }
             if (Right != null)
             {
-                this.Right.AddLeafValues(collection);
+                Right.AddLeafValues(collection);
             }
         }
 
         public void AddLeafValues(IDictionary<T, bool[]> values, IList<bool> branches)
         {
-            if (this.HasValue)
+            if (HasValue)
             {
                 values[Value] = branches.ToArray();
             }
@@ -104,14 +80,10 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        #region ITree<T> Members
-
-        public IEnumerable<IValuedTreeNode<T>> GetChildren()
+        public IEnumerable<BinaryTreeNode<T>> GetChildren()
         {
             yield return Left;
             yield return Right;
         }
-
-        #endregion
     }
 }

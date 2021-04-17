@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nintenlord.Collections.Trees
+namespace Nintenlord.Trees.Nodes
 {
     public interface ITreeNode<out TChild>
     {

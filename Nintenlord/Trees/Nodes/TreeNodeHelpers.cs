@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace Nintenlord.Collections.Trees
+namespace Nintenlord.Trees.Nodes
 {
-    public static class TreeHelpers
+    public static class TreeNodeHelpers
     {
-        public static IEnumerable<T> DepthFirstEnumerator<T>(this IValuedTreeNode<T> tree)
+        public static IEnumerable<T> DepthFirstEnumerator<T, TChild>(this IValuedTreeNode<T, TChild> tree)
+            where TChild : IValuedTreeNode<T, TChild>
         {
             foreach (var child in tree.GetChildren())
             {
                 foreach (var value in child.DepthFirstEnumerator())
                 {
-                    yield return value;
+                    yield return value.Value;
                 }
             }
             if (tree.HasValue)
@@ -19,7 +20,8 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public static IEnumerable<T> BreadthFirstEnumerator<T>(this IValuedTreeNode<T> tree)
+        public static IEnumerable<T> BreadthFirstEnumerator<T, TChild>(this IValuedTreeNode<T, TChild> tree)
+            where TChild : IValuedTreeNode<T, TChild>
         {
             if (tree.HasValue)
             {
@@ -29,12 +31,13 @@ namespace Nintenlord.Collections.Trees
             {
                 foreach (var value in child.BreadthFirstEnumerator())
                 {
-                    yield return value;
+                    yield return value.Value;
                 }
             }
         }
 
-        public static IEnumerable<T> NthEnumerator<T>(this IValuedTreeNode<T> tree, int position)
+        public static IEnumerable<T> NthEnumerator<T, TChild>(this IValuedTreeNode<T, TChild> tree, int position)
+            where TChild : IValuedTreeNode<T, TChild>
         {
             foreach (var child in tree.GetChildren())
             {
@@ -44,7 +47,7 @@ namespace Nintenlord.Collections.Trees
                 }
                 foreach (var value in child.BreadthFirstEnumerator())
                 {
-                    yield return value;
+                    yield return value.Value;
                 }
                 position--;
             }

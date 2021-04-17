@@ -3,7 +3,7 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-using Nintenlord.Collections.Trees;
+using Nintenlord.Trees.Nodes;
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
