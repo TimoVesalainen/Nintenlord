@@ -12,6 +12,11 @@ namespace Nintenlord.Trees
     /// </summary>
     public static class TreeHelpers
     {
+        public static ITree<TNode> SetRoot<TNode>(this IForest<TNode> forest, TNode newRoot)
+        {
+            return new LambdaTree<TNode>(newRoot, forest.GetChildren);
+        }
+
         public static IEnumerable<TNode> BreadthFirstTraversal<TNode>(this ITree<TNode> tree)
         {
             return tree.BreadthFirstTraversal(tree.Root);
