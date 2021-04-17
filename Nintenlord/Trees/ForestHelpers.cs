@@ -480,5 +480,29 @@ namespace Nintenlord.Trees
 
             return AreEqual(root1, root2);
         }
+
+        public static IForest<TNode> Union<TNode>(
+            this IForest<TNode> forest1, params IForest<TNode>[] forests)
+        {
+            return new UnionForest<TNode>(forests.Cons(forest1));
+        }
+
+        public static IForest<TNode> Union<TNode>(
+            this IEnumerable<IForest<TNode>> forests)
+        {
+            return new UnionForest<TNode>(forests);
+        }
+
+        public static IForest<Either<TNode1, TNode2>> DisjointUnion<TNode1, TNode2>(
+            this IForest<TNode1> forest1, IForest<TNode2> forest2)
+        {
+            return new DisjointUnionForest<TNode1, TNode2>(forest1, forest2);
+        }
+
+        public static IForest<Either<TNode1, TNode2, TNode3>> DisjointUnion<TNode1, TNode2, TNode3>(
+            this IForest<TNode1> forest1, IForest<TNode2> forest2, IForest<TNode3> forest3)
+        {
+            return new DisjointUnionForest<TNode1, TNode2, TNode3>(forest1, forest2, forest3);
+        }
     }
 }
