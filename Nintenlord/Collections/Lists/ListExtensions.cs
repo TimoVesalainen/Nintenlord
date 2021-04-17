@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Lists
@@ -181,6 +182,18 @@ namespace Nintenlord.Collections.Lists
                 result++;
             }
             return result != list.Count ? result : -1;
+        }
+
+        public static Maybe<T> LastSafe<T>(this IList<T> list)
+        {
+            if (list.Count > 0)
+            {
+                return list[list.Count - 1];
+            }
+            else
+            {
+                return Maybe<T>.Nothing;
+            }
         }
     }
 }

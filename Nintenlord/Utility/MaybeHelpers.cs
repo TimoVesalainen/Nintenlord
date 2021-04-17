@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections.Comparers;
+using Nintenlord.Collections.Lists;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -360,6 +361,11 @@ namespace Nintenlord.Utility
 
         public static Maybe<T> LastSafe<T>(this IEnumerable<T> enumerable)
         {
+            if (enumerable is IList<T> list)
+            {
+                return ListExtensions.LastSafe(list);
+            }
+
             //Is done like this so not to create Maybe.Just from every intermediate value
             bool hasValue = false;
             T latest = default;
