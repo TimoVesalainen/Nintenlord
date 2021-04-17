@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -64,6 +65,31 @@ namespace Nintenlord.Trees
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this ITree<TNode> tree)
         {
             return tree.GetPaths(tree.Root);
+        }
+
+        public static ITree<(TNode1, TNode2)> ZipTree<TNode1, TNode2>(this ITree<TNode1> tree1, ITree<TNode2> tree2)
+        {
+            if (tree1 is null)
+            {
+                throw new ArgumentNullException(nameof(tree1));
+            }
+
+            if (tree2 is null)
+            {
+                throw new ArgumentNullException(nameof(tree2));
+            }
+
+            return new LambdaTree<(TNode1, TNode2)>((tree1.Root, tree2.Root), pair => tree1.GetChildren(pair.Item1).Zip(tree2.GetChildren(pair.Item2), (x, y) => (x, y)));
+        }
+
+        public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this ITree<TNode> tree, IEnumerable<TChild> toCombine)
+        {
+            return tree.ZipChildren(toCombine, tree.Root);
+        }
+
+        public static ITree<(TNode node, ImmutableList<TBranch> path)> GetBranchesTo<TNode, TBranch>(this ITree<TNode> tree, IEnumerable<TBranch> branches)
+        {
+            return tree.GetBranchesTo(branches, tree.Root);
         }
 
         public static ITree<(TNode, int depth)> GetDepth<TNode>(this ITree<TNode> tree)

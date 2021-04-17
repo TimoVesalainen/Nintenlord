@@ -264,6 +264,68 @@ namespace Nintenlord.Trees
                          .Select(pair => pair.Item2.Add(pair.Item1));
         }
 
+        public static IForest<(TNode1, TNode2)> ZipForest<TNode1, TNode2>(this IForest<TNode1> forest1, IForest<TNode2> forest2)
+        {
+            if (forest1 is null)
+            {
+                throw new ArgumentNullException(nameof(forest1));
+            }
+
+            if (forest2 is null)
+            {
+                throw new ArgumentNullException(nameof(forest2));
+            }
+
+            return new LambdaForest<(TNode1, TNode2)>(pair => forest1.GetChildren(pair.Item1).Zip(forest2.GetChildren(pair.Item2), (x,y) => (x, y)));
+        }
+
+        public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this IForest<TNode> forest, IEnumerable<TChild> toCombine, TNode root)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (toCombine is null)
+            {
+                throw new ArgumentNullException(nameof(toCombine));
+            }
+
+            IEnumerable<(TNode, Maybe<TChild>)> GetChildren((TNode, Maybe<TChild>) pair)
+            {
+                var (node, _) = pair;
+                return forest.GetChildren(node).Zip(toCombine, (x,y) => (x, Maybe<TChild>.Just(y)));
+            }
+
+            return new LambdaTree<(TNode, Maybe<TChild>)>((root, Maybe<TChild>.Nothing), GetChildren);
+        }
+
+        public static ITree<(TNode node, ImmutableList<TBranch> path)> GetBranchesTo<TNode, TBranch>(this IForest<TNode> forest, IEnumerable<TBranch> branches, TNode root)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (branches is null)
+            {
+                throw new ArgumentNullException(nameof(branches));
+            }
+
+            ImmutableList<TBranch> Aggregate(
+                (TNode, Maybe<TBranch>) nodeAndBranch,
+                ImmutableList<TBranch> aggregatePath)
+            {
+                return nodeAndBranch.Item2.Select(newEnd => aggregatePath.Add(newEnd))
+                                          .GetValueOrDefault(ImmutableList<TBranch>.Empty);
+            }
+
+            return forest.ZipChildren(branches, root)
+                         .AggregateTree(Aggregate, ImmutableList<TBranch>.Empty, (root, Maybe<TBranch>.Nothing))
+                         .SelectTree(pair => (pair.Item1.Item1, pair.Item2),
+                                     pair => ((pair.Item1, pair.Item2.LastSafe()), pair.Item2));
+        }
+
         public static ITree<(TNode, int depth)> GetDepth<TNode>(this IForest<TNode> forest, TNode root)
         {
             int GetPaths(TNode child, int depth)
