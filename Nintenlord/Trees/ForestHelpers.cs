@@ -35,6 +35,11 @@ namespace Nintenlord.Trees
 
         public static IEnumerable<TNode[]> GetGenerations<TNode>(this IForest<TNode> forest, TNode start)
         {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
             bool isFirst = true;
             List<TNode> first = new List<TNode>();
             List<TNode> second = new List<TNode>();
@@ -64,6 +69,11 @@ namespace Nintenlord.Trees
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (combine is null)
+            {
+                throw new ArgumentNullException(nameof(combine));
             }
 
             TAggregate AggregateNode(TNode node)
@@ -237,6 +247,11 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
+            if (combine is null)
+            {
+                throw new ArgumentNullException(nameof(combine));
+            }
+
             IEnumerable<(TNode, TAggregate)> GetChildren((TNode, TAggregate) pair)
             {
                 var (node, parentAggregate) = pair;
@@ -328,6 +343,11 @@ namespace Nintenlord.Trees
 
         public static ITree<(TNode, int depth)> GetDepth<TNode>(this IForest<TNode> forest, TNode root)
         {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
             int GetPaths(TNode child, int depth)
             {
                 return depth + 1;
@@ -338,11 +358,31 @@ namespace Nintenlord.Trees
 
         public static IForest<TNode> EditChildrenForest<TNode>(this IForest<TNode> forest, Func<IEnumerable<TNode>, IEnumerable<TNode>> editChildren)
         {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (editChildren is null)
+            {
+                throw new ArgumentNullException(nameof(editChildren));
+            }
+
             return new LambdaForest<TNode>(node => editChildren(forest.GetChildren(node)));
         }
 
         public static IForest<TNode> PruneForest<TNode>(this IForest<TNode> forest, Predicate<TNode> nodeFilter)
         {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (nodeFilter is null)
+            {
+                throw new ArgumentNullException(nameof(nodeFilter));
+            }
+
             IEnumerable<TNode> GetChildren(IEnumerable<TNode> children)
             {
                 return children.Where(node => nodeFilter(node));
@@ -353,11 +393,31 @@ namespace Nintenlord.Trees
 
         public static IForest<TNode2> SelectForest<TNode, TNode2>(this IForest<TNode> forest, Func<TNode, TNode2> select1, Func<TNode2, TNode> select2)
         {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (select1 is null)
+            {
+                throw new ArgumentNullException(nameof(select1));
+            }
+
+            if (select2 is null)
+            {
+                throw new ArgumentNullException(nameof(select2));
+            }
+
             return new SelectForest<TNode2, TNode>(select2, select1, forest);
         }
 
         public static IForest<TNode> GetToMaxDepth<TNode>(this IForest<TNode> forest, TNode root, int maxDepth)
         {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
             return forest.GetDepth(root)
                          .PruneForest(pair => pair.depth <= maxDepth)
                          .SelectForest(node => node.Item1, node => (node,0));//Height doesn't matter at this point
