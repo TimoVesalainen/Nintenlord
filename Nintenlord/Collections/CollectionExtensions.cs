@@ -1,4 +1,5 @@
-﻿using Nintenlord.Collections.DataChange;
+﻿using Nintenlord.Collections.Comparers;
+using Nintenlord.Collections.DataChange;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
@@ -14,146 +15,139 @@ namespace Nintenlord.Collections
     {
         public static bool Or(this IEnumerable<bool> collection)
         {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             return collection.Any(x => x);
         }
 
         public static bool And(this IEnumerable<bool> collection)
         {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
             return collection.All(x => x);
         }
 
         public static T Max<T>(this IEnumerable<T> collection) where T : IComparable<T>
         {
-            var enumerator = collection.GetEnumerator();
-            if (!enumerator.MoveNext())
+            if (collection is null)
             {
-                throw new ArgumentException("Empty IEnumerable", "collection");
+                throw new ArgumentNullException(nameof(collection));
             }
-            T max = enumerator.Current;
-            while (enumerator.MoveNext())
+
+            T MaxBy(T item1, T item2)
             {
-                T current = enumerator.Current;
-                if (current.CompareTo(max) > 0)
+                if (item1.CompareTo(item2) >= 0)
                 {
-                    max = current;
+                    return item1;
+                }
+                else
+                {
+                    return item2;
                 }
             }
-            return max;
+
+            return collection.Aggregate(MaxBy);
         }
 
-        public static T Max<T>(this IEnumerable<T> collection, IComparer<T> comp)
+        public static T Max<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
         {
-            var enumerator = collection.GetEnumerator();
-            if (!enumerator.MoveNext())
+            if (collection is null)
             {
-                throw new ArgumentException("Empty IEnumerable", "collection");
+                throw new ArgumentNullException(nameof(collection));
             }
-            T max = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                T current = enumerator.Current;
-                if (comp.Compare(current, max) > 0)
-                {
-                    max = current;
-                }
-            }
-            return max;
+
+            comp = comp ?? Comparer<T>.Default;
+
+            return collection.Aggregate(comp.Max);
         }
 
         public static T Min<T>(this IEnumerable<T> collection) where T : IComparable<T>
         {
-            var enumerator = collection.GetEnumerator();
-            if (!enumerator.MoveNext())
+            if (collection is null)
             {
-                throw new ArgumentException("Empty IEnumerable", "collection");
+                throw new ArgumentNullException(nameof(collection));
             }
-            T min = enumerator.Current;
-            while (enumerator.MoveNext())
+
+            T MinBy(T item1, T item2)
             {
-                T current = enumerator.Current;
-                if (current.CompareTo(min) < 0)
+                if (item1.CompareTo(item2) <= 0)
                 {
-                    min = current;
+                    return item1;
+                }
+                else
+                {
+                    return item2;
                 }
             }
-            return min;
+
+            return collection.Aggregate(MinBy);
         }
 
         public static T Min<T>(this IEnumerable<T> collection, IComparer<T> comp)
         {
-            var enumerator = collection.GetEnumerator();
-            if (!enumerator.MoveNext())
+            if (collection is null)
             {
-                throw new ArgumentException("Empty IEnumerable", "collection");
+                throw new ArgumentNullException(nameof(collection));
             }
-            T min = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                T current = enumerator.Current;
-                if (comp.Compare(current, min) < 0)
-                {
-                    min = current;
-                }
-            }
-            return min;
+
+            comp = comp ?? Comparer<T>.Default;
+
+            return collection.Aggregate(comp.Min);
         }
 
         public static T MinBy<T>(this IEnumerable<T> collection, Func<T, float> comp)
         {
-            (T, float) Min((T, float) first, T second)
+            if (collection is null)
             {
-                var secondValue = comp(second);
-                if (first.Item2 <= secondValue)
-                {
-                    return first;
-                }
-                else
-                {
-                    return (second, secondValue);
-                }
+                throw new ArgumentNullException(nameof(collection));
             }
 
-            return collection.Aggregate((default(T), float.MaxValue), Min, x => x.Item1);
+            if (comp is null)
+            {
+                throw new ArgumentNullException(nameof(comp));
+            }
+
+            return collection.Min(new SelectComparer<T, float>(comp));
         }
 
-        public static string ToElementWiseString<T>(this IEnumerable<T> collection)
+        public static T MaxBy<T>(this IEnumerable<T> collection, Func<T, float> comp)
         {
-            StringBuilder text = new StringBuilder("{");
-
-            foreach (T item in collection)
+            if (collection is null)
             {
-                text.AppendFormat("{0}, ", item);
+                throw new ArgumentNullException(nameof(collection));
             }
 
-            if (text.Length > 1)
+            if (comp is null)
             {
-                text.Remove(text.Length - 2, 2);
+                throw new ArgumentNullException(nameof(comp));
             }
-            text.Append("}");
 
-            return text.ToString();
+            return collection.Max(new SelectComparer<T, float>(comp));
         }
 
-        public static string ToElementWiseString<T>(this IEnumerable<T> collection, string separator, string beginning, string end)
+        public static string ToElementWiseString<T>(this IEnumerable<T> collection, string separator = ", ", string beginning = "{", string end = "}")
         {
-            StringBuilder text = new StringBuilder(beginning);
-
-            foreach (T item in collection)
+            if (collection is null)
             {
-                text.Append(item + separator);
+                throw new ArgumentNullException(nameof(collection));
             }
 
-            if (text.Length > 1)
-            {
-                text.Remove(text.Length - separator.Length, separator.Length);
-            }
-            text.Append(end);
-
-            return text.ToString();
+            return $"{beginning}{string.Join(separator, collection)}{end}";
         }
 
         public static TValue GetValue<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay)
         {
+            if (scopes is null)
+            {
+                throw new ArgumentNullException(nameof(scopes));
+            }
+
             TValue result = default(TValue);
 
             foreach (Dictionary<TKey, TValue> item in scopes)
@@ -168,11 +162,21 @@ namespace Nintenlord.Collections
 
         public static bool ContainsKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay)
         {
+            if (scopes is null)
+            {
+                throw new ArgumentNullException(nameof(scopes));
+            }
+
             return scopes.Any(item => item.ContainsKey(kay));
         }
 
         public static bool TryGetKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay, out TValue value)
         {
+            if (scopes is null)
+            {
+                throw new ArgumentNullException(nameof(scopes));
+            }
+
             bool result = false;
             value = default(TValue);
 
@@ -189,16 +193,36 @@ namespace Nintenlord.Collections
 
         public static bool Contains<T>(this IEnumerable<T> array, Predicate<T> test)
         {
+            if (array is null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            if (test is null)
+            {
+                throw new ArgumentNullException(nameof(test));
+            }
+
             return array.Any(item2 => test(item2));
         }
 
         public static int AmountOf<T>(this IEnumerable<T> array, T item)
         {
+            if (array is null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
             return array.Count(item2 => item.Equals(item2));
         }
 
         public static string GetString(this IEnumerable<char> enume)
         {
+            if (enume is null)
+            {
+                throw new ArgumentNullException(nameof(enume));
+            }
+
             StringBuilder bldr;
             if (enume is ICollection<char>)
             {
@@ -218,6 +242,11 @@ namespace Nintenlord.Collections
 
         public static string ToHumanString<T>(this IEnumerable<T> list)
         {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
             T[] array = list.ToArray();
             if (array.Length > 1)
             {
@@ -251,76 +280,21 @@ namespace Nintenlord.Collections
         /// <param name="list2">Ordered enumerable.</param>
         /// <param name="comp">Comparer of T.</param>
         /// <returns>Ordered enumerable containing all items of passed enumerators.</returns>
-        public static IEnumerable<T> OrderedUnion<T>(this IEnumerable<T> list1, IEnumerable<T> list2, IComparer<T> comp)
+        public static IEnumerable<T> OrderedUnion<T>(this IEnumerable<T> list1, IEnumerable<T> list2, IComparer<T> comp = null)
         {
-            IEnumerator<T> enume1 = list1.GetEnumerator();
-            IEnumerator<T> enume2 = list2.GetEnumerator();
-
-            bool moveFirstToNext = true;
-            bool moveSecondToNext = true;
-
-            while (true)
+            if (list1 is null)
             {
-                if (moveFirstToNext)
-                {
-                    if (enume1.MoveNext())
-                    {
-                        moveFirstToNext = false;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (moveSecondToNext)
-                {
-                    if (enume2.MoveNext())
-                    {
-                        moveSecondToNext = false;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (comp.Compare(enume1.Current, enume2.Current) <= 0)
-                {
-                    yield return enume1.Current;
-                    moveFirstToNext = true;
-                }
-                else
-                {
-                    yield return enume2.Current;
-                    moveSecondToNext = true;
-                }
+                throw new ArgumentNullException(nameof(list1));
             }
 
-            //One of the enumerators was run completely
-            if (moveFirstToNext)
+            if (list2 is null)
             {
-                if (!moveSecondToNext)//Current hasn't been consumed
-                {
-                    yield return enume2.Current;
-                }
-                while (enume2.MoveNext())
-                {
-                    yield return enume2.Current;
-                }
+                throw new ArgumentNullException(nameof(list2));
+            }
 
-            }
-            else
-            {
-                if (!moveFirstToNext)//Current hasn't been consumed
-                {
-                    yield return enume1.Current;
-                }
-                while (enume1.MoveNext())
-                {
-                    yield return enume1.Current;
-                }
-            }
+            comp = comp ?? Comparer<T>.Default;
+
+            return OrderedUnion(list1, list2, comp.Compare);
         }
 
         /// <summary>
@@ -333,74 +307,94 @@ namespace Nintenlord.Collections
         /// <returns>Ordered enumerable containing all items of passed enumerators.</returns>
         public static IEnumerable<T> OrderedUnion<T>(this IEnumerable<T> list1, IEnumerable<T> list2, Func<T, T, int> comp)
         {
-            IEnumerator<T> enume1 = list1.GetEnumerator();
-            IEnumerator<T> enume2 = list2.GetEnumerator();
-
-            bool moveFirstToNext = true;
-            bool moveSecondToNext = true;
-
-            while (true)
+            if (list1 is null)
             {
+                throw new ArgumentNullException(nameof(list1));
+            }
+
+            if (list2 is null)
+            {
+                throw new ArgumentNullException(nameof(list2));
+            }
+
+            if (comp is null)
+            {
+                throw new ArgumentNullException(nameof(comp));
+            }
+
+            IEnumerable<T> OrderedUnionInner()
+            {
+                IEnumerator<T> enume1 = list1.GetEnumerator();
+                IEnumerator<T> enume2 = list2.GetEnumerator();
+
+                bool moveFirstToNext = true;
+                bool moveSecondToNext = true;
+
+                while (true)
+                {
+                    if (moveFirstToNext)
+                    {
+                        if (enume1.MoveNext())
+                        {
+                            moveFirstToNext = false;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    if (moveSecondToNext)
+                    {
+                        if (enume2.MoveNext())
+                        {
+                            moveSecondToNext = false;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    if (comp(enume1.Current, enume2.Current) <= 0)
+                    {
+                        yield return enume1.Current;
+                        moveFirstToNext = true;
+                    }
+                    else
+                    {
+                        yield return enume2.Current;
+                        moveSecondToNext = true;
+                    }
+                }
+
+                //One of the enumerators was run completely
                 if (moveFirstToNext)
                 {
-                    if (enume1.MoveNext())
+                    if (!moveSecondToNext)//Current hasn't been consumed
                     {
-                        moveFirstToNext = false;
+                        yield return enume2.Current;
                     }
-                    else
+                    while (enume2.MoveNext())
                     {
-                        break;
+                        yield return enume2.Current;
                     }
-                }
 
-                if (moveSecondToNext)
-                {
-                    if (enume2.MoveNext())
-                    {
-                        moveSecondToNext = false;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (comp(enume1.Current, enume2.Current) <= 0)
-                {
-                    yield return enume1.Current;
-                    moveFirstToNext = true;
                 }
                 else
                 {
-                    yield return enume2.Current;
-                    moveSecondToNext = true;
+                    if (!moveFirstToNext)//Current hasn't been consumed
+                    {
+                        yield return enume1.Current;
+                    }
+                    while (enume1.MoveNext())
+                    {
+                        yield return enume1.Current;
+                    }
                 }
             }
 
-            //One of the enumerators was run completely
-            if (moveFirstToNext)
-            {
-                if (!moveSecondToNext)//Current hasn't been consumed
-                {
-                    yield return enume2.Current;
-                }
-                while (enume2.MoveNext())
-                {
-                    yield return enume2.Current;
-                }
-
-            }
-            else
-            {
-                if (!moveFirstToNext)//Current hasn't been consumed
-                {
-                    yield return enume1.Current;
-                }
-                while (enume1.MoveNext())
-                {
-                    yield return enume1.Current;
-                }
-            }
+            return OrderedUnionInner();
         }
 
         /// <summary>
@@ -418,13 +412,23 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<T> Cycle<T>(this IEnumerable<T> toRepeat)
         {
-            while (true)
+            if (toRepeat is null)
             {
-                foreach (var item in toRepeat)
+                throw new ArgumentNullException(nameof(toRepeat));
+            }
+
+            IEnumerable<T> CycleInner()
+            {
+                while (true)
                 {
-                    yield return item;
+                    foreach (var item in toRepeat)
+                    {
+                        yield return item;
+                    }
                 }
             }
+
+            return CycleInner();
         }
 
         public static IEnumerable<T> Repeat<T>(this T item)
@@ -453,16 +457,6 @@ namespace Nintenlord.Collections
                 dict[key] = value;
             }
             return value;
-        }
-
-        public static IEnumerable<Tuple<int, T>> Index<T>(this IEnumerable<T> items)
-        {
-            int index = 0;
-            foreach (var item in items)
-            {
-                yield return Tuple.Create(index, item);
-                index++;
-            }
         }
 
         public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comp)
@@ -541,25 +535,6 @@ namespace Nintenlord.Collections
             return collection.Concat((IEnumerable<T>)args);
         }
 
-        public static IEnumerable<Tuple<T, T>> GetPairs<T>(this IEnumerable<T> enume)
-        {
-            var enumerator = enume.GetEnumerator();
-
-            if (!enumerator.MoveNext())
-            {
-                yield break;
-            }
-
-            T first = enumerator.Current;
-
-            while (enumerator.MoveNext())
-            {
-                T second = enumerator.Current;
-                yield return Tuple.Create(first, second);
-                first = second;
-            }
-        }
-
         public static IEnumerable<IEnumerable<T>> CartesianProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
         {
             IEnumerable<IEnumerable<T>> emptyProduct = new[] { Enumerable.Empty<T>() };
@@ -635,55 +610,105 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<(T, bool isLast)> GetIsLast<T>(this IEnumerable<T> items)
         {
-            bool hasValue = false;
-            T previousItem = default;
-
-            foreach (var item in items)
+            if (items is null)
             {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            IEnumerable<(T, bool isLast)> GetIsLastInner()
+            {
+                bool hasValue = false;
+                T previousItem = default;
+
+                foreach (var item in items)
+                {
+                    if (hasValue)
+                    {
+                        yield return (previousItem, false);
+                    }
+                    else
+                    {
+                        hasValue = true;
+                    }
+                    previousItem = item;
+                }
                 if (hasValue)
                 {
-                    yield return (previousItem, false);
+                    yield return (previousItem, true);
                 }
-                else
-                {
-                    hasValue = true;
-                }
-                previousItem = item;
             }
-            if (hasValue)
-            {
-                yield return (previousItem, true);
-            }
+
+            return GetIsLastInner();
         }
 
         public static IEnumerable<TOut> ZipLong<T1, T2, TOut>(this IEnumerable<T1> items1, IEnumerable<T2> items2, Func<Maybe<T1>, Maybe<T2>, TOut> zipper)
         {
-            foreach (var (item1, item2) in
-                items1.Select(Maybe<T1>.Just).Concat(Repeat(Maybe<T1>.Nothing))
-                .Zip(items2.Select(Maybe<T2>.Just).Concat(Repeat(Maybe<T2>.Nothing)), (x,y) => (x,y)))
+            if (items1 is null)
             {
-                if (!item1.HasValue && !item2.HasValue)
-                {
-                    //Both have run out
-                    yield break;
-                }
-                yield return zipper(item1, item2);
+                throw new ArgumentNullException(nameof(items1));
             }
+
+            if (items2 is null)
+            {
+                throw new ArgumentNullException(nameof(items2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                foreach (var (item1, item2) in
+                    items1.Select(Maybe<T1>.Just).Concat(Repeat(Maybe<T1>.Nothing))
+                    .Zip(items2.Select(Maybe<T2>.Just).Concat(Repeat(Maybe<T2>.Nothing)), (x, y) => (x, y)))
+                {
+                    if (!item1.HasValue && !item2.HasValue)
+                    {
+                        //Both have run out
+                        yield break;
+                    }
+                    yield return zipper(item1, item2);
+                }
+            }
+
+            return ZipLongInner();
         }
 
         public static IEnumerable<TScan> Scan<T, TScan>(this IEnumerable<T> items, TScan start, Func<TScan, T, TScan> scanner)
         {
-            yield return start;
-            TScan current = start;
-            foreach (var item in items)
+            if (items is null)
             {
-                current = scanner(current, item);
-                yield return current;
+                throw new ArgumentNullException(nameof(items));
             }
+
+            if (scanner is null)
+            {
+                throw new ArgumentNullException(nameof(scanner));
+            }
+
+            IEnumerable<TScan> ScanInner()
+            {
+                yield return start;
+                TScan current = start;
+                foreach (var item in items)
+                {
+                    current = scanner(current, item);
+                    yield return current;
+                }
+            }
+
+            return ScanInner();
         }
 
         public static IEnumerable<(T current, T next)> GetSequentialPairs<T>(this IEnumerable<T> items)
         {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
             (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (previousItem, current) = previous;
