@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 
 namespace Nintenlord.Trees
@@ -13,6 +14,11 @@ namespace Nintenlord.Trees
         public static IEnumerable<TNode> BreadthFirstTraversal<TNode>(this ITree<TNode> tree)
         {
             return tree.BreadthFirstTraversal(tree.Root);
+        }
+
+        public static IEnumerable<TNode[]> GetGenerations<TNode>(this ITree<TNode> tree)
+        {
+            return tree.GetGenerations(tree.Root);
         }
 
         public static TAggregate Aggregate<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, IEnumerable<TAggregate>, TAggregate> combine)
@@ -50,14 +56,46 @@ namespace Nintenlord.Trees
             return tree.PrettyPrintLines(tree.Root, toString);
         }
 
+        public static ITree<(TNode, TAggregate)> AggregateTree<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, TAggregate, TAggregate> combine, TAggregate startValue)
+        {
+            return tree.AggregateTree(combine, startValue, tree.Root);
+        }
+
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this ITree<TNode> tree)
         {
             return tree.GetPaths(tree.Root);
         }
 
-        public static ITree<(TNode, TAggregate)> AggregateTree<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, TAggregate, TAggregate> combine, TAggregate startValue)
+        public static ITree<(TNode, int depth)> GetDepth<TNode>(this ITree<TNode> tree)
         {
-            return tree.AggregateTree(combine, startValue, tree.Root);
+            return tree.GetDepth(tree.Root);
+        }
+
+        public static ITree<TNode> EditChildrenTree<TNode>(this ITree<TNode> tree, Func<IEnumerable<TNode>, IEnumerable<TNode>> editChildren)
+        {
+            return new LambdaTree<TNode>(tree.Root, node => editChildren(tree.GetChildren(node)));
+        }
+
+        public static ITree<TNode> PruneTree<TNode>(this ITree<TNode> forest, Predicate<TNode> nodeFilter)
+        {
+            IEnumerable<TNode> GetChildren(IEnumerable<TNode> children)
+            {
+                return children.Where(node => nodeFilter(node));
+            }
+
+            return forest.EditChildrenTree(GetChildren);
+        }
+
+        public static ITree<TNode2> SelectTree<TNode, TNode2>(this ITree<TNode> tree, Func<TNode, TNode2> select1, Func<TNode2, TNode> select2)
+        {
+            return new SelectTree<TNode2, TNode>(select2, select1, tree);
+        }
+
+        public static ITree<TNode> GetToMaxDepth<TNode>(this ITree<TNode> tree, int maxDepth)
+        {
+            return tree.GetDepth()
+                       .PruneTree(pair => pair.depth <= maxDepth)
+                       .SelectTree(node => node.Item1, node => (node, 0));//Height doesn't matter at this point
         }
 
         public static bool StructuralEquality<TNode1, TNode2>(this ITree<TNode1> tree1, ITree<TNode2> tree2)
@@ -68,11 +106,6 @@ namespace Nintenlord.Trees
         public static bool TreeEquality<TNode>(this ITree<TNode> tree1, ITree<TNode> tree2, IEqualityComparer<TNode> comparer = null)
         {
             return tree1.ForestEquality(tree1.Root, tree2, tree2.Root, comparer);
-        }
-
-        public static IEnumerable<TNode[]> GetGenerations<TNode>(this ITree<TNode> tree)
-        {
-            return tree.GetGenerations(tree.Root);
         }
     }
 }

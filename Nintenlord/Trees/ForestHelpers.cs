@@ -274,7 +274,7 @@ namespace Nintenlord.Trees
             return forest.AggregateTree(GetPaths, 0, root);
         }
 
-        public static IForest<TNode> EditChildren<TNode>(this IForest<TNode> forest, Func<IEnumerable<TNode>, IEnumerable<TNode>> editChildren)
+        public static IForest<TNode> EditChildrenForest<TNode>(this IForest<TNode> forest, Func<IEnumerable<TNode>, IEnumerable<TNode>> editChildren)
         {
             return new LambdaForest<TNode>(node => editChildren(forest.GetChildren(node)));
         }
@@ -286,10 +286,10 @@ namespace Nintenlord.Trees
                 return children.Where(node => nodeFilter(node));
             }
 
-            return forest.EditChildren(GetChildren);
+            return forest.EditChildrenForest(GetChildren);
         }
 
-        public static IForest<TNode2> Select<TNode, TNode2>(this IForest<TNode> forest, Func<TNode, TNode2> select1, Func<TNode2, TNode> select2)
+        public static IForest<TNode2> SelectForest<TNode, TNode2>(this IForest<TNode> forest, Func<TNode, TNode2> select1, Func<TNode2, TNode> select2)
         {
             return new SelectForest<TNode2, TNode>(select2, select1, forest);
         }
@@ -298,7 +298,7 @@ namespace Nintenlord.Trees
         {
             return forest.GetDepth(root)
                          .PruneForest(pair => pair.depth <= maxDepth)
-                         .Select(node => node.Item1, node => (node,0));//Height doesn't matter at this point
+                         .SelectForest(node => node.Item1, node => (node,0));//Height doesn't matter at this point
         }
 
         public static bool StructuralEquality<TNode1, TNode2>(this

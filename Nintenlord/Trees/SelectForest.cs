@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Nintenlord.Trees
 {
-    public sealed class SelectForest<TNode, TInner> : IForest<TNode>
+    public class SelectForest<TNode, TInner> : IForest<TNode>
     {
         private readonly Func<TNode, TInner> toInner;
         private readonly Func<TInner, TNode> fromInner;
