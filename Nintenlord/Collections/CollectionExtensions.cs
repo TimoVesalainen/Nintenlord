@@ -670,5 +670,31 @@ namespace Nintenlord.Collections
                 yield return zipper(item1, item2);
             }
         }
+
+        public static IEnumerable<TScan> Scan<T, TScan>(this IEnumerable<T> items, TScan start, Func<TScan, T, TScan> scanner)
+        {
+            yield return start;
+            TScan current = start;
+            foreach (var item in items)
+            {
+                current = scanner(current, item);
+                yield return current;
+            }
+        }
+
+        public static IEnumerable<(T current, T next)> GetSequentialPairs<T>(this IEnumerable<T> items)
+        {
+            (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            {
+                var (previousItem, current) = previous;
+
+                return (current, next);
+            }
+
+            return items.Select(Maybe<T>.Just)
+                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
+                        .Select(pair => pair.Item1.Zip(pair.Item2, (x,y) => (x, y)))
+                        .GetValues();
+        }
     }
 }
