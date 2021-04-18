@@ -28,6 +28,7 @@ namespace Nintenlord.Collections
                 switch (tasks[i].Status)
                 {
                     case TaskStatus.Faulted:
+                        throw tasks[i].Exception;
                     case TaskStatus.Canceled:
                     case TaskStatus.RanToCompletion:
                         tasks.RemoveAt(i);
