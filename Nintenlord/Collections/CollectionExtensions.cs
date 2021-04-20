@@ -740,5 +740,21 @@ namespace Nintenlord.Collections
 
             return ConsInner();
         }
+
+        public static IEnumerable<int> RangeFromTo(int start, int end, int step = 1)
+        {
+            int current = start;
+
+            while (current <= end)
+            {
+                yield return current;
+                current += step;
+            }
+        }
+
+        public static IEnumerable<T> Return<T>(this T item)
+        {
+            yield return item;
+        }
     }
 }
