@@ -260,9 +260,9 @@ namespace Nintenlord.Utility.Primitives
             return result;
         }
 
-        public static IEnumerable<int> GetIntegers(int start, int end)
+        public static IEnumerable<int> GetIntegers(int start, int end, int step = 1)
         {
-            for (int i = start; i <= end; i++)
+            for (int i = start; i <= end; i += step)
             {
                 yield return i;
             }
