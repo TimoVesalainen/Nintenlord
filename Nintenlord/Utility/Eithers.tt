@@ -9,6 +9,7 @@ int startValue = 2;
 int endValue = 8;
 #>
 using System;
+using System.Runtime.Serialization;
 
 namespace Nintenlord.Utility
 {
@@ -28,14 +29,17 @@ namespace Nintenlord.Utility
         var funcNames = indicis.Select(index => $"func{index}").ToArray();
         var funcTypes = typeParamNames.Select(type => $"Func<{type}, T>").ToArray();
 #>
+    [DataContract]
     public sealed class <#= typeName #> : IEquatable<<#= typeName #>>
     {
+        [DataMember]
         private readonly <#= enumName #> mode;
 <#
 
         for (int i = 0; i < paramCount; i++)
         {
 #>
+        [DataMember]
         private readonly <#= typeParamNames[i] #> <#= fieldNames[i] #>;
 <#
         }

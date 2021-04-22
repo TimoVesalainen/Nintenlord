@@ -8,6 +8,7 @@
 int startValue = 2;
 int endValue = 8;
 #>
+using System.Runtime.Serialization;
 
 namespace Nintenlord.Utility
 {
@@ -16,8 +17,9 @@ namespace Nintenlord.Utility
 	{
 		var indicis = Enumerable.Range(0, paramCount);
 		var valueNames = indicis.Select(index => $"Item{index}");
-		var values = String.Join(", ", valueNames);
+		var values = String.Join(",\n		", valueNames.Select(name => $"[EnumMember(Value = \"{name}\")] {name}"));
 #>
+	[DataContract]
 	public enum Enum<#= paramCount #>
 	{
 		<#= values #>

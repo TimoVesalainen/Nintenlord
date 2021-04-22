@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Nintenlord.Utility
 {
+    [DataContract]
     public sealed class Either<T0, T1> : IEquatable<Either<T0, T1>>
     {
+        [DataMember]
         private readonly Enum2 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
         public T0 Option0 => mode == Enum2.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum2.Item0}");
         public T1 Option1 => mode == Enum2.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum2.Item1}");
@@ -142,11 +147,16 @@ namespace Nintenlord.Utility
             }
         }
 	}
+    [DataContract]
     public sealed class Either<T0, T1, T2> : IEquatable<Either<T0, T1, T2>>
     {
+        [DataMember]
         private readonly Enum3 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
+        [DataMember]
         private readonly T2 option2;
         public T0 Option0 => mode == Enum3.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum3.Item0}");
         public T1 Option1 => mode == Enum3.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum3.Item1}");
@@ -328,12 +338,18 @@ namespace Nintenlord.Utility
             }
         }
 	}
+    [DataContract]
     public sealed class Either<T0, T1, T2, T3> : IEquatable<Either<T0, T1, T2, T3>>
     {
+        [DataMember]
         private readonly Enum4 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
+        [DataMember]
         private readonly T2 option2;
+        [DataMember]
         private readonly T3 option3;
         public T0 Option0 => mode == Enum4.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum4.Item0}");
         public T1 Option1 => mode == Enum4.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum4.Item1}");
@@ -565,13 +581,20 @@ namespace Nintenlord.Utility
             }
         }
 	}
+    [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4> : IEquatable<Either<T0, T1, T2, T3, T4>>
     {
+        [DataMember]
         private readonly Enum5 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
+        [DataMember]
         private readonly T2 option2;
+        [DataMember]
         private readonly T3 option3;
+        [DataMember]
         private readonly T4 option4;
         public T0 Option0 => mode == Enum5.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum5.Item0}");
         public T1 Option1 => mode == Enum5.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum5.Item1}");
@@ -858,14 +881,22 @@ namespace Nintenlord.Utility
             }
         }
 	}
+    [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4, T5> : IEquatable<Either<T0, T1, T2, T3, T4, T5>>
     {
+        [DataMember]
         private readonly Enum6 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
+        [DataMember]
         private readonly T2 option2;
+        [DataMember]
         private readonly T3 option3;
+        [DataMember]
         private readonly T4 option4;
+        [DataMember]
         private readonly T5 option5;
         public T0 Option0 => mode == Enum6.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum6.Item0}");
         public T1 Option1 => mode == Enum6.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum6.Item1}");
@@ -1212,15 +1243,24 @@ namespace Nintenlord.Utility
             }
         }
 	}
+    [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4, T5, T6> : IEquatable<Either<T0, T1, T2, T3, T4, T5, T6>>
     {
+        [DataMember]
         private readonly Enum7 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
+        [DataMember]
         private readonly T2 option2;
+        [DataMember]
         private readonly T3 option3;
+        [DataMember]
         private readonly T4 option4;
+        [DataMember]
         private readonly T5 option5;
+        [DataMember]
         private readonly T6 option6;
         public T0 Option0 => mode == Enum7.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum7.Item0}");
         public T1 Option1 => mode == Enum7.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum7.Item1}");
@@ -1632,16 +1672,26 @@ namespace Nintenlord.Utility
             }
         }
 	}
+    [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4, T5, T6, T7> : IEquatable<Either<T0, T1, T2, T3, T4, T5, T6, T7>>
     {
+        [DataMember]
         private readonly Enum8 mode;
+        [DataMember]
         private readonly T0 option0;
+        [DataMember]
         private readonly T1 option1;
+        [DataMember]
         private readonly T2 option2;
+        [DataMember]
         private readonly T3 option3;
+        [DataMember]
         private readonly T4 option4;
+        [DataMember]
         private readonly T5 option5;
+        [DataMember]
         private readonly T6 option6;
+        [DataMember]
         private readonly T7 option7;
         public T0 Option0 => mode == Enum8.Item0 ? option0 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum8.Item0}");
         public T1 Option1 => mode == Enum8.Item1 ? option1 : throw new InvalidOperationException($"Either is {this.mode}, not {Enum8.Item1}");
