@@ -722,25 +722,6 @@ namespace Nintenlord.Collections
                         .GetValues();
         }
 
-        public static IEnumerable<T> Cons<T>(this IEnumerable<T> enumerable, T newHead)
-        {
-            if (enumerable is null)
-            {
-                throw new ArgumentNullException(nameof(enumerable));
-            }
-
-            IEnumerable<T> ConsInner()
-            {
-                yield return newHead;
-                foreach (var item in enumerable)
-                {
-                    yield return item;
-                }
-            }
-
-            return ConsInner();
-        }
-
         public static IEnumerable<T> Return<T>(this T item)
         {
             yield return item;

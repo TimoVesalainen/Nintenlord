@@ -484,7 +484,7 @@ namespace Nintenlord.Trees
         public static IForest<TNode> Union<TNode>(
             this IForest<TNode> forest1, params IForest<TNode>[] forests)
         {
-            return new UnionForest<TNode>(forests.Cons(forest1));
+            return new UnionForest<TNode>(forests.Prepend(forest1));
         }
 
         public static IForest<TNode> Union<TNode>(
