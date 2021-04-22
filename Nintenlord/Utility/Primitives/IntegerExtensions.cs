@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Nintenlord.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Utility.Primitives
 {
@@ -288,6 +290,28 @@ namespace Nintenlord.Utility.Primitives
         public static int Lerp(int min, int max, double val, MidpointRounding roundingMode)
         {
             return min + (int)Math.Round((max - min) * val, roundingMode);
+        }
+
+        public static IEnumerable<IEnumerable<int>> Compositions(this int number)
+        {
+            if (number == 0)
+            {
+                yield return Enumerable.Empty<int>();
+            }
+            if (number == 1)
+            {
+                yield return CollectionExtensions.Return(1);
+            }
+            else
+            {
+                for (int i = 0; i < number; i++)
+                {
+                    foreach (var item in Compositions(i))
+                    {
+                        yield return item.Prepend(number - i);
+                    }
+                }
+            }
         }
     }
 }
