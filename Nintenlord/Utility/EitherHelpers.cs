@@ -39,7 +39,9 @@ namespace Nintenlord.Utility
 //			return observable0.Select(Either<T0, T1>.From0).Merge(observable1.Select(Either<T0, T1>.From1));
 //		}
 
-		//Associative operations
+#region Associate for 2
+#endregion Associate for 2
+
 		//Commutative operations
 		public static Either<TOut, T1, T2> Select0<T0, T1, T2, TOut>(this Either<T0, T1, T2> either, Func<T0, TOut> selector)
 		{
@@ -80,7 +82,17 @@ namespace Nintenlord.Utility
 //			return observable0.MergeEither(observable1).Select(x => null).Merge(observable2.Select(Either<T0, T1, T2>.From2));
 //		}
 
-		//Associative operations
+#region Associate for 3
+		public static Either<T0, T1, T2> Associate2And1<T0, T1, T2>(this Either<Either<T0, T1>, T2> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2> Associate1And2<T0, T1, T2>(this Either<T0, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2>>(x => x, x => x);
+		}
+#endregion Associate for 3
+
 		//Commutative operations
 		public static Either<TOut, T1, T2, T3> Select0<T0, T1, T2, T3, TOut>(this Either<T0, T1, T2, T3> either, Func<T0, TOut> selector)
 		{
@@ -126,7 +138,33 @@ namespace Nintenlord.Utility
 //			return observable0.MergeEither(observable1, observable2).Select(x => null).Merge(observable3.Select(Either<T0, T1, T2, T3>.From3));
 //		}
 
-		//Associative operations
+#region Associate for 4
+		public static Either<T0, T1, T2, T3> Associate3And1<T0, T1, T2, T3>(this Either<Either<T0, T1, T2>, T3> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3> Associate2And2<T0, T1, T2, T3>(this Either<Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3> Associate2And1And1<T0, T1, T2, T3>(this Either<Either<T0, T1>, T2, T3> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3> Associate1And3<T0, T1, T2, T3>(this Either<T0, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3> Associate1And2And1<T0, T1, T2, T3>(this Either<T0, Either<T0, T1>, T3> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3> Associate1And1And2<T0, T1, T2, T3>(this Either<T0, T1, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3>>(x => x, x => x, x => x);
+		}
+#endregion Associate for 4
+
 		//Commutative operations
 		public static Either<TOut, T1, T2, T3, T4> Select0<T0, T1, T2, T3, T4, TOut>(this Either<T0, T1, T2, T3, T4> either, Func<T0, TOut> selector)
 		{
@@ -177,7 +215,65 @@ namespace Nintenlord.Utility
 //			return observable0.MergeEither(observable1, observable2, observable3).Select(x => null).Merge(observable4.Select(Either<T0, T1, T2, T3, T4>.From4));
 //		}
 
-		//Associative operations
+#region Associate for 5
+		public static Either<T0, T1, T2, T3, T4> Associate4And1<T0, T1, T2, T3, T4>(this Either<Either<T0, T1, T2, T3>, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate3And2<T0, T1, T2, T3, T4>(this Either<Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate3And1And1<T0, T1, T2, T3, T4>(this Either<Either<T0, T1, T2>, T3, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate2And3<T0, T1, T2, T3, T4>(this Either<Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate2And2And1<T0, T1, T2, T3, T4>(this Either<Either<T0, T1>, Either<T0, T1>, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate2And1And2<T0, T1, T2, T3, T4>(this Either<Either<T0, T1>, T2, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate2And1And1And1<T0, T1, T2, T3, T4>(this Either<Either<T0, T1>, T2, T3, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And4<T0, T1, T2, T3, T4>(this Either<T0, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And3And1<T0, T1, T2, T3, T4>(this Either<T0, Either<T0, T1, T2>, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And2And2<T0, T1, T2, T3, T4>(this Either<T0, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And2And1And1<T0, T1, T2, T3, T4>(this Either<T0, Either<T0, T1>, T3, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And1And3<T0, T1, T2, T3, T4>(this Either<T0, T1, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And1And2And1<T0, T1, T2, T3, T4>(this Either<T0, T1, Either<T0, T1>, T4> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4> Associate1And1And1And2<T0, T1, T2, T3, T4>(this Either<T0, T1, T2, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x, x => x);
+		}
+#endregion Associate for 5
+
 		//Commutative operations
 		public static Either<TOut, T1, T2, T3, T4, T5> Select0<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T0, TOut> selector)
 		{
@@ -233,7 +329,129 @@ namespace Nintenlord.Utility
 //			return observable0.MergeEither(observable1, observable2, observable3, observable4).Select(x => null).Merge(observable5.Select(Either<T0, T1, T2, T3, T4, T5>.From5));
 //		}
 
-		//Associative operations
+#region Associate for 6
+		public static Either<T0, T1, T2, T3, T4, T5> Associate5And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2, T3, T4>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate4And2<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate4And1And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2, T3>, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate3And3<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate3And2And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2>, Either<T0, T1>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate3And1And2<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate3And1And1And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1, T2>, T3, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And4<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And3And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, Either<T0, T1, T2>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And2And2<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And2And1And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, Either<T0, T1>, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And1And3<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And1And2And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, T2, Either<T0, T1>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And1And1And2<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate2And1And1And1And1<T0, T1, T2, T3, T4, T5>(this Either<Either<T0, T1>, T2, T3, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And5<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And4And1<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1, T2, T3>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And3And2<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And3And1And1<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1, T2>, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And2And3<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And2And2And1<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1>, Either<T0, T1>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And2And1And2<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And2And1And1And1<T0, T1, T2, T3, T4, T5>(this Either<T0, Either<T0, T1>, T3, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And4<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And3And1<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, Either<T0, T1, T2>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And2And2<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And2And1And1<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, Either<T0, T1>, T4, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And1And3<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And1And2And1<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, Either<T0, T1>, T5> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5> Associate1And1And1And1And2<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
+		}
+#endregion Associate for 6
+
 		//Commutative operations
 		public static Either<TOut, T1, T2, T3, T4, T5, T6> Select0<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T0, TOut> selector)
 		{
@@ -294,7 +512,257 @@ namespace Nintenlord.Utility
 //			return observable0.MergeEither(observable1, observable2, observable3, observable4, observable5).Select(x => null).Merge(observable6.Select(Either<T0, T1, T2, T3, T4, T5, T6>.From6));
 //		}
 
-		//Associative operations
+#region Associate for 7
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate6And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3, T4, T5>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate5And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3, T4>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate5And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3, T4>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate4And3<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate4And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate4And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3>, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate4And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2, T3>, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And4<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And3And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And2And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And2And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, Either<T0, T1>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And1And3<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And1And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And1And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, T3, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate3And1And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1, T2>, T3, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And5<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And4And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And3And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And3And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1, T2>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And2And3<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And2And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And2And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1>, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And2And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, Either<T0, T1>, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And4<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And3And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And2And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And2And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, Either<T0, T1>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And1And3<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And1And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And1And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, T3, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate2And1And1And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<Either<T0, T1>, T2, T3, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And6<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2, T3, T4, T5>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And5And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2, T3, T4>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And4And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2, T3>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And4And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2, T3>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And3And3<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And3And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And3And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2>, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And3And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1, T2>, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And4<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And3And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And2And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And2And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, Either<T0, T1>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And1And3<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And1And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And1And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, T3, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And2And1And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, Either<T0, T1>, T3, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And5<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And4And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1, T2, T3>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And3And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And3And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1, T2>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And2And3<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And2And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And2And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1>, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And2And1And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, Either<T0, T1>, T4, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And4<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And3And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, Either<T0, T1, T2>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And2And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And2And1And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, Either<T0, T1>, T5, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And1And3<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And1And2And1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, Either<T0, T1>, T6> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6> Associate1And1And1And1And1And2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+#endregion Associate for 7
+
 		//Commutative operations
 		public static Either<TOut, T1, T2, T3, T4, T5, T6, T7> Select0<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T0, TOut> selector)
 		{
@@ -360,7 +828,513 @@ namespace Nintenlord.Utility
 //			return observable0.MergeEither(observable1, observable2, observable3, observable4, observable5, observable6).Select(x => null).Merge(observable7.Select(Either<T0, T1, T2, T3, T4, T5, T6, T7>.From7));
 //		}
 
-		//Associative operations
+#region Associate for 8
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate7And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4, T5, T6>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate6And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4, T5>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate6And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4, T5>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate5And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate5And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate5And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate5And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3, T4>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate4And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2, T3>, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And5<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And4And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2, T3>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And3And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And3And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1, T2>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And2And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And2And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And2And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And2And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, Either<T0, T1>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate3And1And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1, T2>, T3, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And6<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3, T4, T5>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And5And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3, T4>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And4And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And4And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2, T3>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And3And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And3And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And3And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And3And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1, T2>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And2And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, Either<T0, T1>, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And5<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And4And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2, T3>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And3And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And3And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1, T2>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And2And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And2And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And2And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And2And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, Either<T0, T1>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate2And1And1And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<Either<T0, T1>, T2, T3, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And7<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3, T4, T5, T6>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And6And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3, T4, T5>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And5And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3, T4>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And5And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3, T4>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And4And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And4And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And4And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And4And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2, T3>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And3And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1, T2>, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And5<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And4And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2, T3>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And3And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And3And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1, T2>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And2And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And2And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And2And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And2And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, Either<T0, T1>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And2And1And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, Either<T0, T1>, T3, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And6<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2, T3, T4, T5>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And5And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2, T3, T4>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And4And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2, T3>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And4And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2, T3>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And3And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And3And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And3And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And3And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1, T2>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And2And1And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, Either<T0, T1>, T4, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And5<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1, T2, T3, T4>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And4And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1, T2, T3>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And3And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1, T2>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And3And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1, T2>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And2And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1>, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And2And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1>, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And2And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1>, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And2And1And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, Either<T0, T1>, T5, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, Either<T0, T1, T2, T3>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And3And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, Either<T0, T1, T2>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And2And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, Either<T0, T1>, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And2And1And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, Either<T0, T1>, T6, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And1And3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, Either<T0, T1, T2>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And1And2And1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, Either<T0, T1>, T7> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+		public static Either<T0, T1, T2, T3, T4, T5, T6, T7> Associate1And1And1And1And1And1And2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, Either<T0, T1>> parameter)
+		{
+			return parameter.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+		}
+#endregion Associate for 8
+
 		//Commutative operations
 	}
 }

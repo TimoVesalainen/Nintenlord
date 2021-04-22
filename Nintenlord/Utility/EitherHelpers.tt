@@ -7,6 +7,59 @@
 <#
 int startValue = 2;
 int endValue = 8;
+int[] single = new int[]{1};
+
+IEnumerable<IEnumerable<int>> Compositions(int number)
+{
+	IEnumerable<IEnumerable<int>> Inner()
+	{
+		if (number == 0)
+		{
+			yield return Enumerable.Empty<int>();
+		}
+		if (number == 1)
+		{
+			yield return single;
+		}
+		else
+		{
+			for (int i = 0; i < number; i++)
+			{
+				foreach (var item in Compositions(i))
+				{
+					yield return item.Prepend(number - i);
+				}
+			}
+		}
+	}
+	return Inner();
+};
+
+IEnumerable<string> GetEithers(IEnumerable<int> lengths, string[] atoms)
+{
+	int start = 0;
+	foreach(var length in lengths)
+	{
+		IEnumerable<string> GetAtoms()
+		{
+			for(int i = 0; i < length; i++)
+			{
+				yield return atoms[i];
+			}
+		}
+
+		if (length == 1)
+		{
+			yield return atoms[start];
+		}
+		else
+		{
+			yield return $"Either<{string.Join(", ", GetAtoms())}>";
+		}
+		start += length;
+	}
+}
+
 #>
 using System;
 using System.Reactive.Linq;
@@ -37,6 +90,7 @@ namespace Nintenlord.Utility
 			var typeParamNames2 = typeParamNames.Select((x,index) => index == i ? "TOut" : x).ToArray();
 			var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames2)}>.{x}")
 											  .Select((x,index) => index == i ? $"item => {x}(selector(item))" : x).ToArray();
+
 #>
 		public static Either<<#= string.Join(", ", typeParamNames2) #>> Select<#= i #><<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= typeName #> either, Func<<#= typeParamNames[i] #>, TOut> selector)
 		{
@@ -85,7 +139,26 @@ namespace Nintenlord.Utility
 #>
 //		}
 
-		//Associative operations
+#region Associate for <#= paramCount #>
+<#
+		foreach(var composition in Compositions(paramCount))
+		{
+			var compositionArray = composition.ToArray();
+			if(compositionArray.Length == 1 || compositionArray.Length == paramCount)
+			{
+				continue;//Would be identity function
+			}
+			var paramType = $"Either<{string.Join(", ", GetEithers(compositionArray, typeParamNames))}>";
+#>
+		public static <#= typeName #> Associate<#= string.Join("And", compositionArray) #><<#= string.Join(", ", typeParamNames) #>>(this <#= paramType #> parameter)
+		{
+			return parameter.Apply<<#= typeName #>>(<#= string.Join(", ", compositionArray.Select(x => $"x => x"))#>);
+		}
+<#
+		}
+#>
+#endregion Associate for <#= paramCount #>
+
 		//Commutative operations
 <#
 	}

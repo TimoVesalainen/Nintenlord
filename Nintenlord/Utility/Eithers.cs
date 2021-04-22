@@ -190,6 +190,16 @@ namespace Nintenlord.Utility
             return From2(item);
         }
 
+        public static implicit operator Either<T0, T1, T2>(Either<T0, T1> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2>(Either<T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2>>(x => x, x => x);
+        }
+
         public static explicit operator T0(Either<T0, T1, T2> either)
         {
             return either.Option0;
@@ -377,6 +387,31 @@ namespace Nintenlord.Utility
         public static implicit operator Either<T0, T1, T2, T3>(T3 item)
         {
             return From3(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(Either<T0, T1> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(Either<T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(Either<T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(Either<T0, T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3>(Either<T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3>>(x => x, x => x, x => x);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3> either)
@@ -602,6 +637,51 @@ namespace Nintenlord.Utility
         public static implicit operator Either<T0, T1, T2, T3, T4>(T4 item)
         {
             return From4(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T0, T1> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T0, T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T0, T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4>(Either<T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4>>(x => x, x => x, x => x, x => x);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4> either)
@@ -863,6 +943,76 @@ namespace Nintenlord.Utility
         public static implicit operator Either<T0, T1, T2, T3, T4, T5>(T5 item)
         {
             return From5(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T0, T1> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T0, T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T0, T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T0, T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5>(Either<T1, T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5>>(x => x, x => x, x => x, x => x, x => x);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4, T5> either)
@@ -1160,6 +1310,106 @@ namespace Nintenlord.Utility
         public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(T6 item)
         {
             return From6(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T0, T1> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T0, T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T0, T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T0, T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T1, T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T2, T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T0, T1, T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6>(Either<T1, T2, T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6>>(x => x, x => x, x => x, x => x, x => x, x => x);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4, T5, T6> either)
@@ -1493,6 +1743,141 @@ namespace Nintenlord.Utility
         public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(T7 item)
         {
             return From7(item);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T0, T1> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T6, T7> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T0, T1, T2> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T5, T6, T7> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T0, T1, T2, T3> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T4, T5, T6, T7> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T0, T1, T2, T3, T4> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T1, T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T2, T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T3, T4, T5, T6, T7> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T0, T1, T2, T3, T4, T5> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T1, T2, T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T2, T3, T4, T5, T6, T7> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T0, T1, T2, T3, T4, T5, T6> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
+        }
+
+        public static implicit operator Either<T0, T1, T2, T3, T4, T5, T6, T7>(Either<T1, T2, T3, T4, T5, T6, T7> smaller)
+        {
+            return smaller.Apply<Either<T0, T1, T2, T3, T4, T5, T6, T7>>(x => x, x => x, x => x, x => x, x => x, x => x, x => x);
         }
 
         public static explicit operator T0(Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
