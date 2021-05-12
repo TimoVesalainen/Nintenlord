@@ -259,7 +259,7 @@ namespace Nintenlord.Trees
                 return children.Select(child => (child, combine(child, parentAggregate)));
             }
 
-            return new LambdaTree<(TNode, TAggregate)>((start, startValue), GetChildren);
+            return new LambdaTree<(TNode, TAggregate)>((start, combine(start, startValue)), GetChildren);
         }
 
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this IForest<TNode> forest, TNode root)
@@ -276,7 +276,7 @@ namespace Nintenlord.Trees
 
             return forest.AggregateTree(GetPaths, ImmutableList<TNode>.Empty, root)
                          .GetLeaves()
-                         .Select(pair => pair.Item2.Add(pair.Item1));
+                         .Select(pair => pair.Item2);
         }
 
         public static IForest<(TNode1, TNode2)> ZipForest<TNode1, TNode2>(this IForest<TNode1> forest1, IForest<TNode2> forest2)
@@ -353,7 +353,7 @@ namespace Nintenlord.Trees
                 return depth + 1;
             }
 
-            return forest.AggregateTree(GetPaths, 0, root);
+            return forest.AggregateTree(GetPaths, -1, root);
         }
 
         public static IForest<TNode> EditChildrenForest<TNode>(this IForest<TNode> forest, Func<IEnumerable<TNode>, IEnumerable<TNode>> editChildren)
