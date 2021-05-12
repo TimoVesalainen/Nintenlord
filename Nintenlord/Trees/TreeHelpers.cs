@@ -122,13 +122,6 @@ namespace Nintenlord.Trees
             return new SelectTree<TNode2, TNode>(select2, select1, tree);
         }
 
-        public static ITree<TNode> GetToMaxDepth<TNode>(this ITree<TNode> tree, int maxDepth)
-        {
-            return tree.GetDepth()
-                       .PruneTree(pair => pair.depth <= maxDepth)
-                       .SelectTree(node => node.Item1, node => (node, 0));//Height doesn't matter at this point
-        }
-
         public static bool StructuralEquality<TNode1, TNode2>(this ITree<TNode1> tree1, ITree<TNode2> tree2)
         {
             return tree1.StructuralEquality(tree1.Root, tree2, tree2.Root);
