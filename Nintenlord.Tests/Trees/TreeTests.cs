@@ -1,4 +1,5 @@
-﻿using Nintenlord.Trees;
+﻿using Nintenlord.Collections;
+using Nintenlord.Trees;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,36 @@ namespace Nintenlord.Tests.Trees
         {
             Assert.AreEqual(new[] { new[] { 7 }, new[] { 4,6 }, new[] { 2,3,5 }, new[] { 0,1 } },
                 tree.GetGenerations().Select(x => x.Select(x => x.Value)));
+        }
+
+        [Test]
+        public void TestDepthWithBreadthFirstTraversal()
+        {
+            Assert.IsTrue(
+                tree.GetDepth()
+                .BreadthFirstTraversal()
+                .Select(node => node.depth)
+                .GetSequentialPairs()
+                .All(pair => pair.current == pair.next || pair.current + 1 == pair.next));
+        }
+
+        [Test]
+        public void TestDepth()
+        {
+            IEnumerable<int> AllInts()
+            {
+                int i = 0;
+                while (true)
+                {
+                    yield return i;
+                    i++;
+                }
+            }
+
+            Assert.IsTrue(
+                tree.GetDepth()
+                .GetPaths()
+                .Select(path => path.Select(node => node.depth).Zip(AllInts(), (x, y) => x == y).And()).And());
         }
     }
 }
