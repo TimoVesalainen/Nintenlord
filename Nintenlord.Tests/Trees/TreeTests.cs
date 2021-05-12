@@ -90,7 +90,7 @@ namespace Nintenlord.Tests.Trees
         [Test]
         public void TestDepth()
         {
-            IEnumerable<int> AllInts()
+            IEnumerable<int> NonNegativeInts()
             {
                 int i = 0;
                 while (true)
@@ -103,7 +103,7 @@ namespace Nintenlord.Tests.Trees
             Assert.IsTrue(
                 tree.GetDepth()
                 .GetPaths()
-                .Select(path => path.Select(node => node.depth).Zip(AllInts(), (x, y) => x == y).And()).And());
+                .Select(path => path.Select(node => node.depth).Zip(NonNegativeInts(), (x, y) => x == y).And()).And());
         }
     }
 }
