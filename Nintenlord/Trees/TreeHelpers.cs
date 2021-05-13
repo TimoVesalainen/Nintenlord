@@ -17,6 +17,18 @@ namespace Nintenlord.Trees
             return new LambdaTree<TNode>(newRoot, forest.GetChildren);
         }
 
+        public static ITree<Either<TNode, TRoot>> PrependRoot<TNode, TRoot>(this ITree<TNode> tree, TRoot newRoot)
+        {
+            IEnumerable<Either<TNode, TRoot>> GetChildren(Either<TNode, TRoot> node)
+            {
+                return node.Apply(
+                    originalNode => tree.GetChildren(originalNode).Select(Either<TNode, TRoot>.From0),
+                    root => Enumerable.Repeat((Either<TNode, TRoot>)tree.Root, 1));
+            }
+
+            return new LambdaTree<Either<TNode, TRoot>>(newRoot, GetChildren);
+        }
+
         public static IEnumerable<TNode> BreadthFirstTraversal<TNode>(this ITree<TNode> tree)
         {
             return tree.BreadthFirstTraversal(tree.Root);
