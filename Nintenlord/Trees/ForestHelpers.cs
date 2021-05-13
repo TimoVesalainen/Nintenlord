@@ -424,7 +424,7 @@ namespace Nintenlord.Trees
             return new SelectForest<TNode2, TNode>(select2, select1, forest);
         }
 
-        public static ITree<TNode> GetToMaxDepth<TNode>(this IForest<TNode> forest, TNode root, int maxDepth)
+        public static ITree<(TNode, int depth)> GetToMaxDepth<TNode>(this IForest<TNode> forest, TNode root, int maxDepth)
         {
             if (forest is null)
             {
@@ -432,8 +432,8 @@ namespace Nintenlord.Trees
             }
 
             return forest.GetDepth(root)
-                         .PruneTree(pair => pair.depth <= maxDepth)
-                         .SelectTree(node => node.Item1, node => (node,0));//Height doesn't matter at this point
+                         .PruneTree(pair => pair.depth <= maxDepth);
+            //Removing height with SelectTree doesn't work naively
         }
 
         public static bool StructuralEquality<TNode1, TNode2>(this
