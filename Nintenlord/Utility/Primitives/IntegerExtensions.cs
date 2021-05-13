@@ -313,5 +313,19 @@ namespace Nintenlord.Utility.Primitives
                 }
             }
         }
+
+        public static IEnumerable<int> BaseNRepresentation(this int value, int baseSize)
+        {
+            if (baseSize == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(baseSize), "Base can't be zero");
+            }
+
+            while (value > 0)
+            {
+                yield return value % baseSize;
+                value /= baseSize;
+            }
+        }
     }
 }
