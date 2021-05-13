@@ -119,14 +119,14 @@ namespace Nintenlord.Trees
             return new LambdaTree<TNode>(tree.Root, node => editChildren(tree.GetChildren(node)));
         }
 
-        public static ITree<TNode> PruneTree<TNode>(this ITree<TNode> forest, Predicate<TNode> nodeFilter)
+        public static ITree<TNode> PruneTree<TNode>(this ITree<TNode> tree, Predicate<TNode> nodeFilter)
         {
             IEnumerable<TNode> GetChildren(IEnumerable<TNode> children)
             {
                 return children.Where(node => nodeFilter(node));
             }
 
-            return forest.EditChildrenTree(GetChildren);
+            return tree.EditChildrenTree(GetChildren);
         }
 
         public static ITree<TNode2> SelectTree<TNode, TNode2>(this ITree<TNode> tree, Func<TNode, TNode2> select1, Func<TNode2, TNode> select2)
