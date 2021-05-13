@@ -105,5 +105,24 @@ namespace Nintenlord.Tests.Trees
                 .GetPaths()
                 .Select(path => path.Select(node => node.depth).Zip(NonNegativeInts(), (x, y) => x == y).And()).And());
         }
+
+        [Test]
+        public void TestPruningWithPaths()
+        {
+            Assert.AreEqual(new[] {
+                new[] { 7, 6, 5 }
+            }, tree.PruneForest(x => x.Value != 4).GetPaths(tree.Root).Select(x => x.Select(node => node.Value))
+                .Select(l => l.ToArray())
+                .ToArray()
+                );
+
+            Assert.AreEqual(new[] {
+                new[] { 7, 4, 3 },
+                new[] { 7, 6, 5 }
+            }, tree.PruneForest(x => x.Value != 2).GetPaths(tree.Root).Select(x => x.Select(node => node.Value))
+                .Select(l => l.ToArray())
+                .ToArray()
+                );
+        }
     }
 }
