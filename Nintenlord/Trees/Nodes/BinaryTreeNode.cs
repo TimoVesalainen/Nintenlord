@@ -43,47 +43,16 @@ namespace Nintenlord.Trees.Nodes
             HasValue = true;
         }
 
-        public void AddLeafValues(ICollection<T> collection)
-        {
-            if (HasValue)
-            {
-                collection.Add(Value);
-            }
-            if (Left != null)
-            {
-                Left.AddLeafValues(collection);
-            }
-            if (Right != null)
-            {
-                Right.AddLeafValues(collection);
-            }
-        }
-
-        public void AddLeafValues(IDictionary<T, bool[]> values, IList<bool> branches)
-        {
-            if (HasValue)
-            {
-                values[Value] = branches.ToArray();
-            }
-            if (Left != null)
-            {
-                branches.Add(false);
-                Left.AddLeafValues(values, branches);
-                branches.RemoveAt(branches.Count - 1);
-
-            }
-            if (Right != null)
-            {
-                branches.Add(true);
-                Right.AddLeafValues(values, branches);
-                branches.RemoveAt(branches.Count - 1);
-            }
-        }
-
         public IEnumerable<BinaryTreeNode<T>> GetChildren()
         {
-            yield return Left;
-            yield return Right;
+            if (Left != null)
+            {
+                yield return Left;
+            }
+            if (Right != null)
+            {
+                yield return Right;
+            }
         }
     }
 }
