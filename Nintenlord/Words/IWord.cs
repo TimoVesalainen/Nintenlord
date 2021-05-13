@@ -34,5 +34,8 @@ namespace Nintenlord.Words
                 }
             }
         }
+
+        public static bool IsFinite<TCharacter>(this IWord<TCharacter> word) => word.Length != null;
+        public static bool IsInfinite<TCharacter>(this IWord<TCharacter> word) => word.Length == null;
     }
 }
