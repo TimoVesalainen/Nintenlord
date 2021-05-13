@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections;
+using Nintenlord.Trees.Nodes;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
@@ -117,6 +118,36 @@ namespace Nintenlord.Trees
                 (node, children)  => new RoseTreeNode<TNode>(children, node), nodeComparer);
 
             return new RoseTree<TNode>(rootNode);
+        }
+
+        public static Maybe<BinaryTree<TNode>> TryGetBinaryTree<TNode>(this IForest<TNode> forest, TNode root, IEqualityComparer<TNode> nodeComparer = null)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            Maybe<BinaryTreeNode<TNode>> GetNode(TNode node, IEnumerable<Maybe<BinaryTreeNode<TNode>>> children)
+            {
+                var childrenArray = children.ToList();
+
+                if (childrenArray.Count == 0)
+                {
+                    return new BinaryTreeNode<TNode>(node);
+                }
+                else if (childrenArray.Count == 2)
+                {
+                    return childrenArray[0].Zip(childrenArray[1], (left, right) => new BinaryTreeNode<TNode>(left, right, node));
+                }
+                else
+                {
+                    return Maybe<BinaryTreeNode<TNode>>.Nothing;
+                }
+            }
+
+            var rootNode = forest.GetConcreteTree<TNode, Maybe<BinaryTreeNode<TNode>>>(root, GetNode, nodeComparer);
+
+            return rootNode.Select(binaryRoot => new BinaryTree<TNode>(binaryRoot));
         }
 
         public static TOut GetConcreteTree<TNode, TOut>(this IForest<TNode> forest, TNode root,
