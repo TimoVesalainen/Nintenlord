@@ -124,5 +124,20 @@ namespace Nintenlord.Tests.Trees
                 .ToArray()
                 );
         }
+
+        [Test]
+        public void TestToMaxDepthWithPaths()
+        {
+            var paths = tree.GetToMaxDepth(tree.Root, 2).GetPaths((tree.Root, 0)).Select(x => x.Select(node => node.Item1.Value))
+                .Select(l => l.ToArray())
+                .ToArray();
+
+            Assert.AreEqual(new[] {
+                new[] { 7, 4, 2 },
+                new[] { 7, 4, 3 },
+                new[] { 7, 6, 5 }
+            }, paths
+                );
+        }
     }
 }
