@@ -54,6 +54,18 @@ namespace Nintenlord.Trees
             return tree.GetRoseTree(tree.Root, nodeComparer);
         }
 
+        public static Maybe<BinaryTree<TNode>> TryGetBinaryTree<TNode>(this ITree<TNode> tree, IEqualityComparer<TNode> nodeComparer = null)
+        {
+            return tree.TryGetBinaryTree(tree.Root, nodeComparer);
+        }
+
+        public static TOut GetConcreteTree<TNode, TOut>(this ITree<TNode> tree,
+            Func<TNode, IEnumerable<TOut>, TOut> createNode,
+            IEqualityComparer<TNode> nodeComparer = null)
+        {
+            return tree.GetConcreteTree(tree.Root, createNode, nodeComparer);
+        }
+
         public static int LongestPath<TNode>(this ITree<TNode> tree)
         {
             return tree.LongestPath(tree.Root);
