@@ -113,11 +113,26 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
+            var rootNode = forest.GetConcreteTree<TNode, RoseTreeNode<TNode>>(root,
+                (node, children)  => new RoseTreeNode<TNode>(children, node), nodeComparer);
+
+            return new RoseTree<TNode>(rootNode);
+        }
+
+        public static TOut GetConcreteTree<TNode, TOut>(this IForest<TNode> forest, TNode root,
+            Func<TNode, IEnumerable<TOut>, TOut> createNode,
+            IEqualityComparer<TNode> nodeComparer = null)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
             nodeComparer = nodeComparer ?? EqualityComparer<TNode>.Default;
 
-            var nodeCache = new Dictionary<TNode, RoseTreeNode<TNode>>(nodeComparer);
+            var nodeCache = new Dictionary<TNode, TOut>(nodeComparer);
 
-            RoseTreeNode<TNode> GetRoseTreeNode(TNode node, IEnumerable<RoseTreeNode<TNode>> children)
+            TOut GetNode(TNode node, IEnumerable<TOut> children)
             {
                 if (nodeCache.TryGetValue(node, out var cachedNode))
                 {
@@ -125,15 +140,13 @@ namespace Nintenlord.Trees
                 }
                 else
                 {
-                    var newNode = new RoseTreeNode<TNode>(children, node);
+                    var newNode = createNode(node, children);
                     nodeCache.Add(node, newNode);
                     return newNode;
                 }
             }
 
-            var rootNode = forest.Aggregate<RoseTreeNode<TNode>, TNode>(GetRoseTreeNode, root);
-
-            return new RoseTree<TNode>(rootNode);
+            return forest.Aggregate<TOut, TNode>(GetNode, root);
         }
 
         public static int LongestPath<TNode>(this IForest<TNode> forest, TNode root)
