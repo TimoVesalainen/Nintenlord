@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nintenlord.Trees.Nodes;
+using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,6 +110,24 @@ namespace Nintenlord.Trees
         private static int GetRightChildIndex(int index)
         {
             return index * 2 + 1;
+        }
+
+        public static ArrayBinaryTree<T> ConvertTo(BinaryTree<T> tree)
+        {
+            ArrayBinaryTree<T> result = new ArrayBinaryTree<T>();
+
+            IEnumerable<int> GetChildIndicis(BinaryTreeNode<T> node, int index)
+            {
+                yield return GetLeftChildIndex(index);
+                yield return GetRightChildIndex(index);
+            }
+
+            foreach (var (node,index) in tree.ZipAggregateChildren(GetChildIndicis, 1, tree.Root).BreadthFirstTraversal())
+            {
+                result.SetItemToIndex(index, node.Value);
+            }
+
+            return result;
         }
     }
 }

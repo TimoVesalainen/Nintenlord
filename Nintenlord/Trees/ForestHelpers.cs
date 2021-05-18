@@ -350,13 +350,46 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(toCombine));
             }
 
-            IEnumerable<(TNode, Maybe<TChild>)> GetChildren((TNode, Maybe<TChild>) pair)
+            return forest.ZipChildren(_ => toCombine, root);
+        }
+
+        public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this IForest<TNode> forest, Func<TNode, IEnumerable<TChild>> toCombine, TNode root)
+        {
+            if (forest is null)
             {
-                var (node, _) = pair;
-                return forest.GetChildren(node).Zip(toCombine, (x,y) => (x, Maybe<TChild>.Just(y)));
+                throw new ArgumentNullException(nameof(forest));
             }
 
-            return new LambdaTree<(TNode, Maybe<TChild>)>((root, Maybe<TChild>.Nothing), GetChildren);
+            if (toCombine is null)
+            {
+                throw new ArgumentNullException(nameof(toCombine));
+            }
+
+            return forest.ZipAggregateChildren((node, _) => toCombine(node).Select(Maybe<TChild>.Just), Maybe<TChild>.Nothing, root);
+        }
+
+        public static ITree<(TNode, TAggregate)> ZipAggregateChildren<TAggregate, TNode>(this IForest<TNode> forest,
+            Func<TNode, TAggregate, IEnumerable<TAggregate>> toCombine,
+            TAggregate start,
+            TNode root)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (toCombine is null)
+            {
+                throw new ArgumentNullException(nameof(toCombine));
+            }
+
+            IEnumerable<(TNode, TAggregate)> GetChildren((TNode, TAggregate) pair)
+            {
+                var (node, child) = pair;
+                return forest.GetChildren(node).Zip(toCombine(node, child), (x, y) => (x, y));
+            }
+
+            return new LambdaTree<(TNode, TAggregate)>((root, start), GetChildren);
         }
 
         public static ITree<(TNode node, ImmutableList<TBranch> path)> GetBranchesTo<TNode, TBranch>(this IForest<TNode> forest, IEnumerable<TBranch> branches, TNode root)
