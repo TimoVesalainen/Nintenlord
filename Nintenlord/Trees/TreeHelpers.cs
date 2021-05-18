@@ -116,6 +116,16 @@ namespace Nintenlord.Trees
             return tree.ZipChildren(toCombine, tree.Root);
         }
 
+        public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this ITree<TNode> tree, Func<TNode, IEnumerable<TChild>> toCombine)
+        {
+            return tree.ZipChildren(toCombine, tree.Root);
+        }
+
+        public static ITree<(TNode, TAggregate)> ZipAggregateChildren<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, TAggregate, IEnumerable<TAggregate>> toCombine, TAggregate start)
+        {
+            return tree.ZipAggregateChildren(toCombine, start, tree.Root);
+        }
+
         public static ITree<(TNode node, ImmutableList<TBranch> path)> GetBranchesTo<TNode, TBranch>(this ITree<TNode> tree, IEnumerable<TBranch> branches)
         {
             return tree.GetBranchesTo(branches, tree.Root);
