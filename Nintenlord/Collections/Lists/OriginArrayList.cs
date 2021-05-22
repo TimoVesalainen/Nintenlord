@@ -251,6 +251,12 @@ namespace Nintenlord.Collections.Lists
             return this.GetEnumerator();
         }
 
+        public bool IsContainedIndex(int index)
+        {
+            var cacheIndex = ToCacheIndex(index);
+            return cacheIndex >= itemStartCacheIndex && cacheIndex < itemEndCacheIndex;
+        }
+
         private void RemoveAtInner(int index)
         {
             var cacheIndex = ToCacheIndex(index);
