@@ -28,29 +28,30 @@ namespace Nintenlord.Tests.Tilings
         {
 
             var children = new[] {
-                "Center", 
-                "Right", 
-                "Left", 
-                "Up", 
+                "Center",
+                "Right",
+                "Left",
+                "Up",
                 "Down",
                 "RightUp",
                 "LeftDown",
                 "RightDown",
-                "LeftUp" 
+                "LeftUp"
             };
 
             tree = new LambdaForest<string>(_ => children);
         }
 
-        [Test]
-        public void TestExpanding()
+        [TestCase(5)]
+        [TestCase(7)]
+        [TestCase(8)]//This takes 2 minutes
+        public void TestExpanding(int generations)
         {
-            var toDepth = tree.GetToMaxDepth("Origin", 5);
-            var text = toDepth.PrettyPrint();
+            var toDepth = tree.GetToMaxDepth("Origin", generations);
             var (w, h) = toDepth.GetSize(_ => relPositions);
 
-            Assert.AreEqual(Math.Pow(3, 5), w);
-            Assert.AreEqual(Math.Pow(3, 5), h);
+            Assert.AreEqual(Math.Pow(3, generations), w);
+            Assert.AreEqual(Math.Pow(3, generations), h);
         }
     }
 }

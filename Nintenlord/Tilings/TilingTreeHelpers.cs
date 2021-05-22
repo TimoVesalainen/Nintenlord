@@ -11,6 +11,8 @@ namespace Nintenlord.Tilings
     {
         public static (int width, int height) GetSize<T>(this ITree<T> tree, Func<T, IEnumerable<(int relX, int relY)>> getChildRelativePosition)
         {
+            Dictionary<int, int> widths = new Dictionary<int, int>();
+            Dictionary<int, int> heights = new Dictionary<int, int>();
 
             (int x, int y, int w, int h) Combine((T, Maybe<(int x, int y)>) parent, IEnumerable<(int x, int y, int w, int h)> childRects)
             {
@@ -23,10 +25,11 @@ namespace Nintenlord.Tilings
                 }
                 else
                 {
-                    Dictionary<int, int> widths = new Dictionary<int, int>();
-                    Dictionary<int, int> heights = new Dictionary<int, int>();
+                    var rects = childRects.ToArray();
+                    widths.Clear();
+                    heights.Clear();
 
-                    foreach (var (cx, cy, cw, ch) in childRects)
+                    foreach (var (cx, cy, cw, ch) in rects)
                     {
                         if (!widths.TryGetValue(cx, out var oldWidth))
                         {
