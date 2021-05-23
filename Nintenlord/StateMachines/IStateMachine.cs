@@ -82,5 +82,20 @@ namespace Nintenlord.StateMachines
 
             return new LoggingStateMachine<TState, TInput>(original, LogState, LogInput);
         }
+
+        public static TransformInputStateMachine<TState, TInput, TInput2> TransformInput<TState, TInput, TInput2>(this IStateMachine<TState, TInput> original, Func<TInput2, TInput> transformInput)
+        {
+            return new TransformInputStateMachine<TState, TInput, TInput2>(original, transformInput);
+        }
+
+        public static TwoStepStateMachine<TState, TInput> TwoSteps<TState, TInput>(this IStateMachine<TState, TInput> original)
+        {
+            return new TwoStepStateMachine<TState, TInput>(original);
+        }
+
+        public static MultiStepStateMachine<TState, TInput> MultipleSteps<TState, TInput>(this IStateMachine<TState, TInput> original)
+        {
+            return new MultiStepStateMachine<TState, TInput>(original);
+        }
     }
 }
