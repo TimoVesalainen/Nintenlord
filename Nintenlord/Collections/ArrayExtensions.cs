@@ -248,5 +248,96 @@ namespace Nintenlord.Collections
 
             return matrix;
         }
+
+        public static T[,] FromRows<T>(this IEnumerable<IEnumerable<T>> rows, int width, int height)
+        {
+            T[,] result = new T[height, width];
+
+            int y = 0;
+            foreach (var row in rows)
+            {
+                int x = 0;
+                foreach (var item in row)
+                {
+                    result[y, x] = item;
+                    x++;
+                }
+                y++;
+            }
+
+            return result;
+        }
+
+        public static T[,] FromRows<T>(params T[][] rows)
+        {
+            var height = rows.Length;
+            var width = rows[0].Length;
+
+            return FromRows(rows, width, height);
+        }
+
+        public static T[,] FromColumns<T>(this IEnumerable<IEnumerable<T>> columns, int width, int height)
+        {
+            T[,] result = new T[height, width];
+            
+            int x = 0;
+            foreach (var column in columns)
+            {
+                int y = 0;
+                foreach (var item in column)
+                {
+                    result[y, x] = item;
+                    y++;
+                }
+                x++;
+            }
+
+            return result;
+        }
+
+        public static T[,] FromColumns<T>(params T[][] columns)
+        {
+            var height = columns[0].Length;
+            var width = columns.Length;
+
+            return FromColumns(columns, width, height);
+        }
+
+        public static TOut[,] MatrixMultiply<TOut, TIn1, TIn2>(this TIn1[,] matrix1, TIn2[,] matrix2, 
+            Func<TIn1, TIn2, TOut> multiply, Func<IEnumerable<TOut>, TOut> sum)
+        {
+            if (matrix1 is null)
+            {
+                throw new ArgumentNullException(nameof(matrix1));
+            }
+
+            if (matrix2 is null)
+            {
+                throw new ArgumentNullException(nameof(matrix2));
+            }
+
+            if (multiply is null)
+            {
+                throw new ArgumentNullException(nameof(multiply));
+            }
+
+            if (sum is null)
+            {
+                throw new ArgumentNullException(nameof(sum));
+            }
+
+            if (matrix1.GetLength(1) != matrix2.GetLength(0))
+            {
+                throw new ArgumentException($"Width of {nameof(matrix1)} is different from height of {nameof(matrix2)}");
+            }
+
+            TOut[,] result = new TOut[matrix1.GetLength(0), matrix2.GetLength(1)];
+            foreach (var ((row, y), (column, x)) in GetRows(matrix1).Select((x,i) => (x, i)).Zip(GetColumns(matrix2).Select((x, i) => (x, i)),
+                (x, y) => (x, y)))
+            {
+                result[y, x] = sum(row.Zip(column, multiply));
+            }
+            return result;
+        }
     }
 }
