@@ -48,5 +48,15 @@ namespace Nintenlord.Tests.Utility.Primitives
             Assert.IsTrue(IntegerExtensions.Compositions(number)
                 .Select(composition => composition.Sum() == number).All(x => x));
         }
+
+        [TestCase(0)]
+        [TestCase(2)]
+        [TestCase(17)]
+        [TestCase(30)]
+        public void TestPower2BaseNRepresentation(int shiftAmount)
+        {
+            Assert.AreEqual(Enumerable.Repeat(0, shiftAmount).Append(1),
+                (1 << shiftAmount).BaseNRepresentation(2));
+        }
     }
 }
