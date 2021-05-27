@@ -35,7 +35,7 @@ namespace Nintenlord.Trees
         }
 
         public static IEnumerable<TNode[]> GetGenerations<TNode>(this IForest<TNode> forest, TNode start)
-        {
+        {//Could use select parameter
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
@@ -307,7 +307,7 @@ namespace Nintenlord.Trees
         }
 
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this IForest<TNode> forest, TNode root)
-        {
+        {//Could use select parameter
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
