@@ -71,5 +71,23 @@ namespace Nintenlord.Utility.Primitives
             }
             return min > value ? min : max < value ? max : value;
         }
+
+        public static double SigmoidRP(this double value, double min, double max)
+        {
+            var exponent = Math.Exp(value * 10 - 5);
+
+            var sigmoid = exponent / (1 + exponent);
+
+            return min + sigmoid * (max - min);
+        }
+
+        public static float SigmoidRP(this float value, float min, float max)
+        {
+            var exponent = (float)Math.Exp(value * 10 - 5);
+
+            var sigmoid = exponent / (1 + exponent);
+
+            return min + sigmoid * (max - min);
+        }
     }
 }
