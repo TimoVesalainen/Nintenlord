@@ -74,6 +74,10 @@ namespace Nintenlord.Utility.Primitives
 
         public static double SigmoidRP(this double value, double min, double max)
         {
+            if (min > max)
+            {
+                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
+            }
             var exponent = Math.Exp(value * 10 - 5);
 
             var sigmoid = exponent / (1 + exponent);
@@ -83,6 +87,10 @@ namespace Nintenlord.Utility.Primitives
 
         public static float SigmoidRP(this float value, float min, float max)
         {
+            if (min > max)
+            {
+                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
+            }
             var exponent = (float)Math.Exp(value * 10 - 5);
 
             var sigmoid = exponent / (1 + exponent);
