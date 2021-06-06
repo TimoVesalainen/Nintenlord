@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Nintenlord.Collections.Lists
 {
-    public sealed class StringWrapper : IList<char>
+    public sealed class StringWrapper : IList<char>, IReadOnlyList<char>
     {
         private readonly string baseString;
 
