@@ -1,0 +1,83 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using Nintenlord.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Nintenlord.Collections
+{
+    public static partial class CollectionExtensions
+	{
+<#
+for(int i = 2; i < 9; i++)
+{
+    var typeParams = Enumerable.Range(0, i).Select(x => $"T{x}").ToArray();
+    var seeds = Enumerable.Range(0, i).Select(x => $"seed{x}").ToArray();
+    var funcs = Enumerable.Range(0, i).Select(x => $"func{x}").ToArray();
+    var items = Enumerable.Range(0, i).Select(x => $"item{x}").ToArray();
+#>
+        public static (<#= string.Join(", ", typeParams) #>) Aggregate<<#= string.Join(", ", typeParams) #>, TSource>(
+            this IEnumerable<TSource> source, <#= string.Join(", ", seeds.Zip(typeParams, (n, t) => $"{t} {n}")) #>,
+            <#= string.Join(", ", typeParams.Zip(funcs, (t, n) => $"Func<{t}, TSource, {t}> {n}")) #>)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+<#
+    foreach(var name in funcs)
+    {
+#>
+            if (<#= name #> is null)
+            {
+                throw new ArgumentNullException(nameof(<#= name #>));
+            }
+<#
+    }
+#>
+
+            var seed = (<#= string.Join(", ", seeds) #>);
+
+            (<#= string.Join(", ", typeParams) #>) Accumalator((<#= string.Join(", ", typeParams) #>) accum, TSource item)
+            {
+                return (<#= string.Join(", ", funcs.Select((func, i) => $"{func}(accum.Item{i + 1}, item)")) #>);
+            }
+
+            return source.Aggregate(seed, Accumalator);
+        }
+
+        public static (<#= string.Join(", ", Enumerable.Repeat("T", i)) #>) GetFirst<#= i #><T>(this IEnumerable<T> enumerable)
+        {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
+
+            using (var enumerator = enumerable.GetEnumerator())
+            {
+<#
+    foreach (var item in items)
+    {
+#>
+                if (!enumerator.MoveNext())
+                {
+                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+                }
+                var <#= item #> = enumerator.Current;
+<#
+    }
+#>
+                return (<#= string.Join(", ", items) #>);
+            }
+        }
+<#
+}
+#>
+	}
+}

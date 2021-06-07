@@ -11,7 +11,7 @@ namespace Nintenlord.Collections
     /// <summary>
     /// Extensions and helper methods to .NET collections
     /// </summary>
-    public static class CollectionExtensions
+    public static partial class CollectionExtensions
     {
         public static bool Or(this IEnumerable<bool> collection)
         {
@@ -563,49 +563,6 @@ namespace Nintenlord.Collections
             TValue defaultVal = default(TValue))
         {
             return dict.TryGetValue(key, out TValue val) ? val : defaultVal;
-        }
-
-        public static Tuple<TAccumulate1, TAccumulate2> Aggregate<TAccumulate1, TAccumulate2, TSource>(
-            this IEnumerable<TSource> source,
-            TAccumulate1 seed1,
-            TAccumulate2 seed2,
-            Func<TAccumulate1, TSource, TAccumulate1> func1,
-            Func<TAccumulate2, TSource, TAccumulate2> func2)
-        {
-            var seed = Tuple.Create(seed1, seed2);
-
-            Func<
-                Tuple<TAccumulate1, TAccumulate2>,
-                TSource,
-                Tuple<TAccumulate1, TAccumulate2>> func =
-                (accum, sourceItem) => Tuple.Create(func1(accum.Item1, sourceItem), func2(accum.Item2, sourceItem));
-
-            return source.Aggregate(seed, func);
-        }
-
-        public static Tuple<TAccumulate1, TAccumulate2, TAccumulate3>
-            Aggregate<TAccumulate1, TAccumulate2, TAccumulate3, TSource>(
-                this IEnumerable<TSource> source,
-                TAccumulate1 seed1,
-                TAccumulate2 seed2,
-                TAccumulate3 seed3,
-                Func<TAccumulate1, TSource, TAccumulate1> func1,
-                Func<TAccumulate2, TSource, TAccumulate2> func2,
-                Func<TAccumulate3, TSource, TAccumulate3> func3)
-        {
-            var seed = Tuple.Create(seed1, seed2, seed3);
-
-            Func<
-                Tuple<TAccumulate1, TAccumulate2, TAccumulate3>,
-                TSource,
-                Tuple<TAccumulate1, TAccumulate2, TAccumulate3>> func =
-                (accum, sourceItem) =>
-                    Tuple.Create(
-                        func1(accum.Item1, sourceItem),
-                        func2(accum.Item2, sourceItem),
-                        func3(accum.Item3, sourceItem));
-
-            return source.Aggregate(seed, func);
         }
 
         public static IEnumerable<(T, bool isLast)> GetIsLast<T>(this IEnumerable<T> items)
