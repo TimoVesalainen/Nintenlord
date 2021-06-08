@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Collections\CollectionExtensions_Tuple.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
+    </None>
     <None Include="Utility\EitherHelpers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -35,6 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Collections\CollectionExtensions_Tuple.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CollectionExtensions_Tuple.cs</LastGenOutput>
+    </None>
     <None Update="Utility\EitherHelpers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EitherHelpers.cs</LastGenOutput>
@@ -58,6 +67,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Collections\CollectionExtensions_Tuple.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
+    </Compile>
     <Compile Update="Utility\EitherHelpers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

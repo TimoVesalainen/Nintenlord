@@ -51,7 +51,6 @@ namespace Nintenlord.Utility
 
             #endregion
 
-
             #region IEnumerable<T> Members
 
             public IEnumerator<T> GetEnumerator()
