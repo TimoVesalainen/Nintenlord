@@ -21,6 +21,10 @@ for(int i = 2; i < 9; i++)
     var seeds = Enumerable.Range(0, i).Select(x => $"seed{x}").ToArray();
     var funcs = Enumerable.Range(0, i).Select(x => $"func{x}").ToArray();
     var items = Enumerable.Range(0, i).Select(x => $"item{x}").ToArray();
+
+    Func<string, string> repeat = s => string.Join(", ", Enumerable.Repeat(s, i));
+    var iMaybes = repeat("Maybe<T>");
+    var tupleItems = Enumerable.Range(0, i).Select(x => $"a{x}").ToArray();
 #>
         public static (<#= string.Join(", ", typeParams) #>) Aggregate<<#= string.Join(", ", typeParams) #>, TSource>(
             this IEnumerable<TSource> source, <#= string.Join(", ", seeds.Zip(typeParams, (n, t) => $"{t} {n}")) #>,
@@ -52,6 +56,26 @@ for(int i = 2; i < 9; i++)
             return source.Aggregate(seed, Accumalator);
         }
 
+        public static IEnumerable<(<#= repeat("T") #>)> GetSequential<#= i #>s<T>(this IEnumerable<T> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            (<#= iMaybes #>) MoveNext((<#= iMaybes #>) previous, Maybe<T> next)
+            {
+                var (<#= string.Join(", ", tupleItems) #>) = previous;
+
+                return (<#= string.Join(", ", tupleItems.Skip(1)) #>, next);
+            }
+
+            return items.Select(Maybe<T>.Just)
+                        .Scan((<#= repeat("Maybe<T>.Nothing") #>), MoveNext)
+                        .Select(tuple => tuple.Item1.Zip(<#= string.Join(", ", Enumerable.Range(0, i - 1).Select(x => $"tuple.Item{x+2}")) #>, (<#= string.Join(", ", tupleItems) #>) => (<#= string.Join(", ", tupleItems) #>)))
+                        .GetValues();
+        }
+
         public static (<#= string.Join(", ", Enumerable.Repeat("T", i)) #>) GetFirst<#= i #><T>(this IEnumerable<T> enumerable)
         {
             if (enumerable is null)
@@ -59,23 +83,54 @@ for(int i = 2; i < 9; i++)
                 throw new ArgumentNullException(nameof(enumerable));
             }
 
-            using (var enumerator = enumerable.GetEnumerator())
+            return enumerable.GetSequential<#= i #>s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
+        }
+
+        public static IEnumerable<(<#= repeat("T") #>)> GetParts<#= i #>s<T>(this IEnumerable<T> items)
+        {
+            if (items is null)
             {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            (<#= iMaybes #>) MoveNext((<#= iMaybes #>) previous, Maybe<T> next)
+            {
+                var (<#= string.Join(", ", tupleItems) #>) = previous;
+
+                return (<#= string.Join(", ", tupleItems.Skip(1)) #>, next);
+            }
+
+            return items.Select(Maybe<T>.Just)
+                        .Scan((<#= repeat("Maybe<T>.Nothing") #>), MoveNext)
+                        .Select(tuple => tuple.Item1.Zip(<#= string.Join(", ", Enumerable.Range(0, i - 1).Select(x => $"tuple.Item{x+2}")) #>, (<#= string.Join(", ", tupleItems) #>) => (<#= string.Join(", ", tupleItems) #>)))
+                        .GetValues();
+        }
+
+        public static IEnumerable<(<#= repeat("T") #>)> GetPartitions<#= i #>s<T>(this IEnumerable<T> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            return items.GetParts<#= i #>s()
+                        .Select((x, i) => (x, i))
+                        .Where(t => (t.i % <#= i #>) == 0)
+                        .Select(t => t.x);
+        }
+
+        public static IEnumerable<T> Enumerate<T>(this (<#= repeat("T") #>) tuple)
+        {
 <#
-    foreach (var item in items)
+    for (int j = 0; j < i; j++)
     {
 #>
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var <#= item #> = enumerator.Current;
+            yield return tuple.Item<#= j + 1 #>;
 <#
     }
 #>
-                return (<#= string.Join(", ", items) #>);
-            }
         }
+
 <#
 }
 #>
