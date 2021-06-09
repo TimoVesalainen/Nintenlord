@@ -84,7 +84,31 @@ namespace Nintenlord.Utility
                 return defaultValue;
             }
         }
-        
+
+        public static T GetValueOrThrow<T>(this Maybe<T> maybe, Exception exception)
+        {
+            if (maybe.HasValue)
+            {
+                return maybe.Value;
+            }
+            else
+            {
+                throw exception;
+            }
+        }
+
+        public static T GetValueOrThrow<T>(this Maybe<T> maybe, Func<Exception> throwFunc)
+        {
+            if (maybe.HasValue)
+            {
+                return maybe.Value;
+            }
+            else
+            {
+                throw throwFunc();
+            }
+        }
+
         public static Maybe<T> Concat<T>(this Maybe<T> maybe, Maybe<T> maybeOther)
         {
             if (maybe.HasValue)
@@ -153,6 +177,55 @@ namespace Nintenlord.Utility
             if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue && maybe4.HasValue)
             {
                 return zipper(maybe1.Value, maybe2.Value, maybe3.Value, maybe4.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+        public static Maybe<TOut> Zip<TIn1, TIn2, TIn3, TIn4, TIn5, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Maybe<TIn3> maybe3, Maybe<TIn4> maybe4, Maybe<TIn5> maybe5,
+            Func<TIn1, TIn2, TIn3, TIn4, TIn5, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue && maybe4.HasValue && maybe5.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value, maybe3.Value, maybe4.Value, maybe5.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+        public static Maybe<TOut> Zip<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Maybe<TIn3> maybe3, Maybe<TIn4> maybe4, Maybe<TIn5> maybe5, Maybe<TIn6> maybe6,
+            Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue && maybe4.HasValue && maybe5.HasValue && maybe6.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value, maybe3.Value, maybe4.Value, maybe5.Value, maybe6.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+        public static Maybe<TOut> Zip<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Maybe<TIn3> maybe3, Maybe<TIn4> maybe4, Maybe<TIn5> maybe5, Maybe<TIn6> maybe6, Maybe<TIn7> maybe7,
+            Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue && maybe4.HasValue && maybe5.HasValue && maybe6.HasValue && maybe7.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value, maybe3.Value, maybe4.Value, maybe5.Value, maybe6.Value, maybe7.Value);
+            }
+            else
+            {
+                return Maybe<TOut>.Nothing;
+            }
+        }
+
+        public static Maybe<TOut> Zip<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TOut>(this Maybe<TIn1> maybe1, Maybe<TIn2> maybe2, Maybe<TIn3> maybe3, Maybe<TIn4> maybe4, Maybe<TIn5> maybe5, Maybe<TIn6> maybe6, Maybe<TIn7> maybe7, Maybe<TIn8> maybe8,
+            Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TOut> zipper)
+        {
+            if (maybe1.HasValue && maybe2.HasValue && maybe3.HasValue && maybe4.HasValue && maybe5.HasValue && maybe6.HasValue && maybe7.HasValue && maybe8.HasValue)
+            {
+                return zipper(maybe1.Value, maybe2.Value, maybe3.Value, maybe4.Value, maybe5.Value, maybe6.Value, maybe7.Value, maybe8.Value);
             }
             else
             {
