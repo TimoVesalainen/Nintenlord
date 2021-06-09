@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Nintenlord.Collections.Comparers
@@ -32,6 +33,21 @@ namespace Nintenlord.Collections.Comparers
             {
                 return item2;
             }
+        }
+
+        public static IComparer<TOuter> Select<T, TOuter>(this IComparer<T> comparer, Func<TOuter, T> selector)
+        {
+            return new SelectComparer<TOuter, T>(selector, comparer);
+        }
+
+        public static IComparer<T> Reverse<T>(this IComparer<T> comparer)
+        {
+            return new ReverseComparer<T>(comparer);
+        }
+
+        public static IComparer<T> Then<T>(this IComparer<T> comparer, params IComparer<T>[] parameters)
+        {
+            return new SequentialComparer<T>(parameters.Prepend(comparer));
         }
     }
 }
