@@ -675,7 +675,7 @@ namespace Nintenlord.Collections
 
             return items.Select(Maybe<T>.Just)
                         .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(pair => pair.Item1.Zip(pair.Item2, (x,y) => (x, y)))
+                        .Select(pair => pair.Item1.Zip(pair.Item2, (x, y) => (x, y)))
                         .GetValues();
         }
 
