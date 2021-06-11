@@ -1,4 +1,5 @@
-﻿using Nintenlord.Utility;
+﻿using Nintenlord.Trees.Nodes;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -164,6 +165,20 @@ namespace Nintenlord.Trees
         public static bool TreeEquality<TNode>(this ITree<TNode> tree1, ITree<TNode> tree2, IEqualityComparer<TNode> comparer = null)
         {
             return tree1.ForestEquality(tree1.Root, tree2, tree2.Root, comparer);
+        }
+
+        public static ArrayTree<T> ConvertTo<T>(BinaryTree<T> tree)
+        {
+            var treeStructure = IndexBinaryTree.Instance;
+            ArrayTree<T> result = new ArrayTree<T>(IndexBinaryTree.Instance);
+
+            foreach (var (node, index) in tree.ZipAggregateChildren((_, i) => treeStructure.GetChildren(i), 1, tree.Root)
+                .BreadthFirstTraversal())
+            {
+                result.SetItemToIndex(index, node.Value);
+            }
+
+            return result;
         }
     }
 }
