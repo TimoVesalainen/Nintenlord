@@ -16,6 +16,8 @@ namespace Nintenlord.Trees
 
         public int Root => 1;
 
+        public int ChildCount => n;
+
         private IndexNTree(int n)
         {
             this.n = n;

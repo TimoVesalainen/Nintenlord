@@ -12,6 +12,8 @@ namespace Nintenlord.Trees
 
         readonly ITree<int> treeStructure;
 
+        public int RootIndex => treeStructure.Root;
+
         public ArrayTree(ITree<int> treeStructure) : this(4, treeStructure)
         {
 
@@ -85,6 +87,27 @@ namespace Nintenlord.Trees
 
             nodes[index].value = item;
             nodes[index].hasValue = true;
+        }
+
+        /// <remarks>Indecis are no longer valid after this</remarks>
+        public static ArrayTree<T> AddNewRoot(ArrayTree<T> old, T newRoot)
+        {
+            int childMaxCount;
+            switch (old.treeStructure)
+            {
+                case IndexBinaryTree _:
+                    childMaxCount = 2;
+                    break;
+                case IndexNTree nTree:
+                    childMaxCount = nTree.ChildCount;
+                    break;
+                default:
+                    throw new ArgumentException("No way to know childCount");
+            }
+
+            var newTree = old.AddRoot((-1, newRoot));
+
+            return newTree.ConvertTo(newTree.Root, childMaxCount, tuple => tuple.Item2);
         }
     }
 }
