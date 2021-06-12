@@ -179,5 +179,34 @@ namespace Nintenlord.Trees
 
             return result;
         }
+
+        public static ITree<int> GetIndexTree(int n)
+        {
+            if (n == 2)
+            {
+                return IndexBinaryTree.Instance;
+            }
+            else if (n > 2)
+            {
+                return IndexNTree.GetTree(n);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(n), "Parameter needs to be atleast 2");
+            }
+        }
+
+        public static ArrayTree<T> ConvertTo<T>(ITree<T> tree, int n)
+        {
+            var treeStructure = GetIndexTree(n);
+            ArrayTree<T> result = new ArrayTree<T>(treeStructure);
+
+            foreach (var (node, index) in tree.ZipTree(treeStructure).BreadthFirstTraversal())
+            {
+                result.SetItemToIndex(index, node);
+            }
+
+            return result;
+        }
     }
 }
