@@ -6,10 +6,9 @@ namespace Nintenlord.Trees
 {
     public sealed class ArrayTree<T> : ITree<(int index, T item)>
     {
-        //Index 0 is not used
         (bool hasValue, T value)[] nodes;
 
-        public (int index, T item) Root => (1, nodes[1].value);
+        public (int index, T item) Root => (treeStructure.Root, nodes[treeStructure.Root].value);
 
         readonly ITree<int> treeStructure;
 
