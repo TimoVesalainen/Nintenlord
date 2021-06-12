@@ -170,10 +170,9 @@ namespace Nintenlord.Trees
         public static ArrayTree<T> ConvertTo<T>(BinaryTree<T> tree)
         {
             var treeStructure = IndexBinaryTree.Instance;
-            ArrayTree<T> result = new ArrayTree<T>(IndexBinaryTree.Instance);
+            ArrayTree<T> result = new ArrayTree<T>(treeStructure);
 
-            foreach (var (node, index) in tree.ZipAggregateChildren((_, i) => treeStructure.GetChildren(i), 1, tree.Root)
-                .BreadthFirstTraversal())
+            foreach (var (node, index) in tree.ZipTree(treeStructure).BreadthFirstTraversal())
             {
                 result.SetItemToIndex(index, node.Value);
             }
