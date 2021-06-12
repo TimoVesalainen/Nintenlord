@@ -5,7 +5,7 @@ using System.Reactive;
 
 namespace Nintenlord.Trees
 {
-    public sealed class TreeCollection<T1, T2> : ITree<Either<T1, T2, Unit>>
+    public sealed class DisjoinUnionTree<T1, T2> : ITree<Either<T1, T2, Unit>>
     {
         readonly ITree<T1> tree1;
         readonly ITree<T2> tree2;
@@ -13,7 +13,7 @@ namespace Nintenlord.Trees
 
         public Either<T1, T2, Unit> Root => Unit.Default;
 
-        public TreeCollection(ITree<T1> tree1, ITree<T2> tree2)
+        public DisjoinUnionTree(ITree<T1> tree1, ITree<T2> tree2)
         {
             this.tree1 = tree1;
             this.tree2 = tree2;
