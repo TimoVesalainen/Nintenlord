@@ -11,6 +11,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
     </None>
+    <None Include="Trees\DisjoinUnionTrees.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DisjoinUnionTrees.tt</DependentUpon>
+    </None>
     <None Include="Utility\EitherHelpers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -44,6 +49,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CollectionExtensions_Tuple.cs</LastGenOutput>
     </None>
+    <None Update="Trees\DisjoinUnionTrees.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DisjoinUnionTrees.cs</LastGenOutput>
+    </None>
     <None Update="Utility\EitherHelpers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EitherHelpers.cs</LastGenOutput>
@@ -71,6 +80,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Trees\DisjoinUnionTrees.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DisjoinUnionTrees.tt</DependentUpon>
     </Compile>
     <Compile Update="Utility\EitherHelpers.cs">
       <DesignTime>True</DesignTime>
