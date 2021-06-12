@@ -627,5 +627,10 @@ namespace Nintenlord.Trees
 
             return result;
         }
+
+        public static AddRootTree<T> AddRoot<T>(this IForest<T> tree, T newRoot, IEnumerable<T> rootChildren, IEqualityComparer<T> comparer = null)
+        {
+            return new AddRootTree<T>(tree, newRoot, rootChildren, comparer);
+        }
     }
 }

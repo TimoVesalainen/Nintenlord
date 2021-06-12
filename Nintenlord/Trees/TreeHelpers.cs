@@ -216,6 +216,10 @@ namespace Nintenlord.Trees
             return tree.ConvertTo(tree.Root, n, selector);
         }
 
+
+        public static AddRootTree<T> AddRoot<T>(this ITree<T> tree, T newRoot, IEqualityComparer<T> comparer = null)
+        {
+            return new AddRootTree<T>(tree, newRoot, new[] { tree.Root }, comparer);
         }
     }
 }
