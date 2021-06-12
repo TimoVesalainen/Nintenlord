@@ -33,9 +33,8 @@ namespace Nintenlord.Trees
                 }
             }
         }
-
-        public static IEnumerable<TNode[]> GetGenerations<TNode>(this IForest<TNode> forest, TNode start)
-        {//Could use select parameter
+        public static IEnumerable<IEnumerable<TNode>> GetGenerations<TNode>(this IForest<TNode> forest, TNode start)
+        {
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
@@ -52,7 +51,7 @@ namespace Nintenlord.Trees
 
             while (Current().Count > 0)
             {
-                yield return Current().ToArray();
+                yield return Current();
                 Next().Clear();
 
                 foreach (var item in Current())
@@ -106,48 +105,67 @@ namespace Nintenlord.Trees
 
             return forest.Aggregate<IEnumerable<TNode>, TNode>(Combine, start);
         }
-
         public static RoseTree<TNode> GetRoseTree<TNode>(this IForest<TNode> forest, TNode root, IEqualityComparer<TNode> nodeComparer = null)
+        {
+            return forest.GetRoseTree(root, x => x, nodeComparer);
+        }
+
+        public static RoseTree<TResult> GetRoseTree<TNode, TResult>(this IForest<TNode> forest, TNode root, Func<TNode, TResult> selector, IEqualityComparer<TNode> nodeComparer = null)
         {
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            var rootNode = forest.GetConcreteTree<TNode, RoseTreeNode<TNode>>(root,
-                (node, children)  => new RoseTreeNode<TNode>(children, node), nodeComparer);
+            if (selector is null)
+            {
+                throw new ArgumentNullException(nameof(selector));
+            }
 
-            return new RoseTree<TNode>(rootNode);
+            var rootNode = forest.GetConcreteTree<TNode, RoseTreeNode<TResult>>(root,
+                (node, children)  => new RoseTreeNode<TResult>(children, selector(node)), nodeComparer);
+
+            return new RoseTree<TResult>(rootNode);
         }
 
         public static Maybe<BinaryTree<TNode>> TryGetBinaryTree<TNode>(this IForest<TNode> forest, TNode root, IEqualityComparer<TNode> nodeComparer = null)
         {
+            return forest.TryGetBinaryTree(root, x => x, nodeComparer);
+        }
+
+        public static Maybe<BinaryTree<TResult>> TryGetBinaryTree<TNode, TResult>(this IForest<TNode> forest, TNode root, Func<TNode, TResult> selector, IEqualityComparer<TNode> nodeComparer = null)
+        {
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            Maybe<BinaryTreeNode<TNode>> GetNode(TNode node, IEnumerable<Maybe<BinaryTreeNode<TNode>>> children)
+            if (selector is null)
+            {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
+            Maybe<BinaryTreeNode<TResult>> GetNode(TNode node, IEnumerable<Maybe<BinaryTreeNode<TResult>>> children)
             {
                 var childrenArray = children.ToList();
 
                 if (childrenArray.Count == 0)
                 {
-                    return new BinaryTreeNode<TNode>(node);
+                    return new BinaryTreeNode<TResult>(selector(node));
                 }
                 else if (childrenArray.Count == 2)
                 {
-                    return childrenArray[0].Zip(childrenArray[1], (left, right) => new BinaryTreeNode<TNode>(left, right, node));
+                    return childrenArray[0].Zip(childrenArray[1], (left, right) => new BinaryTreeNode<TResult>(left, right, selector(node)));
                 }
                 else
                 {
-                    return Maybe<BinaryTreeNode<TNode>>.Nothing;
+                    return Maybe<BinaryTreeNode<TResult>>.Nothing;
                 }
             }
 
-            var rootNode = forest.GetConcreteTree<TNode, Maybe<BinaryTreeNode<TNode>>>(root, GetNode, nodeComparer);
+            var rootNode = forest.GetConcreteTree<TNode, Maybe<BinaryTreeNode<TResult>>>(root, GetNode, nodeComparer);
 
-            return rootNode.Select(binaryRoot => new BinaryTree<TNode>(binaryRoot));
+            return rootNode.Select(binaryRoot => new BinaryTree<TResult>(binaryRoot));
         }
 
         public static TOut GetConcreteTree<TNode, TOut>(this IForest<TNode> forest, TNode root,
@@ -307,18 +325,28 @@ namespace Nintenlord.Trees
         }
 
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this IForest<TNode> forest, TNode root)
-        {//Could use select parameter
+        {
+            return forest.GetPaths(root, x => x);
+        }
+
+        public static IEnumerable<ImmutableList<TResult>> GetPaths<TNode, TResult>(this IForest<TNode> forest, TNode root, Func<TNode, TResult> selector)
+        {
             if (forest is null)
             {
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            ImmutableList<TNode> GetPaths(TNode child, ImmutableList<TNode> path)
+            if (selector is null)
             {
-                return path.Add(child);
+                throw new ArgumentNullException(nameof(selector));
             }
 
-            return forest.AggregateTree(GetPaths, ImmutableList<TNode>.Empty, root)
+            ImmutableList<TResult> GetPaths(TNode child, ImmutableList<TResult> path)
+            {
+                return path.Add(selector(child));
+            }
+
+            return forest.AggregateTree(GetPaths, ImmutableList<TResult>.Empty, root)
                          .GetLeaves()
                          .Select(pair => pair.Item2);
         }

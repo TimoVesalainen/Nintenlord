@@ -35,7 +35,7 @@ namespace Nintenlord.Trees
             return tree.BreadthFirstTraversal(tree.Root);
         }
 
-        public static IEnumerable<TNode[]> GetGenerations<TNode>(this ITree<TNode> tree)
+        public static IEnumerable<IEnumerable<TNode>> GetGenerations<TNode>(this ITree<TNode> tree)
         {
             return tree.GetGenerations(tree.Root);
         }
@@ -55,9 +55,19 @@ namespace Nintenlord.Trees
             return tree.GetRoseTree(tree.Root, nodeComparer);
         }
 
+        public static RoseTree<TResult> GetRoseTree<TNode, TResult>(this ITree<TNode> tree, Func<TNode, TResult> selector, IEqualityComparer<TNode> nodeComparer = null)
+        {
+            return tree.GetRoseTree(tree.Root, selector, nodeComparer);
+        }
+
         public static Maybe<BinaryTree<TNode>> TryGetBinaryTree<TNode>(this ITree<TNode> tree, IEqualityComparer<TNode> nodeComparer = null)
         {
             return tree.TryGetBinaryTree(tree.Root, nodeComparer);
+        }
+
+        public static Maybe<BinaryTree<TResult>> TryGetBinaryTree<TNode, TResult>(this ITree<TNode> tree, Func<TNode, TResult> selector, IEqualityComparer<TNode> nodeComparer = null)
+        {
+            return tree.TryGetBinaryTree(tree.Root, selector, nodeComparer);
         }
 
         public static TOut GetConcreteTree<TNode, TOut>(this ITree<TNode> tree,
