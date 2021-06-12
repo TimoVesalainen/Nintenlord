@@ -55,9 +55,9 @@ namespace Nintenlord.Trees
 
         public bool SetChild(int parentIndex, int childIndex, T item)
         {
-            var index = treeStructure.GetChildren(parentIndex).Skip(childIndex).FirstOrDefault();
+            var index = treeStructure.GetChildren(parentIndex).Skip(childIndex).DefaultIfEmpty(-1).First();
 
-            if (index > 0)
+            if (index >= 0)
             {
                 SetItemToIndex(index, item);
                 return true;
