@@ -89,6 +89,11 @@ namespace Nintenlord.Trees
             nodes[index].hasValue = true;
         }
 
+        public void SetRoot(T item)
+        {
+            SetItemToIndex(treeStructure.Root, item);
+        }
+
         /// <remarks>Indecis are no longer valid after this</remarks>
         public static ArrayTree<T> AddNewRoot(ArrayTree<T> old, T newRoot)
         {
