@@ -609,5 +609,23 @@ namespace Nintenlord.Trees
         {
             return new DisjointUnionForest<TNode1, TNode2, TNode3>(forest1, forest2, forest3);
         }
+
+        public static ArrayTree<T> ConvertTo<T>(this IForest<T> tree, T root, int n)
+        {
+            return ConvertTo(tree, root, n, x => x);
+        }
+
+        public static ArrayTree<TOut> ConvertTo<T, TOut>(this IForest<T> tree, T root, int n, Func<T, TOut> selector)
+        {
+            var treeStructure = TreeHelpers.GetIndexTree(n);
+            ArrayTree<TOut> result = new ArrayTree<TOut>(treeStructure);
+
+            foreach (var (node, index) in tree.SetRoot(root).ZipTree(treeStructure).BreadthFirstTraversal())
+            {
+                result.SetItemToIndex(index, selector(node));
+            }
+
+            return result;
+        }
     }
 }

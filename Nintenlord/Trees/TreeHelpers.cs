@@ -206,17 +206,16 @@ namespace Nintenlord.Trees
             }
         }
 
-        public static ArrayTree<T> ConvertTo<T>(ITree<T> tree, int n)
+        public static ArrayTree<T> ConvertTo<T>(this ITree<T> tree, int n)
         {
-            var treeStructure = GetIndexTree(n);
-            ArrayTree<T> result = new ArrayTree<T>(treeStructure);
+            return tree.ConvertTo(tree.Root, n);
+        }
 
-            foreach (var (node, index) in tree.ZipTree(treeStructure).BreadthFirstTraversal())
-            {
-                result.SetItemToIndex(index, node);
-            }
+        public static ArrayTree<TOut> ConvertTo<T, TOut>(this ITree<T> tree, int n, Func<T, TOut> selector)
+        {
+            return tree.ConvertTo(tree.Root, n, selector);
+        }
 
-            return result;
         }
     }
 }
