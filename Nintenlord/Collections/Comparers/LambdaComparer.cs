@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Comparers
 {
-    public class LamdaComparer<T> : IComparer<T>, IEqualityComparer<T>
+    public sealed class LambdaComparer<T> : IComparer<T>, IEqualityComparer<T>
     {
         private readonly Func<T, T, int> f;
 
-        public LamdaComparer(Func<T, T, int> f)
+        public LambdaComparer(Func<T, T, int> f)
         {
             this.f = f;
         }
