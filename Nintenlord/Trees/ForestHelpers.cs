@@ -632,5 +632,18 @@ namespace Nintenlord.Trees
         {
             return new AddRootTree<T>(tree, newRoot, rootChildren, comparer);
         }
+
+        public static ITree<ITree<T>> ToTrees<T>(this IForest<T> forest, T root)
+        {
+            IEnumerable<ITree<T>> GetChildren(ITree<T> childTree)
+            {
+                foreach (var child in forest.GetChildren(childTree.Root))
+                {
+                    yield return forest.SetRoot(child);
+                }
+            }
+
+            return new LambdaTree<ITree<T>>(forest.SetRoot(root), GetChildren);
+        }
     }
 }

@@ -221,5 +221,10 @@ namespace Nintenlord.Trees
         {
             return new AddRootTree<T>(tree, newRoot, new[] { tree.Root }, comparer);
         }
+
+        public static ITree<ITree<T>> ToTrees<T>(this ITree<T> tree)
+        {
+            return tree.ToTrees(tree.Root);
+        }
     }
 }
