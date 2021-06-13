@@ -683,5 +683,24 @@ namespace Nintenlord.Collections
         {
             yield return item;
         }
+
+        public static IEnumerable<T> Iterate<T>(Func<T, T> toIterate, T start)
+        {
+            if (toIterate is null)
+            {
+                throw new ArgumentNullException(nameof(toIterate));
+            }
+
+            IEnumerable<T> IterateInner()
+            {
+                while (true)
+                {
+                    yield return start;
+                    start = toIterate(start);
+                }
+            }
+
+            return IterateInner();
+        }
     }
 }
