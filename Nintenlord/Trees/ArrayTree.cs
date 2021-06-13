@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Utility.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,13 @@ namespace Nintenlord.Trees
         public ArrayTree(int capacity, ITree<int> treeStructure)
         {
             nodes = new (bool, T)[capacity];
-            this.treeStructure = treeStructure;
+            this.treeStructure = treeStructure ?? throw new ArgumentNullException(nameof(treeStructure));
+        }
+
+        private ArrayTree((bool hasValue, T value)[] array, ITree<int> treeStructure)
+        {
+            this.nodes = array ?? throw new ArgumentNullException(nameof(array));
+            this.treeStructure = treeStructure ?? throw new ArgumentNullException(nameof(treeStructure));
         }
 
         public IEnumerable<(int index, T item)> GetChildren((int index, T item) node)
@@ -43,7 +50,7 @@ namespace Nintenlord.Trees
 
         public bool TryGetValue(int index, out T value)
         {
-            if (nodes[index].hasValue)
+            if (index < nodes.Length && nodes[index].hasValue)
             {
                 value = nodes[index].value;
                 return true;
@@ -75,13 +82,7 @@ namespace Nintenlord.Trees
         {
             if (index >= nodes.Length)
             {
-                var newLength = nodes.Length;
-
-                while (newLength <= index)
-                {
-                    newLength *= 2;
-                }
-
+                var newLength = (index + 1).ToPower2();
                 Array.Resize(ref nodes, newLength);
             }
 
@@ -110,9 +111,13 @@ namespace Nintenlord.Trees
                     throw new ArgumentException("No way to know childCount");
             }
 
-            var newTree = old.AddRoot((-1, newRoot));
+            var newArray = IndexNTree.CopyToNewArray(old.nodes, childMaxCount);
 
-            return newTree.ConvertTo(newTree.Root, childMaxCount, tuple => tuple.Item2);
+            var result = new ArrayTree<T>(newArray, old.treeStructure);
+
+            result.SetRoot(newRoot);
+
+            return result;
         }
     }
 }
