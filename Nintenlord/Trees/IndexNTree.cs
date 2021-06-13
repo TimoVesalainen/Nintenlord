@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Trees
 {
@@ -60,6 +61,37 @@ namespace Nintenlord.Trees
 
                 levelStartIndex += levelLength * multiplier;
                 startIndex += levelLength;
+                level++;
+            }
+
+            return array;
+        }
+
+        public static T[] CopyToNewArray<T>(T[][] oldArrays)
+        {
+            var toMultiply = oldArrays.Length.ToPower2();
+
+            var array = new T[toMultiply * oldArrays.Select(arr => arr.Length).Max()];
+
+            int level = 0;
+            var startIndicis = Enumerable.Range(1, oldArrays.Length).ToArray();
+            var levelStartIndex = oldArrays.Length;
+            while (levelStartIndex < array.Length)
+            {
+                var defaultLevelLength = (int)Math.Pow(oldArrays.Length, level);
+                for (int i = 0; i < oldArrays.Length; i++)
+                {
+                    var oldArray = oldArrays[i];
+                    var startIndex = startIndicis[i];
+
+                    var levelLength = Math.Min(defaultLevelLength, oldArray.Length - startIndex);
+                    Array.Copy(oldArray, startIndex, array, levelStartIndex, levelLength);
+
+
+                    startIndicis[i] += levelLength;
+                    startIndex += levelLength;
+                }
+
                 level++;
             }
 
