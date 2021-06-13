@@ -5,7 +5,8 @@ namespace Nintenlord.Trees
 {
     public sealed class IndexBinaryTree : ITree<int>
     {
-        private readonly static Lazy<IndexBinaryTree> instance = new Lazy<IndexBinaryTree>(isThreadSafe: true);
+        private readonly static Lazy<IndexBinaryTree> instance = new Lazy<IndexBinaryTree>(
+            () => new IndexBinaryTree(), isThreadSafe: true);
 
         public static IndexBinaryTree Instance => instance.Value;
 
