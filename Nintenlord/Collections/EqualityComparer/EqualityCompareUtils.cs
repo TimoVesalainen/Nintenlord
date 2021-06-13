@@ -22,5 +22,9 @@ namespace Nintenlord.Collections.EqualityComparer
                 return new ComparerEqualityComparer<T>(comparer);
             }
         }
+        public static IEqualityComparer<T[]> ToListComparer<T>(this IEqualityComparer<T> comparer)
+        {
+            return new ArrayEqualityComparer<T>(comparer);
+        }
     }
 }
