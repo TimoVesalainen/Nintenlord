@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using Nintenlord.Utility.Primitives;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Nintenlord.Trees
@@ -39,6 +41,29 @@ namespace Nintenlord.Trees
                 yield return startIndex;
                 startIndex /= n;
             }
+        }
+
+        public static T[] CopyToNewArray<T>(T[] oldArray, int multiplier)
+        {
+            var toMultiply = multiplier.ToPower2();
+
+            var array = new T[toMultiply * oldArray.Length];
+
+            int level = 0;
+            int startIndex = 1;
+            var levelStartIndex = multiplier;
+            while (startIndex < oldArray.Length)
+            {
+                var levelLength = Math.Min((int)Math.Pow(multiplier, level), oldArray.Length - startIndex);
+
+                Array.Copy(oldArray, startIndex, array, levelStartIndex, levelLength);
+
+                levelStartIndex += levelLength * multiplier;
+                startIndex += levelLength;
+                level++;
+            }
+
+            return array;
         }
     }
 }
