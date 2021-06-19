@@ -327,5 +327,155 @@ namespace Nintenlord.Utility.Primitives
                 value /= baseSize;
             }
         }
+
+        public static int CountOneBits(this int number)
+        {
+            int result = 0;
+            while (number > 0)
+            {
+                number &= (number - 1);
+                result++;
+            }
+            return result;
+        }
+
+        public static int CountOneBits(this long number)
+        {
+            int result = 0;
+            while (number > 0)
+            {
+                number &= (number - 1);
+                result++;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Reverses bit order of a byte.
+        /// https://stackoverflow.com/a/2602885
+        /// </summary>
+        public static byte ReverseBits(this byte value)
+        {
+            //Swap 4 bit groups
+            value = (byte)(((value & 0xF0) >> 4) | ((value & 0x0F) << 4));
+            //Swap 2 bit groups
+            value = (byte)(((value & 0xCC) >> 2) | ((value & 0x33) << 2));
+            //Swap 1 bit groups
+            value = (byte)(((value & 0xAA) >> 1) | ((value & 0x55) << 1));
+            return value;
+        }
+
+        public static byte SwapBits(this byte value, int a, int b)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+
+            var diff = a - b;
+            var valA = (value & maskA) >> diff;
+            var valB = (value & maskB) << diff;
+            var rest = value & ~(maskA | maskB);
+
+            return (byte)(rest | valA | valB);
+        }
+
+        public static byte SwapBits(this byte value, int a, int b, int c)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+            int maskC = 1 << c;
+
+            var diffAB = a - b;
+            var diffBC = b - c;
+            var diffCA = c - a;
+            var valA = (value & maskA) >> diffAB;
+            var valB = (value & maskB) >> diffBC;
+            var valC = (value & maskC) >> diffCA;
+            var rest = value & ~(maskA | maskB | maskC);
+
+            return (byte)(rest | valA | valB | valC);
+        }
+
+        public static byte SwapBits(this byte value, int a, int b, int c, int d)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+            int maskC = 1 << c;
+            int maskD = 1 << d;
+
+            var diffAB = a - b;
+            var diffBC = b - c;
+            var diffCD = c - d;
+            var diffDA = d - a;
+            var valA = (value & maskA) >> diffAB;
+            var valB = (value & maskB) >> diffBC;
+            var valC = (value & maskC) >> diffCD;
+            var valD = (value & maskD) >> diffDA;
+            var rest = value & ~(maskA | maskB | maskC | maskD);
+
+            return (byte)(rest | valA | valB | valC | valD);
+        }
+
+        public static int Shift(this int value, int by)
+        {
+            if (by < 0)
+            {
+                return value >> -by;
+            }
+            else
+            {
+                return value << by;
+            }
+        }
+
+        public static int SwapBits(this int value, int a, int b)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+
+            var diffAB = a - b;
+            var diffBA = b - a;
+            var valA = (value & maskA).Shift(-diffAB);
+            var valB = (value & maskB).Shift(-diffBA);
+            var rest = value & ~(maskA | maskB);
+
+            return rest | valA | valB;
+        }
+
+        public static int SwapBits(this int value, int a, int b, int c)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+            int maskC = 1 << c;
+
+            var diffAB = a - b;
+            var diffBC = b - c;
+            var diffCA = c - a;
+            var valA = (value & maskA).Shift(-diffAB);
+            var valB = (value & maskB).Shift(-diffBC);
+            var valC = (value & maskC).Shift(-diffCA);
+            var rest = value & ~(maskA | maskB | maskC);
+
+            return rest | valA | valB | valC;
+        }
+
+        public static int SwapBits(this int value, int a, int b, int c, int d)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+            int maskC = 1 << c;
+            int maskD = 1 << d;
+
+            var diffAB = a - b;
+            var diffBC = b - c;
+            var diffCD = c - d;
+            var diffDA = d - a;
+            var valA = (value & maskA).Shift(-diffAB);
+            var valB = (value & maskB).Shift(-diffBC);
+            var valC = (value & maskC).Shift(-diffCD);
+            var valD = (value & maskD).Shift(-diffDA);
+            var rest = value & ~(maskA | maskB | maskC | maskD);
+
+            return rest | valA | valB | valC | valD;
+        }
     }
 }

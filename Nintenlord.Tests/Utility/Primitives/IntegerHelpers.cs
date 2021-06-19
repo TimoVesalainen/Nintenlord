@@ -58,5 +58,57 @@ namespace Nintenlord.Tests.Utility.Primitives
             Assert.AreEqual(Enumerable.Repeat(0, shiftAmount).Append(1),
                 (1 << shiftAmount).BaseNRepresentation(2));
         }
+
+        [TestCase(0)]
+        [TestCase(14)]
+        [TestCase(23)]
+        public void TestSwappingWithZero(int index)
+        {
+            var value = 1 << index;
+
+            for (int i = 0; i < 31; i++)
+            {
+                if (i != index)
+                {
+                    Assert.AreEqual(1 << i, value.SwapBits(index, i));
+                }
+            }
+        }
+
+        [TestCase(0, 5)]
+        [TestCase(14, 30)]
+        [TestCase(23, 1)]
+        public void TestSwappingOnes(int index1, int index2)
+        {
+            var value = (1 << index1) | (1 << index2);
+
+            Assert.AreEqual(value, value.SwapBits(index1, index2));
+        }
+
+        [TestCase(0, 4)]
+        [TestCase(14, 13)]
+        [TestCase(23, 2)]
+        public void TestSwappingWithZero2(int index1, int index2)
+        {
+            var value = 1 << index1;
+
+            for (int i = 0; i < 31; i++)
+            {
+                if (i != index1 && i != index2)
+                {
+                    Assert.AreEqual(1 << i, value.SwapBits(index1, i, index2));
+                }
+            }
+        }
+
+        [TestCase(0, 5, 3)]
+        [TestCase(14, 30, 3)]
+        [TestCase(23, 1, 15)]
+        public void TestSwappingOnes2(int index1, int index2, int index3)
+        {
+            var value = (1 << index1) | (1 << index2) | (1 << index3);
+
+            Assert.AreEqual(value, value.SwapBits(index1, index2, index3));
+        }
     }
 }
