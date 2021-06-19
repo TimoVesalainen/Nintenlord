@@ -702,5 +702,113 @@ namespace Nintenlord.Collections
 
             return IterateInner();
         }
+
+        public static IEnumerable<T[]> GetEquivalenceClasses<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> getConjugates)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (getConjugates is null)
+            {
+                throw new ArgumentNullException(nameof(getConjugates));
+            }
+
+            int conjugateClass = 0;
+            Dictionary<T, int> classes = new Dictionary<T, int>();
+
+            int count = 0;
+            foreach (var item in items)
+            {
+                if (!classes.ContainsKey(item))
+                {
+                    foreach (var conjugate in getConjugates(item))
+                    {
+                        classes[conjugate] = conjugateClass;
+                    }
+                    conjugateClass++;
+                }
+                count++;
+            }
+
+            List<T> buffer = new List<T>(count);
+            for (int i = 0; i < conjugateClass; i++)
+            {
+                foreach (var keyValue in classes)
+                {
+                    if (keyValue.Value == i)
+                    {
+                        buffer.Add(keyValue.Key);
+                    }
+                }
+                yield return buffer.ToArray();
+                buffer.Clear();
+            }
+        }
+
+        public static IEnumerable<byte[]> GetEquivalenceClasses(Func<byte, IEnumerable<byte>> getConjugates)
+        {
+            int nextConjugateClass = 1;
+            int[] conjugate = new int[0x100];
+
+            for (byte i = 0; i < conjugate.Length; i++)
+            {
+                if (conjugate[i] == 0)
+                {
+                    foreach (var item in getConjugates(i))
+                    {
+                        conjugate[item] = nextConjugateClass;
+                    }
+                    nextConjugateClass++;
+                }
+            }
+
+            List<byte> tempArray = new List<byte>(0x100);
+            for (byte i = 1; i < nextConjugateClass; i++)
+            {
+                for (int j = 0; j < conjugate.Length; j++)
+                {
+                    if (conjugate[j] == i)
+                    {
+                        tempArray.Add((byte)j);
+                    }
+                }
+                yield return tempArray.ToArray();
+                tempArray.Clear();
+            }
+        }
+
+        public static IEnumerable<int[]> GetEquivalenceClasses(int length, Func<int, IEnumerable<int>> getConjugates)
+        {
+            int nextConjugateClass = 1;
+            int[] conjugate = new int[length];
+
+            for (int i = 0; i < conjugate.Length; i++)
+            {
+                if (conjugate[i] == 0)
+                {
+                    foreach (var item in getConjugates(i))
+                    {
+                        conjugate[item] = nextConjugateClass;
+                    }
+                    nextConjugateClass++;
+                }
+            }
+
+            List<int> tempArray = new List<int>(length);
+            for (int i = 1; i < nextConjugateClass; i++)
+            {
+                for (int j = 0; j < conjugate.Length; j++)
+                {
+                    if (conjugate[j] == i)
+                    {
+                        tempArray.Add((byte)j);
+                    }
+                }
+                yield return tempArray.ToArray();
+                tempArray.Clear();
+            }
+        }
     }
 }
