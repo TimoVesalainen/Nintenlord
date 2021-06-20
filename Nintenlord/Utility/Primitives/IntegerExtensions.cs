@@ -412,5 +412,27 @@ namespace Nintenlord.Utility.Primitives
 
             return rest | valA | valB | valC | valD;
         }
+
+        public static IEnumerable<int> GetOneIndicis(this int value)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if ((value & (1 << i)) != 0)
+                {
+                    yield return i;
+                }
+            }
+        }
+
+        public static IEnumerable<int> GetZeroIndicis(this int value)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if ((value & (1 << i)) == 0)
+                {
+                    yield return i;
+                }
+            }
+        }
     }
 }
