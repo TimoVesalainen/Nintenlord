@@ -27,6 +27,19 @@ namespace Nintenlord.Utility
             }
         }
 
+        public void Trim(int maxRemaining = 0)
+        {
+            while (createdResources.Count > maxRemaining)
+            {
+                if (createdResources.TryDequeue(out var resourse))
+                {
+                    if (resourse is IDisposable disposable)
+                    {
+                        disposable.Dispose();
+                    }
+                }
+            }
+        }
 
         public readonly struct Usage : IDisposable
         {
@@ -44,8 +57,6 @@ namespace Nintenlord.Utility
                 owner.Release(Resourse);
             }
         }
-
-
 
         private void Release(T resourse)
         {
