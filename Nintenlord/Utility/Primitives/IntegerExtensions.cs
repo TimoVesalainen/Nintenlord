@@ -413,6 +413,14 @@ namespace Nintenlord.Utility.Primitives
             return rest | valA | valB | valC | valD;
         }
 
+        public static IEnumerable<bool> GetBits(this int value)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                yield return (value & (1 << i)) != 0;
+            }
+        }
+
         public static IEnumerable<int> GetOneIndicis(this int value)
         {
             for (int i = 0; i < 32; i++)
