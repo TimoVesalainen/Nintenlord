@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace Nintenlord.Utility
 {
-    public sealed class ResourceBufferer<T>
+    public sealed partial class ResourceBufferer<T>
     {
         readonly Func<T> resourceCreator;
 
@@ -15,15 +15,15 @@ namespace Nintenlord.Utility
             this.createdResources = new ConcurrentQueue<T>();
         }
 
-        public Usage ClaimResource()
+        public Usage<T> ClaimResource()
         {
             if (createdResources.TryDequeue(out var resource))
             {
-                return new Usage(resource, this);
+                return new Usage<T>(resource, Release);
             }
             else
             {
-                return new Usage(resourceCreator(), this);
+                return new Usage<T>(resourceCreator(), Release);
             }
         }
 
@@ -38,23 +38,6 @@ namespace Nintenlord.Utility
                         disposable.Dispose();
                     }
                 }
-            }
-        }
-
-        public readonly struct Usage : IDisposable
-        {
-            public readonly T Resourse;
-            private readonly ResourceBufferer<T> owner;
-
-            public Usage(T resourse, ResourceBufferer<T> owner)
-            {
-                Resourse = resourse;
-                this.owner = owner;
-            }
-
-            public void Dispose()
-            {
-                owner.Release(Resourse);
             }
         }
 
