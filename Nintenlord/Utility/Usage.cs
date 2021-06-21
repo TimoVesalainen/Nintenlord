@@ -17,5 +17,10 @@ namespace Nintenlord.Utility
         {
             release(Resourse);
         }
+
+        public static implicit operator Usage<T>(T item)
+        {
+            return new Usage<T>(item, _ => { });
+        }
     }
 }
