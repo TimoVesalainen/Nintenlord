@@ -15,18 +15,20 @@ namespace Nintenlord.Graph.PathFinding
         }
 
         public static List<TNode> GetPath<TNode>(TNode start, TNode goal,
-            IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics, IEqualityComparer<TNode> nodeComparer)
+            IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics, IEqualityComparer<TNode> nodeComparer,
+            IDictionary<TNode, int> costCacheG = null, IDictionary<TNode, int> costCacheH = null)
         {
+            costCacheG = costCacheG ?? new Dictionary<TNode, int>();
+            costCacheH = costCacheH ?? new Dictionary<TNode, int>();
+
             IPriorityQueue<int, TNode> open =
                 new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            ICostCollection<TNode> gCosts = map.GetTempCostCollection();
-            ICostCollection<TNode> hCosts = map.GetTempCostCollection();
             IDictionary<TNode, TNode> parents = new Dictionary<TNode, TNode>(nodeComparer);
 
             open.Enqueue(start, 0);
-            gCosts[start] = 0;
-            hCosts[start] = 0;
+            costCacheG[start] = 0;
+            costCacheH[start] = 0;
             while (open.Count > 0 && !nodeComparer.Equals(open.Peek(), goal))
             {
                 TNode current = open.Dequeue();
@@ -34,14 +36,14 @@ namespace Nintenlord.Graph.PathFinding
 
                 foreach (TNode neighbour in map.GetNeighbours(current))
                 {
-                    int gCost = gCosts[current] + map.GetMovementCost(current, neighbour);
-                    if (gCosts.TryGetValue(neighbour, out int oldGcost) && gCost < oldGcost)
+                    int gCost = costCacheG[current] + map.GetMovementCost(current, neighbour);
+                    if (costCacheG.TryGetValue(neighbour, out int oldGcost) && gCost < oldGcost)
                     {//If we found a better route to neighbour 
-                        int hCost = hCosts[neighbour];
+                        int hCost = costCacheH[neighbour];
                         open.Remove(neighbour, oldGcost + hCost);
                         closed.Remove(neighbour);
 
-                        gCosts[neighbour] = gCost;
+                        costCacheG[neighbour] = gCost;
                         open.Enqueue(neighbour, gCost + hCost);
                         parents[neighbour] = current;
 
@@ -49,17 +51,14 @@ namespace Nintenlord.Graph.PathFinding
                     else if (!closed.Contains(neighbour) && !open.Contains(neighbour))
                     {//If we got here the first time
                         int hCost = heurestics.GetCostEstimate(neighbour);
-                        hCosts[neighbour] = hCost;
+                        costCacheH[neighbour] = hCost;
 
-                        gCosts[neighbour] = gCost;
+                        costCacheG[neighbour] = gCost;
                         open.Enqueue(neighbour, gCost + hCost);
                         parents[neighbour] = current;
                     }
                 }
             }
-
-            gCosts.Release();
-            hCosts.Release();
 
             if (open.Count == 0)//No path exists
             {

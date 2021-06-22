@@ -7,11 +7,11 @@ namespace Nintenlord.Graph.PathFinding
     public static class Dijkstra_algorithm
     {
         public static List<TNode> GetArea<TNode>(TNode toStartFrom, IWeighedGraph<TNode> map,
-            IEqualityComparer<TNode> nodeComparer, int movementLimit)
+            IEqualityComparer<TNode> nodeComparer, int movementLimit, IDictionary<TNode, int> costs = null)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            ICostCollection<TNode> costs = map.GetTempCostCollection();
+            costs = costs ?? new Dictionary<TNode, int>();
 
             costs[toStartFrom] = 0;
             open.Enqueue(toStartFrom, 0);
@@ -43,16 +43,15 @@ namespace Nintenlord.Graph.PathFinding
 
             List<TNode> result = new List<TNode>(closed.Count);
             result.AddRange(closed.Where(node => costs[node] < movementLimit));
-            costs.Release();
             return result;
         }
 
         public static int GetCost<TNode>(TNode toStartFrom, TNode toEnd,
-            IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
+            IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer, IDictionary<TNode, int> costs = null)
         {
+            costs = costs ?? new Dictionary<TNode, int>();
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            ICostCollection<TNode> costs = map.GetTempCostCollection();
 
             costs[toStartFrom] = 0;
             open.Enqueue(toStartFrom, 0);
