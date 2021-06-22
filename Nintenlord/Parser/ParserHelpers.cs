@@ -1,20 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ParserHelpers.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using Nintenlord.Parser.ParserCombinators;
+using Nintenlord.Parser.ParserCombinators.BinaryParsers;
+using Nintenlord.Parser.ParserCombinators.UnaryParsers;
+using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Parser
 {
-    using Nintenlord.Parser.ParserCombinators;
-    using Nintenlord.Parser.ParserCombinators.BinaryParsers;
-    using Nintenlord.Parser.ParserCombinators.UnaryParsers;
-    using System;
-    using System.Collections.Generic;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class ParserHelpers
     {
         public static SequenceParser<T, TOut> ParseSequence<T, TOut>(IEnumerable<T> sequence)

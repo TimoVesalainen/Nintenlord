@@ -1,17 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MicsUtilities.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Utility
 {
-    using System;
-    using System.Collections.Generic;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class MicsUtilities
     {
         public static void Swap<T>(ref T first, ref T second)

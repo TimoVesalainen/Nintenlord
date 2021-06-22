@@ -1,18 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TransposeGraph.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Graph
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public class TransposeGraph<TNode> : IGraph<TNode>
+    public sealed class TransposeGraph<TNode> : IGraph<TNode>
     {
         private readonly IGraph<TNode> originalGraph;
 

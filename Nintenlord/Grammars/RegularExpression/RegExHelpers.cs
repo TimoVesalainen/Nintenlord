@@ -1,25 +1,16 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="RegExHelpers.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using Nintenlord.Collections;
+using Nintenlord.Grammars.RegularExpression.Tree;
+using Nintenlord.Graph;
+using Nintenlord.Graph.PathFinding;
+using Nintenlord.StateMachines.Old;
+using Nintenlord.Utility;
+using Nintenlord.Utility.Primitives;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Grammars.RegularExpression
 {
-    using Nintenlord.Collections;
-    using Nintenlord.Grammars.RegularExpression.Tree;
-    using Nintenlord.Graph;
-    using Nintenlord.Graph.PathFinding;
-    using Nintenlord.StateMachines.Old;
-    using Nintenlord.Utility;
-    using Nintenlord.Utility.Primitives;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class RegExHelpers
     {
         public static bool IsEmpty<TLetter>(IRegExExpressionTree<TLetter> exp)

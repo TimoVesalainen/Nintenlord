@@ -1,14 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="EditableGraph.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Graph
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     /// <summary>
     /// Graph where adjacency is implemented as matrix.
     /// </summary>

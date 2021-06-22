@@ -1,17 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CommentRemovingTextReader.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.IO;
+using System.Text;
 
 namespace Nintenlord.IO
 {
-    using System.IO;
-    using System.Text;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class CommentRemovingTextReader : TextReader
     {
         private readonly TextReader mainReader;
@@ -23,7 +15,6 @@ namespace Nintenlord.IO
         {
             this.mainReader = mainReader;
         }
-
 
         public override int Read()
         {

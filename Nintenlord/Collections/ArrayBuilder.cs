@@ -1,14 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ArrayBuilder.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections
 {
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// A lightweight structure for building arrays if size is known beforehand.
     /// </summary>

@@ -1,19 +1,10 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SequenceParser.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using Nintenlord.IO.Scanners;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
-    using Nintenlord.IO.Scanners;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class SequenceParser<T, TOut> : Parser<T, TOut>
     {
         private readonly T[] sequence;

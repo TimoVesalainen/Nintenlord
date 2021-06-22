@@ -1,18 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ContextFreeGrammar.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Grammars
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class ContextFreeGrammar<T>
     {
         private readonly IDictionary<T, T[][]> productions;

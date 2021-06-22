@@ -1,13 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DeterministicFiniteAutomata.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.StateMachines.Old
 {
-    using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Deterministic finite automaton

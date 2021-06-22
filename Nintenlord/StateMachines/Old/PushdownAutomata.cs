@@ -1,17 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PushdownAutomata.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.StateMachines.Old
 {
-    using System;
-    using System.Collections.Generic;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class DeterministicPushdownAutomata<TStackSymbol, TState, TLetter>
     {
         private readonly Stack<TStackSymbol> stack;

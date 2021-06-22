@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Reference.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-using System;
+﻿using System;
 
 namespace Nintenlord.Utility
 {
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class Reference<T> where T : struct
     {
         public T Value

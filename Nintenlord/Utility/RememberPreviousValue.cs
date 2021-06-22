@@ -1,13 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="RememberPreviousValue.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
 
 namespace Nintenlord.Utility
 {
-    using System;
-
     /// <summary>
     /// Remembers the previous assigned value as well as the current one.
     /// </summary>

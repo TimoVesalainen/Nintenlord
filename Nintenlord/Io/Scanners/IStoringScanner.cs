@@ -1,12 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IStoringScanner.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.IO.Scanners
 {
-    using System.Collections.Generic;
 
     /// <summary>
     /// A scanner that keeps old tokens and allows them to be accessed.

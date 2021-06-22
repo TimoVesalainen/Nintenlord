@@ -1,14 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MonadicParser.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using Nintenlord.IO.Scanners;
+using System;
+
 
 namespace Nintenlord.Parser
 {
-    using Nintenlord.IO.Scanners;
-    using System;
-
     public delegate Tuple<TOut, Match<TIn>> MonadicParser<TIn, TOut>(IScanner<TIn> scanner);
 
     public static class MonadicParserHelpers

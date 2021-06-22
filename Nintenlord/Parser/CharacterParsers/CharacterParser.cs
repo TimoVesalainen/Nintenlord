@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CharacterParser.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
 
 namespace Nintenlord.Parser.CharacterParsers
 {
-    using System;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class CharacterParser : Parser<Char, Char>
     {
         private readonly char character;

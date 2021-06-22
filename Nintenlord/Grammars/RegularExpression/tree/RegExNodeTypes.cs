@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="RegExNodeTypes.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Nintenlord.Grammars.RegularExpression.Tree
+﻿namespace Nintenlord.Grammars.RegularExpression.Tree
 {
     /// <summary>
     /// Types or regular expression elements

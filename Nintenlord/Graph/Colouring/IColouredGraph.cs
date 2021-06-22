@@ -1,16 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ColouredGraph.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.Graph.Colouring
 {
-    using System.Collections.Generic;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface IColouredGraph<TNode, out TColour> : IGraph<TNode>
     {
         IEnumerable<TColour> GetColours();

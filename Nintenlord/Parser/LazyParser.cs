@@ -1,14 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LazyParser.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using Nintenlord.IO.Scanners;
+using System;
 
 namespace Nintenlord.Parser
 {
-    using Nintenlord.IO.Scanners;
-    using System;
-
     /// <summary>
     /// Parser that's initialized only when it is used for actual parsing.
     /// </summary>

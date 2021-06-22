@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Choise.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    using System.Collections.Generic;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class Choise<TLetter> : IRegExExpressionTree<TLetter>
     {
         private readonly IRegExExpressionTree<TLetter> firstChoise;

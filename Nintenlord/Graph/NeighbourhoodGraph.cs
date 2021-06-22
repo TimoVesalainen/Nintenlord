@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="NeighbourhoodGraph.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
 
 namespace Nintenlord.Graph
 {
-    using System.Collections.Generic;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class NeighbourhoodGraph<TNode> : IEditableGraph<TNode>
     {
         private readonly Dictionary<TNode, List<TNode>> neighbours;

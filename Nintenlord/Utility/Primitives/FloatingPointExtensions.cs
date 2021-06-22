@@ -1,17 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="FloatingPointHelper.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Utility.Primitives
 {
-    using System;
-    using System.Collections.Generic;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class FloatingPointExtensions
     {
         public static IEnumerable<int> GetIntegersBetween(float min, float max)
