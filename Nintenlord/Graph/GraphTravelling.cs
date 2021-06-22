@@ -11,7 +11,7 @@
         {
             HashSet<TNode> travelledNodes = new HashSet<TNode>();
 
-            Queue<TNode> queue = new Queue<TNode>(graph.NodeCount);
+            Queue<TNode> queue = new Queue<TNode>();
 
             queue.Enqueue(startNode);
 
@@ -99,7 +99,7 @@
             switch (ordering)
             {
                 case DepthFirstTraversalOrdering.PreOrdering:
-                    foreach (var node in graph)
+                    foreach (var node in graph.Nodes)
                     {
                         if (!travelledNodes.Contains(node))
                         {
@@ -112,7 +112,7 @@
                     }
                     break;
                 case DepthFirstTraversalOrdering.PostOrdering:
-                    foreach (var node in graph)
+                    foreach (var node in graph.Nodes)
                     {
                         if (!travelledNodes.Contains(node))
                         {

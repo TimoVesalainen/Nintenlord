@@ -70,6 +70,8 @@ namespace Nintenlord.Graph
 
         public int NodeCount => neighbours.Count;
 
+        public IEnumerable<TNode> Nodes => neighbours.Keys;
+
         public IEnumerable<TNode> GetNeighbours(TNode node)
         {
             return neighbours[node];
@@ -78,24 +80,6 @@ namespace Nintenlord.Graph
         public bool IsEdge(TNode from, TNode to)
         {
             return neighbours[from].Contains(to);
-        }
-
-        #endregion
-
-        #region IEnumerable<TNode> Members
-
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            return neighbours.Keys.GetEnumerator();
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
 
         #endregion

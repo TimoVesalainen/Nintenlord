@@ -318,6 +318,8 @@ namespace Nintenlord.Grammars.RegularExpression
             public readonly TState startState;
             public readonly TState finalState;
 
+            public IEnumerable<TState> Nodes => throw new NotImplementedException();
+
             private EpsilonDFA(
                 IEnumerable<Tuple<TState, TLetter, TState>> transitions,
                 IEnumerable<Tuple<TState, TState>> epsilonTransitions,
@@ -426,8 +428,6 @@ namespace Nintenlord.Grammars.RegularExpression
 
             #region IGraph<TState> Members
 
-            public int NodeCount => throw new NotImplementedException();
-
             public IEnumerable<TState> GetNeighbours(TState node)
             {
                 return from item in epsilonTransitions
@@ -438,24 +438,6 @@ namespace Nintenlord.Grammars.RegularExpression
             public bool IsEdge(TState node1, TState node2)
             {
                 return epsilonTransitions.Contains(Tuple.Create(node1, node2));
-            }
-
-            #endregion
-
-            #region IEnumerable<TState> Members
-
-            public IEnumerator<TState> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-
-            #endregion
-
-            #region IEnumerable Members
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
             }
 
             #endregion

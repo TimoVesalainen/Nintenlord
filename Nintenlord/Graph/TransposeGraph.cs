@@ -18,6 +18,8 @@ namespace Nintenlord.Graph
 
         public IGraph<TNode> OriginalGraph => originalGraph;
 
+        public IEnumerable<TNode> Nodes => originalGraph.Nodes;
+
         public TransposeGraph(IGraph<TNode> originalGraph)
         {
             this.originalGraph = originalGraph;
@@ -25,11 +27,9 @@ namespace Nintenlord.Graph
 
         #region IGraph<TNode> Members
 
-        public int NodeCount => originalGraph.NodeCount;
-
         public IEnumerable<TNode> GetNeighbours(TNode node)
         {
-            return originalGraph.Where(node2 => this.IsEdge(node, node2));
+            return originalGraph.Nodes.Where(node2 => this.IsEdge(node, node2));
         }
 
         public bool IsEdge(TNode from, TNode to)
@@ -39,22 +39,5 @@ namespace Nintenlord.Graph
 
         #endregion
 
-        #region IEnumerable<TNode> Members
-
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            return originalGraph.GetEnumerator();
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        #endregion
     }
 }

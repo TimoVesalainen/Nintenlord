@@ -7,6 +7,7 @@
 namespace Nintenlord.Graph
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Graph where adjacency is implemented as matrix.
@@ -46,8 +47,9 @@ namespace Nintenlord.Graph
         public int NodeCount
         {
             get;
-            private set;
         }
+
+        public IEnumerable<int> Nodes => Enumerable.Range(0, NodeCount);
 
         public IEnumerable<int> GetNeighbours(int node)
         {
@@ -65,27 +67,6 @@ namespace Nintenlord.Graph
             return neighbours[from, to];
         }
 
-        #endregion
-
-        #region IEnumerable<TNode> Members
-
-        public IEnumerator<int> GetEnumerator()
-        {
-            for (int i = 0; i < NodeCount; i++)
-            {
-                yield return i;
-            }
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        #endregion
+        #endregion         
     }
 }

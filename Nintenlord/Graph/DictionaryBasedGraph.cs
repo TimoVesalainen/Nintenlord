@@ -1,13 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DictionaryBasedGraph.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Graph
 {
-    using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// TODO: Update summary.
@@ -25,6 +20,8 @@ namespace Nintenlord.Graph
 
         public int NodeCount => neighbours.Count;
 
+        public IEnumerable<TNode> Nodes => neighbours.Keys;
+
         public IEnumerable<TNode> GetNeighbours(TNode node)
         {
             return neighbours[node];
@@ -33,24 +30,6 @@ namespace Nintenlord.Graph
         public bool IsEdge(TNode node1, TNode node2)
         {
             return neighbours[node1].Contains(node2);
-        }
-
-        #endregion
-
-        #region IEnumerable<T> Members
-
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            return neighbours.Keys.GetEnumerator();
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
 
         #endregion

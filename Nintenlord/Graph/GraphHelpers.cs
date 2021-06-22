@@ -1,5 +1,6 @@
 ﻿namespace Nintenlord.Graph
 {
+    using Nintenlord.Trees;
     using Nintenlord.Utility;
     using System;
     using System.Collections.Generic;
@@ -33,11 +34,11 @@
         /// <returns>List of top nodes</returns>
         public static List<TNode> GetTopNodes<TNode>(this IGraph<TNode> graph)
         {
-            List<TNode> nodes = graph.ToList();
+            List<TNode> nodes = graph.Nodes.ToList();
 
             for (int i = nodes.Count - 1; i >= 0; i--)
             {
-                if (graph.Any(node => graph.IsEdge(node, nodes[i])))
+                if (graph.Nodes.Any(node => graph.IsEdge(node, nodes[i])))
                 {
                     nodes.RemoveAt(i);
                 }
@@ -48,14 +49,14 @@
 
         public static IEnumerable<Tuple<TNode, TNode>> GetEdges<TNode>(this IGraph<TNode> graph)
         {
-            return from node in graph
+            return from node in graph.Nodes
                    from neighbour in graph.GetNeighbours(node)
                    select Tuple.Create(node, neighbour);
         }
 
         public static bool IsConnected<TNode>(this IGraph<TNode> graph)
         {
-            if (graph.NodeCount == 0)
+            if (!graph.Nodes.Any())
             {
                 return true;
             }
@@ -67,10 +68,10 @@
 
             int index = 0;
 
-            while (index < graph.NodeCount)
+            while (index < dfs.Count)
             {
                 int i;
-                for (i = index + 1; i < graph.NodeCount; i++)
+                for (i = index + 1; i < dfs.Count; i++)
                 {
                     if (graph.IsEdge(dfs[index], dfs[i]))
                     {
@@ -78,13 +79,13 @@
                         break;
                     }
                 }
-                if (i == graph.NodeCount)
+                if (i == dfs.Count)
                 {
                     break;
                 }
             }
 
-            return index == graph.NodeCount - 1;//return if reached top of transpose
+            return index == dfs.Count - 1;//return if reached top of transpose
         }
 
         public static IGraph<TNode> GetTranspose<TNode>(this IGraph<TNode> graph)
@@ -97,6 +98,16 @@
             {
                 return new TransposeGraph<TNode>(graph);
             }
+        }
+
+        public static ITree<TNode> GetTreeBreadthFirst<TNode>(this IGraph<TNode> graph, TNode root)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static ITree<TNode> GetTreeDepthFirst<TNode>(this IGraph<TNode> graph, TNode root)
+        {
+            throw new NotImplementedException();
         }
     }
 }
