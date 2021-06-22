@@ -99,15 +99,5 @@
                 return new TransposeGraph<TNode>(graph);
             }
         }
-
-        public static ITree<TNode> GetTreeBreadthFirst<TNode>(this IGraph<TNode> graph, TNode root)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static ITree<TNode> GetTreeDepthFirst<TNode>(this IGraph<TNode> graph, TNode root)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
