@@ -47,11 +47,16 @@
             return nodes;
         }
 
-        public static IEnumerable<Tuple<TNode, TNode>> GetEdges<TNode>(this IGraph<TNode> graph)
+        public static IEnumerable<TEdge> GetEdges<TNode, TEdge>(this IGraph<TNode> graph, Func<TNode, TNode, TEdge> createEdge)
         {
             return from node in graph.Nodes
                    from neighbour in graph.GetNeighbours(node)
-                   select Tuple.Create(node, neighbour);
+                   select createEdge(node, neighbour);
+        }
+
+        public static IEnumerable<Tuple<TNode, TNode>> GetEdges<TNode>(this IGraph<TNode> graph)
+        {
+            return graph.GetEdges(Tuple.Create);
         }
 
         public static bool IsConnected<TNode>(this IGraph<TNode> graph)
