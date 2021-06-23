@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nintenlord.Utility
 {
-    public sealed class BinaryMatrix
+    public sealed class BinaryMatrix : IEquatable<BinaryMatrix>
     {
         public int Width { get; }
         public int Height { get; }
@@ -110,6 +110,40 @@ namespace Nintenlord.Utility
                 var value = bits[byteIndex + y * bytesPerRow];
                 yield return (value & mask) > 0;
             }
+        }
+
+        public bool Equals(BinaryMatrix other)
+        {
+            if (this.Width != other.Width || this.Height != other.Height)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < this.bits.Length; i++)
+            {
+                if (this.bits[i] != other.bits[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is BinaryMatrix bin && Equals(bin);
+        }
+
+        public override int GetHashCode()
+        {
+            int value = 0;
+
+            for (int i = 0; i < bits.Length; i++)
+            {
+                value = value * 13 + bits[i];
+            }
+
+            return value;
         }
 
         private BinaryMatrix WithBits(byte[] bits)
