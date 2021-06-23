@@ -158,6 +158,7 @@ namespace Nintenlord.Utility
 
         public BinaryMatrix Invert()
         {
+            //TODO: Set things in array outside values to zero, to preserve equality
             var invertedBits = ByteExtensions.Neg(bits);
 
             return this.WithBits(invertedBits);
