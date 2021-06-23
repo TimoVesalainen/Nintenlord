@@ -303,5 +303,17 @@ namespace Nintenlord.Utility
 
             return new BinaryMatrix(width, height, bits, bytesPerRow, bitsInLastByteColumn);
         }
+
+        public static BinaryMatrix GetIdentity(int dimension)
+        {
+            var matrix = new BinaryMatrix(dimension, dimension);
+
+            for (int i = 0; i < dimension; i++)
+            {
+                matrix[i, i] = true;
+            }
+
+            return matrix;
+        }
     }
 }
