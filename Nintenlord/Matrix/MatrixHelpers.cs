@@ -59,6 +59,11 @@ namespace Nintenlord.Matrix
 
         public static ArrayMatrix<T> ToArrayMatrix<T>(this IMatrix<T> matrix)
         {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
             if (matrix is ArrayMatrix<T> array)
             {
                 return array;
@@ -71,6 +76,11 @@ namespace Nintenlord.Matrix
 
         public static IMatrix<T> Transpose<T>(this IMatrix<T> matrix)
         {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
             if (matrix is TransposeMatrix<T> transpose)
             {
                 return transpose.BaseMatrix;
@@ -83,6 +93,11 @@ namespace Nintenlord.Matrix
 
         public static BinaryMatrix GetBinaryMatrix(this IMatrix<bool> matrix)
         {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
             if (matrix is BinaryMatrix binaryMatrix)
             {
                 return binaryMatrix;
