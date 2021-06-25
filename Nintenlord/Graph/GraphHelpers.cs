@@ -1,11 +1,10 @@
-﻿namespace Nintenlord.Graph
-{
-    using Nintenlord.Trees;
-    using Nintenlord.Utility;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using Nintenlord.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Nintenlord.Graph
+{
     public static class GraphHelpers
     {
         public static bool HasCycle<TNode>(this IGraph<TNode> graph, out List<TNode> cycle)
