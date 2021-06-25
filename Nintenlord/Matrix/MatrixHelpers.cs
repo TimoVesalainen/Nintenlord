@@ -80,5 +80,17 @@ namespace Nintenlord.Matrix
                 return new TransposeMatrix<T>(matrix);
             }
         }
+
+        public static BinaryMatrix GetBinaryMatrix(this IMatrix<bool> matrix)
+        {
+            if (matrix is BinaryMatrix binaryMatrix)
+            {
+                return binaryMatrix;
+            }
+            else
+            {
+                return BinaryMatrix.Create((x, y) => matrix[x,y], matrix.Width, matrix.Height);
+            }
+        }
     }
 }
