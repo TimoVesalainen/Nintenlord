@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Matrix
 {
@@ -106,6 +107,26 @@ namespace Nintenlord.Matrix
             {
                 return BinaryMatrix.Create((x, y) => matrix[x,y], matrix.Width, matrix.Height);
             }
+        }
+
+        public static IEnumerable<TOut> LinearTransformation<TIn1, TIn2, TOut>(this IMatrix<TIn1> matrix, IEnumerable<TIn2> vector, Func<TIn1, TIn2, TOut, TOut> sum, TOut zero = default)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            if (vector is null)
+            {
+                throw new ArgumentNullException(nameof(vector));
+            }
+
+            if (sum is null)
+            {
+                throw new ArgumentNullException(nameof(sum));
+            }
+
+            return matrix.Rows().Select(x => x.Zip(vector, (a, b) => (a, b)).Aggregate(zero, (s,t) => sum(t.a, t.b, s)));
         }
     }
 }
