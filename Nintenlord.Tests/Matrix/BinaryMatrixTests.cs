@@ -1,10 +1,7 @@
-﻿using Nintenlord.Utility;
+﻿using Nintenlord.Matrix;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Nintenlord.Tests.Utility
+namespace Nintenlord.Tests.Matrix
 {
     class BinaryMatrixTests
     {
@@ -25,7 +22,7 @@ namespace Nintenlord.Tests.Utility
             {
                 for (int y = 0; y < 2; y++)
                 {
-                    other[x, y] = (index & (1 << (x + y * 2))) != 0;
+                    other[x, y] = (index & 1 << x + y * 2) != 0;
                 }
             }
 

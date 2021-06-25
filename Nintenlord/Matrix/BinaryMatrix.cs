@@ -1,11 +1,12 @@
-﻿using Nintenlord.Utility.Primitives;
+﻿using Nintenlord.Utility;
+using Nintenlord.Utility.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Utility
+namespace Nintenlord.Matrix
 {
-    public sealed class BinaryMatrix : IEquatable<BinaryMatrix>
+    public sealed class BinaryMatrix : IEquatable<BinaryMatrix>, IMatrix<bool>
     {
         public int Width { get; }
         public int Height { get; }
@@ -24,16 +25,16 @@ namespace Nintenlord.Utility
             {
                 bytesPerRow++;
             }
-            this.bits = new byte[bytesPerRow * height];
+            bits = new byte[bytesPerRow * height];
             this.bytesPerRow = bytesPerRow;
-            this.bitsInLastByteColumn = restBits == 0 ? 8 : restBits;
+            bitsInLastByteColumn = restBits == 0 ? 8 : restBits;
         }
 
         private BinaryMatrix(int width, int height, byte[] bits, int bytesPerRow, int bitsInLastByteRow)
         {
             this.bits = bits;
             this.bytesPerRow = bytesPerRow;
-            this.bitsInLastByteColumn = bitsInLastByteRow;
+            bitsInLastByteColumn = bitsInLastByteRow;
             Width = width;
             Height = height;
         }
@@ -56,7 +57,7 @@ namespace Nintenlord.Utility
 
                 var (mask, antiMask) = Mask2(bitIndex);
 
-                byteValue = (byte)((antiMask & byteValue) | (value ? mask : 0));
+                byteValue = (byte)(antiMask & byteValue | (value ? mask : 0));
 
                 bits[byteIndex] = byteValue;
             }
@@ -91,11 +92,11 @@ namespace Nintenlord.Utility
             {
                 var value = bits[x + rowStart];
 
-                var bitCount = (x == bytesPerRow - 1) ? 8 : bitsInLastByteColumn;
+                var bitCount = x == bytesPerRow - 1 ? 8 : bitsInLastByteColumn;
 
                 for (int j = 0; j < bitCount; j++)
                 {
-                    yield return (value & (1 << j)) != 0;
+                    yield return (value & 1 << j) != 0;
                 }
             }
         }
@@ -114,14 +115,14 @@ namespace Nintenlord.Utility
 
         public bool Equals(BinaryMatrix other)
         {
-            if (this.Width != other.Width || this.Height != other.Height)
+            if (Width != other.Width || Height != other.Height)
             {
                 return false;
             }
 
-            for (int i = 0; i < this.bits.Length; i++)
+            for (int i = 0; i < bits.Length; i++)
             {
-                if (this.bits[i] != other.bits[i])
+                if (bits[i] != other.bits[i])
                 {
                     return false;
                 }
@@ -159,50 +160,50 @@ namespace Nintenlord.Utility
         public BinaryMatrix Invert()
         {
             //TODO: Set things in array outside values to zero, to preserve equality
-            var invertedBits = ByteExtensions.Neg(bits);
+            var invertedBits = bits.Neg();
 
-            return this.WithBits(invertedBits);
+            return WithBits(invertedBits);
         }
 
         public BinaryMatrix And(BinaryMatrix other)
         {
-            if (this.Width != other.Width || this.Height != other.Height)
+            if (Width != other.Width || Height != other.Height)
             {
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
             var bits = this.bits.And(other.bits);
 
-            return this.WithBits(bits);
+            return WithBits(bits);
         }
 
         public BinaryMatrix Or(BinaryMatrix other)
         {
-            if (this.Width != other.Width || this.Height != other.Height)
+            if (Width != other.Width || Height != other.Height)
             {
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
             var bits = this.bits.Or(other.bits);
 
-            return this.WithBits(bits);
+            return WithBits(bits);
         }
 
         public BinaryMatrix Xor(BinaryMatrix other)
         {
-            if (this.Width != other.Width || this.Height != other.Height)
+            if (Width != other.Width || Height != other.Height)
             {
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
             var bits = this.bits.Xor(other.bits);
 
-            return this.WithBits(bits);
+            return WithBits(bits);
         }
 
         public BinaryMatrix Transpose()
         {
-            BinaryMatrix transpose = new BinaryMatrix(this.Height, this.Width);
+            BinaryMatrix transpose = new BinaryMatrix(Height, Width);
 
             for (int y = 0; y < Height; y++)
             {
@@ -217,14 +218,14 @@ namespace Nintenlord.Utility
 
         public BinaryMatrix Multiplication(BinaryMatrix other)
         {
-            if (this.Width != other.Height)
+            if (Width != other.Height)
             {
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
-            BinaryMatrix result = new BinaryMatrix(this.Height, other.Width);
+            BinaryMatrix result = new BinaryMatrix(Height, other.Width);
 
-            var length = this.Width;
+            var length = Width;
             for (int y = 0; y < result.Height; y++)
             {
                 for (int x = 0; x < result.Width; x++)
@@ -243,14 +244,14 @@ namespace Nintenlord.Utility
 
         public BinaryMatrix LogicalMultiplication(BinaryMatrix other)
         {
-            if (this.Width != other.Height)
+            if (Width != other.Height)
             {
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
-            BinaryMatrix result = new BinaryMatrix(this.Height, other.Width);
+            BinaryMatrix result = new BinaryMatrix(Height, other.Width);
 
-            var length = this.Width;
+            var length = Width;
             for (int y = 0; y < result.Height; y++)
             {
                 for (int x = 0; x < result.Width; x++)
@@ -314,6 +315,11 @@ namespace Nintenlord.Utility
             }
 
             return matrix;
+        }
+
+        public static BinaryMatrix GetZero(int width, int height)
+        {
+            return new BinaryMatrix(width, height);
         }
     }
 }
