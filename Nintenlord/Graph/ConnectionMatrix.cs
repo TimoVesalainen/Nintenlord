@@ -1,4 +1,4 @@
-﻿using Nintenlord.Matrix;
+﻿using Nintenlord.Matricis;
 using System.Linq;
 
 namespace Nintenlord.Graph

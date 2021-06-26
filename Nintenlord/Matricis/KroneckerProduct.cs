@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Matrix
+namespace Nintenlord.Matricis
 {
     public sealed class KroneckerProduct<TIn1, TIn2, TOut> : IMatrix<TOut>
     {

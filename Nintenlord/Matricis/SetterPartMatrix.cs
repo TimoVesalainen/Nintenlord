@@ -1,16 +1,16 @@
 ﻿using System;
 
-namespace Nintenlord.Matrix
+namespace Nintenlord.Matricis
 {
-    public readonly struct PartMatrix<T> : IMatrix<T>
+    internal readonly struct SetterPartMatrix<T> : IMatrix<T>
     {
-        readonly IMatrix<T> parentMatrix;
+        readonly ArrayMatrix<T> parentMatrix;
         readonly int width;
         readonly int height;
         readonly int xStart;
         readonly int yStart;
 
-        public PartMatrix(IMatrix<T> parentMatrix, int width, int height, int xStart, int yStart)
+        public SetterPartMatrix(ArrayMatrix<T> parentMatrix, int width, int height, int xStart, int yStart)
         {
             if (width + xStart > parentMatrix.Width)
             {
@@ -36,7 +36,11 @@ namespace Nintenlord.Matrix
             this.yStart = yStart;
         }
 
-        public T this[int x, int y] => parentMatrix[x + xStart, y + yStart];
+        public T this[int x, int y]
+        {
+            get => parentMatrix[x + xStart, y + yStart];
+            set => parentMatrix[x + xStart, y + yStart] = value;
+        }
 
         public int Width => width;
 

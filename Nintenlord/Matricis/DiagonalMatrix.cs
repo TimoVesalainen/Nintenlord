@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Matrix
+namespace Nintenlord.Matricis
 {
     public sealed class DiagonalMatrix<T> : IMatrix<T>
     {

@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Matrix
+﻿namespace Nintenlord.Matricis
 {
     public sealed class ConstMatrix<T> : IMatrix<T>
     {

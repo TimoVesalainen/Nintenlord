@@ -1,4 +1,4 @@
-﻿using Nintenlord.Matrix;
+﻿using Nintenlord.Matricis;
 using NUnit.Framework;
 
 namespace Nintenlord.Tests.Matrix

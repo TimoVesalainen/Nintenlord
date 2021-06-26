@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Matrix
+namespace Nintenlord.Matricis
 {
     public sealed class ArrayMatrix<T> : IMatrix<T>
     {

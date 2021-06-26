@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Nintenlord.Matrix
+namespace Nintenlord.Matricis
 {
     public sealed class OuterProductMatrix<TIn1, TIn2, TOut> : IMatrix<TOut>
     {
