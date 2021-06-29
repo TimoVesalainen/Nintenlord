@@ -806,5 +806,31 @@ namespace Nintenlord.Collections
                 tempArray.Clear();
             }
         }
+
+        /// <summary>
+        /// Counts amount of orbits using Cauchy-Frobenius theorem
+        /// </summary>
+        public static int GetOrbitsCount<T>(this IEnumerable<T> items, IEnumerable<Func<T, T>> groupActions, IEqualityComparer<T> comparer = null)
+        {
+            comparer = comparer ?? EqualityComparer<T>.Default;
+
+            var groupSize = 0;
+
+            var fixPoints = 0;
+
+            foreach (var action in groupActions)
+            {
+                groupSize++;
+                foreach (var item in items)
+                {
+                    if (comparer.Equals(item, action(item)))
+                    {
+                        fixPoints++;
+                    }
+                }
+            }
+
+            return fixPoints / groupSize;
+        }
     }
 }
