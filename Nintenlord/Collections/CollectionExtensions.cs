@@ -735,13 +735,9 @@ namespace Nintenlord.Collections
             List<T> buffer = new List<T>(count);
             for (int i = 0; i < conjugateClass; i++)
             {
-                foreach (var keyValue in classes)
-                {
-                    if (keyValue.Value == i)
-                    {
-                        buffer.Add(keyValue.Key);
-                    }
-                }
+                buffer.AddRange(from keyValue in classes
+                                where keyValue.Value == i
+                                select keyValue.Key);
                 yield return buffer.ToArray();
                 buffer.Clear();
             }
