@@ -226,5 +226,10 @@ namespace Nintenlord.Trees
         {
             return tree.ToTrees(tree.Root);
         }
+
+        public static IEnumerable<T> RandomWalk<T>(this ITree<T> tree, Random random)
+        {
+            return tree.RandomWalk(tree.Root, random);
+        }
     }
 }

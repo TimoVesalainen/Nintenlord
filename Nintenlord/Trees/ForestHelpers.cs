@@ -645,5 +645,34 @@ namespace Nintenlord.Trees
 
             return new LambdaTree<ITree<T>>(forest.SetRoot(root), GetChildren);
         }
+
+        public static IEnumerable<T> RandomWalk<T>(this IForest<T> forest, T root, Random random)
+        {
+            List<T> childBuffer = new List<T>();
+            T current = root;
+            yield return current;
+            while (true)
+            {
+                var children = forest.GetChildren(current);
+
+                if (children.Any())
+                {
+                    childBuffer.Clear();
+                    childBuffer.AddRange(children);
+
+                    var length = childBuffer.Count();
+
+                    var index = random.Next(0, length);
+
+                    var value = childBuffer[index];
+
+                    yield return value;
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+        }
     }
 }
