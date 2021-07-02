@@ -32,10 +32,10 @@ namespace Nintenlord.Matricis
                 throw new ArgumentException("Matrix sizes don't match");
             }
 
-            this.topLeft = topLeft;
-            this.bottomLeft = bottomLeft;
-            this.topRight = topRight;
-            this.bottomRight = bottomRight;
+            this.topLeft = topLeft ?? throw new ArgumentNullException(nameof(topLeft));
+            this.bottomLeft = bottomLeft ?? throw new ArgumentNullException(nameof(bottomLeft));
+            this.topRight = topRight ?? throw new ArgumentNullException(nameof(topRight));
+            this.bottomRight = bottomRight ?? throw new ArgumentNullException(nameof(bottomRight));
         }
 
         public T this[int x, int y] => Get(x, y);
