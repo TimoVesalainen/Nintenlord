@@ -128,5 +128,117 @@ namespace Nintenlord.Matricis
 
             return matrix.Rows().Select(x => x.Zip(vector, (a, b) => (a, b)).Aggregate(zero, (s,t) => sum(t.a, t.b, s)));
         }
+
+        /// <summary>
+        /// Calculates the determinant of the whole matrix using a specific row
+        /// </summary>
+        public static T GetDeterminantFromRow<T>(this IMatrix<T> matrix, Func<T, T, T> product, Func<T, T, T> sum, Func<T, T> negative, T zero, int row)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            if (product is null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            if (sum is null)
+            {
+                throw new ArgumentNullException(nameof(sum));
+            }
+
+            if (negative is null)
+            {
+                throw new ArgumentNullException(nameof(negative));
+            }
+
+            if (matrix.Width != matrix.Height)
+            {
+                throw new ArgumentException("Determinant of non-square matrix is not defined", nameof(matrix));
+            }
+
+            T GetDeterminantInner(IMatrix<T> matrixInner)
+            {
+                if (matrixInner.Width == 1 && matrixInner.Height == 1)
+                {
+                    return matrixInner[0, 0];
+                }
+
+                var complements = new ComplementsMatrix<T>(matrixInner);
+
+                var sign = (row & 1) == 0;
+
+                var determinant = zero;
+                for (int x = 0; x < matrixInner.Width; x++)
+                {
+                    var t = product(matrixInner[x, row], GetDeterminantInner(complements[x, row]));
+                    determinant = sum(determinant, sign ? t : negative(t));
+
+                    sign = !sign;
+                }
+
+                return determinant;
+            }
+
+            return GetDeterminantInner(matrix);
+        }
+
+        /// <summary>
+        /// Calculates the determinant of the whole matrix using a specific row
+        /// </summary>
+        public static T GetDeterminantFromColumn<T>(this IMatrix<T> matrix, Func<T, T, T> product, Func<T, T, T> sum, Func<T, T> negative, T zero, int column)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            if (product is null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            if (sum is null)
+            {
+                throw new ArgumentNullException(nameof(sum));
+            }
+
+            if (negative is null)
+            {
+                throw new ArgumentNullException(nameof(negative));
+            }
+
+            if (matrix.Width != matrix.Height)
+            {
+                throw new ArgumentException("Determinant of non-square matrix is not defined", nameof(matrix));
+            }
+
+            T GetDeterminantInner(IMatrix<T> matrixInner)
+            {
+                if (matrixInner.Width == 1 && matrixInner.Height == 1)
+                {
+                    return matrixInner[0, 0];
+                }
+
+                var complements = new ComplementsMatrix<T>(matrixInner);
+
+                var sign = (column & 1) == 0;
+
+                var determinant = zero;
+                for (int y = 0; y < matrixInner.Height; y++)
+                {
+                    var t = product(matrixInner[column, y], GetDeterminantInner(complements[column, y]));
+                    determinant = sum(determinant, sign ? t : negative(t));
+
+                    sign = !sign;
+                }
+
+                return determinant;
+            }
+
+            return GetDeterminantInner(matrix);
+        }
     }
 }
