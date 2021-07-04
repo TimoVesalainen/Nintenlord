@@ -231,5 +231,10 @@ namespace Nintenlord.Trees
         {
             return tree.RandomWalk(tree.Root, random);
         }
+
+        public static IEnumerable<T> OrderedEnumeration<T, TKey>(this ITree<T> tree, Func<T, TKey> getKey, IComparer<TKey> comparer = null)
+        {
+            return tree.OrderedEnumeration(tree.Root, getKey, comparer);
+        }
     }
 }

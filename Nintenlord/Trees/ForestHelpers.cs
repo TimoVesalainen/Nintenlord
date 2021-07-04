@@ -674,5 +674,28 @@ namespace Nintenlord.Trees
                 }
             }
         }
+
+        /// <remarks>
+        /// x is parent of y => getKey(x) <= getKey(y)
+        /// </remarks>
+        public static IEnumerable<T> OrderedEnumeration<T, TKey>(this IForest<T> forest, T root, Func<T, TKey> getKey, IComparer<TKey> comparer = null)
+        {
+            var sortedList = new SortedList<TKey, T>(comparer);
+
+            sortedList.Add(getKey(root), root);
+
+            while (sortedList.Count > 0)
+            {
+                var current = sortedList.First();
+                sortedList.RemoveAt(0);
+
+                yield return current.Value;
+
+                foreach (var children in forest.GetChildren(current.Value))
+                {
+                    sortedList.Add(getKey(children), children);
+                }
+            }
+        }
     }
 }
