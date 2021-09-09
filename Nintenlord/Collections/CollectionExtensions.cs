@@ -832,5 +832,14 @@ namespace Nintenlord.Collections
 
             return fixPoints / groupSize;
         }
+
+        public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> items, T separator)
+        {
+            return items.Zip(Repeat(separator), ValueTuple.Create)
+                .SelectMany(Enumerate)
+                .GetIsLast()
+                .Where(x => !x.isLast)
+                .Select(x => x.Item1);
+        }
     }
 }
