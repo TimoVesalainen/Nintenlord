@@ -1,5 +1,4 @@
 ﻿using Nintenlord.Collections.Comparers;
-using Nintenlord.Collections.DataChange;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
@@ -141,81 +140,6 @@ namespace Nintenlord.Collections
             return $"{beginning}{string.Join(separator, collection)}{end}";
         }
 
-        public static TValue GetValue<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay)
-        {
-            if (scopes is null)
-            {
-                throw new ArgumentNullException(nameof(scopes));
-            }
-
-            TValue result = default(TValue);
-
-            foreach (Dictionary<TKey, TValue> item in scopes)
-            {
-                if (item.TryGetValue(kay, out result))
-                {
-                    break;
-                }
-            }
-            return result;
-        }
-
-        public static bool ContainsKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay)
-        {
-            if (scopes is null)
-            {
-                throw new ArgumentNullException(nameof(scopes));
-            }
-
-            return scopes.Any(item => item.ContainsKey(kay));
-        }
-
-        public static bool TryGetKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay, out TValue value)
-        {
-            if (scopes is null)
-            {
-                throw new ArgumentNullException(nameof(scopes));
-            }
-
-            bool result = false;
-            value = default(TValue);
-
-            foreach (Dictionary<TKey, TValue> item in scopes)
-            {
-                if (item.TryGetValue(kay, out value))
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        }
-
-        public static bool Contains<T>(this IEnumerable<T> array, Predicate<T> test)
-        {
-            if (array is null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
-
-            if (test is null)
-            {
-                throw new ArgumentNullException(nameof(test));
-            }
-
-            return array.Any(item2 => test(item2));
-        }
-
-        public static int AmountOf<T>(this IEnumerable<T> array, T item)
-        {
-            if (array is null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
-
-            return array.Count(item2 => item.Equals(item2));
-        }
-
         public static string GetString(this IEnumerable<char> enume)
         {
             if (enume is null)
@@ -271,6 +195,32 @@ namespace Nintenlord.Collections
             }
 
         }
+
+        public static bool Contains<T>(this IEnumerable<T> array, Predicate<T> test)
+        {
+            if (array is null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            if (test is null)
+            {
+                throw new ArgumentNullException(nameof(test));
+            }
+
+            return array.Any(item2 => test(item2));
+        }
+
+        public static int AmountOf<T>(this IEnumerable<T> array, T item)
+        {
+            if (array is null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            return array.Count(item2 => item.Equals(item2));
+        }
+
 
         /// <summary>
         /// Merges two ordered enumerables into one ordered.
@@ -439,81 +389,6 @@ namespace Nintenlord.Collections
             }
         }
 
-        public static void AddAll<TKey, Tvalue>(this IDictionary<TKey, Tvalue> a,
-            IEnumerable<KeyValuePair<TKey, Tvalue>> values)
-        {
-            foreach (var item in values)
-            {
-                a.Add(item.Key, item.Value);
-            }
-        }
-
-        public static TValue GetOldOrSetNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
-            where TValue : new()
-        {
-            if (!dict.TryGetValue(key, out TValue value))
-            {
-                value = new TValue();
-                dict[key] = value;
-            }
-            return value;
-        }
-
-        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comp)
-        {
-            int max = Math.Min(a.Count, b.Count);
-            int count;
-            for (count = 0; count < max; count++)
-            {
-                if (!comp.Equals(a[count], b[count]))
-                {
-                    break;
-                }
-            }
-            return count;
-        }
-        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b)
-        {
-            return a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
-        }
-
-
-        public static IndexOverlay GetOverlay<T>(this IDictionary<int, T> dict, Func<T, int> measurement)
-        {
-            IndexOverlay result = new IndexOverlay();
-
-            foreach (var item in dict)
-            {
-                int length = measurement(item.Value);
-                result.AddIndexes(item.Key, length);
-            }
-
-            return result;
-        }
-
-        public static bool CanFit<T>(this IDictionary<int, T> dict, Func<T, int> measurement,
-            int index, T item)
-        {
-            int lastIndex = index + measurement(item);
-
-            for (int i = index; i < lastIndex; i++)
-            {
-                if (dict.ContainsKey(i))
-                {
-                    return false;
-                }
-            }
-            for (int i = index - 1; i >= 0; i--)
-            {
-                if (dict.TryGetValue(i, out T oldItem) && i + measurement(oldItem) > index)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         public static IEnumerable<T> Flatten<T, TEnumarable>(this IEnumerable<TEnumarable> collection)
             where TEnumarable : IEnumerable<T>
         {
@@ -544,25 +419,6 @@ namespace Nintenlord.Collections
                 from accseq in accumulator
                 from item in sequence
                 select accseq.Concat(new[] { item }));
-        }
-
-        public static TValue GetValueOrDefault<TKey, TValue>(
-            this IDictionary<TKey, TValue> dict,
-            TKey key, TValue def = default(TValue))
-        {
-            if (!dict.TryGetValue(key, out TValue value))
-            {
-                value = def;
-            }
-            return value;
-        }
-
-        public static TValue GetValue<TKey, TValue>(
-            this IDictionary<TKey, TValue> dict,
-            TKey key,
-            TValue defaultVal = default(TValue))
-        {
-            return dict.TryGetValue(key, out TValue val) ? val : defaultVal;
         }
 
         public static IEnumerable<(T, bool isLast)> GetIsLast<T>(this IEnumerable<T> items)
@@ -661,22 +517,7 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<(T current, T next)> GetSequentialPairs<T>(this IEnumerable<T> items)
         {
-            if (items is null)
-            {
-                throw new ArgumentNullException(nameof(items));
-            }
-
-            (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
-            {
-                var (previousItem, current) = previous;
-
-                return (current, next);
-            }
-
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(pair => pair.Item1.Zip(pair.Item2, (x, y) => (x, y)))
-                        .GetValues();
+            return items.GetParts2s();
         }
 
         public static IEnumerable<T> Return<T>(this T item)
@@ -701,6 +542,15 @@ namespace Nintenlord.Collections
             }
 
             return IterateInner();
+        }
+
+        public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> items, T separator)
+        {
+            return items.Zip(Repeat(separator), ValueTuple.Create)
+                .SelectMany(Enumerate)
+                .GetIsLast()
+                .Where(x => !x.isLast)
+                .Select(x => x.Item1);
         }
 
         public static IEnumerable<T[]> GetEquivalenceClasses<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> getConjugates)
@@ -833,13 +683,5 @@ namespace Nintenlord.Collections
             return fixPoints / groupSize;
         }
 
-        public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> items, T separator)
-        {
-            return items.Zip(Repeat(separator), ValueTuple.Create)
-                .SelectMany(Enumerate)
-                .GetIsLast()
-                .Where(x => !x.isLast)
-                .Select(x => x.Item1);
-        }
     }
 }

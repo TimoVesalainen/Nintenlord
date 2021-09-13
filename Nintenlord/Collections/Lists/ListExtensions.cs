@@ -195,5 +195,24 @@ namespace Nintenlord.Collections.Lists
                 return Maybe<T>.Nothing;
             }
         }
+
+        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comp)
+        {
+            int max = Math.Min(a.Count, b.Count);
+            int count;
+            for (count = 0; count < max; count++)
+            {
+                if (!comp.Equals(a[count], b[count]))
+                {
+                    break;
+                }
+            }
+            return count;
+        }
+
+        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b)
+        {
+            return a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
+        }
     }
 }

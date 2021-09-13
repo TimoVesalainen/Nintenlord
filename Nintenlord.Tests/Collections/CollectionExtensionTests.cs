@@ -11,12 +11,12 @@ namespace Nintenlord.Tests.Collections
         public void TestIsLast()
         {
             Assert.AreEqual(
-                new(int, bool)[] {  },
+                new (int, bool)[] { },
                 Enumerable.Empty<int>().GetIsLast());
 
             Assert.AreEqual(
                 new[] { (0, true) },
-                Enumerable.Range(0,1).GetIsLast());
+                Enumerable.Range(0, 1).GetIsLast());
 
             Assert.AreEqual(
                 new[] { (0, false), (1, false), (2, true) },
