@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Collections\CollectionExtensions_Tuple.cs">
+    <None Include="Collections\EnumerableExtensions_Tuple.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
+      <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
     </None>
     <None Include="Trees\DisjoinUnionTrees.cs">
       <DesignTime>True</DesignTime>
@@ -45,9 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Collections\CollectionExtensions_Tuple.tt">
+    <None Update="Collections\EnumerableExtensions_Tuple.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CollectionExtensions_Tuple.cs</LastGenOutput>
+      <LastGenOutput>EnumerableExtensions_Tuple.cs</LastGenOutput>
     </None>
     <None Update="Trees\DisjoinUnionTrees.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -80,6 +80,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Collections\EnumerableExtensions_Tuple.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
     </Compile>
     <Compile Update="Trees\DisjoinUnionTrees.cs">
       <DesignTime>True</DesignTime>

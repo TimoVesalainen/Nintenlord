@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Nintenlord.Tests.Collections
 {
-    public class CollectionExtensionTests
+    public class EnumerableExtensionsTests
     {
         [Test]
         public void TestIsLast()

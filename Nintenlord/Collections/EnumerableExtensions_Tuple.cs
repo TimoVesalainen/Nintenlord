@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Nintenlord.Collections
 {
-    public static partial class CollectionExtensions
+    public static partial class EnumerableExtensions
 	{
         public static (T0, T1) Aggregate<T0, T1, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1,

@@ -10,7 +10,7 @@ namespace Nintenlord.Collections
     /// <summary>
     /// Extensions and helper methods to .NET collections
     /// </summary>
-    public static partial class CollectionExtensions
+    public static partial class EnumerableExtensions
     {
         public static bool Or(this IEnumerable<bool> collection)
         {
@@ -682,6 +682,5 @@ namespace Nintenlord.Collections
 
             return fixPoints / groupSize;
         }
-
     }
 }

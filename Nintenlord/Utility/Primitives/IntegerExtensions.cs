@@ -300,7 +300,7 @@ namespace Nintenlord.Utility.Primitives
             }
             if (number == 1)
             {
-                yield return CollectionExtensions.Return(1);
+                yield return EnumerableExtensions.Return(1);
             }
             else
             {
