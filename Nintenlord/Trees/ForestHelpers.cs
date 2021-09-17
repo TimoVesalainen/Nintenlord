@@ -544,12 +544,7 @@ namespace Nintenlord.Trees
 
             bool AreEqual(TNode1 node1, TNode2 node2)
             {
-                bool AreEqualMaybe(Maybe<TNode1> maybeNode1, Maybe<TNode2> maybeNode2)
-                {
-                    return maybeNode1.Zip(maybeNode2, AreEqual).GetValueOrDefault(false);
-                }
-
-                return forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), AreEqualMaybe).And();
+                return forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), AreEqual, _ => false, _ => false).And();
             }
 
             return AreEqual(root1, root2);
@@ -573,14 +568,9 @@ namespace Nintenlord.Trees
 
             bool AreEqual(TNode node1, TNode node2)
             {
-                bool AreEqualMaybe(Maybe<TNode> maybeNode1, Maybe<TNode> maybeNode2)
-                {
-                    return maybeNode1.Zip(maybeNode2, AreEqual).GetValueOrDefault(false);
-                }
-
                 return
                     comparer.Equals(node1, node2) &&
-                    forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), AreEqualMaybe).And();
+                    forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), AreEqual, _ => false, _ => false).And();
             }
 
             return AreEqual(root1, root2);
