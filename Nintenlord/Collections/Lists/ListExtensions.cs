@@ -1,6 +1,7 @@
 ﻿using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Collections.Lists
 {
@@ -213,6 +214,31 @@ namespace Nintenlord.Collections.Lists
         public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b)
         {
             return a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
+        }
+
+        public static IEnumerable<int> Indicis<T>(this IList<T> list)
+        {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            return Enumerable.Range(0, list.Count);
+        }
+
+        public static IEnumerable<T> GetItems<T>(this IList<T> list, IEnumerable<int> indicis)
+        {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            if (indicis is null)
+            {
+                throw new ArgumentNullException(nameof(indicis));
+            }
+
+            return indicis.Select(i => list[i]);
         }
     }
 }
