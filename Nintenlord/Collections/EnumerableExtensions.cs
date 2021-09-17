@@ -424,6 +424,78 @@ namespace Nintenlord.Collections
             return list1.OrderedUnion(list2, Comparer<T>.Default);
         }
 
+        public static IEnumerable<T> FindLargest<T>(this IEnumerable<T> items, Func<T, int> measure)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (measure is null)
+            {
+                throw new ArgumentNullException(nameof(measure));
+            }
+
+            List<T> bufferForLargestYet = new List<T>();
+            int currentLargestMeasure = int.MinValue;
+
+            foreach (var item in items)
+            {
+                var itemMeasure = measure(item);
+
+                if (currentLargestMeasure < itemMeasure)
+                {
+                    bufferForLargestYet.Clear();
+                    bufferForLargestYet.Add(item);
+                    currentLargestMeasure = itemMeasure;
+                }
+                else if (currentLargestMeasure == itemMeasure)
+                {
+                    bufferForLargestYet.Add(item);
+                }
+            }
+
+            return bufferForLargestYet;
+        }
+
+        public static IEnumerable<T> FindLargest<T>(this IEnumerable<T> items, IComparer<T> comparer)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            List<T> bufferForLargestYet = new List<T>();
+
+            foreach (var item in items)
+            {
+                if (bufferForLargestYet.Count == 0)
+                {
+                    bufferForLargestYet.Add(item);
+                }
+                else
+                {
+                    var comparison = comparer.Compare(bufferForLargestYet[0], item);
+                    if (comparison < 0)
+                    {
+                        bufferForLargestYet.Clear();
+                        bufferForLargestYet.Add(item);
+                    }
+                    else if (comparison == 0)
+                    {
+                        bufferForLargestYet.Add(item);
+                    }
+                }
+            }
+
+            return bufferForLargestYet;
+        }
+
         public static IEnumerable<T> Cycle<T>(this IEnumerable<T> toRepeat)
         {
             if (toRepeat is null)
