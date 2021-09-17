@@ -499,6 +499,7 @@ namespace Nintenlord.Collections
 
                         if (hasItem1)
                         {
+                            yield return leftZipper(enumerable1.Current);
                             while (enumerable1.MoveNext())
                             {
                                 yield return leftZipper(enumerable1.Current);
@@ -506,6 +507,7 @@ namespace Nintenlord.Collections
                         }
                         else if (hasItem2)
                         {
+                            yield return rightZipper(enumerable2.Current);
                             while (enumerable2.MoveNext())
                             {
                                 yield return rightZipper(enumerable2.Current);
