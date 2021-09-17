@@ -66,6 +66,18 @@ namespace Nintenlord.Collections
             return collection.Aggregate(comp.Max);
         }
 
+        public static IEnumerable<T> MaxScan<T>(this IEnumerable<T> items, IComparer<T> comparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer = comparer ?? Comparer<T>.Default;
+
+            return items.Scan(comparer.Max);
+        }
+
         public static T Min<T>(this IEnumerable<T> collection) where T : IComparable<T>
         {
             if (collection is null)
@@ -98,6 +110,18 @@ namespace Nintenlord.Collections
             comp = comp ?? Comparer<T>.Default;
 
             return collection.Aggregate(comp.Min);
+        }
+
+        public static IEnumerable<T> MinScan<T>(this IEnumerable<T> items, IComparer<T> comparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer = comparer ?? Comparer<T>.Default;
+
+            return items.Scan(comparer.Min);
         }
 
         public static T MinBy<T>(this IEnumerable<T> collection, Func<T, float> comp)
@@ -575,6 +599,41 @@ namespace Nintenlord.Collections
                 {
                     current = scanner(current, item);
                     yield return current;
+                }
+            }
+
+            return ScanInner();
+        }
+
+        public static IEnumerable<T> Scan<T>(this IEnumerable<T> items, Func<T, T, T> scanner)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (scanner is null)
+            {
+                throw new ArgumentNullException(nameof(scanner));
+            }
+
+            IEnumerable<T> ScanInner()
+            {
+                using (var enumerator = items.GetEnumerator())
+                {
+                    if (!enumerator.MoveNext())
+                    {
+                        yield break;
+                    }
+
+                    yield return enumerator.Current;
+
+                    var accum = enumerator.Current;
+                    while (enumerator.MoveNext())
+                    {
+                        accum = scanner(accum, enumerator.Current);
+                        yield return accum;
+                    }
                 }
             }
 
