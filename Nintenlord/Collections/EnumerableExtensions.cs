@@ -245,6 +245,46 @@ namespace Nintenlord.Collections
             return array.Count(item2 => item.Equals(item2));
         }
 
+        public static IEnumerable<(T item, int index, int length)> GroupWithIndex<T>(this IEnumerable<T> items, IEqualityComparer<T> comparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer = comparer ?? EqualityComparer<T>.Default;
+
+            int prevIndex = -1;
+            T previous = default(T);
+            int length = 0;
+            int start = 0;
+            foreach (var item in items)
+            {
+                if (prevIndex < 0)
+                {
+                    previous = item;
+                    start = 0;
+                    length = 1;
+                }
+                else if (comparer.Equals(item, previous))
+                {
+                    length++;
+                }
+                else
+                {
+                    yield return (previous, start, length);
+
+                    previous = item;
+                    start = prevIndex + 1;
+                    length = 1;
+                }
+                prevIndex++;
+            }
+            if (prevIndex >= 0)
+            {
+                yield return (previous, start, length);
+            }
+        }
 
         /// <summary>
         /// Merges two ordered enumerables into one ordered.
