@@ -339,5 +339,20 @@ namespace Nintenlord.Collections
             }
             return result;
         }
+
+        public static TOut[,] TensorProduct<TOut, TIn1, TIn2>(this IList<TIn1> list1, IList<TIn2> list2, Func<TIn1, TIn2, TOut> product)
+        {
+            TOut[,] result = new TOut[list2.Count, list1.Count];
+
+            for (int y = 0; y < list2.Count; y++)
+            {
+                for (int x = 0; x < list1.Count; x++)
+                {
+                    result[y, x] = product(list1[x], list2[y]);
+                }
+            }
+
+            return result;
+        }
     }
 }
