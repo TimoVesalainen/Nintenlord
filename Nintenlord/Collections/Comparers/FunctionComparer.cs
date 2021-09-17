@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Comparers
 {
-    public class FunctionComparer<T> : IComparer<T>
+    public sealed class FunctionComparer<T> : IComparer<T>
     {
         private readonly Func<T, int> valueFunction;
 
