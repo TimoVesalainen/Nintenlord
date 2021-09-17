@@ -107,6 +107,72 @@ namespace Nintenlord.Trees
             return tree.GetPaths(tree.Root);
         }
 
+        public static TOut ZipAggregate<TNode1, TNode2, TOut>(this
+            ITree<TNode1> tree1, ITree<TNode2> tree2,
+            Func<TNode1, TNode2, TOut> zipper,
+            Func<TOut, IEnumerable<TOut>, TOut> foldChildren)
+        {
+            if (tree1 is null)
+            {
+                throw new ArgumentNullException(nameof(tree1));
+            }
+
+            if (tree2 is null)
+            {
+                throw new ArgumentNullException(nameof(tree2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            if (foldChildren is null)
+            {
+                throw new ArgumentNullException(nameof(foldChildren));
+            }
+
+            return tree1.ZipAggregate(tree1.Root, tree2, tree2.Root, zipper, foldChildren);
+        }
+
+        public static TOut ZipAggregateLong<TNode1, TNode2, TOut>(this
+            ITree<TNode1> tree1, ITree<TNode2> tree2,
+            Func<TNode1, TNode2, TOut> zipper,
+            Func<TNode1, TOut> zipperLeft, Func<TNode2, TOut> zipperRight,
+            Func<TOut, IEnumerable<TOut>, TOut> foldChildren)
+        {
+            if (tree1 is null)
+            {
+                throw new ArgumentNullException(nameof(tree1));
+            }
+
+            if (tree2 is null)
+            {
+                throw new ArgumentNullException(nameof(tree2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            if (zipperLeft is null)
+            {
+                throw new ArgumentNullException(nameof(zipperLeft));
+            }
+
+            if (zipperRight is null)
+            {
+                throw new ArgumentNullException(nameof(zipperRight));
+            }
+
+            if (foldChildren is null)
+            {
+                throw new ArgumentNullException(nameof(foldChildren));
+            }
+            return tree1.ZipAggregateLong(tree1.Root, tree2, tree2.Root, zipper, zipperLeft, zipperRight, foldChildren);
+        }
+
         public static ITree<(TNode1, TNode2)> ZipTree<TNode1, TNode2>(this ITree<TNode1> tree1, ITree<TNode2> tree2)
         {
             if (tree1 is null)
