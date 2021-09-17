@@ -454,6 +454,70 @@ namespace Nintenlord.Collections
             return GetIsLastInner();
         }
 
+        public static IEnumerable<TOut> ZipLong<T1, T2, TOut>(this IEnumerable<T1> items1, IEnumerable<T2> items2,
+            Func<T1, T2, TOut> zipper, Func<T1, TOut> leftZipper, Func<T2, TOut> rightZipper)
+        {
+            if (items1 is null)
+            {
+                throw new ArgumentNullException(nameof(items1));
+            }
+
+            if (items2 is null)
+            {
+                throw new ArgumentNullException(nameof(items2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            if (leftZipper is null)
+            {
+                throw new ArgumentNullException(nameof(leftZipper));
+            }
+
+            if (rightZipper is null)
+            {
+                throw new ArgumentNullException(nameof(rightZipper));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using (var enumerable1 = items1.GetEnumerator())
+                {
+                    using (var enumerable2 = items2.GetEnumerator())
+                    {
+                        bool hasItem1;
+                        bool hasItem2;
+
+                        while ((hasItem1 = enumerable1.MoveNext()) &
+                            (hasItem2 = enumerable2.MoveNext()))
+                        {
+                            yield return zipper(enumerable1.Current, enumerable2.Current);
+                        }
+
+                        if (hasItem1)
+                        {
+                            while (enumerable1.MoveNext())
+                            {
+                                yield return leftZipper(enumerable1.Current);
+                            }
+                        }
+                        else if (hasItem2)
+                        {
+                            while (enumerable2.MoveNext())
+                            {
+                                yield return rightZipper(enumerable2.Current);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ZipLongInner();
+        }
+
         public static IEnumerable<TOut> ZipLong<T1, T2, TOut>(this IEnumerable<T1> items1, IEnumerable<T2> items2, Func<Maybe<T1>, Maybe<T2>, TOut> zipper)
         {
             if (items1 is null)
@@ -471,22 +535,22 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(zipper));
             }
 
-            IEnumerable<TOut> ZipLongInner()
+            TOut ZipBoth(T1 t1, T2 t2)
             {
-                foreach (var (item1, item2) in
-                    items1.Select(Maybe<T1>.Just).Concat(Repeat(Maybe<T1>.Nothing))
-                    .Zip(items2.Select(Maybe<T2>.Just).Concat(Repeat(Maybe<T2>.Nothing)), (x, y) => (x, y)))
-                {
-                    if (!item1.HasValue && !item2.HasValue)
-                    {
-                        //Both have run out
-                        yield break;
-                    }
-                    yield return zipper(item1, item2);
-                }
+                return zipper(t1, t2);
             }
 
-            return ZipLongInner();
+            TOut ZipLeft(T1 t1)
+            {
+                return zipper(t1, Maybe<T2>.Nothing);
+            }
+
+            TOut ZipRight(T2 t2)
+            {
+                return zipper(Maybe<T1>.Nothing, t2);
+            }
+
+            return items1.ZipLong(items2, ZipBoth, ZipLeft, ZipRight);
         }
 
         public static IEnumerable<TScan> Scan<T, TScan>(this IEnumerable<T> items, TScan start, Func<TScan, T, TScan> scanner)
