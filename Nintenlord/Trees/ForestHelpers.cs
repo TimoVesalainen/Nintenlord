@@ -351,6 +351,85 @@ namespace Nintenlord.Trees
                          .Select(pair => pair.Item2);
         }
 
+        public static TOut ZipAggregate<TNode1, TNode2, TOut>(this
+            IForest<TNode1> forest1, TNode1 root1,
+            IForest<TNode2> forest2, TNode2 root2,
+            Func<TNode1, TNode2, TOut> zipper,
+            Func<TOut, IEnumerable<TOut>, TOut> foldChildren)
+        {
+            if (forest1 is null)
+            {
+                throw new ArgumentNullException(nameof(forest1));
+            }
+
+            if (forest2 is null)
+            {
+                throw new ArgumentNullException(nameof(forest2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            if (foldChildren is null)
+            {
+                throw new ArgumentNullException(nameof(foldChildren));
+            }
+
+            TOut Zip(TNode1 node1, TNode2 node2)
+            {
+                return foldChildren(zipper(node1, node2), forest1.GetChildren(node1).Zip(forest2.GetChildren(node2), Zip));
+            }
+
+            return Zip(root1, root2);
+        }
+
+        public static TOut ZipAggregateLong<TNode1, TNode2, TOut>(this
+            IForest<TNode1> forest1, TNode1 root1,
+            IForest<TNode2> forest2, TNode2 root2,
+            Func<TNode1, TNode2, TOut> zipper,
+            Func<TNode1, TOut> zipperLeft, Func<TNode2, TOut> zipperRight,
+            Func<TOut, IEnumerable<TOut>, TOut> foldChildren)
+        {
+            if (forest1 is null)
+            {
+                throw new ArgumentNullException(nameof(forest1));
+            }
+
+            if (forest2 is null)
+            {
+                throw new ArgumentNullException(nameof(forest2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            if (zipperLeft is null)
+            {
+                throw new ArgumentNullException(nameof(zipperLeft));
+            }
+
+            if (zipperRight is null)
+            {
+                throw new ArgumentNullException(nameof(zipperRight));
+            }
+
+            if (foldChildren is null)
+            {
+                throw new ArgumentNullException(nameof(foldChildren));
+            }
+
+            TOut Zip(TNode1 node1, TNode2 node2)
+            {
+                return foldChildren(zipper(node1, node2), forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), Zip, zipperLeft, zipperRight));
+            }
+
+            return Zip(root1, root2);
+        }
+
         public static IForest<(TNode1, TNode2)> ZipForest<TNode1, TNode2>(this IForest<TNode1> forest1, IForest<TNode2> forest2)
         {
             if (forest1 is null)
@@ -542,12 +621,12 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest2));
             }
 
-            bool AreEqual(TNode1 node1, TNode2 node2)
+            bool And(bool alwaysTrue, IEnumerable<bool> childEquals)
             {
-                return forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), AreEqual, _ => false, _ => false).And();
+                return childEquals.And();
             }
 
-            return AreEqual(root1, root2);
+            return ZipAggregateLong(forest1, root1, forest2, root2, (x, y) => true, _ => false, _ => false, And);
         }
 
         public static bool ForestEquality<TNode>(this
@@ -566,14 +645,12 @@ namespace Nintenlord.Trees
             }
             comparer = comparer ?? EqualityComparer<TNode>.Default;
 
-            bool AreEqual(TNode node1, TNode node2)
+            bool And(bool nodeEqual, IEnumerable<bool> childEquals)
             {
-                return
-                    comparer.Equals(node1, node2) &&
-                    forest1.GetChildren(node1).ZipLong(forest2.GetChildren(node2), AreEqual, _ => false, _ => false).And();
+                return nodeEqual && childEquals.And();
             }
 
-            return AreEqual(root1, root2);
+            return ZipAggregateLong(forest1, root1, forest2, root2, comparer.Equals, _ => false, _ => false, And);
         }
 
         public static IForest<TNode> Union<TNode>(
