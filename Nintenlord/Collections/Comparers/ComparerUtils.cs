@@ -49,5 +49,25 @@ namespace Nintenlord.Collections.Comparers
         {
             return new SequentialComparer<T>(parameters.Prepend(comparer));
         }
+
+        public static Func<T, bool> LessThan<T>(this IComparer<T> comparer, T item)
+        {
+            return x => comparer.Compare(x, item) < 0;
+        }
+
+        public static Func<T, bool> GreaterThan<T>(this IComparer<T> comparer, T item)
+        {
+            return x => comparer.Compare(x, item) > 0;
+        }
+
+        public static Func<T, bool> LessOrEqualThan<T>(this IComparer<T> comparer, T item)
+        {
+            return x => comparer.Compare(x, item) <= 0;
+        }
+
+        public static Func<T, bool> GreaterOrEqualThan<T>(this IComparer<T> comparer, T item)
+        {
+            return x => comparer.Compare(x, item) >= 0;
+        }
     }
 }
