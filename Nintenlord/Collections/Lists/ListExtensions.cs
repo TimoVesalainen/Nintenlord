@@ -1,4 +1,5 @@
-﻿using Nintenlord.Utility;
+﻿using Nintenlord.Collections.Comparers;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -239,6 +240,31 @@ namespace Nintenlord.Collections.Lists
             }
 
             return indicis.Select(i => list[i]);
+        }
+
+        public static IEnumerable<T> GetBestIncreasingSubsequence<T>(this IList<T> items, Func<T, int> order, Func<T, int> reward)
+        {
+            var comparer = (FunctionComparer<int>)(index => order(items[index]));
+
+            (IEnumerable<int>, int reward) GetRest(int start)
+            {
+                var nexts = Enumerable.Range(start + 1, items.Count - start)
+                    .Where(comparer.GreaterOrEqualThan(start))
+                    .MinScan(comparer);
+
+                var (tail, rewardValue) = nexts.Select(GetRest).MaxBy(x => x.reward);
+
+                return (tail.Prepend(start), rewardValue + reward(items[start]));
+            }
+
+            var (indicis, _) = items.Indicis().MinScan(comparer).Select(GetRest).MaxBy(x => x.reward);
+
+            return items.GetItems(indicis);
+        }
+
+        public static IEnumerable<T> GetLongestIncreasingSubsequence<T>(this IList<T> items, Func<T, int> order)
+        {
+            return items.GetBestIncreasingSubsequence(order, _ => 1);
         }
     }
 }
