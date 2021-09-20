@@ -286,7 +286,27 @@ namespace Nintenlord.Collections.Lists
 
         public static IEnumerable<T> GetLongestIncreasingSubsequence<T>(this IList<T> items, Func<T, int> order)
         {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (order is null)
+            {
+                throw new ArgumentNullException(nameof(order));
+            }
+
             return items.GetBestIncreasingSubsequence(order, _ => 1);
+        }
+
+        public static IEnumerable<int> GetLongestIncreasingSubsequence(this IList<int> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            return items.GetBestIncreasingSubsequence(n => n, _ => 1);
         }
     }
 }
