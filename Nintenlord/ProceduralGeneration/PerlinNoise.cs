@@ -85,7 +85,7 @@ namespace Nintenlord.ProceduralGeneration
                 total += noise;
 
                 // scale amplitude for next octave.
-                amplitude = amplitude * roughness;
+                amplitude *= roughness;
 
                 // if the contribution is going to be negligable,
                 // don't bother with higher octaves.

@@ -11,7 +11,7 @@ namespace Nintenlord.Graph.PathFinding
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            costs = costs ?? new Dictionary<TNode, int>();
+            costs ??= new Dictionary<TNode, int>();
 
             costs[toStartFrom] = 0;
             open.Enqueue(toStartFrom, 0);
@@ -49,7 +49,7 @@ namespace Nintenlord.Graph.PathFinding
         public static int GetCost<TNode>(TNode toStartFrom, TNode toEnd,
             IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer, IDictionary<TNode, int> costs = null)
         {
-            costs = costs ?? new Dictionary<TNode, int>();
+            costs ??= new Dictionary<TNode, int>();
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
 

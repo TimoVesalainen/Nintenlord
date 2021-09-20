@@ -232,7 +232,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(values));
             }
 
-            comparer = comparer ?? EqualityComparer<T>.Default;
+            comparer ??= EqualityComparer<T>.Default;
 
             (T, int)[] valuesArray = values.Select((x, i) => (x, i)).ToArray();
 

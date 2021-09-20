@@ -18,8 +18,8 @@ namespace Nintenlord.Graph.PathFinding
             IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics, IEqualityComparer<TNode> nodeComparer,
             IDictionary<TNode, int> costCacheG = null, IDictionary<TNode, int> costCacheH = null)
         {
-            costCacheG = costCacheG ?? new Dictionary<TNode, int>();
-            costCacheH = costCacheH ?? new Dictionary<TNode, int>();
+            costCacheG ??= new Dictionary<TNode, int>();
+            costCacheH ??= new Dictionary<TNode, int>();
 
             IPriorityQueue<int, TNode> open =
                 new SkipListPriorityQueue<int, TNode>(10);

@@ -107,7 +107,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            comp = comp ?? Comparer<T>.Default;
+            comp ??= Comparer<T>.Default;
 
             return collection.Aggregate(comp.Min);
         }
@@ -119,7 +119,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            comparer = comparer ?? Comparer<T>.Default;
+            comparer ??= Comparer<T>.Default;
 
             return items.Scan(comparer.Min);
         }
@@ -252,7 +252,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            comparer = comparer ?? EqualityComparer<T>.Default;
+            comparer ??= EqualityComparer<T>.Default;
 
             int prevIndex = -1;
             T previous = default(T);
@@ -306,7 +306,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(list2));
             }
 
-            comp = comp ?? Comparer<T>.Default;
+            comp ??= Comparer<T>.Default;
 
             return OrderedUnion(list1, list2, comp.Compare);
         }
@@ -899,7 +899,7 @@ namespace Nintenlord.Collections
         /// </summary>
         public static int GetOrbitsCount<T>(this IEnumerable<T> items, IEnumerable<Func<T, T>> groupActions, IEqualityComparer<T> comparer = null)
         {
-            comparer = comparer ?? EqualityComparer<T>.Default;
+            comparer ??= EqualityComparer<T>.Default;
 
             var groupSize = 0;
 

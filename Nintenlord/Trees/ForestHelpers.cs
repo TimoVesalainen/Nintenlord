@@ -177,7 +177,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            nodeComparer = nodeComparer ?? EqualityComparer<TNode>.Default;
+            nodeComparer ??= EqualityComparer<TNode>.Default;
 
             var nodeCache = new Dictionary<TNode, TOut>(nodeComparer);
 
@@ -258,7 +258,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            toString = toString ?? (node => node.ToString());
+            toString ??= (node => node.ToString());
 
             IEnumerable<string> PrependLines(IEnumerable<string> lines, bool isLast)
             {
@@ -643,7 +643,7 @@ namespace Nintenlord.Trees
             {
                 throw new ArgumentNullException(nameof(forest2));
             }
-            comparer = comparer ?? EqualityComparer<TNode>.Default;
+            comparer ??= EqualityComparer<TNode>.Default;
 
             bool And(bool nodeEqual, IEnumerable<bool> childEquals)
             {

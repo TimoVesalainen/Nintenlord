@@ -23,7 +23,7 @@ namespace Nintenlord.IO.Bits
             if (index > 7)
             {
                 buffer = this.ReadByte();
-                index = index % 8;
+                index %= 8;
             }
 
             bool result = (buffer & (1 << index)) != 0;

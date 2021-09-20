@@ -463,7 +463,7 @@ namespace Nintenlord.Utility
 
         public static Maybe<T> MaxSafe<T>(this IEnumerable<T> enumerable, IComparer<T> comparer = null)
         {
-            comparer = comparer ?? Comparer<T>.Default;
+            comparer ??= Comparer<T>.Default;
 
             bool hasValue = false;
             T max = default;//Not used, to make compiler not complain
@@ -493,7 +493,7 @@ namespace Nintenlord.Utility
 
         public static Maybe<T> MinSafe<T>(this IEnumerable<T> enumerable, IComparer<T> comparer = null)
         {
-            comparer = comparer ?? Comparer<T>.Default;
+            comparer ??= Comparer<T>.Default;
 
             bool hasValue = false;
             T min = default;//Not used, to make compiler not complain
