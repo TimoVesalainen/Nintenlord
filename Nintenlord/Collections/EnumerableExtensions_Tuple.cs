@@ -238,6 +238,10 @@ namespace Nintenlord.Collections
             yield return tuple.Item3;
         }
 
+        public static IEnumerable<TOut> Zip<T0, T1, T2, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, Func<T0, T1, T2, TOut> zipper)
+        {
+            return enum0.Zip(enum1, ValueTuple.Create).Zip(enum2, (t, last) => zipper(t.Item1, t.Item2, last));
+        }        
         public static (T0, T1, T2, T3) Aggregate<T0, T1, T2, T3, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3)
@@ -368,6 +372,10 @@ namespace Nintenlord.Collections
             yield return tuple.Item4;
         }
 
+        public static IEnumerable<TOut> Zip<T0, T1, T2, T3, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, Func<T0, T1, T2, T3, TOut> zipper)
+        {
+            return enum0.Zip(enum1, enum2, ValueTuple.Create).Zip(enum3, (t, last) => zipper(t.Item1, t.Item2, t.Item3, last));
+        }        
         public static (T0, T1, T2, T3, T4) Aggregate<T0, T1, T2, T3, T4, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4)
@@ -508,6 +516,10 @@ namespace Nintenlord.Collections
             yield return tuple.Item5;
         }
 
+        public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, Func<T0, T1, T2, T3, T4, TOut> zipper)
+        {
+            return enum0.Zip(enum1, enum2, enum3, ValueTuple.Create).Zip(enum4, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, last));
+        }        
         public static (T0, T1, T2, T3, T4, T5) Aggregate<T0, T1, T2, T3, T4, T5, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4, Func<T5, TSource, T5> func5)
@@ -658,6 +670,10 @@ namespace Nintenlord.Collections
             yield return tuple.Item6;
         }
 
+        public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, T5, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, Func<T0, T1, T2, T3, T4, T5, TOut> zipper)
+        {
+            return enum0.Zip(enum1, enum2, enum3, enum4, ValueTuple.Create).Zip(enum5, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, last));
+        }        
         public static (T0, T1, T2, T3, T4, T5, T6) Aggregate<T0, T1, T2, T3, T4, T5, T6, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5, T6 seed6,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4, Func<T5, TSource, T5> func5, Func<T6, TSource, T6> func6)
@@ -818,6 +834,10 @@ namespace Nintenlord.Collections
             yield return tuple.Item7;
         }
 
+        public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, T5, T6, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, Func<T0, T1, T2, T3, T4, T5, T6, TOut> zipper)
+        {
+            return enum0.Zip(enum1, enum2, enum3, enum4, enum5, ValueTuple.Create).Zip(enum6, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, last));
+        }        
         public static (T0, T1, T2, T3, T4, T5, T6, T7) Aggregate<T0, T1, T2, T3, T4, T5, T6, T7, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5, T6 seed6, T7 seed7,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4, Func<T5, TSource, T5> func5, Func<T6, TSource, T6> func6, Func<T7, TSource, T7> func7)
@@ -988,5 +1008,9 @@ namespace Nintenlord.Collections
             yield return tuple.Item8;
         }
 
+        public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, IEnumerable<T7> enum7, Func<T0, T1, T2, T3, T4, T5, T6, T7, TOut> zipper)
+        {
+            return enum0.Zip(enum1, enum2, enum3, enum4, enum5, enum6, ValueTuple.Create).Zip(enum7, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, last));
+        }        
 	}
 }
