@@ -240,7 +240,31 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<TOut> Zip<T0, T1, T2, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, Func<T0, T1, T2, TOut> zipper)
         {
-            return enum0.Zip(enum1, ValueTuple.Create).Zip(enum2, (t, last) => zipper(t.Item1, t.Item2, last));
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+
+            IEnumerable<TOut> ZipInner()
+            {
+                using var enume0 = enum0.GetEnumerator();
+                using var enume1 = enum1.GetEnumerator();
+                using var enume2 = enum2.GetEnumerator();
+                while (enume0.MoveNext() && enume1.MoveNext() && enume2.MoveNext())
+                {
+                    yield return zipper(enume0.Current, enume1.Current, enume2.Current);
+                }
+            }
+
+            return ZipInner();
         }        
         public static (T0, T1, T2, T3) Aggregate<T0, T1, T2, T3, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3,
@@ -374,7 +398,36 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<TOut> Zip<T0, T1, T2, T3, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, Func<T0, T1, T2, T3, TOut> zipper)
         {
-            return enum0.Zip(enum1, enum2, ValueTuple.Create).Zip(enum3, (t, last) => zipper(t.Item1, t.Item2, t.Item3, last));
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+
+            IEnumerable<TOut> ZipInner()
+            {
+                using var enume0 = enum0.GetEnumerator();
+                using var enume1 = enum1.GetEnumerator();
+                using var enume2 = enum2.GetEnumerator();
+                using var enume3 = enum3.GetEnumerator();
+                while (enume0.MoveNext() && enume1.MoveNext() && enume2.MoveNext() && enume3.MoveNext())
+                {
+                    yield return zipper(enume0.Current, enume1.Current, enume2.Current, enume3.Current);
+                }
+            }
+
+            return ZipInner();
         }        
         public static (T0, T1, T2, T3, T4) Aggregate<T0, T1, T2, T3, T4, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4,
@@ -518,7 +571,41 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, Func<T0, T1, T2, T3, T4, TOut> zipper)
         {
-            return enum0.Zip(enum1, enum2, enum3, ValueTuple.Create).Zip(enum4, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, last));
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+
+            IEnumerable<TOut> ZipInner()
+            {
+                using var enume0 = enum0.GetEnumerator();
+                using var enume1 = enum1.GetEnumerator();
+                using var enume2 = enum2.GetEnumerator();
+                using var enume3 = enum3.GetEnumerator();
+                using var enume4 = enum4.GetEnumerator();
+                while (enume0.MoveNext() && enume1.MoveNext() && enume2.MoveNext() && enume3.MoveNext() && enume4.MoveNext())
+                {
+                    yield return zipper(enume0.Current, enume1.Current, enume2.Current, enume3.Current, enume4.Current);
+                }
+            }
+
+            return ZipInner();
         }        
         public static (T0, T1, T2, T3, T4, T5) Aggregate<T0, T1, T2, T3, T4, T5, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5,
@@ -672,7 +759,46 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, T5, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, Func<T0, T1, T2, T3, T4, T5, TOut> zipper)
         {
-            return enum0.Zip(enum1, enum2, enum3, enum4, ValueTuple.Create).Zip(enum5, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, last));
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+
+            IEnumerable<TOut> ZipInner()
+            {
+                using var enume0 = enum0.GetEnumerator();
+                using var enume1 = enum1.GetEnumerator();
+                using var enume2 = enum2.GetEnumerator();
+                using var enume3 = enum3.GetEnumerator();
+                using var enume4 = enum4.GetEnumerator();
+                using var enume5 = enum5.GetEnumerator();
+                while (enume0.MoveNext() && enume1.MoveNext() && enume2.MoveNext() && enume3.MoveNext() && enume4.MoveNext() && enume5.MoveNext())
+                {
+                    yield return zipper(enume0.Current, enume1.Current, enume2.Current, enume3.Current, enume4.Current, enume5.Current);
+                }
+            }
+
+            return ZipInner();
         }        
         public static (T0, T1, T2, T3, T4, T5, T6) Aggregate<T0, T1, T2, T3, T4, T5, T6, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5, T6 seed6,
@@ -836,7 +962,51 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, T5, T6, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, Func<T0, T1, T2, T3, T4, T5, T6, TOut> zipper)
         {
-            return enum0.Zip(enum1, enum2, enum3, enum4, enum5, ValueTuple.Create).Zip(enum6, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, last));
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+            if (enum6 is null)
+            {
+                throw new ArgumentNullException(nameof(enum6));
+            }
+
+            IEnumerable<TOut> ZipInner()
+            {
+                using var enume0 = enum0.GetEnumerator();
+                using var enume1 = enum1.GetEnumerator();
+                using var enume2 = enum2.GetEnumerator();
+                using var enume3 = enum3.GetEnumerator();
+                using var enume4 = enum4.GetEnumerator();
+                using var enume5 = enum5.GetEnumerator();
+                using var enume6 = enum6.GetEnumerator();
+                while (enume0.MoveNext() && enume1.MoveNext() && enume2.MoveNext() && enume3.MoveNext() && enume4.MoveNext() && enume5.MoveNext() && enume6.MoveNext())
+                {
+                    yield return zipper(enume0.Current, enume1.Current, enume2.Current, enume3.Current, enume4.Current, enume5.Current, enume6.Current);
+                }
+            }
+
+            return ZipInner();
         }        
         public static (T0, T1, T2, T3, T4, T5, T6, T7) Aggregate<T0, T1, T2, T3, T4, T5, T6, T7, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5, T6 seed6, T7 seed7,
@@ -1010,7 +1180,56 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<TOut> Zip<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, IEnumerable<T7> enum7, Func<T0, T1, T2, T3, T4, T5, T6, T7, TOut> zipper)
         {
-            return enum0.Zip(enum1, enum2, enum3, enum4, enum5, enum6, ValueTuple.Create).Zip(enum7, (t, last) => zipper(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, last));
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+            if (enum6 is null)
+            {
+                throw new ArgumentNullException(nameof(enum6));
+            }
+            if (enum7 is null)
+            {
+                throw new ArgumentNullException(nameof(enum7));
+            }
+
+            IEnumerable<TOut> ZipInner()
+            {
+                using var enume0 = enum0.GetEnumerator();
+                using var enume1 = enum1.GetEnumerator();
+                using var enume2 = enum2.GetEnumerator();
+                using var enume3 = enum3.GetEnumerator();
+                using var enume4 = enum4.GetEnumerator();
+                using var enume5 = enum5.GetEnumerator();
+                using var enume6 = enum6.GetEnumerator();
+                using var enume7 = enum7.GetEnumerator();
+                while (enume0.MoveNext() && enume1.MoveNext() && enume2.MoveNext() && enume3.MoveNext() && enume4.MoveNext() && enume5.MoveNext() && enume6.MoveNext() && enume7.MoveNext())
+                {
+                    yield return zipper(enume0.Current, enume1.Current, enume2.Current, enume3.Current, enume4.Current, enume5.Current, enume6.Current, enume7.Current);
+                }
+            }
+
+            return ZipInner();
         }        
 	}
 }

@@ -22,6 +22,7 @@ for(int i = 2; i < 9; i++)
     var funcs = Enumerable.Range(0, i).Select(x => $"func{x}").ToArray();
     var items = Enumerable.Range(0, i).Select(x => $"item{x}").ToArray();
     var enums = Enumerable.Range(0, i).Select(x => $"enum{x}").ToArray();
+    var enumerators = Enumerable.Range(0, i).Select(x => $"enume{x}").ToArray();
 
     Func<string, string> repeat = s => string.Join(", ", Enumerable.Repeat(s, i));
     var iMaybes = repeat("Maybe<T>");
@@ -155,7 +156,35 @@ for(int i = 2; i < 9; i++)
 #>
         public static IEnumerable<TOut> Zip<<#= string.Join(", ", typeParams) #>, TOut>(this <#= string.Join(", ", typeParams.Zip(enums, (t, v) => $"IEnumerable<{t}> {v}")) #>, Func<<#= string.Join(", ", typeParams) #>, TOut> zipper)
         {
-            return <#= enums[0] #>.Zip(<#= string.Join(", ", enums.Skip(1).Take(i - 2)) #>, ValueTuple.Create).Zip(<#= enums.Last() #>, (t, last) => zipper(<#= string.Join(", ", Enumerable.Range(1, i - 1).Select(x => $"t.Item{x}")) #>, last));
+<#
+        foreach (var v1 in enums)
+        {
+#>
+            if (<#= v1 #> is null)
+            {
+                throw new ArgumentNullException(nameof(<#= v1 #>));
+            }
+<#
+        }
+#>
+
+            IEnumerable<TOut> ZipInner()
+            {
+<#
+        foreach (var (v1, v2) in (enums.Zip(enumerators, ValueTuple.Create)))
+        {
+#>
+                using var <#= v2 #> = <#= v1 #>.GetEnumerator();
+<#
+        }
+#>
+                while (<#= string.Join(" && ", enumerators.Select(x => $"{x}.MoveNext()")) #>)
+                {
+                    yield return zipper(<#= string.Join(", ", enumerators.Select(x => $"{x}.Current"))#>);
+                }
+            }
+
+            return ZipInner();
         }        
 <#
     }
