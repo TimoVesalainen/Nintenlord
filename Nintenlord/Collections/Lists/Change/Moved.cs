@@ -21,5 +21,13 @@ namespace Nintenlord.Collections.Lists.Change
             OriginalIndex = originalIndex;
             NextIndex = nextIndex;
         }
+
+        public IEnumerable<T> MovedItems()
+        {
+            for (int i = 0; i < length; i++)
+            {
+                yield return Original[i + OriginalIndex];
+            }
+        }
     }
 }

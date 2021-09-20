@@ -25,5 +25,13 @@ namespace Nintenlord.Collections.Lists.Change
             Next = next;
             NextLength = nextLength;
         }
+
+        public IEnumerable<T> AddedItems()
+        {
+            for (int i = 0; i < NextLength; i++)
+            {
+                yield return Next[i + index];
+            }
+        }
     }
 }

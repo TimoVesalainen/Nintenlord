@@ -25,5 +25,13 @@ namespace Nintenlord.Collections.Lists.Change
             Next = next;
             OriginalLength = originalLength;
         }
+
+        public IEnumerable<T> RemovedItems()
+        {
+            for (int i = 0; i < OriginalLength; i++)
+            {
+                yield return Original[i + index];
+            }
+        }
     }
 }
