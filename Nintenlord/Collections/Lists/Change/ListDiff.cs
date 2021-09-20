@@ -123,5 +123,48 @@ namespace Nintenlord.Collections.Lists.Change
 
             return FindInner(0, xLength, 0, yLength);
         }
+
+        static public List<T> ApplyChange<T>(this IList<T> original, IListChange<T> change)
+        {
+            var items = original.ToList();
+            var cache = new List<T>();
+            ApplyInner(change, items, cache);
+            return items;
+        }
+
+        static public List<T> ApplyChange<T>(this IList<T> original, IEnumerable<IListChange<T>> changes)
+        {
+            var items = original.ToList();
+            var cache = new List<T>();
+            foreach (var change in changes)
+            {
+                ApplyInner(change, items, cache);
+            }
+            return items;
+        }
+
+        private static void ApplyInner<T>(IListChange<T> change, List<T> items, List<T> cache)
+        {
+            switch (change)
+            {
+                case Added<T> added:
+                    items.InsertRange(added.NextIndex, added.AddedItems());
+                    break;
+                case Moved<T> moved:
+                    for (int i = 0; i < moved.OriginalLength; i++)
+                    {
+                        cache.Add(items[i + moved.OriginalIndex]);
+                    }
+                    items.RemoveRange(moved.OriginalIndex, moved.OriginalLength);
+                    items.InsertRange(moved.NextIndex, cache);
+                    cache.Clear();
+                    break;
+                case Removed<T> removed:
+                    items.RemoveRange(removed.OriginalIndex, removed.OriginalLength);
+                    break;
+                default:
+                    throw new ArgumentException($"Unknown change: {change.GetType().Name}", nameof(change));
+            }
+        }
     }
 }
