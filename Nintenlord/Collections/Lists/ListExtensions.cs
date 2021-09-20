@@ -244,6 +244,21 @@ namespace Nintenlord.Collections.Lists
 
         public static IEnumerable<T> GetBestIncreasingSubsequence<T>(this IList<T> items, Func<T, int> order, Func<T, int> reward)
         {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (order is null)
+            {
+                throw new ArgumentNullException(nameof(order));
+            }
+
+            if (reward is null)
+            {
+                throw new ArgumentNullException(nameof(reward));
+            }
+
             var comparer = (FunctionComparer<int>)(index => order(items[index]));
 
             (IEnumerable<int>, int reward) GetRest(int start)
