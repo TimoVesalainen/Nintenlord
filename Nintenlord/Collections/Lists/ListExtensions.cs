@@ -267,16 +267,11 @@ namespace Nintenlord.Collections.Lists
                     .Where(comparer.GreaterOrEqualThan(start))
                     .MinScan(comparer);
 
-                if (nexts.Any())
-                {
-                    var (tail, rewardValue) = nexts.Select(GetRest).MaxBy(x => x.reward);
+                var (tail, rewardValue) = nexts.Select(GetRest)
+                    .MaxBySafe(x => x.reward)
+                    .GetValueOrDefault((Enumerable.Empty<int>(), 0));
 
-                    return (tail.Prepend(start), rewardValue + reward(items[start]));
-                }
-                else
-                {
-                    return (EnumerableExtensions.Return(start), reward(items[start]));
-                }
+                return (tail.Prepend(start), rewardValue + reward(items[start]));
             }
 
             var (indicis, _) = items.Indicis().MinScan(comparer).Select(GetRest).MaxBy(x => x.reward);
