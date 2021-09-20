@@ -90,7 +90,7 @@ namespace Nintenlord.Tests.Trees
         [Test]
         public void TestDepthWithPaths()
         {
-            IEnumerable<int> NonNegativeInts()
+            static IEnumerable<int> NonNegativeInts()
             {
                 int i = 0;
                 while (true)

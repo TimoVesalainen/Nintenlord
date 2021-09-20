@@ -42,7 +42,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1) = previous;
 
@@ -86,7 +86,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1) = previous;
 
@@ -156,7 +156,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2) = previous;
 
@@ -205,7 +205,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2) = previous;
 
@@ -308,7 +308,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3) = previous;
 
@@ -362,7 +362,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3) = previous;
 
@@ -475,7 +475,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4) = previous;
 
@@ -534,7 +534,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4) = previous;
 
@@ -657,7 +657,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4, a5) = previous;
 
@@ -721,7 +721,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4, a5) = previous;
 
@@ -854,7 +854,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4, a5, a6) = previous;
 
@@ -923,7 +923,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4, a5, a6) = previous;
 
@@ -1066,7 +1066,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4, a5, a6, a7) = previous;
 
@@ -1140,7 +1140,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            static (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
             {
                 var (a0, a1, a2, a3, a4, a5, a6, a7) = previous;
 

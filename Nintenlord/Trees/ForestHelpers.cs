@@ -91,7 +91,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            IEnumerable<TNode> Combine(TNode node, IEnumerable<IEnumerable<TNode>> childTraversals)
+            static IEnumerable<TNode> Combine(TNode node, IEnumerable<IEnumerable<TNode>> childTraversals)
             {
                 yield return node;
                 foreach (var child in childTraversals)
@@ -205,7 +205,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            int SumLength(TNode _, IEnumerable<int> childLengths)
+            static int SumLength(TNode _, IEnumerable<int> childLengths)
             {
                 return childLengths.MaxSafe().GetValueOrDefault(0) + 1;
             }
@@ -220,7 +220,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            IEnumerable<TNode> ConcatLeaves(TNode node, IEnumerable<IEnumerable<TNode>> childLeaves)
+            static IEnumerable<TNode> ConcatLeaves(TNode node, IEnumerable<IEnumerable<TNode>> childLeaves)
             {
                 if (childLeaves.Any())
                 {
@@ -532,7 +532,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            int GetPaths(TNode child, int depth)
+            static int GetPaths(TNode child, int depth)
             {
                 return depth + 1;
             }
@@ -621,7 +621,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest2));
             }
 
-            bool And(bool alwaysTrue, IEnumerable<bool> childEquals)
+            static bool And(bool alwaysTrue, IEnumerable<bool> childEquals)
             {
                 return childEquals.And();
             }
@@ -645,7 +645,7 @@ namespace Nintenlord.Trees
             }
             comparer ??= EqualityComparer<TNode>.Default;
 
-            bool And(bool nodeEqual, IEnumerable<bool> childEquals)
+            static bool And(bool nodeEqual, IEnumerable<bool> childEquals)
             {
                 return nodeEqual && childEquals.And();
             }
