@@ -75,6 +75,26 @@ namespace Nintenlord.Matricis
             }
         }
 
+        public static T[,] ToArray<T>(this IMatrix<T> matrix)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            var result = new T[matrix.Height, matrix.Width];
+
+            for (int y = 0; y < result.GetLength(0); y++)
+            {
+                for (int x = 0; x < result.GetLength(1); x++)
+                {
+                    result[y, x] = matrix[x, y];
+                }
+            }
+
+            return result;
+        }
+
         public static IMatrix<T> Transpose<T>(this IMatrix<T> matrix)
         {
             if (matrix is null)
