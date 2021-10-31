@@ -6,6 +6,7 @@ namespace Nintenlord.Collections.Comparers
     public sealed class FunctionComparer<T> : IComparer<T>
     {
         private readonly Func<T, int> valueFunction;
+        private static IComparer<int> comparer = Comparer<int>.Default;
 
         public FunctionComparer(Func<T, int> valueFunction)
         {
@@ -16,7 +17,7 @@ namespace Nintenlord.Collections.Comparers
 
         public int Compare(T x, T y)
         {
-            return valueFunction(x) - valueFunction(y);
+            return comparer.Compare(valueFunction(x), valueFunction(y));
         }
 
         #endregion
