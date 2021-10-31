@@ -33,7 +33,7 @@ namespace Nintenlord.Collections.Lists.Change
 
         public override string ToString()
         {
-            return $"{{{nameof(Original)}={Original}, {nameof(Next)}={Next}, {nameof(OriginalIndex)}={OriginalIndex.ToString()}, {nameof(OriginalLength)}={OriginalLength.ToString()}, {nameof(NextIndex)}={NextIndex.ToString()}, {nameof(NextLength)}={NextLength.ToString()}}}";
+            return $"{{{nameof(Moved<T>)} {nameof(Original)}={Original}, {nameof(Next)}={Next}, {nameof(OriginalIndex)}={OriginalIndex}, {nameof(OriginalLength)}={OriginalLength}, {nameof(NextIndex)}={NextIndex}, {nameof(NextLength)}={NextLength}}}";
         }
 
         public override bool Equals(object obj)
