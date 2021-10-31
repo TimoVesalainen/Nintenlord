@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Lists.Change
 {
-    public sealed class Removed<T> : IListChange<T>
+    public sealed class Removed<T> : IListChange<T>, IEquatable<Removed<T>>
     {
         readonly int index;
 
@@ -32,6 +33,35 @@ namespace Nintenlord.Collections.Lists.Change
             {
                 yield return Original[i + index];
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(Original)}={Original}, {nameof(Next)}={Next}, {nameof(OriginalIndex)}={OriginalIndex.ToString()}, {nameof(OriginalLength)}={OriginalLength.ToString()}, {nameof(NextIndex)}={NextIndex.ToString()}, {nameof(NextLength)}={NextLength.ToString()}}}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Removed<T> removed && Equals(removed);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(index, Original, Next, OriginalLength);
+        }
+
+        public bool Equals(Removed<T> other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            return
+                index == other.index &&
+                OriginalLength == other.OriginalLength &&
+                Original == other.Original &&
+                Next == other.Next;
         }
     }
 }
