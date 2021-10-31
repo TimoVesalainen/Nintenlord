@@ -751,7 +751,7 @@ namespace Nintenlord.Trees
                     childBuffer.Clear();
                     childBuffer.AddRange(children);
 
-                    var length = childBuffer.Count();
+                    var length = childBuffer.Count;
 
                     var index = random.Next(0, length);
 
