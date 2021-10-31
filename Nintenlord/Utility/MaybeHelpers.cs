@@ -432,6 +432,11 @@ namespace Nintenlord.Utility
             return enumerable.Select(Maybe<T>.Just).FirstOrDefault() ?? Maybe<T>.Nothing;
         }
 
+        public static Maybe<T> FirstSafe<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+        {
+            return enumerable.Where(predicate).Select(Maybe<T>.Just).FirstOrDefault() ?? Maybe<T>.Nothing;
+        }
+
         public static Maybe<T> LastSafe<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable is IList<T> list)

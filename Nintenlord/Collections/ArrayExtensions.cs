@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -353,6 +354,18 @@ namespace Nintenlord.Collections
             }
 
             return result;
+        }
+
+        public static Maybe<T> GetSafe<T>(this T[,] items, int y, int x)
+        {
+            if (y < 0 || y >= items.GetLength(0) || x < 0 || x >= items.GetLength(1))
+            {
+                return Maybe<T>.Nothing;
+            }
+            else
+            {
+                return items[y, x];
+            }
         }
     }
 }
