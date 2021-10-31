@@ -1,4 +1,5 @@
-﻿using Nintenlord.Geometry;
+﻿using Nintenlord.Collections.Comparers;
+using Nintenlord.Geometry;
 using Nintenlord.Utility;
 using Nintenlord.Utility.Primitives;
 using System;
@@ -11,29 +12,28 @@ namespace Nintenlord.Collections.Lists.Change
 {
     public static class ListDiff
     {
+        static readonly IComparer<(int x, int y, int length)> diagonalComparer = 
+            new FunctionComparer<(int x, int y, int length)>(t => t.x);
+
         public static IEnumerable<IListChange<T>> GetListDiff<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comparer = null)
         {
             comparer ??= EqualityComparer<T>.Default;
 
             var equals = a.TensorProduct(b, comparer.Equals);
 
-            var diagonals = FindLargestDiagonals(equals).ToList();
+            var diagonals = FindLargestDiagonals(equals).OrderBy(t => t.x).ToList();
 
-            var stayedTheSame = diagonals.GetBestIncreasingSubsequence(t => t.x, t => t.length).ToList();
+            var stayedTheSame = diagonals.GetBestIncreasingSubsequence(t => t.y, t => t.length).ToList();
 
             List<bool> removed = a.Select(_ => true).ToList();
             List<bool> added = b.Select(_ => true).ToList();
 
-            IComparer<(int x, int y, int length)> diagonalComparer = null;
             foreach (var diagonal in diagonals)
             {
-                for (int i = diagonal.x; i < diagonal.length; i++)
+                for (int i = 0; i < diagonal.length; i++)
                 {
-                    removed[i] = false;
-                }
-                for (int i = diagonal.y; i < diagonal.length; i++)
-                {
-                    added[i] = false;
+                    removed[i + diagonal.x] = false;
+                    added[i + diagonal.y] = false;
                 }
 
                 if (stayedTheSame.BinarySearch(diagonal, diagonalComparer) < 0)
@@ -58,12 +58,20 @@ namespace Nintenlord.Collections.Lists.Change
             }
         }
 
-        static IEnumerable<(int x, int y, int length)> FindLargestDiagonals(bool[,] matrix)
+        readonly static IComparer<IEnumerable<(int x, int y, int length)>> comparer
+            = new FunctionComparer<(int x, int y, int length)>(x => x.length).ToLexicographic();
+
+        public static IEnumerable<(int x, int y, int length)> FindLargestDiagonals(bool[,] matrix)
         {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
             var yLength = matrix.GetLength(0);
             var xLength = matrix.GetLength(1);
 
-            int[,] diagonalLengths = new int[matrix.GetLength(1), matrix.GetLength(0)];
+            int[,] diagonalLengths = new int[yLength, xLength];
 
             for (int y = yLength - 1; y >= 0; y--)
             {
@@ -79,16 +87,16 @@ namespace Nintenlord.Collections.Lists.Change
             {
                 int GetDiagonalLengthLimited(int x, int y)
                 {
-                    var rawDiagonal = diagonalLengths[x, y];
+                    var rawDiagonal = diagonalLengths[y, x];
 
-                    return Math.Min(rawDiagonal, Math.Min(maxX - x, maxY - y));
+                    return Math.Min(rawDiagonal, Math.Min(maxX - x + 1, maxY - y + 1));
                 }
 
                 var lengths = from x in IntegerExtensions.GetIntegers(minX, maxX)
                               from y in IntegerExtensions.GetIntegers(minY, maxY)
                               select (x, y, length: GetDiagonalLengthLimited(x, y));
 
-                var longest = lengths.FindLargest(t => t.length);
+                var longest = lengths.Where(t => t.length > 0).FindLargest(t => t.length);
 
                 IEnumerable<(int minX, int maxX, int minY, int maxY, SquareCorners)> GetSmallerRectangles(int x, int y, int length)
                 {
@@ -118,10 +126,35 @@ namespace Nintenlord.Collections.Lists.Change
                     }
                 }
 
-                throw new NotImplementedException();
+                IEnumerable<(int x, int y, int length)> GetOther(int x, int y, int length)
+                {
+                    if (length == 0)
+                    {
+                        return Enumerable.Empty<(int x, int y, int length)>();
+                    }
+
+                    var corners = GetSmallerRectangles(x, y, length);
+
+                    var cornerSolutions = corners.Select(t => (t.Item5, FindInner(t.minX, t.maxX, t.minY, t.maxY))).ToArray();
+
+                    var bottomLeft = cornerSolutions.FirstSafe(t => t.Item1 == SquareCorners.BottomLeft).Select(t => t.Item2);
+                    var bottomRight = cornerSolutions.FirstSafe(t => t.Item1 == SquareCorners.BottomRight).Select(t => t.Item2);
+                    var topLeft = cornerSolutions.FirstSafe(t => t.Item1 == SquareCorners.TopLeft).Select(t => t.Item2);
+                    var topRight = cornerSolutions.FirstSafe(t => t.Item1 == SquareCorners.TopRight).Select(t => t.Item2);
+
+                    var diagonal = topLeft.GetValueOrDefault(Enumerable.Empty<(int x, int y, int length)>()).Concat(
+                        bottomRight.GetValueOrDefault(Enumerable.Empty<(int x, int y, int length)>()));
+
+                    var reverseDiagonal = topRight.GetValueOrDefault(Enumerable.Empty<(int x, int y, int length)>()).Concat(
+                        bottomLeft.GetValueOrDefault(Enumerable.Empty<(int x, int y, int length)>()));
+
+                    return comparer.Max(diagonal, reverseDiagonal);
+                }
+
+                return longest.Select(t => GetOther(t.x, t.y, t.length).Prepend((t.x, t.y, t.length))).MaxSafe(comparer).GetValueOrDefault(Enumerable.Empty<(int x, int y, int length)>());
             }
 
-            return FindInner(0, xLength, 0, yLength);
+            return FindInner(0, xLength - 1, 0, yLength - 1);
         }
 
         static public List<T> ApplyChange<T>(this IList<T> original, IListChange<T> change)
