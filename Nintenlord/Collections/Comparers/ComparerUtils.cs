@@ -69,5 +69,15 @@ namespace Nintenlord.Collections.Comparers
         {
             return x => comparer.Compare(x, item) >= 0;
         }
+
+        public static LexicographicComparer<T> ToLexicographic<T>(this IComparer<T> comparer)
+        {
+            return new LexicographicComparer<T>(comparer);
+        }
+
+        public static AlphabeticComparer<T> ToAlphabetic<T>(this IComparer<T> comparer)
+        {
+            return new AlphabeticComparer<T>(comparer);
+        }
     }
 }
