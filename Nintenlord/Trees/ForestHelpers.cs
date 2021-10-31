@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Nintenlord.Trees
 {
@@ -63,7 +64,6 @@ namespace Nintenlord.Trees
             }
         }
 
-
         public static TAggregate Aggregate<TAggregate, TNode>(this IForest<TNode> forest, Func<TNode, IEnumerable<TAggregate>, TAggregate> combine, TNode start)
         {
             if (forest is null)
@@ -79,6 +79,30 @@ namespace Nintenlord.Trees
             TAggregate AggregateNode(TNode node)
             {
                 return combine(node, forest.GetChildren(node).Select(AggregateNode));
+            }
+
+            return AggregateNode(start);
+        }
+
+        public static Task<TAggregate> AggregateAsync<TAggregate, TNode>(this IForest<TNode> forest, Func<TNode, IEnumerable<TAggregate>, Task<TAggregate>> combine, TNode start)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (combine is null)
+            {
+                throw new ArgumentNullException(nameof(combine));
+            }
+
+            async Task<TAggregate> AggregateNode(TNode node)
+            {
+                var itemTasks = forest.GetChildren(node).Select(AggregateNode);
+
+                var items = await Task.WhenAll(itemTasks);
+
+                return await combine(node, items);
             }
 
             return AggregateNode(start);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Nintenlord.Trees
 {
@@ -43,6 +44,11 @@ namespace Nintenlord.Trees
         public static TAggregate Aggregate<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, IEnumerable<TAggregate>, TAggregate> combine)
         {
             return tree.Aggregate(combine, tree.Root);
+        }
+
+        public static Task<TAggregate> AggregateAsync<TAggregate, TNode>(this ITree<TNode> tree, Func<TNode, IEnumerable<TAggregate>, Task<TAggregate>> combine)
+        {
+            return tree.AggregateAsync(combine, tree.Root);
         }
 
         public static IEnumerable<TNode> DepthFirstTraversal<TNode>(this ITree<TNode> tree)
