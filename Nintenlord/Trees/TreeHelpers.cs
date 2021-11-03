@@ -14,6 +14,11 @@ namespace Nintenlord.Trees
     /// </summary>
     public static class TreeHelpers
     {
+        public static ITree<T> Create<T>(T root, Func<T, IEnumerable<T>> getChildren)
+        {
+            return new LambdaTree<T>(root, getChildren);
+        }
+
         public static ITree<TNode> SetRoot<TNode>(this IForest<TNode> forest, TNode newRoot)
         {
             return new LambdaTree<TNode>(newRoot, forest.GetChildren);
