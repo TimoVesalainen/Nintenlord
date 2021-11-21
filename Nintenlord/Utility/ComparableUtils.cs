@@ -45,6 +45,7 @@ namespace Nintenlord.Utility
                 return null;
             }
         }
+
         public static T Max<T>(T a, T b) where T : IComparable<T>
         {
             var comparison = a.CompareTo(b);
