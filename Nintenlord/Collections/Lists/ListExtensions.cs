@@ -158,7 +158,7 @@ namespace Nintenlord.Collections.Lists
             list[j] = temp;
         }
 
-        public static int LastIndexOf<T>(this IList<T> list, Predicate<T> predicate)
+        public static int LastIndexOf<T>(this IReadOnlyList<T> list, Predicate<T> predicate)
         {
             int result = list.Count;
             while (result > 0)
@@ -172,7 +172,7 @@ namespace Nintenlord.Collections.Lists
             return result;
         }
 
-        public static int IndexOf<T>(this IList<T> list, Predicate<T> predicate)
+        public static int IndexOf<T>(this IReadOnlyList<T> list, Predicate<T> predicate)
         {
             int result = 0;
             while (result < list.Count)
@@ -186,7 +186,7 @@ namespace Nintenlord.Collections.Lists
             return result != list.Count ? result : -1;
         }
 
-        public static Maybe<T> LastSafe<T>(this IList<T> list)
+        public static Maybe<T> LastSafe<T>(this IReadOnlyList<T> list)
         {
             if (list.Count > 0)
             {
@@ -198,7 +198,7 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comp)
+        public static int GetEqualsInBeginning<T>(this IReadOnlyList<T> a, IReadOnlyList<T> b, IEqualityComparer<T> comp)
         {
             int max = Math.Min(a.Count, b.Count);
             int count;
@@ -212,12 +212,12 @@ namespace Nintenlord.Collections.Lists
             return count;
         }
 
-        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b)
+        public static int GetEqualsInBeginning<T>(this IReadOnlyList<T> a, IReadOnlyList<T> b)
         {
             return a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
         }
 
-        public static IEnumerable<int> Indicis<T>(this IList<T> list)
+        public static IEnumerable<int> Indicis<T>(this IReadOnlyList<T> list)
         {
             if (list is null)
             {
@@ -227,7 +227,7 @@ namespace Nintenlord.Collections.Lists
             return Enumerable.Range(0, list.Count);
         }
 
-        public static IEnumerable<T> GetItems<T>(this IList<T> list, IEnumerable<int> indicis)
+        public static IEnumerable<T> GetItems<T>(this IReadOnlyList<T> list, IEnumerable<int> indicis)
         {
             if (list is null)
             {
@@ -242,7 +242,7 @@ namespace Nintenlord.Collections.Lists
             return indicis.Select(i => list[i]);
         }
 
-        public static IEnumerable<T> GetBestIncreasingSubsequence<T>(this IList<T> items, Func<T, int> order, Func<T, int> reward)
+        public static IEnumerable<T> GetBestIncreasingSubsequence<T>(this IReadOnlyList<T> items, Func<T, int> order, Func<T, int> reward)
         {
             if (items is null)
             {
@@ -279,7 +279,7 @@ namespace Nintenlord.Collections.Lists
             return items.GetItems(indicis);
         }
 
-        public static IEnumerable<T> GetLongestIncreasingSubsequence<T>(this IList<T> items, Func<T, int> order)
+        public static IEnumerable<T> GetLongestIncreasingSubsequence<T>(this IReadOnlyList<T> items, Func<T, int> order)
         {
             if (items is null)
             {
@@ -294,7 +294,7 @@ namespace Nintenlord.Collections.Lists
             return items.GetBestIncreasingSubsequence(order, _ => 1);
         }
 
-        public static IEnumerable<int> GetLongestIncreasingSubsequence(this IList<int> items)
+        public static IEnumerable<int> GetLongestIncreasingSubsequence(this IReadOnlyList<int> items)
         {
             if (items is null)
             {

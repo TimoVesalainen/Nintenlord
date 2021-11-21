@@ -439,7 +439,7 @@ namespace Nintenlord.Utility
 
         public static Maybe<T> LastSafe<T>(this IEnumerable<T> enumerable)
         {
-            if (enumerable is IList<T> list)
+            if (enumerable is IReadOnlyList<T> list)
             {
                 return ListExtensions.LastSafe(list);
             }
