@@ -52,28 +52,29 @@ namespace Nintenlord.Collections.Lists
 
         private static IEnumerable<T> Backtrack<T>(int[,] matrix, IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
         {
-            IEnumerable<T> Inner(int length1, int length2)
-            {
-                if (length1 == 0 || length2 == 0)
-                {
-                    return Enumerable.Empty<T>();
-                }
+            int length1 = first.Count;
+            int length2 = second.Count;
+            var items = new List<T>(Math.Min(first.Count, second.Count));
 
+            while (length1 != 0 && length2 != 0)
+            {
                 if (comparer.Equals(first[length1 - 1], second[length2 - 1]))
                 {
-                    return Inner(length1 - 1, length2 - 1).Prepend(first[length1 - 1]);
+                    items.Add(first[length1 - 1]);
+                    length1--;
+                    length2--;
                 }
                 else if (matrix[length1, length2 - 1] > matrix[length1 - 1, length2])
                 {
-                    return Inner(length1, length2 - 1);
+                    length2--;
                 }
                 else
                 {
-                    return Inner(length1 - 1, length2);
+                    length1--;
                 }
             }
-
-            return Inner(first.Count, second.Count).Reverse();
+            items.Reverse();
+            return items;
         }
     }
 }
