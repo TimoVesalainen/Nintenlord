@@ -227,6 +227,26 @@ namespace Nintenlord.Collections.Lists
             return Enumerable.Range(0, list.Count);
         }
 
+        public static int FirstIndex<T>(this IReadOnlyList<T> list)
+        {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            return 0;
+        }
+
+        public static int LastIndex<T>(this IReadOnlyList<T> list)
+        {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            return list.Count - 1;
+        }
+
         public static IEnumerable<T> GetItems<T>(this IReadOnlyList<T> list, IEnumerable<int> indicis)
         {
             if (list is null)
