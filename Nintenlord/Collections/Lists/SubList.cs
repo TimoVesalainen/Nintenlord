@@ -3,29 +3,26 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Lists
 {
-    public sealed class SubList<T> : IList<T>
+    public sealed class SubList<T> : IList<T>, IReadOnlyList<T>
     {
         public IList<T> MainList
         {
             get;
-            private set;
         }
         public int Index
         {
             get;
-            private set;
         }
         public int Length
         {
             get;
-            private set;
         }
 
-        public SubList(IList<T> MainList, int Index, int Length)
+        public SubList(IList<T> mainList, int index, int length)
         {
-            this.MainList = MainList;
-            this.Length = Length;
-            this.Index = Index;
+            this.MainList = mainList;
+            this.Length = length;
+            this.Index = index;
         }
 
         #region IList<T> Members
@@ -52,15 +49,15 @@ namespace Nintenlord.Collections.Lists
             throw new NotSupportedException();
         }
 
-        public T this[int Index]
+        public T this[int index]
         {
             get
             {
-                if (Index < 0 || Index >= Length)
+                if (index < 0 || index >= Length)
                 {
                     throw new IndexOutOfRangeException();
                 }
-                return MainList[this.Index + Index];
+                return MainList[this.Index + index];
             }
             set => throw new NotSupportedException();
         }
