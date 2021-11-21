@@ -9,6 +9,7 @@ namespace Nintenlord.Tests.Collections.Lists
         [Test]
         public void Test()
         {
+            //https://en.wikipedia.org/wiki/Longest_common_subsequence_problem#Example
             var list1 = "XMJYAUZ".ToList();
             var list2 = "MZJAWXU".ToList();
 
