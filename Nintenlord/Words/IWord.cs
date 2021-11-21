@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Nintenlord.Words
@@ -37,5 +38,51 @@ namespace Nintenlord.Words
 
         public static bool IsFinite<TCharacter>(this IWord<TCharacter> word) => word.Length != null;
         public static bool IsInfinite<TCharacter>(this IWord<TCharacter> word) => word.Length == null;
+
+        public static TCharacter[] ToArray<TCharacter>(this IWord<TCharacter> word)
+        {
+            if (word is null)
+            {
+                throw new ArgumentNullException(nameof(word));
+            }
+
+            if (word.Length is null)
+            {
+                throw new ArgumentException(nameof(word), "Can't put infinite word to array");
+            }
+            if (word.Length > int.MaxValue)
+            {
+                throw new ArgumentException(nameof(word), $"Length larger than int.MaxValue: {word.Length}");
+            }
+
+            var array = new TCharacter[(int)word.Length];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = word[i];
+            }
+
+            return array;
+        }
+
+        public static TCharacter[] GetPrefix<TCharacter>(this IWord<TCharacter> word, int maxLength)
+        {
+            if (word is null)
+            {
+                throw new ArgumentNullException(nameof(word));
+            }
+
+            TCharacter[] array = new TCharacter[
+                word.Length != null && maxLength > word.Length
+                ? (int)word.Length
+                : maxLength];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = word[i];
+            }
+
+            return array;
+        }
     }
 }
