@@ -36,5 +36,19 @@ namespace Nintenlord.Tests.Collections
                 new[,] { { 1, 2 }, { 3, 4 } }.EmbedTo(1, 1, 0)
             );
         }
+
+        [Test]
+        public void DimensionOrderTest()
+        {
+            int[,] test = new int[,] { { 0, 1 } };
+
+            Assert.AreEqual(test.GetLength(0), 1);
+            Assert.AreEqual(test.GetLength(1), 2);
+
+            int[,] test2 = new int[1, 2];
+
+            Assert.AreEqual(test2.GetLength(0), 1);
+            Assert.AreEqual(test2.GetLength(1), 2);
+        }
     }
 }
