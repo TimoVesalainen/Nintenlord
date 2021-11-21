@@ -303,5 +303,39 @@ namespace Nintenlord.Collections.Lists
 
             return items.GetBestIncreasingSubsequence(n => n, _ => 1);
         }
+
+        public static int IndexOfMax<T>(this IReadOnlyList<T> list, IComparer<T> comparer)
+        {
+            int maxIndex = -1;
+            T currentMax = default;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (maxIndex < 0 || comparer.Compare(list[i], currentMax) > 0)
+                {
+                    maxIndex = i;
+                    currentMax = list[i];
+                }
+            }
+
+            return maxIndex;
+        }
+
+        public static int IndexOfMin<T>(this IReadOnlyList<T> list, IComparer<T> comparer)
+        {
+            int minIndex = -1;
+            T currentMin = default;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (minIndex < 0 || comparer.Compare(list[i], currentMin) < 0)
+                {
+                    minIndex = i;
+                    currentMin = list[i];
+                }
+            }
+
+            return minIndex;
+        }
     }
 }
