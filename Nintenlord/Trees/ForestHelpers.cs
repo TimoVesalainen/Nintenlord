@@ -147,7 +147,7 @@ namespace Nintenlord.Trees
             }
 
             var rootNode = forest.GetConcreteTree<TNode, RoseTreeNode<TResult>>(root,
-                (node, children)  => new RoseTreeNode<TResult>(children, selector(node)), nodeComparer);
+                (node, children) => new RoseTreeNode<TResult>(children, selector(node)), nodeComparer);
 
             return new RoseTree<TResult>(rootNode);
         }
@@ -466,7 +466,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest2));
             }
 
-            return new LambdaForest<(TNode1, TNode2)>(pair => forest1.GetChildren(pair.Item1).Zip(forest2.GetChildren(pair.Item2), (x,y) => (x, y)));
+            return new LambdaForest<(TNode1, TNode2)>(pair => forest1.GetChildren(pair.Item1).Zip(forest2.GetChildren(pair.Item2), (x, y) => (x, y)));
         }
 
         public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this IForest<TNode> forest, IEnumerable<TChild> toCombine, TNode root)
