@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Collections
+namespace Nintenlord.Collections.DisjointSet
 {
-    public sealed class DisjointSetSorted<T>
+    public sealed class DisjointSetSorted<T> : IDisjointSet<T>
     {
         readonly DisjointIntSet indexSet;
         readonly List<T> items;
@@ -19,7 +19,7 @@ namespace Nintenlord.Collections
 
             this.comparer = comparer ?? Comparer<T>.Default;
             this.items = items.OrderBy(x => x, this.comparer).ToList();
-            this.indexSet = new DisjointIntSet(this.items.Count);
+            indexSet = new DisjointIntSet(this.items.Count);
         }
 
         public T FindRepresentative(T item)

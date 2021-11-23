@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Nintenlord.Collections
+namespace Nintenlord.Collections.DisjointSet
 {
-    public sealed class DisjointIntSet
+    public sealed class DisjointIntSet : IDisjointSet<int>
     {
         readonly int[] parents;
         readonly int[] descendants;

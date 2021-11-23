@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Nintenlord.Collections
+namespace Nintenlord.Collections.DisjointSet
 {
-    public sealed class DisjointSet<T>
+    public sealed class DisjointSet<T> : IDisjointSet<T>
     {
         readonly DisjointIntSet indexSet;
         readonly T[] items;
@@ -19,7 +17,7 @@ namespace Nintenlord.Collections
             }
 
             this.items = items.ToArray();
-            this.indexSet = new DisjointIntSet(this.items.Length);
+            indexSet = new DisjointIntSet(this.items.Length);
         }
 
         public T FindRepresentative(T item)
