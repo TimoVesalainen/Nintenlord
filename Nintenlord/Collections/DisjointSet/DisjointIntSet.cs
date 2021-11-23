@@ -39,14 +39,14 @@ namespace Nintenlord.Collections.DisjointSet
             }
         }
 
-        public void Union(int item1, int item2)
+        public bool Union(int item1, int item2)
         {
             var index1 = FindRepresentative(item1);
             var index2 = FindRepresentative(item2);
 
             if (index1 == index2)
             {
-                return;
+                return false;
             }
 
             int parentIndex;
@@ -64,6 +64,7 @@ namespace Nintenlord.Collections.DisjointSet
 
             parents[childIndex] = parentIndex;
             descendants[parentIndex] += descendants[childIndex];
+            return true;
         }
 
         public bool AreSameSet(int item1, int item2)

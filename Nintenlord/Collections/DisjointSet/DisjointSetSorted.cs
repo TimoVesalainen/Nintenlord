@@ -32,11 +32,11 @@ namespace Nintenlord.Collections.DisjointSet
         }
 
 
-        public void Union(T item1, T item2)
+        public bool Union(T item1, T item2)
         {
             var index1 = items.BinarySearch(item1, comparer);
             var index2 = items.BinarySearch(item2, comparer);
-            indexSet.Union(index1, index2);
+            return indexSet.Union(index1, index2);
         }
 
         public bool AreSameSet(T item1, T item2)

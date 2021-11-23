@@ -30,11 +30,11 @@ namespace Nintenlord.Collections.DisjointSet
         }
 
 
-        public void Union(T item1, T item2)
+        public bool Union(T item1, T item2)
         {
             var index1 = Array.IndexOf(items, item1);
             var index2 = Array.IndexOf(items, item2);
-            indexSet.Union(index1, index2);
+            return indexSet.Union(index1, index2);
         }
 
         public bool AreSameSet(T item1, T item2)
