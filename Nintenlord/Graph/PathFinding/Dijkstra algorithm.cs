@@ -121,21 +121,21 @@ namespace Nintenlord.Graph.PathFinding
         public static HashSet<TNode> GetConnectedNodes<TNode>(TNode toStartFrom,
             IGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
-            LinkedList<TNode> open = new LinkedList<TNode>();
+            var open = new Queue<TNode>();
             HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
 
-            open.AddLast(toStartFrom);
+            open.Enqueue(toStartFrom);
 
             while (open.Count > 0)
             {
-                TNode node = open.First.Value;
+                TNode node = open.Dequeue();
                 closed.Add(node);
 
                 foreach (TNode neighbour in map.GetNeighbours(node))
                 {
                     if (!closed.Contains(neighbour))
                     {
-                        open.AddLast(neighbour);
+                        open.Enqueue(neighbour);
                     }
                 }
             }
