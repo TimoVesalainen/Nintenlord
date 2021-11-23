@@ -106,6 +106,10 @@ namespace Nintenlord.Matricis
             {
                 return transpose.BaseMatrix;
             }
+            else if (matrix is SymmetricMatrix<T>)
+            {
+                return matrix;
+            }
             else
             {
                 return new TransposeMatrix<T>(matrix);
