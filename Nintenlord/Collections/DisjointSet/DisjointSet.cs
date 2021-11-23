@@ -9,6 +9,8 @@ namespace Nintenlord.Collections.DisjointSet
         readonly DisjointIntSet indexSet;
         readonly T[] items;
 
+        public int ElementCount => items.Length;
+
         public DisjointSet(IEnumerable<T> items)
         {
             if (items is null)

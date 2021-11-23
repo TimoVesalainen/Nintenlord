@@ -7,6 +7,8 @@ namespace Nintenlord.Collections.DisjointSet
         readonly int[] parents;
         readonly int[] descendants;
 
+        public int ElementCount => parents.Length;
+
         public DisjointIntSet(int amount)
         {
             if (amount < 0)

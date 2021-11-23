@@ -10,6 +10,8 @@ namespace Nintenlord.Collections.DisjointSet
         readonly List<T> items;
         readonly IComparer<T> comparer;
 
+        public int ElementCount => items.Count;
+
         public DisjointSetSorted(IEnumerable<T> items, IComparer<T> comparer = null)
         {
             if (items is null)
