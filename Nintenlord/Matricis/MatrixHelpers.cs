@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -113,6 +114,46 @@ namespace Nintenlord.Matricis
             else
             {
                 return new TransposeMatrix<T>(matrix);
+            }
+        }
+
+        public static bool TryGetSymmetric<T>(this IMatrix<T> matrix, out SymmetricMatrix<T> symmetricMatrix, IEqualityComparer<T> comparer = null)
+        {
+            if (matrix.Width != matrix.Height)
+            {
+                symmetricMatrix = null;
+                return false;
+            }
+
+            symmetricMatrix = new SymmetricMatrix<T>(matrix.Width);
+            comparer ??= EqualityComparer<T>.Default;
+
+            for (int y = 0; y < matrix.Height; y++)
+            {
+                for (int x = y; x < matrix.Width; x++)
+                {
+                    var value = matrix[x, y];
+                    if (x != y && !comparer.Equals(value, matrix[y, x]))
+                    {
+                        return false;
+                    }
+
+                    symmetricMatrix[x, y] = matrix[x, y];
+                }
+            }
+
+            return true;
+        }
+
+        public static Maybe<SymmetricMatrix<T>> TryGetSymmetric<T>(this IMatrix<T> matrix, IEqualityComparer<T> comparer = null)
+        {
+            if (matrix.TryGetSymmetric(out var symmetrix, comparer))
+            {
+                return symmetrix;
+            }
+            else
+            {
+                return Maybe<SymmetricMatrix<T>>.Nothing;
             }
         }
 
