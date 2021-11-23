@@ -1,4 +1,5 @@
-﻿using Nintenlord.Utility;
+﻿using Nintenlord.Collections.DisjointSet;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,22 @@ namespace Nintenlord.Graph
             {
                 return new TransposeGraph<TNode>(graph);
             }
+        }
+
+        public static IGraph<T> MinimunSpanningTree<T>(this IGraph<T> graph, Func<T, T, int> cost)
+        {
+            var newGraph = new MatrixGraph<T>(graph.Nodes);
+            var set = new DisjointSet<T>(graph.Nodes);
+
+            foreach (var (start, end) in graph.GetEdges(ValueTuple.Create).OrderBy(edge => cost(edge.Item1, edge.Item2)))
+            {
+                if (set.Union(start, end))
+                {
+                    newGraph[start, end] = true;
+                }
+            }
+
+            return newGraph;
         }
     }
 }
