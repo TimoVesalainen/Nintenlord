@@ -64,7 +64,7 @@ namespace Nintenlord.MemoryManagement
 
         public override int GetHashCode()
         {
-            return Offset ^ Size;
+            return HashCode.Combine(Offset, Size);
         }
 
         public override string ToString()

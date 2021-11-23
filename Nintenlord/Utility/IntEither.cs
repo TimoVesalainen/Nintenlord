@@ -38,10 +38,7 @@ namespace Nintenlord.Utility
 
         public override int GetHashCode()
         {
-            int hashCode = -1432443131;
-            hashCode = hashCode * -1521134295 + value.GetHashCode();
-            hashCode = hashCode * -1521134295 + index.GetHashCode();
-            return hashCode;
+            return HashCode.Combine(value, index);
         }
 
         public override string ToString()
