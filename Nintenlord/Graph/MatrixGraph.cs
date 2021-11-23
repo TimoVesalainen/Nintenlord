@@ -1,66 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nintenlord.Graph
 {
-    /// <summary>
-    /// Graph where adjacency is implemented as matrix.
-    /// </summary>
-    public sealed class MatrixGraph : IEditableGraph<int>
+    public class MatrixGraph<T> : IEditableGraph<T>
     {
-        private readonly bool[,] neighbours;
+        readonly T[] items;
+        readonly MatrixIntGraph graph;
 
-        public MatrixGraph(int amountOfNodes)
+        public MatrixGraph(IEnumerable<T> items)
         {
-            neighbours = new bool[amountOfNodes, amountOfNodes];
-            this.NodeCount = amountOfNodes;
+            this.items = items.ToArray();
+            graph = new MatrixIntGraph(this.items.Length);
         }
 
-        #region IEditableGraph<int> Members
-
-        public bool this[int from, int to]
+        public bool this[T from, T to]
         {
-            get => neighbours[from, to];
-            set => neighbours[from, to] = value;
+            get => IsEdge(from, to);
+            set => graph[Array.IndexOf(items, from), Array.IndexOf(items, to)] = value;
         }
 
-        public void RemoveEdge(int from, int to)
+        public IEnumerable<T> Nodes => items.AsEnumerable();
+
+        public IEnumerable<T> GetNeighbours(T node)
         {
-            neighbours[from, to] = false;
+            var index = Array.IndexOf(items, node);
+            return graph.GetNeighbours(index).Select(i => items[i]);
         }
 
-        public void SetEdge(int from, int to)
+        public bool IsEdge(T from, T to)
         {
-            neighbours[from, to] = true;
+            return graph.IsEdge(Array.IndexOf(items, from), Array.IndexOf(items, to));
         }
 
-        #endregion
-
-        #region IGraph<TNode> Members
-
-        public int NodeCount
+        public void RemoveEdge(T from, T to)
         {
-            get;
+            graph.RemoveEdge(Array.IndexOf(items, from), Array.IndexOf(items, to));
         }
 
-        public IEnumerable<int> Nodes => Enumerable.Range(0, NodeCount);
-
-        public IEnumerable<int> GetNeighbours(int node)
+        public void SetEdge(T from, T to)
         {
-            for (int i = 0; i < NodeCount; i++)
-            {
-                if (neighbours[node, i])
-                {
-                    yield return i;
-                }
-            }
+            graph.SetEdge(Array.IndexOf(items, from), Array.IndexOf(items, to));
         }
-
-        public bool IsEdge(int from, int to)
-        {
-            return neighbours[from, to];
-        }
-
-        #endregion         
     }
 }
