@@ -1,7 +1,10 @@
 ﻿namespace Nintenlord.Graph
 {
+    using Nintenlord.Trees;
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
+    using System.Linq;
 
     public static class GraphTraversal
     {
@@ -129,5 +132,33 @@
         }
 
         #endregion
+
+        public static ITree<T> Traversal<T>(this IGraph<T> graph, T root, IEqualityComparer<T> equality = null)
+        {
+            equality ??= EqualityComparer<T>.Default;
+
+            var parents = new Dictionary<T, T>(equality);
+
+            void SetParents(T node)
+            {
+                var newChildren = new List<T>();
+                foreach (var item in graph.GetNeighbours(node))
+                {
+                    if (!parents.ContainsKey(item))
+                    {
+                        parents[item] = node;
+                        newChildren.Add(item);
+                    }
+                }
+                foreach (var item in newChildren)
+                {
+                    SetParents(item);
+                }
+            }
+
+            SetParents(root);
+
+            return parents.ToTree(root, equality);
+        }
     }
 }
