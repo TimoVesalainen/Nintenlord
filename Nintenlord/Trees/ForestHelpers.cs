@@ -788,5 +788,13 @@ namespace Nintenlord.Trees
                 }
             }
         }
+
+        public static IForest<T> ToForest<T>(this IDictionary<T, T> parents, IEqualityComparer<T> equality = null)
+        {
+            var children = parents.GroupBy(x => x.Value, equality)
+                .ToImmutableDictionary(t => t.Key, t => t.Select(x => x.Value).ToImmutableList());
+
+            return new LambdaForest<T>(parent => children[parent]);
+        }
     }
 }

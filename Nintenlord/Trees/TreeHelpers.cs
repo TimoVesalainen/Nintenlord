@@ -1,10 +1,8 @@
-﻿using Nintenlord.Trees.Nodes;
-using Nintenlord.Utility;
+﻿using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nintenlord.Trees
@@ -312,6 +310,14 @@ namespace Nintenlord.Trees
         public static IEnumerable<T> OrderedEnumeration<T, TKey>(this ITree<T> tree, Func<T, TKey> getKey, IComparer<TKey> comparer = null)
         {
             return tree.OrderedEnumeration(tree.Root, getKey, comparer);
+        }
+
+        public static ITree<T> ToTree<T>(this IDictionary<T, T> parents, T root, IEqualityComparer<T> equality = null)
+        {
+            var children = parents.GroupBy(x => x.Value, equality)
+                .ToImmutableDictionary(t => t.Key, t => t.Select(x => x.Value).ToImmutableList());
+
+            return new LambdaTree<T>(root, parent => children[parent]);
         }
     }
 }
