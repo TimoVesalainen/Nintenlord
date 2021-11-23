@@ -1,9 +1,8 @@
-﻿using Nintenlord.Utility;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
-namespace Nintenlord.Trees
+namespace Nintenlord.Utility
 {
     [DataContract]
     [DebuggerDisplay("[{value}: {index}]")]
