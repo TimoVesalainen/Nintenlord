@@ -357,5 +357,108 @@ namespace Nintenlord.Collections.Lists
 
             return minIndex;
         }
+
+        public static void SortedInsert<T>(this IList<T> items, T item, IComparer<T> comparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer ??= Comparer<T>.Default;
+            var index = GetSortedIndexInner(items, item, comparer);
+
+            if (index + 1 < items.Count)
+            {
+                items.Insert(index + 1, item);
+            }
+            else
+            {
+                items.Add(item);
+            }
+        }
+
+        public static void SortedDelete<T>(this IList<T> items, T item,
+            IComparer<T> comparer = null,
+            IEqualityComparer<T> equalityComparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer ??= Comparer<T>.Default;
+            equalityComparer ??= EqualityComparer<T>.Default;
+
+            var index = GetSortedIndexInner(items, item, comparer);
+            int indexToDelete = index;
+
+
+            while (indexToDelete >= 0 && !equalityComparer.Equals(items[indexToDelete], item))
+            {
+                indexToDelete--;
+            }
+
+            if (indexToDelete >= 0)
+            {
+                items.RemoveAt(indexToDelete);
+            }
+        }
+
+        /// <param name="items">Sorted list of items</param>
+        /// <returns>Index i such that items[i] <= item (< items[i+i] if exists)</returns>
+        public static int FindSortedIndex<T>(this IList<T> items, T item, IComparer<T> comparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer ??= Comparer<T>.Default;
+            return GetSortedIndexInner(items, item, comparer);
+        }
+
+
+        private static int GetSortedIndexInner<T>(IList<T> items, T item, IComparer<T> comparer)
+        {
+            int minIndex = 0;
+            int maxIndex = items.Count;
+
+            while (maxIndex - minIndex > 1)
+            {
+                var midIndex = (minIndex + maxIndex) / 2;
+
+                var midItem = items[midIndex];
+                if (comparer.Compare(midItem, item) > 0)
+                {
+                    maxIndex = midIndex;
+                }
+                else
+                {
+                    minIndex = midIndex;
+                }
+            }
+
+            return minIndex;
+        }
+
+        public static bool IsSorted<T>(this IList<T> list, IComparer<T> comparer = null)
+        {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            comparer ??= Comparer<T>.Default;
+
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                if (comparer.Compare(list[i], list[i+1]) > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
