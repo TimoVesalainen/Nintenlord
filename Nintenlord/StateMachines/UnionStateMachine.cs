@@ -41,8 +41,8 @@ namespace Nintenlord.StateMachines
 
         public sealed class SwitchTo
         {
-            public static readonly SwitchTo First;
-            public static readonly SwitchTo Second;
+            public static readonly SwitchTo First = new();
+            public static readonly SwitchTo Second = new();
 
             private SwitchTo()
             {
