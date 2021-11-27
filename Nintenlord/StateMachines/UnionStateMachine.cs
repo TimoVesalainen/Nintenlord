@@ -34,7 +34,7 @@ namespace Nintenlord.StateMachines
                     innerState => machine2.Transition(innerState, inputProper)
                     ),
                 switchTo => switchTo == SwitchTo.First
-                ? (Either<TState1, TState2>)machine1.StartState
+                ? machine1.StartState
                 : machine2.StartState
                 );
         }
