@@ -1,0 +1,76 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using Nintenlord.Utility;
+
+namespace Nintenlord.StateMachines
+{
+<#
+for (int i = 2; i < 8; i++)
+{
+    var stateParameters = Enumerable.Range(0, i).Select(n => $"TState{n}").ToArray();
+    var inputParameters = Enumerable.Range(0, i).Select(n => $"TInput{n}").ToArray();
+    var inputVariables = Enumerable.Range(0, i).Select(n => $"input{n}").ToArray();
+    
+    var machineTypes = stateParameters.Zip(inputParameters, (s,input) => $"IStateMachine<{s}, {input}>").ToArray();
+    var machineVariables = Enumerable.Range(0, i).Select(n => $"machine{n}").ToArray();
+
+    var stateTupleParams = Enumerable.Range(0, i).Select(n => $"Item{n+1}").ToArray();
+
+    var either = $"Either<{string.Join(", ", inputParameters)}>";
+    var tuple = $"({string.Join(", ", stateParameters)})";
+
+    IEnumerable<string> Set(int n, string input)
+    {
+        string[] parameters = stateTupleParams.Select(n => $"currentState.{n}").ToArray();
+        parameters[n] = $"{machineVariables[n]}.Transition({parameters[n]}, {inputVariables[n]})";
+        return parameters;
+    }
+//input1 => (machine1.Transition(currentState.Item1, input1), currentState.Item2),
+//input2 => (currentState.Item1, machine2.Transition(currentState.Item2, input2))
+#>
+    public sealed class CombinedStateMachine<<#= string.Join(", ", stateParameters) #>, <#= string.Join(", ", inputParameters) #>> : IStateMachine<<#= tuple #>, <#= either #>>
+    {
+<#
+    foreach(var (type, name) in machineTypes.Zip(machineVariables, (x,y) => (x,y)))
+    {
+#>
+        private readonly <#= type #> <#= name #>;
+<#
+    }
+#>
+
+        public CombinedStateMachine(<#= string.Join(", ", machineTypes.Zip(machineVariables, (x,y) => $"{x} {y}")) #>)
+        {
+<#
+    foreach(var name in machineVariables)
+    {
+#>
+            this.<#= name #> = <#= name #>;
+<#
+    }
+#>
+        }
+
+        public <#= tuple #> StartState => (<#= string.Join(", ", machineVariables.Select(n => $"{n}.StartState")) #>);
+
+        public bool IsFinalState(<#= tuple #> state)
+        {
+            return <#= string.Join(" && ", machineVariables.Zip(stateTupleParams, (m,t) => $"{m}.IsFinalState(state.{t})")) #>;
+        }
+
+        public <#= tuple #> Transition(<#= tuple #> currentState, <#= either #> input)
+        {
+            return input.Apply(
+                <#= string.Join(",\n                ", inputVariables.Zip(Enumerable.Range(0, i), (variable, n) => $"{variable} => ({string.Join(", ", Set(n, variable))})")) #>
+                );
+        }
+    }
+
+<#
+}
+#>
+}

@@ -6,10 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Collections\EnumerableExtensions_Tuple.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
+    </None>
+    <None Include="StateMachines\CombinedStateMachine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CombinedStateMachine.tt</DependentUpon>
     </None>
     <None Include="Trees\DisjoinUnionTrees.cs">
       <DesignTime>True</DesignTime>
@@ -39,15 +50,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
-    <PackageReference Include="System.Reactive" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Collections\EnumerableExtensions_Tuple.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EnumerableExtensions_Tuple.cs</LastGenOutput>
+    </None>
+    <None Update="StateMachines\CombinedStateMachine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CombinedStateMachine.cs</LastGenOutput>
     </None>
     <None Update="Trees\DisjoinUnionTrees.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -72,19 +81,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Collections\CollectionExtensions_Tuple.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CollectionExtensions_Tuple.tt</DependentUpon>
-    </Compile>
     <Compile Update="Collections\EnumerableExtensions_Tuple.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
+    </Compile>
+    <Compile Update="StateMachines\CombinedStateMachine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CombinedStateMachine.tt</DependentUpon>
     </Compile>
     <Compile Update="Trees\DisjoinUnionTrees.cs">
       <DesignTime>True</DesignTime>
@@ -112,5 +117,8 @@
       <DependentUpon>FunctionTupleHelpers.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
 </Project>
