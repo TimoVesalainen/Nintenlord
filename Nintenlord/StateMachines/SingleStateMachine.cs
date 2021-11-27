@@ -1,19 +1,22 @@
-﻿using System.Reactive;
-
-namespace Nintenlord.StateMachines
+﻿namespace Nintenlord.StateMachines
 {
-    public sealed class SingleStateMachine<T> : IStateMachine<Unit, T>
+    public sealed class SingleStateMachine<TState, TInput> : IStateMachine<TState, TInput>
     {
-        public Unit StartState => Unit.Default;
+        public TState StartState { get; }
 
-        public bool IsFinalState(Unit state)
+        public SingleStateMachine(TState startState)
+        {
+            StartState = startState;
+        }
+
+        public bool IsFinalState(TState state)
         {
             return false;
         }
 
-        public Unit Transition(Unit currentState, T input)
+        public TState Transition(TState currentState, TInput input)
         {
-            return currentState;
+            return StartState;
         }
     }
 }
