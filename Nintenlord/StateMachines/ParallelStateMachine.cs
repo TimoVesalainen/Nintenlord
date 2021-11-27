@@ -2,6 +2,7 @@
 
 namespace Nintenlord.StateMachines
 {
+    //TODO: Templatify
     public sealed class ParallelStateMachine<TState1, TState2, TInput> : IStateMachine<(TState1, TState2), TInput>
     {
         private readonly IStateMachine<TState1, TInput> machine1;

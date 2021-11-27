@@ -2,6 +2,7 @@
 
 namespace Nintenlord.StateMachines
 {
+    //TODO: Templatify
     public sealed class TwoStepStateMachine<TState, TInput> : IStateMachine<TState, (TInput, TInput)>
     {
         readonly IStateMachine<TState, TInput> original;

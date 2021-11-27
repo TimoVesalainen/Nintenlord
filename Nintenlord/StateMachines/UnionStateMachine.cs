@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Nintenlord.StateMachines
 {
+    //TODO: Templatify
     public sealed class UnionStateMachine<TState1, TState2, TInput> : IStateMachine<Either<TState1, TState2>, Either<TInput,
         UnionStateMachine<TState1, TState2, TInput>.SwitchTo>>
     {
