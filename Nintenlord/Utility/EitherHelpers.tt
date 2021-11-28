@@ -44,7 +44,7 @@ IEnumerable<string> GetEithers(IEnumerable<int> lengths, string[] atoms)
 		{
 			for(int i = 0; i < length; i++)
 			{
-				yield return atoms[i];
+				yield return atoms[i + start];
 			}
 		}
 
