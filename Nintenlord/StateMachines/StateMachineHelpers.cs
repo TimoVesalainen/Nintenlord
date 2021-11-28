@@ -1,4 +1,5 @@
-﻿using Nintenlord.Utility;
+﻿using Microsoft.Extensions.Logging;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,6 +76,11 @@ namespace Nintenlord.StateMachines
             }
 
             return new LoggingStateMachine<TState, TInput>(original, LogState, LogInput);
+        }
+
+        public static LoggingStateMachine2<TState, TInput> LogToLogger<TState, TInput>(this IStateMachine<TState, TInput> original, ILogger logger, LogLevel level = LogLevel.Information, Func<TInput, TState, TState, string> format = null)
+        {
+            return new LoggingStateMachine2<TState, TInput>(original, logger, format, level);
         }
 
         public static TransformInputStateMachine<TState, TInput, TInput2> TransformInput<TState, TInput, TInput2>(this IStateMachine<TState, TInput> original, Func<TInput2, TInput> transformInput)
