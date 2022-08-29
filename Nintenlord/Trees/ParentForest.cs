@@ -62,5 +62,20 @@ namespace Nintenlord.Trees
 
             return roots.Select(root => new LambdaTree<T>(root, node => children[node]));
         }
+
+        public static IEnumerable<T> Parents<T>(this IParentForest<T> forest, T node)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            yield return node;
+            while (forest.TryGetParent(node, out var parent))
+            {
+                yield return parent;
+                node = parent;
+            }
+        }
     }
 }
