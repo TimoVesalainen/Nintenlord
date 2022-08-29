@@ -319,5 +319,10 @@ namespace Nintenlord.Trees
 
             return new LambdaTree<T>(root, parent => children[parent]);
         }
+
+        public static ITree<(T1, T2)> ProductTree<T1, T2>(this ITree<T1> tree1, ITree<T2> tree2)
+        {
+            return tree1.ProductTree(tree1.Root, tree2, tree2.Root);
+        }
     }
 }

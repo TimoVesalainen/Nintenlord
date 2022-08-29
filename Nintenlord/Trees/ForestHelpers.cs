@@ -796,5 +796,48 @@ namespace Nintenlord.Trees
 
             return new LambdaForest<T>(parent => children[parent]);
         }
+
+        public static IForest<(T1, T2)> Product<T1, T2>(this IForest<T1> forest1, IForest<T2> forest2)
+        {
+            IEnumerable<(T1, T2)> GetChildren((T1, T2) node)
+            {
+                var (node1, node2) = node;
+
+                return from child1 in forest1.GetChildren(node1)
+                       from child2 in forest2.GetChildren(node2)
+                       select (child1, child2);
+            }
+
+            return new LambdaForest<(T1, T2)>(GetChildren);
+        }
+
+        public static ITree<(T1, T2)> ProductTree<T1, T2>(this IForest<T1> forest1, T1 root1, IForest<T2> forest2, T2 root2)
+        {
+            IEnumerable<(T1, T2)> GetChildren((T1, T2) node)
+            {
+                var (node1, node2) = node;
+
+                return from child1 in forest1.GetChildren(node1)
+                       from child2 in forest2.GetChildren(node2)
+                       select (child1, child2);
+            }
+
+            return new LambdaTree<(T1, T2)>((root1, root2), GetChildren);
+        }
+
+        public static IForest<(T parent, T child)> GetRelationsForest<T>(this IForest<T> forest)
+        {
+            IEnumerable<(T parent, T child)> GetChildren((T parent, T child) node)
+            {
+                var (parent, child) = node;
+
+                foreach (var grandChildren in forest.GetChildren(child))
+                {
+                    yield return (child, grandChildren);
+                }
+            }
+
+            return new LambdaForest<(T parent, T child)>(GetChildren);
+        }
     }
 }
