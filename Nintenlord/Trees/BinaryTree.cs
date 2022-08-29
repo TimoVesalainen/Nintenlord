@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Trees
 {
-    /// <typeparam name="T">Type of the values to hold.</typeparam>
     public class BinaryTree<T> : ITree<BinaryTreeNode<T>>
     {
         public BinaryTreeNode<T> Root { get; }
