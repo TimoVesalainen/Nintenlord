@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Trees
 {
-    public sealed class IndexBinaryTree : ITree<int>
+    public sealed class IndexBinaryTree : ITree<int>, IParentForest<int>
     {
         private readonly static Lazy<IndexBinaryTree> instance = new Lazy<IndexBinaryTree>(
             () => new IndexBinaryTree(), isThreadSafe: true);
@@ -28,6 +28,12 @@ namespace Nintenlord.Trees
                 yield return startIndex;
                 startIndex >>= 1;
             }
+        }
+
+        public bool TryGetParent(int child, out int parent)
+        {
+            parent = child >> 1;
+            return child != Root;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Trees
 {
-    public class BinaryTree<T> : ITree<BinaryTreeNode<T>>
+    public class BinaryTree<T> : ITree<BinaryTreeNode<T>>, IParentForest<BinaryTreeNode<T>>
     {
         public BinaryTreeNode<T> Root { get; }
 
@@ -15,6 +15,12 @@ namespace Nintenlord.Trees
         public IEnumerable<BinaryTreeNode<T>> GetChildren(BinaryTreeNode<T> node)
         {
             return node.GetChildren();
+        }
+
+        public bool TryGetParent(BinaryTreeNode<T> child, out BinaryTreeNode<T> parent)
+        {
+            parent = child.Parent;
+            return parent != null;
         }
     }
 }

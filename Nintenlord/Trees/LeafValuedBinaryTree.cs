@@ -9,7 +9,7 @@ namespace Nintenlord.Trees
     /// Contains values in leafs only.
     /// </summary>
     /// <typeparam name="T">Type of the values to hold.</typeparam>
-    public class LeafValuedBinaryTree<T> : ITree<BinaryTreeNode<T>>
+    public class LeafValuedBinaryTree<T> : ITree<BinaryTreeNode<T>>, IParentForest<BinaryTreeNode<T>>
     {
         public int Count { get; }
         public int MaxDepth { get; }
@@ -32,6 +32,12 @@ namespace Nintenlord.Trees
         public IEnumerable<BinaryTreeNode<T>> GetChildren(BinaryTreeNode<T> node)
         {
             return node.GetChildren();
+        }
+
+        public bool TryGetParent(BinaryTreeNode<T> child, out BinaryTreeNode<T> parent)
+        {
+            parent = child.Parent;
+            return child.Parent != null;
         }
     }
 }

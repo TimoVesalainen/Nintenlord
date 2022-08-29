@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nintenlord.Trees
 {
-    public sealed class IndexNTree : ITree<int>
+    public sealed class IndexNTree : ITree<int>, IParentForest<int>
     {
         private static readonly ConcurrentDictionary<int, IndexNTree> indexTreeCache = new ConcurrentDictionary<int, IndexNTree>();
 
@@ -96,6 +96,12 @@ namespace Nintenlord.Trees
             }
 
             return array;
+        }
+
+        public bool TryGetParent(int child, out int parent)
+        {
+            parent = child / n;
+            return child != Root;
         }
     }
 }
