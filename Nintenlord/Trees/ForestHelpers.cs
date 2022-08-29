@@ -839,5 +839,29 @@ namespace Nintenlord.Trees
 
             return new LambdaForest<(T parent, T child)>(GetChildren);
         }
+
+        public static IParentForest<T> ToParentForest<T>(this IForest<T> forest, T root, IEqualityComparer<T> comparer = null)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            comparer ??= EqualityComparer<T>.Default;
+
+            var parents = new Dictionary<T, T>(comparer);
+
+            var relationForest = forest.GetRelationsForest();
+
+            foreach (var children in forest.GetChildren(root))
+            {
+                foreach (var (par, chd) in relationForest.DepthFirstTraversal((root, children)))
+                {
+                    parents[par] = chd;
+                }
+            }
+
+            return new DictionaryParentForest<T>(parents);
+        }
     }
 }
