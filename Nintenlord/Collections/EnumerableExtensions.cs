@@ -1017,5 +1017,24 @@ namespace Nintenlord.Collections
 
             return fixPoints / groupSize;
         }
+
+        public static T SingletonOrDefault<T>(this IEnumerable<T> items, T defaultItem = default)
+        {
+            using var enumerator = items.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+            {
+                return defaultItem;
+            }
+
+            var first = enumerator.Current;
+
+            if (enumerator.MoveNext())
+            {
+                return defaultItem;
+            }
+
+            return first;
+        }
     }
 }
