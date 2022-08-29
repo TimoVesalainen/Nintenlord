@@ -75,7 +75,16 @@ namespace Nintenlord.Trees
             {
                 return false;
             }
+        }
 
+        public void SetChildren(int parentIndex, IEnumerable<T> items)
+        {
+            var indecis = treeStructure.GetChildren(parentIndex);
+
+            foreach (var (item, index) in items.Zip(indecis, ValueTuple.Create))
+            {
+                SetItemToIndex(index, item);
+            }
         }
 
         public void SetItemToIndex(int index, T item)
