@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Trees
 {
-    public class BinaryTree<T> : ITree<BinaryTreeNode<T>>, IParentForest<BinaryTreeNode<T>>
+    public sealed class BinaryTree<T> : ITree<BinaryTreeNode<T>>, IParentForest<BinaryTreeNode<T>>
     {
         public BinaryTreeNode<T> Root { get; }
 

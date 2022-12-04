@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Nintenlord.Trees.Nodes
 {
-    public class BinaryTreeNode<T> : IValuedTreeNode<T, BinaryTreeNode<T>>
+    public sealed class BinaryTreeNode<T> : IValuedTreeNode<T, BinaryTreeNode<T>>
     {
         public T Value { get; }
 
