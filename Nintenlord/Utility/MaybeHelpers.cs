@@ -427,6 +427,20 @@ namespace Nintenlord.Utility
             }
         }
 
+        public static bool TryGetValue<T>(this Maybe<T> maybeValue, out T value)
+        {
+            if (maybeValue.HasValue)
+            {
+                value = maybeValue.Value;
+                return true;
+            }
+            else
+            {
+                value = default(T);
+                return false;
+            }
+        }
+
         public static Maybe<T> FirstSafe<T>(this IEnumerable<T> enumerable)
         {
             return enumerable.Select(Maybe<T>.Just).FirstOrDefault() ?? Maybe<T>.Nothing;
