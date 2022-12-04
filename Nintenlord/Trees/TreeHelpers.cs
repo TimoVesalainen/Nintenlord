@@ -324,5 +324,48 @@ namespace Nintenlord.Trees
         {
             return tree1.ProductTree(tree1.Root, tree2, tree2.Root);
         }
+
+        public static ITree<(int index, T item)> ToVerticalTree<T>(this IEnumerable<T> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (!items.Any())
+            {
+                throw new ArgumentException("Empty collection", nameof(items));
+            }
+
+            var list = items.ToList();
+
+            IEnumerable<(int index, T item)> GetChildren((int index, T item) parent)
+            {
+                var childIndex = parent.index - 1;
+                if (childIndex >= 0 && childIndex < list.Count)
+                {
+                    yield return (childIndex, list[childIndex]);
+                }
+            }
+
+            return new LambdaTree<(int index, T item)>((0, list[0]), GetChildren);
+        }
+
+        public static ITree<Maybe<T>> ToHorizontalTree<T>(this IEnumerable<T> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            var children = items.Select(Maybe<T>.Just);
+
+            IEnumerable<Maybe<T>> GetChildren(Maybe<T> parent)
+            {
+                return parent.Select(_ => Enumerable.Empty<Maybe<T>>()).GetValueOrDefault(children);
+            }
+
+            return new LambdaTree<Maybe<T>>(Maybe<T>.Nothing, GetChildren);
+        }
     }
 }

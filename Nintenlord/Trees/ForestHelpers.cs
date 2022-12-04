@@ -863,5 +863,26 @@ namespace Nintenlord.Trees
 
             return new DictionaryParentForest<T>(parents);
         }
+
+        public static IForest<(int index, T item)> ToVerticalForest<T>(this IEnumerable<T> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            var list = items.ToList();
+
+            IEnumerable<(int index, T item)> GetChildren((int index, T item) parent)
+            {
+                var childIndex = parent.index - 1;
+                if (childIndex >= 0 && childIndex < list.Count)
+                {
+                    yield return (childIndex, list[childIndex]);
+                }
+            }
+
+            return new LambdaForest<(int index, T item)>(GetChildren);
+        }
     }
 }
