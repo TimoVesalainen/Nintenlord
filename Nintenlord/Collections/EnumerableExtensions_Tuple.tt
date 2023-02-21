@@ -65,7 +65,7 @@ for(int i = 2; i < 9; i++)
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (<#= iMaybes #>) MoveNext((<#= iMaybes #>) previous, Maybe<T> next)
+            static (<#= iMaybes #>) MoveNext((<#= iMaybes #>) previous, Maybe<T> next)
             {
                 var (<#= string.Join(", ", tupleItems) #>) = previous;
 
