@@ -9,18 +9,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         public NameParser(IParser<TIn, TOut> parser, string name)
         {
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
-
-            if (name == null)
-            {
-                throw new ArgumentNullException("name");
-            }
-
-            this.parser = parser;
-            this.name = name;
+            this.parser = parser ?? throw new ArgumentNullException(nameof(parser));
+            this.name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
@@ -30,7 +20,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             {
                 match = new Match<TIn>(scanner,
                     result == null ? "Expected {0}" : "Expected {0}, got {1}", name, result);
-                result = default(TOut);
+                result = default;
             }
 
             return result;

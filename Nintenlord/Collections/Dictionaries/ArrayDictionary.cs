@@ -97,7 +97,7 @@ namespace Nintenlord.Collections.Dictionaries
                     return true;
                 }
             }
-            value = default(TValue);
+            value = default;
             return false;
         }
 

@@ -95,17 +95,12 @@ namespace Nintenlord.Parser
         }
         public Match(IScanner<T> scanner, long offset, int length)
         {
-            if (scanner == null)
-            {
-                throw new ArgumentNullException("scanner");
-            }
-
             if (length < 0)
             {
                 throw new IndexOutOfRangeException("Length was negative.");
             }
 
-            this.Scanner = scanner;
+            this.Scanner = scanner ?? throw new ArgumentNullException(nameof(scanner));
             this.Offset = offset;
             this.Length = length;
             this.errorString = null;
@@ -118,17 +113,12 @@ namespace Nintenlord.Parser
         /// <param name="errorString">String describing the reason why the match was unsuccesful.</param>
         public Match(IScanner<T> scanner, string errorString)
         {
-            if (scanner == null)
-            {
-                throw new ArgumentNullException("scanner");
-            }
-
             if (errorString == null)
             {
-                throw new ArgumentNullException("errorString");
+                throw new ArgumentNullException(nameof(errorString));
             }
 
-            this.Scanner = scanner;
+            this.Scanner = scanner ?? throw new ArgumentNullException(nameof(scanner));
             this.Offset = scanner.Offset;
             this.Length = -1;
             this.Success = false;
@@ -143,22 +133,17 @@ namespace Nintenlord.Parser
         /// <param name="args">An object array that contains zero or more objects to format.</param>
         public Match(IScanner<T> scanner, string errorFormat, params object[] args)
         {
-            if (scanner == null)
-            {
-                throw new ArgumentNullException("scanner");
-            }
-
             if (errorFormat == null)
             {
-                throw new ArgumentNullException("errorFormat");
+                throw new ArgumentNullException(nameof(errorFormat));
             }
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
-            this.Scanner = scanner;
+            this.Scanner = scanner ?? throw new ArgumentNullException(nameof(scanner));
             this.Offset = scanner.Offset;
             this.Length = -1;
             this.Success = false;
@@ -179,7 +164,7 @@ namespace Nintenlord.Parser
         {
             if (anotherMatch == null)
             {
-                throw new ArgumentNullException("anotherMatch");
+                throw new ArgumentNullException(nameof(anotherMatch));
             }
 
             if (!anotherMatch.Success || !this.Success)

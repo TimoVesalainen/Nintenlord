@@ -9,12 +9,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         public SatisfyParser(Predicate<T> comparer)
         {
-            if (comparer == null)
-            {
-                throw new ArgumentNullException("comparer");
-            }
-
-            this.comparer = comparer;
+            this.comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
         }
 
         protected override T ParseMain(IScanner<T> scanner, out Match<T> match)
@@ -22,7 +17,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             if (scanner.IsAtEnd)
             {
                 match = new Match<T>(scanner, "No token to test.");
-                return default(T);
+                return default;
             }
             T unit = scanner.Current;
             if (comparer(unit))
@@ -34,7 +29,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             else
             {
                 match = new Match<T>(scanner, "Predicate failed, got {0}", unit.ToString());
-                return default(T);
+                return default;
             }
         }
 

@@ -24,7 +24,7 @@ namespace Nintenlord.Utility
         public RememberPreviousValue(T startValue)
         {
             current = startValue;
-            previous = default(T);
+            previous = default;
         }
 
         public TOut Apply<TOut>(Func<T, T, TOut> difference)

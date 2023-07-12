@@ -112,7 +112,7 @@ namespace Nintenlord.Utility
             var result = new CanCauseError<TOut>
             {
                 error = this.error,
-                result = default(TOut),
+                result = default,
                 errorMessage = this.errorMessage
             };
             return result;
@@ -166,7 +166,7 @@ namespace Nintenlord.Utility
 
         public static explicit operator CanCauseError<T>(CanCauseError error)
         {
-            return error.CausedError ? CanCauseError<T>.Error(error.ErrorMessage) : CanCauseError<T>.NoError(default(T));
+            return error.CausedError ? CanCauseError<T>.Error(error.ErrorMessage) : CanCauseError<T>.NoError(default);
         }
     }
 
@@ -390,7 +390,7 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static T ValueOrDefault<T>(this CanCauseError<T> error, T defaultValue = default(T))
+        public static T ValueOrDefault<T>(this CanCauseError<T> error, T defaultValue = default)
         {
             return error.CausedError
                        ? defaultValue

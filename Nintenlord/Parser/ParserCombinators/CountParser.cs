@@ -11,12 +11,7 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public CountParser(IParser<TIn, TOut> parser, int count)
         {
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
-
-            this.parser = parser;
+            this.parser = parser ?? throw new ArgumentNullException(nameof(parser));
             this.count = count;
         }
 

@@ -11,18 +11,8 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public SeparatedByParser(IParser<TIn, TSeb> results, IParser<TIn, TOut> separated)
         {
-            if (results == null)
-            {
-                throw new ArgumentNullException("results");
-            }
-
-            if (separated == null)
-            {
-                throw new ArgumentNullException("separated");
-            }
-
-            this.results = separated;
-            this.separator = results;
+            this.results = separated ?? throw new ArgumentNullException(nameof(separated));
+            this.separator = results ?? throw new ArgumentNullException(nameof(results));
         }
 
         protected override IEnumerable<TOut> Enumerate(IScanner<TIn> scanner)

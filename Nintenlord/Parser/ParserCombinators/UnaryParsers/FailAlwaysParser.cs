@@ -7,7 +7,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
         {
             match = new Match<TIn>(scanner, "Epic fail.");
-            return default(TOut);
+            return default;
         }
     }
 }

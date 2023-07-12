@@ -17,7 +17,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             if (!item.Equals(result))
             {
                 match = new Match<T>(scanner, "Expected {0}, got {1}", item, result);
-                return default(T);
+                return default;
             }
             match = new Match<T>(scanner, 1);
             scanner.MoveNext();

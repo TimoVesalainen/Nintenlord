@@ -8,7 +8,7 @@ namespace Nintenlord.Collections.Dictionaries
     {
         public static TValue GetValueOrDefault<TKey, TValue>(
             this IDictionary<TKey, TValue> dict,
-            TKey key, TValue def = default(TValue))
+            TKey key, TValue def = default)
         {
             if (!dict.TryGetValue(key, out TValue value))
             {
@@ -20,7 +20,7 @@ namespace Nintenlord.Collections.Dictionaries
         public static TValue GetValue<TKey, TValue>(
             this IDictionary<TKey, TValue> dict,
             TKey key,
-            TValue defaultVal = default(TValue))
+            TValue defaultVal = default)
         {
             return dict.TryGetValue(key, out TValue val) ? val : defaultVal;
         }

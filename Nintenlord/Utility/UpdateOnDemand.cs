@@ -32,7 +32,7 @@ namespace Nintenlord.Utility
         {
             this.valueFactory = valueFactory;
             update = true;
-            item = default(T);
+            item = default;
         }
 
         public UpdateOnDemand(Func<T> valueFactory, T startValue)

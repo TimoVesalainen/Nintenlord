@@ -13,14 +13,14 @@ namespace Nintenlord.Parser.ParserCombinators
         {
             if (options == null)
             {
-                throw new ArgumentNullException("options");
+                throw new ArgumentNullException(nameof(options));
             }
 
             this.options = options.ToArray();
 
             if (this.options.Any(x => x == null))
             {
-                throw new ArgumentNullException("options");
+                throw new ArgumentNullException(nameof(options));
             }
         }
 
@@ -35,7 +35,7 @@ namespace Nintenlord.Parser.ParserCombinators
                 }
             }
             match = new Match<TIn>(scanner, "No match");
-            return default(TOut);
+            return default;
         }
 
         public override string ToString()

@@ -9,24 +9,14 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public TransformParser(IParser<TIn, TMiddle> parser, Converter<TMiddle, TOut> converter)
         {
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
-
-            if (converter == null)
-            {
-                throw new ArgumentNullException("converter");
-            }
-
-            this.parser = parser;
-            this.converter = converter;
+            this.parser = parser ?? throw new ArgumentNullException(nameof(parser));
+            this.converter = converter ?? throw new ArgumentNullException(nameof(converter));
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
         {
             TMiddle middle = parser.Parse(scanner, out match);
-            return match.Success ? converter(middle) : default(TOut);
+            return match.Success ? converter(middle) : default;
         }
 
         public override string ToString()

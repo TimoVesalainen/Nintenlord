@@ -10,18 +10,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         public SafeFailureCheckerParser(IParser<TIn, TOut> parserToCheck, string errorText = "Safety check failed. Failing parser advanced.")
         {
-            if (parserToCheck == null)
-            {
-                throw new ArgumentNullException("parserToCheck");
-            }
-
-            if (errorText == null)
-            {
-                throw new ArgumentNullException("errorText");
-            }
-
-            this.parser = parserToCheck;
-            this.errorText = errorText;
+            this.parser = parserToCheck ?? throw new ArgumentNullException(nameof(parserToCheck));
+            this.errorText = errorText ?? throw new ArgumentNullException(nameof(errorText));
         }
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)

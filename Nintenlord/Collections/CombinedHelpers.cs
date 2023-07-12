@@ -13,7 +13,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(scopes));
             }
 
-            TValue result = default(TValue);
+            TValue result = default;
 
             foreach (Dictionary<TKey, TValue> item in scopes)
             {
@@ -43,7 +43,7 @@ namespace Nintenlord.Collections
             }
 
             bool result = false;
-            value = default(TValue);
+            value = default;
 
             foreach (Dictionary<TKey, TValue> item in scopes)
             {

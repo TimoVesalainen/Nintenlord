@@ -436,7 +436,7 @@ namespace Nintenlord.Utility
             }
             else
             {
-                value = default(T);
+                value = default;
                 return false;
             }
         }

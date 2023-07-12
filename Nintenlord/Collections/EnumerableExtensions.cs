@@ -353,7 +353,7 @@ namespace Nintenlord.Collections
             comparer ??= EqualityComparer<T>.Default;
 
             int prevIndex = -1;
-            T previous = default(T);
+            T previous = default;
             int length = 0;
             int start = 0;
             foreach (var item in items)

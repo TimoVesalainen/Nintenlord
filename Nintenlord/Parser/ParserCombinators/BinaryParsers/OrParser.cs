@@ -9,18 +9,8 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 
         public OrParser(IParser<TIn, TOut> first, IParser<TIn, TOut> second)
         {
-            if (first == null)
-            {
-                throw new ArgumentNullException("first");
-            }
-
-            if (second == null)
-            {
-                throw new ArgumentNullException("second");
-            }
-
-            this.first = first;
-            this.second = second;
+            this.first = first ?? throw new ArgumentNullException(nameof(first));
+            this.second = second ?? throw new ArgumentNullException(nameof(second));
         }
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
@@ -36,7 +26,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
                 }
                 else
                 {
-                    result = default(TOut);
+                    result = default;
                     match = new Match<TIn>(scanner, "First option consumed input.");
                 }
             }

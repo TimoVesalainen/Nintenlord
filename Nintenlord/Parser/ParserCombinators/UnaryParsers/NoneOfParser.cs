@@ -9,12 +9,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         public NoneOfParser(ICollection<T> invalidValues)
         {
-            if (invalidValues == null)
-            {
-                throw new ArgumentNullException("invalidValues");
-            }
-
-            this.invalidValues = invalidValues;
+            this.invalidValues = invalidValues ?? throw new ArgumentNullException(nameof(invalidValues));
         }
 
 
@@ -30,7 +25,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             else
             {
                 match = new Match<T>(scanner, "Invalid value {0}", val);
-                val = default(T);
+                val = default;
             }
 
             return val;

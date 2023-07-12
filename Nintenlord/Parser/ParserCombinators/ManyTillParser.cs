@@ -11,18 +11,8 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public ManyTillParser(IParser<TIn, TOut> results, IParser<TIn, TEnd> ender)
         {
-            if (results == null)
-            {
-                throw new ArgumentNullException("results");
-            }
-
-            if (ender == null)
-            {
-                throw new ArgumentNullException("ender");
-            }
-
-            this.results = results;
-            this.ender = ender;
+            this.results = results ?? throw new ArgumentNullException(nameof(results));
+            this.ender = ender ?? throw new ArgumentNullException(nameof(ender));
         }
 
         protected override IEnumerable<TOut> Enumerate(IScanner<TIn> scanner)

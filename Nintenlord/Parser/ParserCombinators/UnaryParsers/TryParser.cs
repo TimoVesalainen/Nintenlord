@@ -9,12 +9,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         public TryParser(IParser<TIn, TOut> parserToTry)
         {
-            if (parserToTry == null)
-            {
-                throw new ArgumentNullException("parserToTry");
-            }
-
-            this.parserToTry = parserToTry;
+            this.parserToTry = parserToTry ?? throw new ArgumentNullException(nameof(parserToTry));
         }
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)

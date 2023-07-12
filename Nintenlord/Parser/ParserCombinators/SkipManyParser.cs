@@ -8,12 +8,7 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public SkipManyParser(IParser<TIn, TOut> toRepeat)
         {
-            if (toRepeat == null)
-            {
-                throw new ArgumentNullException("toRepeat");
-            }
-
-            this.toRepeat = toRepeat;
+            this.toRepeat = toRepeat ?? throw new ArgumentNullException(nameof(toRepeat));
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
@@ -32,7 +27,7 @@ namespace Nintenlord.Parser.ParserCombinators
                 }
             }
 
-            return default(TOut);
+            return default;
         }
     }
 }

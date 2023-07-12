@@ -7,15 +7,10 @@ namespace Nintenlord.Parser.ParserCombinators
         private readonly TOut defaultVat;
         private readonly IParser<TIn, TOut> parser;
 
-        public OptionalParser(IParser<TIn, TOut> parser, TOut defaultVat = default(TOut))
+        public OptionalParser(IParser<TIn, TOut> parser, TOut defaultVat = default)
         {
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
-
             this.defaultVat = defaultVat;
-            this.parser = parser;
+            this.parser = parser ?? throw new ArgumentNullException(nameof(parser));
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)

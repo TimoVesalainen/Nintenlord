@@ -10,12 +10,7 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public Many1Parser(IParser<TIn, TOut> toRepeat)
         {
-            if (toRepeat == null)
-            {
-                throw new ArgumentNullException("toRepeat");
-            }
-
-            this.toRepeat = toRepeat;
+            this.toRepeat = toRepeat ?? throw new ArgumentNullException(nameof(toRepeat));
         }
 
         protected override IEnumerable<TOut> Enumerate(IScanner<TIn> scanner)

@@ -12,24 +12,9 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
         public CombineParser(IParser<TIn, TMiddle1> first, IParser<TIn, TMiddle2> second,
             Func<TMiddle1, TMiddle2, TOut> combiner)
         {
-            if (first == null)
-            {
-                throw new ArgumentNullException("first");
-            }
-
-            if (second == null)
-            {
-                throw new ArgumentNullException("second");
-            }
-
-            if (combiner == null)
-            {
-                throw new ArgumentNullException("combiner");
-            }
-
-            this.first = first;
-            this.second = second;
-            this.combiner = combiner;
+            this.first = first ?? throw new ArgumentNullException(nameof(first));
+            this.second = second ?? throw new ArgumentNullException(nameof(second));
+            this.combiner = combiner ?? throw new ArgumentNullException(nameof(combiner));
         }
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
@@ -38,13 +23,13 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             var mid2 = second.Parse(scanner, out Match<TIn> secondMatch);
             match += secondMatch;
 
-            return !match.Success ? default(TOut) : combiner(mid1, mid2);
+            return !match.Success ? default : combiner(mid1, mid2);
         }
     }
 
@@ -61,30 +46,10 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
             IParser<TIn, TMiddle3> third,
             Func<TMiddle1, TMiddle2, TMiddle3, TOut> combiner)
         {
-            if (first == null)
-            {
-                throw new ArgumentNullException("first");
-            }
-
-            if (second == null)
-            {
-                throw new ArgumentNullException("second");
-            }
-
-            if (third == null)
-            {
-                throw new ArgumentNullException("third");
-            }
-
-            if (combiner == null)
-            {
-                throw new ArgumentNullException("combiner");
-            }
-
-            this.first = first;
-            this.second = second;
-            this.third = third;
-            this.combiner = combiner;
+            this.first = first ?? throw new ArgumentNullException(nameof(first));
+            this.second = second ?? throw new ArgumentNullException(nameof(second));
+            this.third = third ?? throw new ArgumentNullException(nameof(third));
+            this.combiner = combiner ?? throw new ArgumentNullException(nameof(combiner));
         }
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
@@ -93,7 +58,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             TMiddle2 mid2 = second.Parse(scanner, out Match<TIn> tempMatch);
@@ -101,7 +66,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             TMiddle3 mid3 = third.Parse(scanner, out tempMatch);
@@ -109,7 +74,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             return combiner(mid1, mid2, mid3);
@@ -131,36 +96,11 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
             IParser<TIn, TMiddle4> fourth,
             Func<TMiddle1, TMiddle2, TMiddle3, TMiddle4, TOut> combiner)
         {
-            if (first == null)
-            {
-                throw new ArgumentNullException("first");
-            }
-
-            if (second == null)
-            {
-                throw new ArgumentNullException("second");
-            }
-
-            if (third == null)
-            {
-                throw new ArgumentNullException("third");
-            }
-
-            if (fourth == null)
-            {
-                throw new ArgumentNullException("fourth");
-            }
-
-            if (combiner == null)
-            {
-                throw new ArgumentNullException("combiner");
-            }
-
-            this.first = first;
-            this.second = second;
-            this.third = third;
-            this.fourth = fourth;
-            this.combiner = combiner;
+            this.first = first ?? throw new ArgumentNullException(nameof(first));
+            this.second = second ?? throw new ArgumentNullException(nameof(second));
+            this.third = third ?? throw new ArgumentNullException(nameof(third));
+            this.fourth = fourth ?? throw new ArgumentNullException(nameof(fourth));
+            this.combiner = combiner ?? throw new ArgumentNullException(nameof(combiner));
         }
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
@@ -169,28 +109,28 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             TMiddle2 mid2 = second.Parse(scanner, out Match<TIn> secondMatch);
             match += secondMatch;
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             TMiddle3 mid3 = third.Parse(scanner, out secondMatch);
             match += secondMatch;
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             TMiddle4 mid4 = fourth.Parse(scanner, out secondMatch);
             match += secondMatch;
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             return combiner(mid1, mid2, mid3, mid4);

@@ -92,7 +92,7 @@ namespace Nintenlord.IO.Scanners
             }
             else
             {
-                result = default(T);
+                result = default;
                 return false;
             }
             //GenerateItemsToOffset(offset);

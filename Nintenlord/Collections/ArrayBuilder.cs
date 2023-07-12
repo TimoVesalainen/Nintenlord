@@ -40,7 +40,7 @@ namespace Nintenlord.Collections
 
         public void RemoveLast()
         {
-            arrayToBuild[currentIndex] = default(T);
+            arrayToBuild[currentIndex] = default;
             currentIndex--;
         }
 

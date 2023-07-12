@@ -142,7 +142,7 @@ namespace Nintenlord.Collections.Lists
         {
             if (count > 0)
             {
-                items[firstReservedIndex] = default(T);
+                items[firstReservedIndex] = default;
                 firstReservedIndex++;
                 count--;
 
@@ -163,7 +163,7 @@ namespace Nintenlord.Collections.Lists
                 }
 
                 firstFreeIndex--;
-                items[firstFreeIndex] = default(T);
+                items[firstFreeIndex] = default;
                 count--;
             }
         }
@@ -282,7 +282,7 @@ namespace Nintenlord.Collections.Lists
                             items[i] = items[i + 1];
                         }
                         firstFreeIndex--;
-                        items[firstFreeIndex] = default(T);
+                        items[firstFreeIndex] = default;
                     }
                     else
                     {
@@ -293,7 +293,7 @@ namespace Nintenlord.Collections.Lists
                                 items[i] = items[i + 1];
                             }
                             firstFreeIndex--;
-                            items[firstFreeIndex] = default(T);
+                            items[firstFreeIndex] = default;
                         }
                         else
                         {
@@ -301,7 +301,7 @@ namespace Nintenlord.Collections.Lists
                             {
                                 items[i] = items[i - 1];
                             }
-                            items[firstReservedIndex] = default(T);
+                            items[firstReservedIndex] = default;
                             firstReservedIndex++;
                         }
                     }

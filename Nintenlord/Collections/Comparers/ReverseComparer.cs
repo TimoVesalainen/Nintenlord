@@ -12,12 +12,7 @@ namespace Nintenlord.Collections.Comparers
 
         public ReverseComparer(IComparer<T> baseComparer)
         {
-            if (baseComparer == null)
-            {
-                throw new ArgumentNullException(nameof(baseComparer));
-            }
-
-            this.baseComparer = baseComparer;
+            this.baseComparer = baseComparer ?? throw new ArgumentNullException(nameof(baseComparer));
         }
 
         #region IComparer<T> Members

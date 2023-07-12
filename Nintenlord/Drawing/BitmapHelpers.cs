@@ -301,7 +301,7 @@ namespace Nintenlord.Drawing
             if (rect.X < 0 || rect.Y < 0 ||
                 rect.Right > bitmap.Width || rect.Bottom > bitmap.Height)
             {
-                throw new ArgumentException("Out of bitmap's area", "rect");
+                throw new ArgumentException("Out of bitmap's area", nameof(rect));
             }
             Bitmap subBitmap = new Bitmap(rect.Width, rect.Height, bitmap.PixelFormat);
             bitmap.Copy(subBitmap, rect, Point.Empty);
@@ -317,13 +317,13 @@ namespace Nintenlord.Drawing
             }
             if (sourceRect.X < 0 || sourceRect.Y < 0 || sourceRect.Right > source.Width || sourceRect.Bottom > source.Height)
             {
-                throw new ArgumentException("Out of bitmaps area", "sourceRect");
+                throw new ArgumentException("Out of bitmaps area", nameof(sourceRect));
             }
             if (destPos.X < 0 || destPos.Y < 0 ||
                 destPos.X + sourceRect.Width > dest.Width ||
                 destPos.Y + sourceRect.Height > dest.Height)
             {
-                throw new ArgumentException("Out of bitmaps area", "destPos");
+                throw new ArgumentException("Out of bitmaps area", nameof(destPos));
             }
 
             using (BitmapLocker sourceLock = new BitmapLocker(source, ImageLockMode.ReadOnly))
@@ -378,7 +378,7 @@ namespace Nintenlord.Drawing
             if (area.X < 0 || area.Y < 0 ||
                 area.Right > bitmap.Width || area.Bottom > bitmap.Height)
             {
-                throw new ArgumentException("Out of bitmap's area", "area");
+                throw new ArgumentException("Out of bitmap's area", nameof(area));
             }
 
             for (int y = area.Top; y < area.Bottom; y++)
@@ -396,7 +396,7 @@ namespace Nintenlord.Drawing
                 area.Right * tileSize.Width > bitmap.Width ||
                 area.Bottom * tileSize.Height > bitmap.Height)
             {
-                throw new ArgumentException("Out of bitmap's area", "area");
+                throw new ArgumentException("Out of bitmap's area", nameof(area));
             }
 
             for (int rectY = area.Top; rectY < area.Bottom; rectY++)
@@ -427,7 +427,7 @@ namespace Nintenlord.Drawing
             if (area.X < 0 || area.Y < 0 ||
                 area.Right > bitmap.Width || area.Bottom > bitmap.Height)
             {
-                throw new ArgumentException("Out of bitmap's area", "area");
+                throw new ArgumentException("Out of bitmap's area", nameof(area));
             }
 
             for (int y = area.Top; y < area.Bottom; y++)
@@ -445,7 +445,7 @@ namespace Nintenlord.Drawing
                 area.Right * rectSize.Width > bitmap.Width ||
                 area.Bottom * rectSize.Height > bitmap.Height)
             {
-                throw new ArgumentException("Out of bitmap's area", "area");
+                throw new ArgumentException("Out of bitmap's area", nameof(area));
             }
 
             for (int rectY = area.Top; rectY < area.Bottom; rectY++)

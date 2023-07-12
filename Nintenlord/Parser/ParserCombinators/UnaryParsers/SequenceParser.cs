@@ -12,18 +12,13 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         public SequenceParser(IEnumerable<T> sequenceToFind, IEqualityComparer<T> equalityComparer)
         {
-            if (equalityComparer == null)
-            {
-                throw new ArgumentNullException("equalityComparer");
-            }
-
             if (sequenceToFind == null)
             {
-                throw new ArgumentNullException("sequenceToFind");
+                throw new ArgumentNullException(nameof(sequenceToFind));
             }
 
             this.sequence = sequenceToFind.ToArray();
-            this.equalityComparer = equalityComparer;
+            this.equalityComparer = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
         }
 
         public SequenceParser(IEnumerable<T> sequenceToFind)
@@ -52,7 +47,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
                   ? new Match<T>(scanner, startOffset, sequence.Length)
                   : new Match<T>(scanner, "Failed to match the sequence.");
 
-            return default(TOut);
+            return default;
         }
     }
 }

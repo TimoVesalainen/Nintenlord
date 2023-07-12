@@ -10,24 +10,9 @@ namespace Nintenlord.Parser.ParserCombinators
 
         public BetweenParser(IParser<TIn, TStart> startParser, IParser<TIn, TOut> valueParser, IParser<TIn, TEnd> endParser)
         {
-            if (startParser == null)
-            {
-                throw new ArgumentNullException("startParser");
-            }
-
-            if (valueParser == null)
-            {
-                throw new ArgumentNullException("valueParser");
-            }
-
-            if (endParser == null)
-            {
-                throw new ArgumentNullException("endParser");
-            }
-
-            this.valueParser = valueParser;
-            this.startParser = startParser;
-            this.endParser = endParser;
+            this.valueParser = valueParser ?? throw new ArgumentNullException(nameof(valueParser));
+            this.startParser = startParser ?? throw new ArgumentNullException(nameof(startParser));
+            this.endParser = endParser ?? throw new ArgumentNullException(nameof(endParser));
         }
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
@@ -38,21 +23,21 @@ namespace Nintenlord.Parser.ParserCombinators
             match += latestMatch;
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             TOut result = valueParser.Parse(scanner, out latestMatch);
             match += latestMatch;
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             endParser.Parse(scanner, out latestMatch);
             match += latestMatch;
             if (!match.Success)
             {
-                return default(TOut);
+                return default;
             }
 
             return result;

@@ -46,7 +46,7 @@ namespace Nintenlord.Parser
             {
                 var firsstResult = parser(scanner);
                 return Tuple.Create(!firsstResult.Item2.Success ?
-                    default(TOut) :
+                    default :
                     resultSelector(firsstResult.Item1), firsstResult.Item2);
             };
         }
