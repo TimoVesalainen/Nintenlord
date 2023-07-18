@@ -18,6 +18,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
     </None>
+    <None Include="Distributions\FuncTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FuncTemplate.tt</DependentUpon>
+    </None>
     <None Include="StateMachines\CombinedStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -55,6 +60,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EnumerableExtensions_Tuple.cs</LastGenOutput>
     </None>
+    <None Update="Distributions\FuncTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FuncTemplate.cs</LastGenOutput>
+    </None>
     <None Update="StateMachines\CombinedStateMachine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CombinedStateMachine.cs</LastGenOutput>
@@ -86,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Distributions\FuncTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FuncTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="StateMachines\CombinedStateMachine.cs">
       <DesignTime>True</DesignTime>

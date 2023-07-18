@@ -1,0 +1,70 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Nintenlord.Utility;
+
+namespace Nintenlord.Distributions
+{
+    /// <summary>
+    /// Helper for distributions with bijections between items.
+    /// </summary>
+    public sealed class FuncDistribution<TIn, TOut> : IDistribution<TOut>
+    {
+        readonly IDistribution<TIn> inDistribution;
+        readonly Func<TIn, TOut> selector;
+        
+        /// <param name="inDistribution">Original distributions</param>
+        /// <param name="selector">Bijection between support of distributions</param>
+        public FuncDistribution(IDistribution<TIn> inDistribution, Func<TIn, TOut> selector)
+        {
+            this.inDistribution = inDistribution ?? throw new ArgumentNullException(nameof(inDistribution));
+            this.selector = selector ?? throw new ArgumentNullException(nameof(selector));
+        }
+
+        public TOut Sample()
+        {
+            return selector(inDistribution.Sample());
+        }
+    }
+<#
+for (int i = 2; i < 8; i++)
+{
+    var outParam = "TOut";
+    var inputParameters = Enumerable.Range(0, i).Select(n => $"TIn{n}").ToArray();
+    var funcParameter = $"Func<{string.Join(", ", inputParameters)}, TOut>";
+    var sourceDistribution = $"IDistribution<({string.Join(", ", inputParameters)})>";
+#>
+
+    /// <summary>
+    /// Helper for distributions with bijections between items.
+    /// </summary>
+    public sealed class FuncDistribution<<#= string.Join(", ", inputParameters) #>, <#= outParam #>> : IDistribution<<#= outParam #>>
+    {
+        readonly <#= sourceDistribution #> inDistribution;
+        readonly <#= funcParameter #> selector;
+        
+        /// <param name="inDistribution">Original distributions</param>
+        /// <param name="selector">Bijection between support of distributions</param>
+        public FuncDistribution(<#= sourceDistribution #> inDistribution, <#= funcParameter #> selector)
+        {
+            this.inDistribution = inDistribution ?? throw new ArgumentNullException(nameof(inDistribution));
+            this.selector = selector ?? throw new ArgumentNullException(nameof(selector));
+        }
+
+        public TOut Sample()
+        {
+            return inDistribution.Sample().Apply(selector);
+        }
+    }
+<#
+}
+#>
+}
