@@ -32,6 +32,16 @@ namespace Nintenlord.Collections
             return collection.All(x => x);
         }
 
+        public static int Product(this IEnumerable<int> collection)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            return collection.Aggregate(1, (a, b) => a * b);
+        }
+
         public static T Max<T>(this IEnumerable<T> collection) where T : IComparable<T>
         {
             if (collection is null)
