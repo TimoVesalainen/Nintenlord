@@ -478,5 +478,37 @@ namespace Nintenlord.Utility.Primitives
                 .Select(k => (n + 1 - k, k))
                 .Scan(1, (acc, tuple) => acc * tuple.Item1 / tuple.k);
         }
+
+        public static int GreatestCommonDivisor(this int a, int b)
+        {
+            static int GDC(int n, int m) => m == 0 ? n : GDC(m, n % m);
+
+            return a > b ? GDC(a, b) : GDC(b, a);
+        }
+
+        public static int GreatestCommonDivisor(this IEnumerable<int> numbers)
+        {
+            if (numbers is null)
+            {
+                throw new ArgumentNullException(nameof(numbers));
+            }
+
+            return numbers.Aggregate(0, GreatestCommonDivisor);
+        }
+
+        public static int LeastCommonDivider(this int a, int b)
+        {
+            return a * b / GreatestCommonDivisor(a, b);
+        }
+
+        public static int LeastCommonDivider(this IEnumerable<int> numbers)
+        {
+            if (numbers is null)
+            {
+                throw new ArgumentNullException(nameof(numbers));
+            }
+
+            return numbers.Aggregate(1, LeastCommonDivider);
+        }
     }
 }
