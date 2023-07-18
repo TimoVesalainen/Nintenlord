@@ -442,5 +442,41 @@ namespace Nintenlord.Utility.Primitives
                 }
             }
         }
+
+        public static int BinomialCoefficient(int n, int k)
+        {
+            if (n < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(n), "n needs to be non-negative");
+            }
+
+            if (k < 0 || k > n)
+            {
+                return 0;
+            }
+
+            static int Inner(int n, int k)
+            {
+                if (k == 0 || k == n)
+                {
+                    return 1;
+                }
+                return Inner(n-1, k-1) + Inner(n-1, k);
+            }
+
+            return Inner(n, k);
+        }
+
+        public static IEnumerable<int> BinomialCoefficients(int n)
+        {
+            if (n < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(n), "n needs to be non-negative");
+            }
+
+            return Enumerable.Range(1, n)
+                .Select(k => (n + 1 - k, k))
+                .Scan(1, (acc, tuple) => acc * tuple.Item1 / tuple.k);
+        }
     }
 }

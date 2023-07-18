@@ -110,5 +110,26 @@ namespace Nintenlord.Tests.Utility.Primitives
 
             Assert.AreEqual(value, value.SwapBits(index1, index2, index3));
         }
+
+        [TestCase(1, 0)]
+        [TestCase(3, 2)]
+        [TestCase(6, 4)]
+        public void TestBinomialDistribution(int row, int k)
+        {
+            var value1 = IntegerExtensions.BinomialCoefficient(row, k);
+            var value2 = IntegerExtensions.BinomialCoefficient(row, row - k);
+            Assert.AreEqual(value1, value2);
+        }
+
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(6)]
+        public void TestBinomialDistributionRows(int row)
+        {
+            var rowSum1 = IntegerExtensions.BinomialCoefficients(row).Sum();
+            var rowSum2 = Enumerable.Range(0, row + 1).Select(m => IntegerExtensions.BinomialCoefficient(row, m)).Sum();
+            Assert.AreEqual((int)Math.Pow(2, row), rowSum1);
+            Assert.AreEqual((int)Math.Pow(2, row), rowSum2);
+        }
     }
 }
