@@ -158,6 +158,16 @@ namespace Nintenlord.Collections.Lists
             list[j] = temp;
         }
 
+        public static IEnumerable<int> Indicis<T>(this IList<T> list)
+        {
+            if (list is null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            return Enumerable.Range(0, list.Count);
+        }
+
         public static int LastIndexOf<T>(this IReadOnlyList<T> list, Predicate<T> predicate)
         {
             int result = list.Count;
