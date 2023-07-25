@@ -1,5 +1,6 @@
 ﻿using Nintenlord.Collections;
 using Nintenlord.Collections.Comparers;
+using Nintenlord.Collections.EqualityComparer;
 using Nintenlord.Distributions.Discrete;
 using Nintenlord.Utility.Primitives;
 using System;
@@ -277,6 +278,46 @@ namespace Nintenlord.Distributions
             return from sample1 in distribution1
                    from sample2 in distribution2
                    select comparer.Min(sample1, sample2);
+        }
+
+
+        public static IDistribution<T[]> ArrayDistribution<T>(
+          this IDistribution<T> distribution, int amount, IEqualityComparer<T> comparer = null)
+        {
+            if (distribution is null)
+            {
+                throw new ArgumentNullException(nameof(distribution));
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount));
+            }
+
+            if (distribution is EmptyDistribution<T>)
+            {
+                return EmptyDistribution<T[]>.Instance;
+            }
+            else if (distribution is SingletonDistribution<T> singleton)
+            {
+                return SingletonDistribution<T[]>.Create(Enumerable.Repeat(singleton.Value, amount).ToArray());
+            }
+            else if (distribution is IDiscreteDistribution<T> discrete)
+            {
+                (T[] items, int weight) GetPair(IEnumerable<T> items)
+                {
+                    var array = items.ToArray();
+
+                    return (array, array.Select(discrete.Weight).Sum());
+                }
+
+                return discrete.Support()
+                    .GetSequencesFrom(amount)
+                    .Select(GetPair)
+                    .ToWeighedDistribution(equalityComparer: comparer.ToListComparer());
+            }
+
+            return new ArrayDistribution<T>(distribution, amount);
         }
     }
 }
