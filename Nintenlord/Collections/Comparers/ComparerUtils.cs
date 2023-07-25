@@ -72,12 +72,22 @@ namespace Nintenlord.Collections.Comparers
 
         public static LexicographicComparer<T> ToLexicographic<T>(this IComparer<T> comparer)
         {
-            return new LexicographicComparer<T>(comparer);
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            return LexicographicComparer<T>.Create(comparer);
         }
 
         public static AlphabeticComparer<T> ToAlphabetic<T>(this IComparer<T> comparer)
         {
-            return new AlphabeticComparer<T>(comparer);
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            return AlphabeticComparer<T>.Create(comparer);
         }
     }
 }
