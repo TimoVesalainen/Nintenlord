@@ -662,7 +662,7 @@ namespace Nintenlord.Collections
               (accumulator, sequence) =>
                 from accseq in accumulator
                 from item in sequence
-                select accseq.Concat(new[] { item }));
+                select accseq.Concat(item));
         }
 
         public static IEnumerable<(T, bool isLast)> GetIsLast<T>(this IEnumerable<T> items)
