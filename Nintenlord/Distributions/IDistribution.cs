@@ -23,6 +23,11 @@ namespace Nintenlord.Distributions
                 throw new ArgumentNullException(nameof(distribution));
             }
 
+            if (distribution is EmptyDistribution<T>)
+            {
+                throw new ArgumentException("Can't sample empty distribution", nameof(distribution));
+            }
+
             IEnumerable<T> Inner()
             {
                 while (true)
