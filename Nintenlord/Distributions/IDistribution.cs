@@ -1,9 +1,8 @@
 ﻿using Nintenlord.Collections;
-using Nintenlord.Distributions.Continous;
+using Nintenlord.Collections.Comparers;
 using Nintenlord.Distributions.Discrete;
 using Nintenlord.Utility.Primitives;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -240,5 +239,44 @@ namespace Nintenlord.Distributions
                    select sample;
         }
 
+        public static IDistribution<T> Max<T>(
+          this IDistribution<T> distribution1, IDistribution<T> distribution2, IComparer<T> comparer = null)
+        {
+            if (distribution1 is null)
+            {
+                throw new ArgumentNullException(nameof(distribution1));
+            }
+
+            if (distribution2 is null)
+            {
+                throw new ArgumentNullException(nameof(distribution2));
+            }
+
+            comparer ??= Comparer<T>.Default;
+
+            return from sample1 in distribution1
+                   from sample2 in distribution2
+                   select comparer.Max(sample1, sample2);
+        }
+
+        public static IDistribution<T> Min<T>(
+          this IDistribution<T> distribution1, IDistribution<T> distribution2, IComparer<T> comparer = null)
+        {
+            if (distribution1 is null)
+            {
+                throw new ArgumentNullException(nameof(distribution1));
+            }
+
+            if (distribution2 is null)
+            {
+                throw new ArgumentNullException(nameof(distribution2));
+            }
+
+            comparer ??= Comparer<T>.Default;
+
+            return from sample1 in distribution1
+                   from sample2 in distribution2
+                   select comparer.Min(sample1, sample2);
+        }
     }
 }
