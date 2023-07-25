@@ -14,41 +14,37 @@ namespace Nintenlord.Collections.Comparers
 
         public int Compare(IEnumerable<T> x, IEnumerable<T> y)
         {
-            using (var xEnumerator = x.GetEnumerator())
+            using var xEnumerator = x.GetEnumerator();
+            using var yEnumerator = y.GetEnumerator();
+            bool xHasValue = xEnumerator.MoveNext();
+            bool yHasValue = yEnumerator.MoveNext();
+            while (xHasValue && yHasValue)
             {
-                using (var yEnumerator = y.GetEnumerator())
+                var charComparison = ordering.Compare(xEnumerator.Current, yEnumerator.Current);
+                if (charComparison != 0)
                 {
-                    bool xHasValue = xEnumerator.MoveNext();
-                    bool yHasValue = yEnumerator.MoveNext();
-                    while (xHasValue && yHasValue)
-                    {
-                        var charComparison = ordering.Compare(xEnumerator.Current, yEnumerator.Current);
-                        if (charComparison != 0)
-                        {
-                            return charComparison;
-                        }
-
-                        xHasValue = xEnumerator.MoveNext();
-                        yHasValue = yEnumerator.MoveNext();
-                    }
-
-                    if (xHasValue == yHasValue)
-                    {
-                        return 0;
-                    }
-                    else if (xHasValue)
-                    {
-                        return 1;
-                    }
-                    else if (yHasValue)
-                    {
-                        return -1;
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
+                    return charComparison;
                 }
+
+                xHasValue = xEnumerator.MoveNext();
+                yHasValue = yEnumerator.MoveNext();
+            }
+
+            if (xHasValue == yHasValue)
+            {
+                return 0;
+            }
+            else if (xHasValue)
+            {
+                return 1;
+            }
+            else if (yHasValue)
+            {
+                return -1;
+            }
+            else
+            {
+                throw new Exception();
             }
         }
     }

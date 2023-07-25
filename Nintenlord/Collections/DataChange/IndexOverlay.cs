@@ -115,8 +115,8 @@ namespace Nintenlord.Collections.DataChange
                 throw new IndexOutOfRangeException();
             }
             FindClosestIndexes(index, out int left, out int right);
-            bool touchesRight = right - 1 == index;
-            bool touchesLeft = left != -1 && LastIndexOf(left) == index;
+            _ = right - 1 == index;
+            _ = left != -1 && LastIndexOf(left) == index;
             bool result = false;
 
             if (left != -1)
@@ -208,8 +208,8 @@ namespace Nintenlord.Collections.DataChange
 
         public bool ContainsAnyIndex(int index, int length)
         {
-            FindClosestIndexes(index, out int startLeft, out int startRight);
-            FindClosestIndexes(index + length, out int endLeft, out int endRight);
+            FindClosestIndexes(index, out int startLeft, out _);
+            FindClosestIndexes(index + length, out int endLeft, out _);
 
             if (index <= endLeft) // If a new range starts mid-range
             {
@@ -232,7 +232,7 @@ namespace Nintenlord.Collections.DataChange
 
         public bool ContainsAllIndexes(int index, int length)
         {
-            FindClosestIndexes(index + length, out int endLeft, out int endRight);
+            FindClosestIndexes(index + length, out int endLeft, out _);
 
             return endLeft != -1 && (endLeft <= index && LastIndexOf(endLeft) >= index + length);
         }

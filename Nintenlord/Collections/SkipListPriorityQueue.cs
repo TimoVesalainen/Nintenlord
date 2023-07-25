@@ -111,7 +111,7 @@ namespace Nintenlord.Collections
                 toUpdate[level] = currentNode;
             }
 
-            currentNode = currentNode[0];
+            _ = currentNode[0];
 
             int newLevel = this.NewLevel();
             SkipListNode<TPriority, TValue> newNode =

@@ -84,22 +84,20 @@ for(int i = 2; i < 9; i++)
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
-            {
+            using var enumerator = enumerable.GetEnumerator();
 <#
     foreach (var item in items)
     {
 #>
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var <#= item #> = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var <#= item #> = enumerator.Current;
 <#
     }
 #>
-                return (<#= string.Join(", ", items) #>);
-            }
+            return (<#= string.Join(", ", items) #>);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential<#= i #>s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }

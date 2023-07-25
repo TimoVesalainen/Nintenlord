@@ -728,35 +728,31 @@ namespace Nintenlord.Collections
 
             IEnumerable<TOut> ZipLongInner()
             {
-                using (var enumerable1 = items1.GetEnumerator())
+                using var enumerable1 = items1.GetEnumerator();
+                using var enumerable2 = items2.GetEnumerator();
+                bool hasItem1;
+                bool hasItem2;
+
+                while ((hasItem1 = enumerable1.MoveNext()) &
+                    (hasItem2 = enumerable2.MoveNext()))
                 {
-                    using (var enumerable2 = items2.GetEnumerator())
+                    yield return zipper(enumerable1.Current, enumerable2.Current);
+                }
+
+                if (hasItem1)
+                {
+                    yield return leftZipper(enumerable1.Current);
+                    while (enumerable1.MoveNext())
                     {
-                        bool hasItem1;
-                        bool hasItem2;
-
-                        while ((hasItem1 = enumerable1.MoveNext()) &
-                            (hasItem2 = enumerable2.MoveNext()))
-                        {
-                            yield return zipper(enumerable1.Current, enumerable2.Current);
-                        }
-
-                        if (hasItem1)
-                        {
-                            yield return leftZipper(enumerable1.Current);
-                            while (enumerable1.MoveNext())
-                            {
-                                yield return leftZipper(enumerable1.Current);
-                            }
-                        }
-                        else if (hasItem2)
-                        {
-                            yield return rightZipper(enumerable2.Current);
-                            while (enumerable2.MoveNext())
-                            {
-                                yield return rightZipper(enumerable2.Current);
-                            }
-                        }
+                        yield return leftZipper(enumerable1.Current);
+                    }
+                }
+                else if (hasItem2)
+                {
+                    yield return rightZipper(enumerable2.Current);
+                    while (enumerable2.MoveNext())
+                    {
+                        yield return rightZipper(enumerable2.Current);
                     }
                 }
             }
@@ -839,21 +835,19 @@ namespace Nintenlord.Collections
 
             IEnumerable<T> ScanInner()
             {
-                using (var enumerator = items.GetEnumerator())
+                using var enumerator = items.GetEnumerator();
+                if (!enumerator.MoveNext())
                 {
-                    if (!enumerator.MoveNext())
-                    {
-                        yield break;
-                    }
+                    yield break;
+                }
 
-                    yield return enumerator.Current;
+                yield return enumerator.Current;
 
-                    var accum = enumerator.Current;
-                    while (enumerator.MoveNext())
-                    {
-                        accum = scanner(accum, enumerator.Current);
-                        yield return accum;
-                    }
+                var accum = enumerator.Current;
+                while (enumerator.MoveNext())
+                {
+                    accum = scanner(accum, enumerator.Current);
+                    yield return accum;
                 }
             }
 

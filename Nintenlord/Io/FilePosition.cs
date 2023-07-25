@@ -1,6 +1,6 @@
 ﻿namespace Nintenlord.IO
 {
-    public struct FilePosition
+    public readonly struct FilePosition
     {
         private readonly string file;
         private readonly int line;

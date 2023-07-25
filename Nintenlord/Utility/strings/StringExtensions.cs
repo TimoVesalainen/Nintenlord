@@ -261,7 +261,7 @@ namespace Nintenlord.Utility.Strings
         }
         public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters)
         {
-            return line.Split(separators, uniters, out int dontCare);
+            return line.Split(separators, uniters, out _);
         }
         public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters, out int nonClosedParenthesis)
         {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Nintenlord.Collections.Lists
 {
-    public ref struct ListSequence<T>
+    public readonly ref struct ListSequence<T>
     {
         public int Count { get; }
 

@@ -43,7 +43,7 @@ namespace Nintenlord.Collections.Lists
             return buffer2;
         }
 
-        public struct Match
+        public readonly struct Match
         {
             public int Start1 { get; }
             public int Length1 { get; }

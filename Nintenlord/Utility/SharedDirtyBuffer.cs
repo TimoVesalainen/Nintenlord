@@ -23,7 +23,7 @@ namespace Nintenlord.Utility
             return new DirtyBufferUser(this);
         }
 
-        public struct DirtyBufferUser : IDisposable, IEnumerable<T>
+        public readonly struct DirtyBufferUser : IDisposable, IEnumerable<T>
         {
             private readonly SharedDirtyBuffer<T> listToUse;
 

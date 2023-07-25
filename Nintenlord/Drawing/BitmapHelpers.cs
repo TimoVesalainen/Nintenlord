@@ -259,11 +259,9 @@ namespace Nintenlord.Drawing
             {
                 trueColorBitmap = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
-                using (Graphics g = Graphics.FromImage(trueColorBitmap))
-                {
-                    g.PageUnit = GraphicsUnit.Pixel;
-                    g.DrawImage(bitmap, 0, 0, bitmap.Width, bitmap.Height);
-                }
+                using Graphics g = Graphics.FromImage(trueColorBitmap);
+                g.PageUnit = GraphicsUnit.Pixel;
+                g.DrawImage(bitmap, 0, 0, bitmap.Width, bitmap.Height);
             }
 
             //Octree<List<Color>> colors = new Octree<List<Color>>(5, 5);
@@ -326,20 +324,16 @@ namespace Nintenlord.Drawing
                 throw new ArgumentException("Out of bitmaps area", nameof(destPos));
             }
 
-            using (BitmapLocker sourceLock = new BitmapLocker(source, ImageLockMode.ReadOnly))
-            {
-                using (BitmapLocker destLock = new BitmapLocker(dest, ImageLockMode.WriteOnly))
-                {
-                    int copyLength = sourceLock.PixelSize * sourceRect.Width;
+            using BitmapLocker sourceLock = new BitmapLocker(source, ImageLockMode.ReadOnly);
+            using BitmapLocker destLock = new BitmapLocker(dest, ImageLockMode.WriteOnly);
+            int copyLength = sourceLock.PixelSize * sourceRect.Width;
 
-                    for (int i = 0; i < sourceRect.Height; i++)
-                    {
-                        MemCopy(
-                            sourceLock[sourceRect.X, sourceRect.Y + i],
-                            destLock[destPos.X, destPos.Y + i],
-                            copyLength);
-                    }
-                }
+            for (int i = 0; i < sourceRect.Height; i++)
+            {
+                MemCopy(
+                    sourceLock[sourceRect.X, sourceRect.Y + i],
+                    destLock[destPos.X, destPos.Y + i],
+                    copyLength);
             }
         }
 

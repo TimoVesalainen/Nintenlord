@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Utility
 {
-    public struct FixedPointInteger : IEquatable<FixedPointInteger>, IComparable<FixedPointInteger>//, IConvertible
+    public readonly struct FixedPointInteger : IEquatable<FixedPointInteger>, IComparable<FixedPointInteger>//, IConvertible
     {
         #region Static
         private static readonly int[] masks;

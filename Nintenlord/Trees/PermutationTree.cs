@@ -10,7 +10,7 @@ namespace Nintenlord.Trees
     /// </summary>
     public sealed class PermutationTree : ITree<(int index1, int index2)>
     {
-        readonly static ConcurrentDictionary<int, PermutationTree> values = new ConcurrentDictionary<int, PermutationTree>();
+        readonly static ConcurrentDictionary<int, PermutationTree> values = new();
 
         /// <param name="length">Length of the array to shuffle</param>
         public static PermutationTree ForLength(int length)
@@ -30,7 +30,7 @@ namespace Nintenlord.Trees
 
         public IEnumerable<(int index1, int index2)> GetChildren((int index1, int index2) node)
         {
-            var (index1, index2) = node;
+            var (index1, _) = node;
             if (index1 < length - 1)
             {
                 for (int i = index1 + 1; i < length; i++)

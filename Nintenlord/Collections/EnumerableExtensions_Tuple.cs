@@ -61,20 +61,18 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                return (item0, item1);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            return (item0, item1);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential2s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }
@@ -175,25 +173,23 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item2 = enumerator.Current;
-                return (item0, item1, item2);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item2 = enumerator.Current;
+            return (item0, item1, item2);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential3s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }
@@ -327,30 +323,28 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item2 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item3 = enumerator.Current;
-                return (item0, item1, item2, item3);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item2 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item3 = enumerator.Current;
+            return (item0, item1, item2, item3);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential4s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }
@@ -494,35 +488,33 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item2 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item3 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item4 = enumerator.Current;
-                return (item0, item1, item2, item3, item4);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item2 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item3 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item4 = enumerator.Current;
+            return (item0, item1, item2, item3, item4);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential5s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }
@@ -676,40 +668,38 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item2 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item3 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item4 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item5 = enumerator.Current;
-                return (item0, item1, item2, item3, item4, item5);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item2 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item3 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item4 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item5 = enumerator.Current;
+            return (item0, item1, item2, item3, item4, item5);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential6s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }
@@ -873,45 +863,43 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item2 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item3 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item4 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item5 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item6 = enumerator.Current;
-                return (item0, item1, item2, item3, item4, item5, item6);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item2 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item3 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item4 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item5 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item6 = enumerator.Current;
+            return (item0, item1, item2, item3, item4, item5, item6);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential7s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }
@@ -1085,50 +1073,48 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(enumerable));
             }
-            using (var enumerator = enumerable.GetEnumerator())
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item0 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item1 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item2 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item3 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item4 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item5 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item6 = enumerator.Current;
-                if (!enumerator.MoveNext())
-                {
-                    throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-                }
-                var item7 = enumerator.Current;
-                return (item0, item1, item2, item3, item4, item5, item6, item7);
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
             }
+            var item0 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item1 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item2 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item3 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item4 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item5 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item6 = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var item7 = enumerator.Current;
+            return (item0, item1, item2, item3, item4, item5, item6, item7);
             //Mostly equivalent to (current handles nulls better):
             //return enumerable.GetSequential8s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
         }

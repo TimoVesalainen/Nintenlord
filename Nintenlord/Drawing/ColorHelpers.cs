@@ -189,7 +189,7 @@ namespace Nintenlord.Drawing
 
         public static int GetBrightness(this Color color)
         {
-            color.ToHsv(out int hue, out int saturation, out int value);
+            color.ToHsv(out _, out _, out int value);
             return value;
         }
     }

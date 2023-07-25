@@ -32,9 +32,7 @@ namespace Nintenlord.Collections.Lists
                     buffer2[j + 1] = Math.Min(Math.Min(deletionCost, insertionCost), substitutionCost);
                 }
 
-                var tmp = buffer1;
-                buffer1 = buffer2;
-                buffer2 = tmp;
+                (buffer2, buffer1) = (buffer1, buffer2);
             }
 
             return buffer1[second.Count];
