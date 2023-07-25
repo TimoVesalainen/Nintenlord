@@ -1040,5 +1040,47 @@ namespace Nintenlord.Collections
 
             return first;
         }
+
+        private static IEnumerable<IEnumerable<int>> GetIndexLists(int length)
+        {
+            if (length < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+            var values = Enumerable.Range(0, length);
+
+            IEnumerable<IEnumerable<int>> Inner(int n)
+            {
+                if (n == 0)
+                {
+                    return Enumerable.Empty<IEnumerable<int>>();
+                }
+                else
+                {
+                    return from end in values
+                           from rest in Inner(n - 1)
+                           select rest.Append(end);
+                }
+            }
+
+            return GetIndexLists(length);
+        }
+
+        public static IEnumerable<IEnumerable<T>> GetSequencesFrom<T>(this IEnumerable<T> items, int length)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            if (length < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+
+            var array = items.ToArray();
+
+            return GetIndexLists(length).Select(indecis => indecis.Select(index => array[index]));
+        }
     }
 }
