@@ -24,7 +24,12 @@ namespace Nintenlord.Collections.EqualityComparer
         }
         public static IEqualityComparer<T[]> ToListComparer<T>(this IEqualityComparer<T> comparer)
         {
-            return new ArrayEqualityComparer<T>(comparer);
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            return ArrayEqualityComparer<T>.Create(comparer);
         }
     }
 }

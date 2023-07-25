@@ -1,14 +1,28 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Nintenlord.Collections.EqualityComparer
 {
     public sealed class ArrayEqualityComparer<T> : IEqualityComparer<T[]>
     {
+        private static readonly ConcurrentDictionary<IEqualityComparer<T>, ArrayEqualityComparer<T>> cache = new();
+
+        public static ArrayEqualityComparer<T> Default => Create(EqualityComparer<T>.Default);
+
+        public static ArrayEqualityComparer<T> Create(IEqualityComparer<T> itemEqualityComparer)
+        {
+            if (itemEqualityComparer is null)
+            {
+                throw new ArgumentNullException(nameof(itemEqualityComparer));
+            }
+
+            return cache.GetOrAdd(itemEqualityComparer, eq => new ArrayEqualityComparer<T>(eq));
+        }
+
         readonly IEqualityComparer<T> itemEqualityComparer;
 
-        public ArrayEqualityComparer(IEqualityComparer<T> itemEqualityComparer)
+        private ArrayEqualityComparer(IEqualityComparer<T> itemEqualityComparer)
         {
             this.itemEqualityComparer = itemEqualityComparer;
         }
