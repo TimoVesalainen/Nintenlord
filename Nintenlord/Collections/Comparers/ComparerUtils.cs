@@ -67,7 +67,7 @@ namespace Nintenlord.Collections.Comparers
                 throw new ArgumentNullException(nameof(comparer));
             }
 
-            return new ReverseComparer<T>(comparer);
+            return ReverseComparer<T>.Create(comparer);
         }
 
         public static IComparer<T> Then<T>(this IComparer<T> comparer, params IComparer<T>[] parameters)
