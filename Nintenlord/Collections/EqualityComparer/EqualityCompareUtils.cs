@@ -8,6 +8,16 @@ namespace Nintenlord.Collections.EqualityComparer
     {
         public static IEqualityComparer<TOuter> Select<T, TOuter>(this IEqualityComparer<T> comparer, Func<TOuter, T> selector)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            if (selector is null)
+            {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
             return new SelectEqualityComparer<TOuter, T>(selector, comparer);
         }
 
