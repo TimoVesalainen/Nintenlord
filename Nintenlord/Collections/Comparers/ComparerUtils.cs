@@ -9,6 +9,11 @@ namespace Nintenlord.Collections.Comparers
     {
         public static T Max<T>(this IComparer<T> comparer, T item1, T item2)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             var comparison = comparer.Compare(item1, item2);
 
             if (comparison >= 0)
@@ -23,6 +28,11 @@ namespace Nintenlord.Collections.Comparers
 
         public static T Min<T>(this IComparer<T> comparer, T item1, T item2)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             var comparison = comparer.Compare(item1, item2);
 
             if (comparison <= 0)
@@ -37,36 +47,76 @@ namespace Nintenlord.Collections.Comparers
 
         public static IComparer<TOuter> Select<T, TOuter>(this IComparer<T> comparer, Func<TOuter, T> selector)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            if (selector is null)
+            {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
             return new SelectComparer<TOuter, T>(selector, comparer);
         }
 
         public static IComparer<T> Reverse<T>(this IComparer<T> comparer)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             return new ReverseComparer<T>(comparer);
         }
 
         public static IComparer<T> Then<T>(this IComparer<T> comparer, params IComparer<T>[] parameters)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             return new SequentialComparer<T>(parameters.Prepend(comparer));
         }
 
         public static Func<T, bool> LessThan<T>(this IComparer<T> comparer, T item)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             return x => comparer.Compare(x, item) < 0;
         }
 
         public static Func<T, bool> GreaterThan<T>(this IComparer<T> comparer, T item)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             return x => comparer.Compare(x, item) > 0;
         }
 
         public static Func<T, bool> LessOrEqualThan<T>(this IComparer<T> comparer, T item)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             return x => comparer.Compare(x, item) <= 0;
         }
 
         public static Func<T, bool> GreaterOrEqualThan<T>(this IComparer<T> comparer, T item)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             return x => comparer.Compare(x, item) >= 0;
         }
 
