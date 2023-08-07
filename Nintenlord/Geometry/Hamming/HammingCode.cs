@@ -16,11 +16,11 @@ namespace Nintenlord.Geometry.Hamming
         {
             if (dimensions <= 0)
             {
-                throw new ArgumentException(nameof(dimensions));
+                throw new ArgumentOutOfRangeException(nameof(dimensions), dimensions, "Value should be positive");
             }
             if (buffer >= 1 << dimensions || buffer < 0)
             {
-                throw new ArgumentException(nameof(buffer));
+                throw new ArgumentOutOfRangeException(nameof(buffer), buffer, "Value should be non-negative, and less than 2^dimensions");
             }
 
             this.buffer = buffer;
