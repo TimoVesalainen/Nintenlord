@@ -111,6 +111,11 @@ namespace Nintenlord.Trees
             return tree.AggregateTree(combine, startValue, tree.Root);
         }
 
+        public static ITree<(TNode node, Maybe<TNode> parent)> GetParents<TNode>(this ITree<TNode> tree)
+        {
+            return tree.GetParents(tree.Root);
+        }
+
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this ITree<TNode> tree)
         {
             return tree.GetPaths(tree.Root);

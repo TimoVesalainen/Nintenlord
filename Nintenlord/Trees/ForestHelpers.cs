@@ -348,6 +348,11 @@ namespace Nintenlord.Trees
             return new LambdaTree<(TNode, TAggregate)>((start, combine(start, startValue)), GetChildren);
         }
 
+        public static ITree<(TNode node, Maybe<TNode> parent)> GetParents<TNode>(this IForest<TNode> forest, TNode root)
+        {
+            return forest.AggregateTree((newNode, _) => Maybe<TNode>.Just(newNode), Maybe<TNode>.Nothing, root);
+        }
+
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this IForest<TNode> forest, TNode root)
         {
             return forest.GetPaths(root, x => x);
