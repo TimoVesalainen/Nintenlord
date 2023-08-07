@@ -353,6 +353,52 @@ namespace Nintenlord.Trees
             return forest.AggregateTree((newNode, _) => Maybe<TNode>.Just(newNode), Maybe<TNode>.Nothing, root);
         }
 
+        public static bool IsIncreasing<TNode, TColor>(this IForest<TNode> forest, Func<TNode, TColor> colouring, TNode root, IComparer<TColor> comparer = null)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (colouring is null)
+            {
+                throw new ArgumentNullException(nameof(colouring));
+            }
+
+            comparer ??= Comparer<TColor>.Default;
+
+            return forest.GetParents(root).DepthFirstTraversal().All(pair =>
+            {
+                var (node, parent) = pair;
+                return parent
+                .Select(parent => comparer.Compare(colouring(parent), colouring(node)) <= 0)
+                .GetValueOrDefault(true);
+            });
+        }
+
+        public static bool IsDecreasing<TNode, TColor>(this IForest<TNode> forest, Func<TNode, TColor> colouring, TNode root, IComparer<TColor> comparer = null)
+        {
+            if (forest is null)
+            {
+                throw new ArgumentNullException(nameof(forest));
+            }
+
+            if (colouring is null)
+            {
+                throw new ArgumentNullException(nameof(colouring));
+            }
+
+            comparer ??= Comparer<TColor>.Default;
+
+            return forest.GetParents(root).DepthFirstTraversal().All(pair =>
+            {
+                var (node, parent) = pair;
+                return parent
+                .Select(parent => comparer.Compare(colouring(parent), colouring(node)) >= 0)
+                .GetValueOrDefault(true);
+            });
+        }
+
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this IForest<TNode> forest, TNode root)
         {
             return forest.GetPaths(root, x => x);

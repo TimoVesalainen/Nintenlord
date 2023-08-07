@@ -116,6 +116,16 @@ namespace Nintenlord.Trees
             return tree.GetParents(tree.Root);
         }
 
+        public static bool IsIncreasing<TNode, TColor>(this ITree<TNode> tree, Func<TNode, TColor> colouring, IComparer<TColor> comparer = null)
+        {
+            return tree.IsIncreasing(colouring, tree.Root, comparer);
+        }
+
+        public static bool IsDecreasing<TNode, TColor>(this ITree<TNode> tree, Func<TNode, TColor> colouring, IComparer<TColor> comparer = null)
+        {
+            return tree.IsDecreasing(colouring, tree.Root, comparer);
+        }
+
         public static IEnumerable<ImmutableList<TNode>> GetPaths<TNode>(this ITree<TNode> tree)
         {
             return tree.GetPaths(tree.Root);

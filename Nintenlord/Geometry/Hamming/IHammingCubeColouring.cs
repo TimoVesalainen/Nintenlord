@@ -2,6 +2,7 @@
 using Nintenlord.Utility;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nintenlord.Geometry.Hamming
@@ -62,21 +63,24 @@ namespace Nintenlord.Geometry.Hamming
             return new HammingCubeColouring<T>(dimensions, colourArray);
         }
 
-        public static bool IsMonotone(this IHammingCubeColouring<bool> cornerColours)
+        public static bool IsMonotone<T>(this IHammingCubeColouring<T> cornerColours, IComparer<T> comparer = null)
         {
             if (cornerColours is null)
             {
                 throw new ArgumentNullException(nameof(cornerColours));
             }
+            comparer ??= Comparer<T>.Default;
 
             var cube = HammingCube.ForDimension(cornerColours.Dimensions);
 
-            return cube.GetParents().DepthFirstTraversal().Any(pair =>
+            // cornerColours.GetColour(parent) && !cornerColours.GetColour(node)
+
+            return cube.GetParents().DepthFirstTraversal().All(pair =>
             {
                 var (node, parent) = pair;
                 return parent
-                .Select(parent => cornerColours.GetColour(parent) && !cornerColours.GetColour(node))
-                .GetValueOrDefault(false);
+                .Select(parent => comparer.Compare(cornerColours.GetColour(parent), cornerColours.GetColour(node)) <= 0)
+                .GetValueOrDefault(true);
             });
         }
     }
