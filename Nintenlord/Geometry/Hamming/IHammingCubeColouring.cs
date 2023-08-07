@@ -73,7 +73,7 @@ namespace Nintenlord.Geometry.Hamming
 
             var cube = HammingCube.ForDimension(cornerColours.Dimensions);
 
-            return cube.IsIncreasing(node => cornerColours.GetColour(node));
+            return cube.IsIncreasing(node => cornerColours.GetColour(node), comparer);
         }
     }
 }
