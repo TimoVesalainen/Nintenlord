@@ -8,7 +8,7 @@ namespace Nintenlord.Geometry.Hamming
 {
     public sealed class HammingCube : IGraph<HammingCode>, ITree<HammingCode>
     {
-        readonly static ConcurrentDictionary<int, HammingCube> values = new ConcurrentDictionary<int, HammingCube>();
+        readonly static ConcurrentDictionary<int, HammingCube> values = new();
 
         public static HammingCube ForDimension(int dimension)
         {
@@ -24,7 +24,7 @@ namespace Nintenlord.Geometry.Hamming
 
         public IEnumerable<HammingCode> Nodes => Enumerable.Range(0, 1 << Dimensions).Select(i => new HammingCode(i, Dimensions));
 
-        public HammingCode Root => new HammingCode(0, Dimensions);
+        public HammingCode Root => new(0, Dimensions);
 
         public IEnumerable<HammingCode> GetNeighbours(HammingCode node)
         {
