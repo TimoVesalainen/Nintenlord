@@ -58,7 +58,7 @@ namespace Nintenlord.Geometry.Hamming
         {
             if (dimensions != other.dimensions)
             {
-                throw new ArgumentException("Code from wrong diemnsion", nameof(other));
+                throw new ArgumentException("Code from wrong dimension", nameof(other));
             }
 
             return buffer.HammingDistance(other.buffer);
