@@ -11,6 +11,7 @@ namespace Nintenlord.Geometry.Hamming
         readonly int dimensions;
 
         public int Index => buffer;
+        public int Dimensions => dimensions;
 
         public HammingCode(int buffer, int dimensions)
         {
