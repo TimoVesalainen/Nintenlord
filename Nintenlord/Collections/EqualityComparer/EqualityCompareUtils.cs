@@ -22,14 +22,25 @@ namespace Nintenlord.Collections.EqualityComparer
                 return new ComparerEqualityComparer<T>(comparer);
             }
         }
-        public static IEqualityComparer<T[]> ToListComparer<T>(this IEqualityComparer<T> comparer)
+
+        public static IEqualityComparer<T[]> ToArrayComparer<T>(this IEqualityComparer<T> comparer)
         {
             if (comparer is null)
             {
                 throw new ArgumentNullException(nameof(comparer));
             }
 
-            return ArrayEqualityComparer<T>.Create(comparer);
+            return EnumerableEqualityComparer<T>.Create(comparer);
+        }
+
+        public static IEqualityComparer<List<T>> ToListComparer<T>(this IEqualityComparer<T> comparer)
+        {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            return EnumerableEqualityComparer<T>.Create(comparer);
         }
     }
 }

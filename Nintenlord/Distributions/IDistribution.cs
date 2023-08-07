@@ -314,7 +314,7 @@ namespace Nintenlord.Distributions
                 return discrete.Support()
                     .GetSequencesFrom(amount)
                     .Select(GetPair)
-                    .ToWeighedDistribution(equalityComparer: comparer.ToListComparer());
+                    .ToWeighedDistribution(equalityComparer: comparer.ToArrayComparer());
             }
 
             return new ArrayDistribution<T>(distribution, amount);
