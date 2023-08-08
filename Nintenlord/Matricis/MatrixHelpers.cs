@@ -85,11 +85,18 @@ namespace Nintenlord.Matricis
 
             var result = new T[matrix.Height, matrix.Width];
 
-            for (int y = 0; y < result.GetLength(0); y++)
+            if (matrix is ArrayMatrix<T> arrayMatrix)
             {
-                for (int x = 0; x < result.GetLength(1); x++)
+                arrayMatrix.CopyTo(result);
+            }
+            else
+            {
+                for (int y = 0; y < result.GetLength(0); y++)
                 {
-                    result[y, x] = matrix[x, y];
+                    for (int x = 0; x < result.GetLength(1); x++)
+                    {
+                        result[y, x] = matrix[x, y];
+                    }
                 }
             }
 

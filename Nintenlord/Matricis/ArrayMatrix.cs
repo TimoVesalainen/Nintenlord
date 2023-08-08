@@ -28,5 +28,10 @@ namespace Nintenlord.Matricis
         public int Width => items.GetLength(1);
 
         public int Height => items.GetLength(0);
+
+        public void CopyTo(T[,] array)
+        {
+            Array.Copy(items, array, array.Length);
+        }
     }
 }
