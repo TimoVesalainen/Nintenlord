@@ -30,29 +30,16 @@ namespace Nintenlord.Collections.Lists
 
         private static IMatrix<int> LCSMatrix<T>(IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
         {
-            var matrix = new ArrayMatrix<int>(first.Count + 1, second.Count + 1);
+            var firsts = 0.Repeat();
 
-            for (int i = 0; i < first.Count; i++)
+            int GetNewCost(int i, int left, int j, int top, int topLeft)
             {
-                matrix[i, 0] = 0;
+                return comparer.Equals(first[i - 1], second[j - 1])
+                        ? topLeft + 1
+                        : Math.Max(top, left);
             }
 
-            for (int j = 0; j < second.Count; j++)
-            {
-                matrix[0, j] = 0;
-            }
-
-            for (int i = 1; i <= first.Count; i++)
-            {
-                for (int j = 1; j <= second.Count; j++)
-                {
-                    matrix[i, j] = comparer.Equals(first[i - 1], second[j - 1])
-                        ? matrix[i - 1, j - 1] + 1
-                        : Math.Max(matrix[i, j - 1], matrix[i - 1, j]);
-                }
-            }
-
-            return matrix;
+            return MatrixHelpers.BuildFrom(firsts, firsts, first.Count + 1, second.Count + 1, GetNewCost);
         }
 
         private static IEnumerable<T> Backtrack<T>(IMatrix<int> matrix, IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)

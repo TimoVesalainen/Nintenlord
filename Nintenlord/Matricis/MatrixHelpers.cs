@@ -320,5 +320,44 @@ namespace Nintenlord.Matricis
 
             return GetDeterminantInner(matrix);
         }
+
+        public static ArrayMatrix<T> BuildFrom<T>(IEnumerable<T> firstRow, IEnumerable<T> firstColumn, int width, int height, Func<int, T, int, T, T, T> getNew)
+        {
+            var matrix = new ArrayMatrix<T>(width, height);
+
+            using (var rowEnumerable = firstRow.GetEnumerator())
+            {
+                for (int i = 0; i < matrix.Width; i++)
+                {
+                    if (!rowEnumerable.MoveNext())
+                    {
+                        throw new ArgumentException("Not enough items in enumerable", nameof(firstRow));
+                    }
+                    matrix[i, 0] = rowEnumerable.Current;
+                }
+            }
+
+            using (var columnEnumerable = firstColumn.GetEnumerator())
+            {
+                for (int j = 0; j < matrix.Height; j++)
+                {
+                    if (!columnEnumerable.MoveNext())
+                    {
+                        throw new ArgumentException("Not enough items in enumerable", nameof(firstColumn));
+                    }
+                    matrix[0, j] = columnEnumerable.Current;
+                }
+            }
+
+            for (int i = 1; i < matrix.Width; i++)
+            {
+                for (int j = 1; j < matrix.Height; j++)
+                {
+                    matrix[i, j] = getNew(i, matrix[i - 1, j], j, matrix[i, j - 1], matrix[i - 1, j - 1]);
+                }
+            }
+
+            return matrix;
+        }
     }
 }

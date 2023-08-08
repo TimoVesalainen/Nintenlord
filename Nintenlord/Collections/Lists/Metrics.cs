@@ -46,54 +46,34 @@ namespace Nintenlord.Collections.Lists
         public static IMatrix<int> LevenshteinMatrix<T>(this IReadOnlyList<T> first, IReadOnlyList<T> second,
             Func<T, int> delCost, Func<T, int> insCost, Func<T, T, int> replaceCost)
         {
-            var matrix = new ArrayMatrix<int>(first.Count + 1, second.Count + 1);
+            var firstRow = first.Scan(0, (cost, character) => cost + delCost(character));
+            var firstColumn = second.Scan(0, (cost, character) => cost + insCost(character));
 
-            for (int i = 0; i < matrix.Width; i++)
+            int GetNewCost(int i, int left, int j, int top, int topLeft)
             {
-                matrix[i, 0] = i;
-            }
-            for (int j = 0; j < matrix.Height; j++)
-            {
-                matrix[0, j] = j;
-            }
-            for (int i = 1; i < matrix.Width; i++)
-            {
-                for (int j = 1; j < matrix.Height; j++)
-                {
-                    var deletionCost = matrix[i - 1, j] + delCost(first[i-1]);
-                    var insertionCost = matrix[i, j - 1] + insCost(second[j-1]);
-                    int substitutionCost = matrix[i - 1, j - 1] + replaceCost(first[i - 1], second[j - 1]);
-                    matrix[i, j] = Math.Min(Math.Min(deletionCost, insertionCost), substitutionCost);
-                }
+                var deletionCost = left + delCost(first[i - 1]);
+                var insertionCost = top + insCost(second[j - 1]);
+                int substitutionCost = topLeft + replaceCost(first[i - 1], second[j - 1]);
+                return Math.Min(Math.Min(deletionCost, insertionCost), substitutionCost);
             }
 
-            return matrix;
+            return MatrixHelpers.BuildFrom(firstRow, firstColumn, first.Count + 1, second.Count + 1, GetNewCost);
         }
 
         public static IMatrix<int> NeedlemanWunschMatrix<T1, T2>(this IReadOnlyList<T1> first, IReadOnlyList<T2> second, Func<T1, T2, int> similarity, int gapPenalty = -1)
         {
-            var matrix = new ArrayMatrix<int>(first.Count + 1, second.Count + 1);
+            var firstRow = Enumerable.Range(0, first.Count + 1).Select(x => x * gapPenalty);
+            var firstColumn = Enumerable.Range(0, second.Count + 1).Select(x => x * gapPenalty);
 
-            for (int i = 0; i < matrix.Width; i++)
+            int GetNewCost(int i, int left, int j, int top, int topLeft)
             {
-                matrix[i, 0] = gapPenalty * i;
-            }
-            for (int j = 0; j < matrix.Height; j++)
-            {
-                matrix[0, j] = gapPenalty * j;
-            }
-            for (int i = 1; i < matrix.Width; i++)
-            {
-                for (int j = 1; j < matrix.Height; j++)
-                {
-                    var delete = matrix[i - 1, j] + gapPenalty;
-                    var insert = matrix[i, j - 1] + gapPenalty;
-                    int match = matrix[i - 1, j - 1] + similarity(first[i - 1], second[j - 1]);
-                    matrix[i, j] = Math.Max(Math.Max(delete, insert), match);
-                }
+                var deletionCost = left + gapPenalty;
+                var insertionCost = top + gapPenalty;
+                int substitutionCost = topLeft + similarity(first[i - 1], second[j - 1]);
+                return Math.Min(Math.Min(deletionCost, insertionCost), substitutionCost);
             }
 
-            return matrix;
+            return MatrixHelpers.BuildFrom(firstRow, firstColumn, first.Count + 1, second.Count + 1, GetNewCost);
         }
 
         public static IEnumerable<(Maybe<T1>, Maybe<T2>)> NeedlemanWunschMatching<T1, T2>(this IReadOnlyList<T1> first, IReadOnlyList<T2> second, Func<T1, T2, int> similarity, int gapPenalty = -1)
