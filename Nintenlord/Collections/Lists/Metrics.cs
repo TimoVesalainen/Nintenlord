@@ -80,6 +80,14 @@ namespace Nintenlord.Collections.Lists
         {
             var matrix = NeedlemanWunschMatrix(first, second, similarity, gapPenalty);
 
+            var list = new List<(Maybe<T1>, Maybe<T2>)>(first.Count + second.Count);
+            list.AddRange(BackTrack(matrix, first, second, similarity, gapPenalty));
+            list.Reverse();
+            return list;
+        }
+
+        public static IEnumerable<(Maybe<T1>, Maybe<T2>)> BackTrack<T1, T2>(IMatrix<int> matrix, IReadOnlyList<T1> first, IReadOnlyList<T2> second, Func<T1, T2, int> similarity, int gapPenalty)
+        {
             int i = first.Count;
             int j = second.Count;
 
