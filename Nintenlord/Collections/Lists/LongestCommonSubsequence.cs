@@ -20,7 +20,7 @@ namespace Nintenlord.Collections.Lists
             }
 
             comparer ??= EqualityComparer<T>.Default;
-            var matrix = LCSMatrix(first, second, comparer);
+            var matrix = LCSMatrix(first, second, comparer.Equals);
 
             var items = new List<T>(Math.Min(first.Count, second.Count));
             items.AddRange(Backtrack(matrix, first, second, comparer));
@@ -28,13 +28,13 @@ namespace Nintenlord.Collections.Lists
             return items;
         }
 
-        private static IMatrix<int> LCSMatrix<T>(IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
+        public static IMatrix<int> LCSMatrix<T1, T2>(IReadOnlyList<T1> first, IReadOnlyList<T2> second, Func<T1, T2, bool> comparer)
         {
             var firsts = 0.Repeat();
 
             int GetNewCost(int i, int left, int j, int top, int topLeft)
             {
-                return comparer.Equals(first[i - 1], second[j - 1])
+                return comparer(first[i - 1], second[j - 1])
                         ? topLeft + 1
                         : Math.Max(top, left);
             }
