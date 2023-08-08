@@ -111,5 +111,52 @@ namespace Nintenlord.Collections.Lists
                 }
             }
         }
+
+        public static IMatrix<int> DamerauLevenshteinMatrix<T1, T2>(this IReadOnlyList<T1> first, IReadOnlyList<T2> second,
+            Func<T1, int> delCost, Func<T2, int> insCost, Func<T1, T2, int> replaceCost, Func<T1, T2, int> transpositionCost,
+            Func<T1, T2, bool> areSame)
+        {
+            var matrix = new ArrayMatrix<int>(first.Count + 1, second.Count + 1);
+
+            matrix[0, 0] = 0;
+            for (int i = 1; i < matrix.Width; i++)
+            {
+                matrix[i, 0] = matrix[i - 1, 0] + delCost(first[i- 1]);
+            }
+            for (int j = 1; j < matrix.Height; j++)
+            {
+                matrix[0, j] = matrix[0, j - 1] + insCost(second[j - 1]);
+            }
+
+            for (int i = 1; i < matrix.Width; i++)
+            {
+                for (int j = 1; j < matrix.Height; j++)
+                {
+                    var value = Math.Min(Math.Min(
+                        matrix[i - 1, j] + delCost(first[i]),
+                        matrix[i, j - 1] + insCost(second[j])),
+                        matrix[i - 1, j - 1] + replaceCost(first[i], second[j]));
+
+                    if (i > 1 && j > 1 && areSame(first[i-1], second[j]) && areSame(first[i], second[j-1]))
+                    {
+                        value = Math.Min(value, matrix[i - 2, j - 2] + transpositionCost(first[i], second[j]));
+                    }
+
+                    matrix[i, j] = value;
+                }
+            }
+
+            return matrix;
+        }
+
+        public static int DamerauLevenshteinDistance<T>(this IReadOnlyList<T> first, IReadOnlyList<T> second,
+            Func<T, int> delCost, Func<T, int> insCost, Func<T, T, int> replaceCost, Func<T, T, int> transpositionCost,
+            IEqualityComparer<T> equalityComparer = null)
+        {
+            equalityComparer ??= EqualityComparer<T>.Default;
+            var matrix = DamerauLevenshteinMatrix(first, second, delCost, insCost, replaceCost, transpositionCost, equalityComparer.Equals);
+
+            return matrix[first.Count, second.Count];
+        }
     }
 }
