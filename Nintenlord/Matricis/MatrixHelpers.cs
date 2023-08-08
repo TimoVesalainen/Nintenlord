@@ -72,7 +72,15 @@ namespace Nintenlord.Matricis
             }
             else
             {
-                return new ArrayMatrix<T>((x, y) => matrix[x, y], matrix.Width, matrix.Height);
+                var newArray = new ArrayMatrix<T>(matrix.Width, matrix.Height);
+                for (int y = 0; y < matrix.Height; y++)
+                {
+                    for (int x = 0; x < matrix.Width; x++)
+                    {
+                        newArray[x, y] = matrix[x, y];
+                    }
+                }
+                return newArray;
             }
         }
 
@@ -95,7 +103,7 @@ namespace Nintenlord.Matricis
                 {
                     for (int x = 0; x < result.GetLength(1); x++)
                     {
-                        result[y, x] = matrix[x, y];
+                        result[x, y] = matrix[x, y];
                     }
                 }
             }
