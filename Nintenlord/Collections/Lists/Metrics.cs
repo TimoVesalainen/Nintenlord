@@ -43,8 +43,8 @@ namespace Nintenlord.Collections.Lists
         /// </summary>
         /// <remarks>Uses Wagner–Fischer algorithm</remarks>
         /// <returns>Levenshtein matrix</returns>
-        public static IMatrix<int> LevenshteinMatrix<T>(this IReadOnlyList<T> first, IReadOnlyList<T> second,
-            Func<T, int> delCost, Func<T, int> insCost, Func<T, T, int> replaceCost)
+        public static IMatrix<int> LevenshteinMatrix<T1, T2>(this IReadOnlyList<T1> first, IReadOnlyList<T2> second,
+            Func<T1, int> delCost, Func<T2, int> insCost, Func<T1, T2, int> replaceCost)
         {
             var firstRow = first.Scan(0, (cost, character) => cost + delCost(character));
             var firstColumn = second.Scan(0, (cost, character) => cost + insCost(character));
