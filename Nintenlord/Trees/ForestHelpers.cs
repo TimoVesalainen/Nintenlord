@@ -129,6 +129,7 @@ namespace Nintenlord.Trees
 
             return forest.Aggregate<IEnumerable<TNode>, TNode>(Combine, start);
         }
+
         public static RoseTree<TNode> GetRoseTree<TNode>(this IForest<TNode> forest, TNode root, IEqualityComparer<TNode> nodeComparer = null)
         {
             return forest.GetRoseTree(root, x => x, nodeComparer);
