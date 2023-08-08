@@ -16,7 +16,7 @@ namespace Nintenlord.Collections.Lists
         public static int Levenshtein<T>(this IReadOnlyList<T> first, IReadOnlyList<T> second,
             Func<T, int> delCost, Func<T, int> insCost, Func<T, T, int> replaceCost)
         {
-            var buffer1 = Enumerable.Range(0, second.Count).Append(0).ToArray();
+            var buffer1 = first.Scan(0, (sum, item) => sum + delCost(item)).ToArray();
             var buffer2 = new int[buffer1.Length];
 
             for (int i = 0; i < first.Count; i++)
