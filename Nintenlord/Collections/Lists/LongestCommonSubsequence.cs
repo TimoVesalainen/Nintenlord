@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Matricis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,9 +24,9 @@ namespace Nintenlord.Collections.Lists
             return Backtrack(matrix, first, second, comparer);
         }
 
-        private static int[,] LCSMatrix<T>(IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
+        private static IMatrix<int> LCSMatrix<T>(IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
         {
-            int[,] matrix = new int[first.Count + 1, second.Count + 1];
+            var matrix = new ArrayMatrix<int>(first.Count + 1, second.Count + 1);
 
             for (int i = 0; i < first.Count; i++)
             {
@@ -50,7 +51,7 @@ namespace Nintenlord.Collections.Lists
             return matrix;
         }
 
-        private static IEnumerable<T> Backtrack<T>(int[,] matrix, IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
+        private static IEnumerable<T> Backtrack<T>(IMatrix<int> matrix, IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
         {
             int length1 = first.Count;
             int length2 = second.Count;
