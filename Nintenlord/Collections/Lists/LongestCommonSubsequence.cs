@@ -21,7 +21,11 @@ namespace Nintenlord.Collections.Lists
 
             comparer ??= EqualityComparer<T>.Default;
             var matrix = LCSMatrix(first, second, comparer);
-            return Backtrack(matrix, first, second, comparer);
+
+            var items = new List<T>(Math.Min(first.Count, second.Count));
+            items.AddRange(Backtrack(matrix, first, second, comparer));
+            items.Reverse();
+            return items;
         }
 
         private static IMatrix<int> LCSMatrix<T>(IReadOnlyList<T> first, IReadOnlyList<T> second, IEqualityComparer<T> comparer)
@@ -55,13 +59,12 @@ namespace Nintenlord.Collections.Lists
         {
             int length1 = first.Count;
             int length2 = second.Count;
-            var items = new List<T>(Math.Min(first.Count, second.Count));
 
             while (length1 != 0 && length2 != 0)
             {
                 if (comparer.Equals(first[length1 - 1], second[length2 - 1]))
                 {
-                    items.Add(first[length1 - 1]);
+                    yield return first[length1 - 1];
                     length1--;
                     length2--;
                 }
@@ -74,8 +77,6 @@ namespace Nintenlord.Collections.Lists
                     length1--;
                 }
             }
-            items.Reverse();
-            return items;
         }
     }
 }
