@@ -13,8 +13,8 @@ namespace Nintenlord.Collections.Lists
         /// </summary>
         /// <remarks>Uses Wagner–Fischer algorithm</remarks>
         /// <returns>Levenshtein edit distance</returns>
-        public static int Levenshtein<T>(this IReadOnlyList<T> first, IReadOnlyList<T> second,
-            Func<T, int> delCost, Func<T, int> insCost, Func<T, T, int> replaceCost)
+        public static int Levenshtein<T1, T2>(this IReadOnlyList<T1> first, IReadOnlyList<T2> second,
+            Func<T1, int> delCost, Func<T2, int> insCost, Func<T1, T2, int> replaceCost)
         {
             var buffer1 = first.Scan(0, (sum, item) => sum + delCost(item)).ToArray();
             var buffer2 = new int[buffer1.Length];
