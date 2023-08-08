@@ -359,5 +359,65 @@ namespace Nintenlord.Matricis
 
             return matrix;
         }
+
+        public static (int x, int y, T max) FindMax<T>(this IMatrix<T> matrix, IComparer<T> comparer = null)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            if (matrix.Width == 0 || matrix.Height == 0)
+            {
+                throw new ArgumentException("Empty matrix", nameof(matrix));
+            }
+
+            comparer ??= Comparer<T>.Default;
+
+            var result = (0, 0, matrix[0, 0]);
+
+            for (int i = 0; i < matrix.Width; i++)
+            {
+                for (int j = 0; j < matrix.Height; j++)
+                {
+                    if (comparer.Compare(matrix[i,j], result.Item3) > 0)
+                    {
+                        result = (i, j, matrix[i, j]);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static (int x, int y, T min) FindMin<T>(this IMatrix<T> matrix, IComparer<T> comparer = null)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            if (matrix.Width == 0 || matrix.Height == 0)
+            {
+                throw new ArgumentException("Empty matrix", nameof(matrix));
+            }
+
+            comparer ??= Comparer<T>.Default;
+
+            var result = (0, 0, matrix[0, 0]);
+
+            for (int i = 0; i < matrix.Width; i++)
+            {
+                for (int j = 0; j < matrix.Height; j++)
+                {
+                    if (comparer.Compare(matrix[i, j], result.Item3) < 0)
+                    {
+                        result = (i, j, matrix[i, j]);
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
