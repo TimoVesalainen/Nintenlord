@@ -93,7 +93,7 @@ namespace Nintenlord.Collections.Lists
 
             while (i > 0 || j > 0)
             {
-                if (i > 0 && j > 0 && matrix[i, j] == matrix[i - 1, j - 1] + similarity(first[i -1], second[j - 1]))
+                if (i > 0 && j > 0 && matrix[i, j] == matrix[i - 1, j - 1] + similarity(first[i - 1], second[j - 1]))
                 {
                     yield return (first[i - 1], second[j - 1]);
                     i--;
