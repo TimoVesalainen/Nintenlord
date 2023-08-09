@@ -3,6 +3,7 @@ using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Nintenlord.StateMachines
 {
@@ -32,6 +33,11 @@ namespace Nintenlord.StateMachines
                 start = machine.Transition(start, item);
             }
             yield return start;
+        }
+
+        public static IEnumerable<TState> GetFinalStates<TState, TInput>(this IFiniteStateMachine<TState, TInput> stateMachine)
+        {
+            return stateMachine.States.Where(x => stateMachine.IsFinalState(x));
         }
 
         public static HistoryKeepingStateMachine<TState, TInput>
