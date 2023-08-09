@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.StateMachines
 {
-    public sealed class MatrixStateMachine<TState, TInput> : IStateMachine<TState, TInput>
+    public sealed class MatrixStateMachine<TState, TInput> : IFiniteStateMachine<TState, TInput>
     {
         private readonly TState[] states;
         private readonly TInput[] inputs;
@@ -24,6 +24,8 @@ namespace Nintenlord.StateMachines
         }
 
         public TState StartState => states[0];
+
+        public IEnumerable<TState> States => states;
 
         public IEnumerable<TState> GetStates()
         {

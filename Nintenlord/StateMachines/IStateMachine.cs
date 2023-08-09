@@ -1,4 +1,6 @@
-﻿namespace Nintenlord.StateMachines
+﻿using System.Collections;
+
+namespace Nintenlord.StateMachines
 {
     public interface IStateMachine<TState, in TInput>
     {

@@ -1,9 +1,11 @@
 ﻿using Nintenlord.Matricis;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.StateMachines
 {
-    public sealed class IntMatrixStateMachine : IStateMachine<int, int>
+    public sealed class IntMatrixStateMachine : IFiniteStateMachine<int, int>
     {
         readonly IMatrix<int> matrix;
         readonly Predicate<int> isFinal;
@@ -16,6 +18,8 @@ namespace Nintenlord.StateMachines
         }
 
         public int StartState { get; }
+
+        public IEnumerable<int> States => Enumerable.Range(0, matrix.Width);
 
         public bool IsFinalState(int state) => isFinal(state);
 

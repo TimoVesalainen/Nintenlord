@@ -32,12 +32,6 @@ namespace Nintenlord.StateMachines
 
         public TState[] StartState => startState;
 
-        public IEnumerable<TState[]> GetStates()
-        {
-            //Yeah
-            throw new NotImplementedException();
-        }
-
         public bool IsFinalState(TState[] state)
         {
             return stateMachine.IsFinalState(state[state.Length - 1]);
