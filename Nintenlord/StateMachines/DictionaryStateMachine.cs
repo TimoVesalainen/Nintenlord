@@ -20,7 +20,7 @@ namespace Nintenlord.StateMachines
 
         public TState StartState => startState;
 
-        public IEnumerable<TState> States => transitions.Keys.Select(keyValuePair => keyValuePair.Item1);
+        public IEnumerable<TState> States => transitions.Keys.Select(keyValuePair => keyValuePair.Item1).Distinct();
 
         public bool IsFinalState(TState state)
         {
