@@ -15,6 +15,16 @@ namespace Nintenlord.StateMachines
             this.matrix = matrix;
             this.isFinal = isFinal;
             StartState = startState;
+
+            if (matrix.Width != matrix.Height)
+            {
+                throw new ArgumentException("Must be square matrix", nameof(matrix));
+            }
+
+            if (matrix.Entries().Where(entry => entry < 0 || entry >= matrix.Width).Any())
+            {
+                throw new ArgumentException("Entries must be in range [0, matrix.Width)", nameof(matrix));
+            }
         }
 
         public int StartState { get; }
