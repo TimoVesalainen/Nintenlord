@@ -7,6 +7,22 @@ namespace Nintenlord.Matricis
 {
     public static class MatrixHelpers
     {
+        public static IEnumerable<T> Entries<T>(this IMatrix<T> matrix)
+        {
+            if (matrix is null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            for (int y = 0; y < matrix.Height; y++)
+            {
+                for (int x = 0; x < matrix.Width; x++)
+                {
+                    yield return matrix[x, y];
+                }
+            }
+        }
+
         public static IEnumerable<T> Column<T>(this IMatrix<T> matrix, int x)
         {
             if (matrix is null)
