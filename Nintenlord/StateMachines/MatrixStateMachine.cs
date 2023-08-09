@@ -36,7 +36,7 @@ namespace Nintenlord.StateMachines
         {
             for (int i = 0; i < finalStates.Length; i++)
             {
-                if (Equals(states[finalStates[i]], state))
+                if (stateComparer.Equals(states[finalStates[i]], state))
                 {
                     return true;
                 }
