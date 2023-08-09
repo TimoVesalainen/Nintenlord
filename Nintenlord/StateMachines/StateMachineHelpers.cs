@@ -119,5 +119,20 @@ namespace Nintenlord.StateMachines
         {
             return new AddCommandsStateMachine<TState, TInput1, TInput2>(machine, newCommandsHandler);
         }
+
+        public static DictionaryStateMachine<TState, TInput> ToDictionaryStateMachine<TState, TInput>(this IFiniteStateMachine<TState, TInput> machine, IEnumerable<TInput> inputs)
+        {
+            Dictionary<(TState, TInput), TState> dictionary = new();
+
+            foreach (var state in machine.States)
+            {
+                foreach (var input in inputs)
+                {
+                    dictionary[(state, input)] = machine.Transition(state, input);
+                }
+            }
+
+            return new DictionaryStateMachine<TState, TInput>(dictionary, machine.IsFinalState, machine.StartState);
+        }
     }
 }
