@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.StateMachines
+namespace Nintenlord.StateMachines.Finite
 {
     public sealed class DictionaryStateMachine<TState, TInput> : IFiniteStateMachine<TState, TInput>
     {

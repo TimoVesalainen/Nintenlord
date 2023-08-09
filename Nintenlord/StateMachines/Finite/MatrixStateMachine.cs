@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.StateMachines
+namespace Nintenlord.StateMachines.Finite
 {
     public sealed class MatrixStateMachine<TState, TInput> : IFiniteStateMachine<TState, TInput>
     {

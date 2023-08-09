@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nintenlord.StateMachines
+namespace Nintenlord.StateMachines.Finite
 {
     public interface IFiniteStateMachine<TState, in TInput> : IStateMachine<TState, TInput>
     {
