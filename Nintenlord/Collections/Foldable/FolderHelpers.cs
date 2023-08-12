@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Nintenlord.Collections.Foldable
 {
@@ -9,6 +10,18 @@ namespace Nintenlord.Collections.Foldable
         public static TOut Fold<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IEnumerable<TIn> enumerable)
         {
             return folder.Transform(enumerable.Aggregate(folder.Start, folder.Fold));
+        }
+
+        public static async Task<TOut> FoldAsync<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IAsyncEnumerable<TIn> enumerable)
+        {
+            TState state = folder.Start;
+
+            await foreach (var item in enumerable)
+            {
+                state = folder.Fold(state, item);
+            }
+
+            return folder.Transform(state);
         }
 
         public static IFolder<TIn, (TState1, TState2), TOut> Combine<TIn, TState1, TState2, TOut1, TOut2, TOut>(
