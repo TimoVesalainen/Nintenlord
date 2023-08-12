@@ -1,0 +1,1 @@
+Inspired by: https://github.com/Gabriella439/foldl
