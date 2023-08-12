@@ -45,6 +45,15 @@ namespace Nintenlord.Collections.Foldable
 
         public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Value;
 
+        public static AnyFolder<T> Contains<T>(T item, IEqualityComparer<T> comparer = null)
+        {
+            comparer ??= EqualityComparer<T>.Default;
+            return new(otherItem => comparer.Equals(otherItem, item));
+        }
+        public static FindFolder<T> Find<T>(Predicate<T> predicate) => new(predicate);
+        public static FirstIndexOfFolder<T> FirstIndexOf<T>(Predicate<T> predicate) => new(predicate);
+        public static LastIndexOfFolder<T> LastIndexOf<T>(Predicate<T> predicate) => new(predicate);
+
         public static ReturnFolder<T, TResult> Return<T, TResult>(TResult result) => ReturnFolder<T, TResult>.Create(result);
     }
 }
