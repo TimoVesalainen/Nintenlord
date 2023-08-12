@@ -34,16 +34,15 @@ namespace Nintenlord.Collections.Foldable
         public static MinFolder<T> MinBy<T>(IComparer<T> comparer) => MinFolder<T>.Create(comparer);
         public static MaxFolder<T> Max<T>() => MaxFolder<T>.Default;
         public static MaxFolder<T> MaxBy<T>(IComparer<T> comparer) => MaxFolder<T>.Create(comparer);
-
-        public static FirstFolder<T> First<T>() => FirstFolder<T>.Instance;
-        public static LastFolder<T> Last<T>() => LastFolder<T>.Instance;
-
         public static IFolder<T, (Maybe<T>, Maybe<T>), Maybe<(T min, T max)>> MinMax<T>()
         {
             return Min<T>().Combine(Max<T>(), (x, y) => MaybeHelpers.Zip(x, y, (a, b) => (a, b)));
         }
 
         public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Value;
+
+        public static FirstFolder<T> First<T>() => FirstFolder<T>.Instance;
+        public static LastFolder<T> Last<T>() => LastFolder<T>.Instance;
 
         public static AnyFolder<T> Contains<T>(T item, IEqualityComparer<T> comparer = null)
         {
