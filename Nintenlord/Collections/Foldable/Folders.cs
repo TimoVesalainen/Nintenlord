@@ -42,7 +42,9 @@ namespace Nintenlord.Collections.Foldable
         public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Value;
 
         public static FirstFolder<T> First<T>() => FirstFolder<T>.Instance;
+        public static FirstFolder<T> First<T>(Predicate<T> predicate) => new FirstFolder<T>(predicate);
         public static LastFolder<T> Last<T>() => LastFolder<T>.Instance;
+        public static LastFolder<T> Last<T>(Predicate<T> predicate) => new LastFolder<T>(predicate);
 
         public static AnyFolder<T> Contains<T>(T item, IEqualityComparer<T> comparer = null)
         {

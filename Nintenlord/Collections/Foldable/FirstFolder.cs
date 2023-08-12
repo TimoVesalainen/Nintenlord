@@ -9,9 +9,14 @@ namespace Nintenlord.Collections.Foldable
 {
     public sealed class FirstFolder<T> : IFolder<T, Maybe<T>, Maybe<T>>
     {
-        public readonly static FirstFolder<T> Instance = new();
+        public readonly static FirstFolder<T> Instance = new(x => true);
 
-        private FirstFolder() { }
+        readonly Predicate<T> predicate;
+
+        public FirstFolder(Predicate<T> predicate)
+        {
+            this.predicate = predicate;
+        }
 
         public Maybe<T> Start => Maybe<T>.Nothing;
 
@@ -21,9 +26,13 @@ namespace Nintenlord.Collections.Foldable
             {
                 return state;
             }
-            else
+            else if (predicate(input))
             {
                 return input;
+            }
+            else
+            {
+                return state;
             }
         }
 
