@@ -59,5 +59,12 @@ namespace Nintenlord.Collections.Foldable
         {
             return new Combiner<TIn, TState1, TState2, TOut1, TOut2, TOut>(folder1, folder2, combiner);
         }
+
+        public static EitherFolder<TIn1, TIn2, TState1, TState2, TOut1, TOut2> Either<TIn1, TIn2, TState1, TState2, TOut1, TOut2>(
+            this IFolder<TIn1, TState1, TOut1> folder1,
+            IFolder<TIn2, TState2, TOut2> folder2)
+        {
+            return new EitherFolder<TIn1, TIn2, TState1, TState2, TOut1, TOut2>(folder1, folder2);
+        }
     }
 }
