@@ -29,6 +29,8 @@ namespace Nintenlord.Collections.Foldable
 
         public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
         public static readonly MeanFloatFolder AverageFloat = MeanFloatFolder.Instance;
+        public static readonly VarianceIntFolder VarianceInteger = VarianceIntFolder.Instance;
+        public static readonly VarianceFloatFolder VarianceFloat = VarianceFloatFolder.Instance;
 
         public static MinFolder<T> Min<T>() => MinFolder<T>.Default;
         public static MinFolder<T> MinBy<T>(IComparer<T> comparer) => MinFolder<T>.Create(comparer);
