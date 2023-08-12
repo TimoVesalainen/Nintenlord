@@ -30,6 +30,11 @@ namespace Nintenlord.Collections.Foldable
             return observable.Aggregate(folder.Start, folder.Fold).Select(folder.Transform);
         }
 
+        public static IFolder<TIn, TState, TOut2> Select<TIn, TState, TOut1, TOut2>(this IFolder<TIn, TState, TOut1> folder, Func<TOut1, TOut2> selector)
+        {
+            return new SelectFolder<TIn, TState, TOut1, TOut2>(folder, selector);
+        }
+
         public static IFolder<TIn, (TState1, TState2), TOut> Combine<TIn, TState1, TState2, TOut1, TOut2, TOut>(
             this IFolder<TIn, TState1, TOut1> folder1,
             IFolder<TIn, TState2, TOut2> folder2,
