@@ -9,7 +9,7 @@ namespace Nintenlord.Collections.Foldable
     /// <summary>
     /// Inspired by: https://github.com/Gabriella439/foldl
     /// </summary>
-    public interface IFolder<TIn, TState, TOut>
+    public interface IFolder<in TIn, TState, out TOut>
     {
         TState Start { get; }
 
