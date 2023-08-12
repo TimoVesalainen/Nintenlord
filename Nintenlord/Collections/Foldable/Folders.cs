@@ -23,7 +23,9 @@ namespace Nintenlord.Collections.Foldable
 
         public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
         public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Value;
+        public static AmountOfFolderInt<T> CountI<T>(Predicate<T> predicate) => new AmountOfFolderInt<T>(predicate);
         public static CountLongFolder<T> CountL<T>() => CountLongFolder<T>.Value;
+        public static AmountOfFolderLong<T> CountL<T>(Predicate<T> predicate) => new AmountOfFolderLong<T>(predicate);
 
         public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
         public static readonly MeanFloatFolder AverageFloat = MeanFloatFolder.Instance;
