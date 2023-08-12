@@ -19,6 +19,7 @@ namespace Nintenlord.Collections.Foldable
         public static readonly IFolder<float, float, float> ProductF = new FunctionFolder<float, float, float>(0, (x, y) => x * y, x => x);
         public static readonly IFolder<double, double, double> ProductD = new FunctionFolder<double, double, double>(0, (x, y) => x * y, x => x);
 
+        public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
         public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Value;
         public static CountLongFolder<T> CountL<T>() => CountLongFolder<T>.Value;
 
