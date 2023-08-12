@@ -5,7 +5,7 @@ namespace Nintenlord.Collections.Foldable
 {
     public sealed class CountIntFolder<T> : IFolder<T, int, int>
     {
-        public readonly static CountIntFolder<T> Value = new();
+        public readonly static CountIntFolder<T> Instance = new();
 
         private CountIntFolder()
         {

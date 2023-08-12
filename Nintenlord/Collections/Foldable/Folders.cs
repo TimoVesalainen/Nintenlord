@@ -23,9 +23,9 @@ namespace Nintenlord.Collections.Foldable
         public static readonly IFolder<double, double, double> ProductD = new FunctionFolder<double, double, double>(0, (x, y) => x * y, x => x);
 
         public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
-        public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Value;
+        public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Instance;
         public static AmountOfFolderInt<T> CountI<T>(Predicate<T> predicate) => new AmountOfFolderInt<T>(predicate);
-        public static CountLongFolder<T> CountL<T>() => CountLongFolder<T>.Value;
+        public static CountLongFolder<T> CountL<T>() => CountLongFolder<T>.Instance;
         public static AmountOfFolderLong<T> CountL<T>(Predicate<T> predicate) => new AmountOfFolderLong<T>(predicate);
 
         public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
