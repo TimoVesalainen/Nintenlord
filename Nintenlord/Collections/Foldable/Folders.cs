@@ -11,6 +11,7 @@ namespace Nintenlord.Collections.Foldable
         public static readonly AnyFolder<bool> Or = new(x => x);
         public static AnyFolder<T> Any<T>(Predicate<T> predicate) => new(predicate);
 
+        // TODO: Rewrite using generic math
         public static readonly IFolder<int, int, int> SumI = new FunctionFolder<int, int, int>(0, (x, y) => x + y, x => x);
         public static readonly IFolder<long, long, long> SumL = new FunctionFolder<long, long, long>(0, (x, y) => x + y, x => x);
         public static readonly IFolder<float, float, float> SumF = new FunctionFolder<float, float, float>(0, (x, y) => x + y, x => x);
