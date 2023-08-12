@@ -1,4 +1,6 @@
 ﻿using Nintenlord.Utility;
+using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Foldable
 {
@@ -32,5 +34,7 @@ namespace Nintenlord.Collections.Foldable
         {
             return Min<T>().Combine(Max<T>(), (x, y) => MaybeHelpers.Zip(x, y, (a, b) => (a, b)));
         }
+
+        public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Value;
     }
 }
