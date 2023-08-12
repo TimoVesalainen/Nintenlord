@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace Nintenlord.Collections.Foldable
@@ -22,6 +23,11 @@ namespace Nintenlord.Collections.Foldable
             }
 
             return folder.Transform(state);
+        }
+
+        public static IObservable<TOut> Fold<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IObservable<TIn> observable)
+        {
+            return observable.Aggregate(folder.Start, folder.Fold).Select(folder.Transform);
         }
 
         public static IFolder<TIn, (TState1, TState2), TOut> Combine<TIn, TState1, TState2, TOut1, TOut2, TOut>(
