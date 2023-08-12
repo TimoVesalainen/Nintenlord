@@ -6,8 +6,10 @@ namespace Nintenlord.Collections.Foldable
 {
     public static class Folders
     {
-        public static readonly IFolder<bool, bool, bool> And = new FunctionFolder<bool, bool, bool>(true, (x, y) => x && y, x => x);
-        public static readonly IFolder<bool, bool, bool> Or = new FunctionFolder<bool, bool, bool>(false, (x, y) => x || y, x => x);
+        public static readonly AllFolder<bool> And = new(x => x);
+        public static AllFolder<T> All<T>(Predicate<T> predicate) => new(predicate);
+        public static readonly AnyFolder<bool> Or = new(x => x);
+        public static AnyFolder<T> Any<T>(Predicate<T> predicate) => new(predicate);
 
         public static readonly IFolder<int, int, int> SumI = new FunctionFolder<int, int, int>(0, (x, y) => x + y, x => x);
         public static readonly IFolder<long, long, long> SumL = new FunctionFolder<long, long, long>(0, (x, y) => x + y, x => x);
