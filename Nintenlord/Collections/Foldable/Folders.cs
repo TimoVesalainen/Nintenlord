@@ -25,10 +25,8 @@ namespace Nintenlord.Collections.Foldable
         public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Value;
         public static CountLongFolder<T> CountL<T>() => CountLongFolder<T>.Value;
 
-        public static readonly IFolder<int, (int, int), double> AverageI = SumI.Combine(CountI<int>(), (sum, count) => sum / (double)count);
-        public static readonly IFolder<long, (long, int), double> AverageL = SumL.Combine(CountI<long>(), (sum, count) => sum / (double)count);
-        public static readonly IFolder<float, (float, int), double> AverageF = SumF.Combine(CountI<float>(), (sum, count) => sum / (double)count);
-        public static readonly IFolder<double, (double, int), double> AverageD = SumD.Combine(CountI<double>(), (sum, count) => sum / (double)count);
+        public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
+        public static readonly MeanFloatFolder AverageFloat = MeanFloatFolder.Instance;
 
         public static MinFolder<T> Min<T>() => MinFolder<T>.Default;
         public static MinFolder<T> MinBy<T>(IComparer<T> comparer) => MinFolder<T>.Create(comparer);
