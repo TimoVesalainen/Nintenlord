@@ -13,6 +13,11 @@ namespace Nintenlord.Collections.Foldable
             return folder.Transform(enumerable.Aggregate(folder.Start, folder.Fold));
         }
 
+        public static IEnumerable<TOut> Scan<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IEnumerable<TIn> enumerable)
+        {
+            return enumerable.Scan(folder.Start, folder.Fold).Select(folder.Transform);
+        }
+
         public static async Task<TOut> FoldAsync<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IAsyncEnumerable<TIn> enumerable)
         {
             TState state = folder.Start;
@@ -23,6 +28,18 @@ namespace Nintenlord.Collections.Foldable
             }
 
             return folder.Transform(state);
+        }
+
+        public static async IAsyncEnumerable<TOut> ScanAsync<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IAsyncEnumerable<TIn> enumerable)
+        {
+            TState state = folder.Start;
+            yield return folder.Transform(state);
+
+            await foreach (var item in enumerable)
+            {
+                state = folder.Fold(state, item);
+                yield return folder.Transform(state);
+            }
         }
 
         public static IObservable<TOut> Fold<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IObservable<TIn> observable)
