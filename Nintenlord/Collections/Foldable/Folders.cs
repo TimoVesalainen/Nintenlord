@@ -39,7 +39,7 @@ namespace Nintenlord.Collections.Foldable
             return Min<T>().Combine(Max<T>(), (x, y) => MaybeHelpers.Zip(x, y, (a, b) => (a, b)));
         }
 
-        public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Value;
+        public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Instance;
 
         public static FirstFolder<T> First<T>() => FirstFolder<T>.Instance;
         public static FirstFolder<T> First<T>(Predicate<T> predicate) => new FirstFolder<T>(predicate);

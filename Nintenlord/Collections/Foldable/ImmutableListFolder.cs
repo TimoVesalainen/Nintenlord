@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Immutable;
 
 namespace Nintenlord.Collections.Foldable
 {
-    public class ImmutableListFolder<T> : IFolder<T, ImmutableList<T>, ImmutableList<T>>
+    public sealed class ImmutableListFolder<T> : IFolder<T, ImmutableList<T>, ImmutableList<T>>
     {
-        public readonly static ImmutableListFolder<T> Value = new();
+        public readonly static ImmutableListFolder<T> Instance = new();
+
+        private ImmutableListFolder() { }
 
         public ImmutableList<T> Start => ImmutableList<T>.Empty;
 
