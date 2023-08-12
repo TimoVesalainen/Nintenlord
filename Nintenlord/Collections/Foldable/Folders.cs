@@ -28,7 +28,9 @@ namespace Nintenlord.Collections.Foldable
         public static readonly IFolder<double, (double, int), double> AverageD = SumD.Combine(CountI<double>(), (sum, count) => sum / (double)count);
 
         public static MinFolder<T> Min<T>() => MinFolder<T>.Default;
+        public static MinFolder<T> MinBy<T>(IComparer<T> comparer) => MinFolder<T>.Create(comparer);
         public static MaxFolder<T> Max<T>() => MaxFolder<T>.Default;
+        public static MaxFolder<T> MaxBy<T>(IComparer<T> comparer) => MaxFolder<T>.Create(comparer);
 
         public static IFolder<T, (Maybe<T>, Maybe<T>), Maybe<(T min, T max)>> MinMax<T>()
         {
