@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    public interface IRegExExpressionTree<TLetter> : ITreeNode<IRegExExpressionTree<TLetter>>
+    public interface IRegExExpressionTreeNode<TLetter> : ITreeNode<IRegExExpressionTreeNode<TLetter>>
     {
         RegExNodeTypes Type { get; }
     }

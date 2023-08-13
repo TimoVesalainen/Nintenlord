@@ -13,7 +13,7 @@ namespace Nintenlord.Grammars.RegularExpression
 {
     public static class RegExHelpers
     {
-        public static bool IsEmpty<TLetter>(IRegExExpressionTree<TLetter> exp)
+        public static bool IsEmpty<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
         {
             switch (exp.Type)
             {
@@ -34,7 +34,7 @@ namespace Nintenlord.Grammars.RegularExpression
             }
         }
 
-        public static bool IsEmptyWord<TLetter>(IRegExExpressionTree<TLetter> exp)
+        public static bool IsEmptyWord<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
         {
             switch (exp.Type)
             {
@@ -54,7 +54,7 @@ namespace Nintenlord.Grammars.RegularExpression
             }
         }
 
-        public static bool IsInfinite<TLetter>(IRegExExpressionTree<TLetter> exp)
+        public static bool IsInfinite<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
         {
             switch (exp.Type)
             {
@@ -75,7 +75,7 @@ namespace Nintenlord.Grammars.RegularExpression
             }
         }
 
-        public static DeterministicFiniteAutomaton<bool[], TLetter> GetDFA<TLetter>(IRegExExpressionTree<TLetter> exp, IEnumerable<TLetter> alphabet)
+        public static DeterministicFiniteAutomaton<bool[], TLetter> GetDFA<TLetter>(IRegExExpressionTreeNode<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
             int n = 0;
             var epsNFA = GetNFA(exp, () => n++);
@@ -162,7 +162,7 @@ namespace Nintenlord.Grammars.RegularExpression
         }
 
         private static EpsilonDFA<TState, TLetter> GetNFA<TState, TLetter>(
-            IRegExExpressionTree<TLetter> exp, Func<TState> getNewState)
+            IRegExExpressionTreeNode<TLetter> exp, Func<TState> getNewState)
         {
             switch (exp.Type)
             {
@@ -199,7 +199,7 @@ namespace Nintenlord.Grammars.RegularExpression
             }
         }
 
-        public static IRegExExpressionTree<TLetter> Simplify<TLetter>(IRegExExpressionTree<TLetter> exp)
+        public static IRegExExpressionTreeNode<TLetter> Simplify<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
         {
             switch (exp.Type)
             {

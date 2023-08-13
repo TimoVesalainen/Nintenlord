@@ -3,11 +3,11 @@
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
 
-    public sealed class KleeneClosure<TLetter> : IRegExExpressionTree<TLetter>
+    public sealed class KleeneClosure<TLetter> : IRegExExpressionTreeNode<TLetter>
     {
-        private readonly IRegExExpressionTree<TLetter> toRepeat;
+        private readonly IRegExExpressionTreeNode<TLetter> toRepeat;
 
-        public KleeneClosure(IRegExExpressionTree<TLetter> toRepeat)
+        public KleeneClosure(IRegExExpressionTreeNode<TLetter> toRepeat)
         {
             this.toRepeat = toRepeat;
         }
@@ -20,7 +20,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region ITree<TLetter> Members
 
-        public IEnumerable<IRegExExpressionTree<TLetter>> GetChildren()
+        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
         {
             yield return toRepeat;
         }

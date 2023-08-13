@@ -2,14 +2,14 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    public sealed class Concatenation<TLetter> : IRegExExpressionTree<TLetter>
+    public sealed class Concatenation<TLetter> : IRegExExpressionTreeNode<TLetter>
     {
-        private readonly IRegExExpressionTree<TLetter> first;
-        private readonly IRegExExpressionTree<TLetter> second;
+        private readonly IRegExExpressionTreeNode<TLetter> first;
+        private readonly IRegExExpressionTreeNode<TLetter> second;
 
         public Concatenation(
-            IRegExExpressionTree<TLetter> first,
-            IRegExExpressionTree<TLetter> second)
+            IRegExExpressionTreeNode<TLetter> first,
+            IRegExExpressionTreeNode<TLetter> second)
         {
             this.first = first;
             this.second = second;
@@ -23,7 +23,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region ITree<IRegExExpressionTree<TLetter>> Members
 
-        public IEnumerable<IRegExExpressionTree<TLetter>> GetChildren()
+        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
         {
             yield return first;
             yield return second;

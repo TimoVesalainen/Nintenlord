@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    public sealed class Letter<TLetter> : IRegExExpressionTree<TLetter>
+    public sealed class Letter<TLetter> : IRegExExpressionTreeNode<TLetter>
     {
         public readonly TLetter LetterToMatch;
 
@@ -19,7 +19,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region ITree<TLetter> Members
 
-        public IEnumerable<IRegExExpressionTree<TLetter>> GetChildren()
+        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
         {
             yield break;
         }

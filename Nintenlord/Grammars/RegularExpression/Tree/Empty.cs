@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    public sealed class Empty<TLetter> : IRegExExpressionTree<TLetter>
+    public sealed class Empty<TLetter> : IRegExExpressionTreeNode<TLetter>
     {
         #region IRegExExpressionTree<TLetter> Members
 
@@ -12,7 +12,7 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
 
         #region ITree<TLetter> Members
 
-        public IEnumerable<IRegExExpressionTree<TLetter>> GetChildren()
+        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
         {
             yield break;
         }
