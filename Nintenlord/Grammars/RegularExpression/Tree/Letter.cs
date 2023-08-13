@@ -2,7 +2,7 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    public sealed class Letter<TLetter> : IRegExExpressionTreeNode<TLetter>
+    public sealed class Letter<TLetter> : IRegExExpressionNode<TLetter>
     {
         public readonly TLetter LetterToMatch;
 
@@ -11,19 +11,6 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
             this.LetterToMatch = letter;
         }
 
-        #region IRegExExpressionTree<T> Members
-
         public RegExNodeTypes Type => RegExNodeTypes.Letter;
-
-        #endregion
-
-        #region ITree<TLetter> Members
-
-        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
-        {
-            yield break;
-        }
-
-        #endregion
     }
 }

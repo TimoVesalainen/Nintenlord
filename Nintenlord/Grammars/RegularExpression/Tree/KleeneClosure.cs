@@ -2,29 +2,16 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-
-    public sealed class KleeneClosure<TLetter> : IRegExExpressionTreeNode<TLetter>
+    public sealed class KleeneClosure<TLetter> : IRegExExpressionNode<TLetter>
     {
-        private readonly IRegExExpressionTreeNode<TLetter> toRepeat;
+        public static readonly KleeneClosure<TLetter> Instance = new();
 
-        public KleeneClosure(IRegExExpressionTreeNode<TLetter> toRepeat)
+        private KleeneClosure()
         {
-            this.toRepeat = toRepeat;
+
         }
 
-        #region IRegExExpressionTree<TLetter> Members
 
         public RegExNodeTypes Type => RegExNodeTypes.KleeneClosure;
-
-        #endregion
-
-        #region ITree<TLetter> Members
-
-        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
-        {
-            yield return toRepeat;
-        }
-
-        #endregion
     }
 }

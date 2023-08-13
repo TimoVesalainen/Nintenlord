@@ -2,33 +2,14 @@
 
 namespace Nintenlord.Grammars.RegularExpression.Tree
 {
-    public sealed class Choise<TLetter> : IRegExExpressionTreeNode<TLetter>
+    public sealed class Choise<TLetter> : IRegExExpressionNode<TLetter>
     {
-        private readonly IRegExExpressionTreeNode<TLetter> firstChoise;
-        private readonly IRegExExpressionTreeNode<TLetter> secondChoise;
+        public static readonly Choise<TLetter> Instance = new Choise<TLetter>();
 
-        public Choise(
-            IRegExExpressionTreeNode<TLetter> firstChoise,
-            IRegExExpressionTreeNode<TLetter> secondChoise)
+        private Choise()
         {
-            this.firstChoise = firstChoise;
-            this.secondChoise = secondChoise;
         }
-
-        #region IRegExExpressionTree<TLetter> Members
 
         public RegExNodeTypes Type => RegExNodeTypes.Choise;
-
-        #endregion
-
-        #region ITree<IRegExExpressionTree<TLetter>> Members
-
-        public IEnumerable<IRegExExpressionTreeNode<TLetter>> GetChildren()
-        {
-            yield return firstChoise;
-            yield return secondChoise;
-        }
-
-        #endregion
     }
 }

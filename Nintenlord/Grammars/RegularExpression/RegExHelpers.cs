@@ -3,6 +3,7 @@ using Nintenlord.Grammars.RegularExpression.Tree;
 using Nintenlord.Graph;
 using Nintenlord.Graph.PathFinding;
 using Nintenlord.StateMachines.Old;
+using Nintenlord.Trees;
 using Nintenlord.Utility;
 using Nintenlord.Utility.Primitives;
 using System;
@@ -13,72 +14,72 @@ namespace Nintenlord.Grammars.RegularExpression
 {
     public static class RegExHelpers
     {
-        public static bool IsEmpty<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
+
+        public static bool IsEmpty<TLetter>(this ITree<IRegExExpressionNode<TLetter>> tree)
         {
-            switch (exp.Type)
-            {
-                case RegExNodeTypes.Letter:
-                    return false;
-                case RegExNodeTypes.EmptyWord:
-                    return false;
-                case RegExNodeTypes.Empty:
-                    return true;
-                case RegExNodeTypes.KleeneClosure:
-                    return exp.GetChildren().All(IsEmpty);
-                case RegExNodeTypes.Choise:
-                    return exp.GetChildren().All(IsEmpty);
-                case RegExNodeTypes.Concatenation:
-                    return exp.GetChildren().Any(IsEmpty);
-                default:
-                    throw new ArgumentException();
-            }
+            return tree.IsEmpty(tree.Root);
         }
 
-        public static bool IsEmptyWord<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
+        public static bool IsEmpty<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> startNode)
         {
-            switch (exp.Type)
+            bool IsEmptyInner(IRegExExpressionNode<TLetter> exp)
             {
-                case RegExNodeTypes.Letter:
-                case RegExNodeTypes.Empty:
-                    return false;
-                case RegExNodeTypes.EmptyWord:
-                    return true;
-                case RegExNodeTypes.KleeneClosure:
-                    return exp.GetChildren().All(IsEmptyWord);
-                case RegExNodeTypes.Choise:
-                    return exp.GetChildren().All(IsEmptyWord);
-                case RegExNodeTypes.Concatenation:
-                    return exp.GetChildren().All(IsEmptyWord);
-                default:
-                    throw new ArgumentException();
+                return exp.Type switch
+                {
+                    RegExNodeTypes.Letter => false,
+                    RegExNodeTypes.EmptyWord => false,
+                    RegExNodeTypes.Empty => true,
+                    RegExNodeTypes.KleeneClosure => false,
+                    RegExNodeTypes.Choise => forest.GetChildren(exp).All(IsEmptyInner),
+                    RegExNodeTypes.Concatenation => forest.GetChildren(exp).Any(IsEmptyInner),
+                    _ => throw new ArgumentOutOfRangeException(nameof(exp), exp.Type, "Unknown type"),
+                };
             }
+
+            return IsEmptyInner(startNode);
         }
 
-        public static bool IsInfinite<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
+        public static bool IsEmptyWord<TLetter>(this ITree<IRegExExpressionNode<TLetter>> tree)
         {
-            switch (exp.Type)
-            {
-                case RegExNodeTypes.Letter:
-                    return false;
-                case RegExNodeTypes.EmptyWord:
-                    return false;
-                case RegExNodeTypes.Empty:
-                    return false;
-                case RegExNodeTypes.KleeneClosure:
-                    return !(IsEmpty(exp) || IsEmptyWord(exp));
-                case RegExNodeTypes.Choise:
-                    return exp.GetChildren().Any(IsEmpty);
-                case RegExNodeTypes.Concatenation:
-                    return exp.GetChildren().All(x => !IsEmpty(x)) && exp.GetChildren().Any(IsEmpty);
-                default:
-                    throw new ArgumentException();
-            }
+            return tree.IsEmptyWord(tree.Root);
         }
 
-        public static DeterministicFiniteAutomaton<bool[], TLetter> GetDFA<TLetter>(IRegExExpressionTreeNode<TLetter> exp, IEnumerable<TLetter> alphabet)
+        public static bool IsEmptyWord<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> startNode)
+        {
+            bool IsEmptyWordInner(IRegExExpressionNode<TLetter> exp)
+            {
+                return exp.Type switch
+                {
+                    RegExNodeTypes.Letter or RegExNodeTypes.Empty => false,
+                    RegExNodeTypes.EmptyWord => true,
+                    RegExNodeTypes.KleeneClosure => forest.GetChildren(exp).All(IsEmptyWordInner),
+                    RegExNodeTypes.Choise => forest.GetChildren(exp).All(IsEmptyWordInner),
+                    RegExNodeTypes.Concatenation => forest.GetChildren(exp).All(IsEmptyWordInner),
+                    _ => throw new ArgumentOutOfRangeException(nameof(exp), exp.Type, "Unknown type"),
+                };
+            }
+
+            return IsEmptyWordInner(startNode);
+        }
+
+        public static bool IsInfinite<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> startNode)
+        {
+            return startNode.Type switch
+            {
+                RegExNodeTypes.Letter => false,
+                RegExNodeTypes.EmptyWord => false,
+                RegExNodeTypes.Empty => false,
+                RegExNodeTypes.KleeneClosure => !(forest.GetChildren(startNode).All(forest.IsEmpty) || forest.GetChildren(startNode).All(forest.IsEmptyWord)),
+                RegExNodeTypes.Choise => forest.GetChildren(startNode).Any(forest.IsInfinite),
+                RegExNodeTypes.Concatenation => forest.GetChildren(startNode).All(x => !forest.IsEmpty(x)) && forest.GetChildren(startNode).Any(forest.IsInfinite),
+                _ => throw new ArgumentOutOfRangeException(nameof(startNode), startNode, "Unknown type"),
+            };
+        }
+
+        public static DeterministicFiniteAutomaton<bool[], TLetter> GetDFA<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
             int n = 0;
-            var epsNFA = GetNFA(exp, () => n++);
+            var epsNFA = GetNFA(forest, exp, () => n++);
 
             bool[] startState = new bool[n];
             startState[epsNFA.startState] = true;
@@ -162,148 +163,194 @@ namespace Nintenlord.Grammars.RegularExpression
         }
 
         private static EpsilonDFA<TState, TLetter> GetNFA<TState, TLetter>(
-            IRegExExpressionTreeNode<TLetter> exp, Func<TState> getNewState)
+            this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> head, Func<TState> getNewState)
         {
-            switch (exp.Type)
+            EpsilonDFA<TState, TLetter> GetNFAInner(IRegExExpressionNode<TLetter> node)
             {
-                case RegExNodeTypes.Letter:
-                    return EpsilonDFA<TState, TLetter>.Letter(
-                        ((Letter<TLetter>)exp).LetterToMatch,
-                        getNewState);
-
-                case RegExNodeTypes.EmptyWord:
-                    return EpsilonDFA<TState, TLetter>.EmptyWord(getNewState);
-
-                case RegExNodeTypes.Empty:
-                    return EpsilonDFA<TState, TLetter>.Empty(getNewState);
-
-                case RegExNodeTypes.KleeneClosure:
-                    return EpsilonDFA<TState, TLetter>.KleeneClosure(
-                        GetNFA(exp.GetChildren().First(), getNewState),
-                        getNewState);
-
-                case RegExNodeTypes.Choise:
-                    return EpsilonDFA<TState, TLetter>.Choise(
-                        GetNFA(exp.GetChildren().First(), getNewState),
-                        GetNFA(exp.GetChildren().Last(), getNewState),
-                        getNewState);
-
-                case RegExNodeTypes.Concatenation:
-                    return EpsilonDFA<TState, TLetter>.Concatenation(
-                        GetNFA(exp.GetChildren().First(), getNewState),
-                        GetNFA(exp.GetChildren().Last(), getNewState),
-                        getNewState);
-
-                default:
-                    throw new ArgumentException();
+                return node.Type switch
+                {
+                    RegExNodeTypes.Letter => EpsilonDFA<TState, TLetter>.Letter(
+                                                ((Letter<TLetter>)node).LetterToMatch,
+                                                getNewState),
+                    RegExNodeTypes.EmptyWord => EpsilonDFA<TState, TLetter>.EmptyWord(getNewState),
+                    RegExNodeTypes.Empty => EpsilonDFA<TState, TLetter>.Empty(getNewState),
+                    RegExNodeTypes.KleeneClosure => EpsilonDFA<TState, TLetter>.KleeneClosure(
+                                                GetNFAInner(forest.GetChildren(node).First()),
+                                                getNewState),
+                    RegExNodeTypes.Choise => EpsilonDFA<TState, TLetter>.Choise(
+                                                GetNFAInner(forest.GetChildren(node).First()),
+                                                GetNFAInner(forest.GetChildren(node).Last()),
+                                                getNewState),
+                    RegExNodeTypes.Concatenation => EpsilonDFA<TState, TLetter>.Concatenation(
+                                                GetNFAInner(forest.GetChildren(node).First()),
+                                                GetNFAInner(forest.GetChildren(node).Last()),
+                                                getNewState),
+                    _ => throw new ArgumentException(),
+                };
             }
+
+            return GetNFAInner(head);
         }
 
-        public static IRegExExpressionTreeNode<TLetter> Simplify<TLetter>(IRegExExpressionTreeNode<TLetter> exp)
+        public static ArrayTree<IRegExExpressionNode<TLetter>> Simplify<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> head)
         {
-            switch (exp.Type)
+            var indexTree = IndexBinaryTree.Instance;
+            var newTree = new ArrayTree<IRegExExpressionNode<TLetter>>(indexTree);
+
+            void SimplifyInner(IRegExExpressionNode<TLetter> exp, int index)
             {
-                case RegExNodeTypes.Letter:
-                case RegExNodeTypes.EmptyWord:
-                case RegExNodeTypes.Empty:
-                    return exp;//No change
+                switch (exp.Type)
+                {
+                    case RegExNodeTypes.Letter:
+                    case RegExNodeTypes.EmptyWord:
+                    case RegExNodeTypes.Empty:
+                        //No change
+                        newTree.SetItemToIndex(index, exp);
+                        break;
 
-                case RegExNodeTypes.KleeneClosure:
-                    var child = exp.GetChildren().First();
-                    if (IsEmptyWord(child))
-                    {
-                        return child;//(epsilon)* = epsilon
-                    }
-                    else if (child.Type == RegExNodeTypes.Choise)
-                    {
-                        var first = child.GetChildren().First();
-                        var second = child.GetChildren().Last();
+                    case RegExNodeTypes.KleeneClosure:
+                        var child = forest.GetChildren(exp).First();
+                        if (IsEmptyWord(forest, child))
+                        {
+                            //(epsilon)* = epsilon
+                            newTree.SetItemToIndex(index, child);
+                        }
+                        else if (IsEmpty(forest, child))
+                        {
+                            //(empty)* = epsilon
+                            newTree.SetItemToIndex(index, EmptyWord<TLetter>.Instance);
+                        }
+                        else if (child.Type == RegExNodeTypes.Choise)
+                        {
+                            var first = forest.GetChildren(child).First();
+                            var second = forest.GetChildren(child).Last();
 
-                        if (IsEmptyWord(first))
-                        {
-                            return new KleeneClosure<TLetter>(second); //(epsilon + r)* = r*
+                            if (IsEmptyWord(forest, first))
+                            {
+                                //(epsilon + r)* = r*
+                                newTree.SetItemToIndex(index, KleeneClosure<TLetter>.Instance);
+                                SimplifyInner(second, indexTree.GetFirstChild(index));
+                            }
+                            else if (IsEmptyWord(forest, second))
+                            {
+                                //(r + epsilon)* = r*
+                                newTree.SetItemToIndex(index, KleeneClosure<TLetter>.Instance);
+                                SimplifyInner(first, indexTree.GetFirstChild(index));
+                            }
+                            else
+                            {
+                                // No change
+                                newTree.SetItemToIndex(index, exp);
+                                SimplifyInner(child, indexTree.GetFirstChild(index));
+                            }
                         }
-                        else if (IsEmptyWord(second))
+                        else
                         {
-                            return new KleeneClosure<TLetter>(first); //(r + epsilon)* = r*
+                            // No change
+                            newTree.SetItemToIndex(index, exp);
+                            SimplifyInner(child, indexTree.GetFirstChild(index));
                         }
-                    }
-                    return exp;//No change
+                        break;
 
-                case RegExNodeTypes.Choise:
-                    {
-                        var first = exp.GetChildren().First();
-                        var second = exp.GetChildren().Last();
+                    case RegExNodeTypes.Choise:
+                        {
+                            var first = forest.GetChildren(exp).First();
+                            var second = forest.GetChildren(exp).Last();
 
-                        if (IsEmpty(first))
-                        {
-                            return second; //empty + r = r
+                            if (IsEmpty(forest, first))
+                            {
+                                //empty + r = r
+                                SimplifyInner(second, index);
+                            }
+                            else if (IsEmpty(forest, second))
+                            {
+                                //r + empty = r
+                                SimplifyInner(first, index);
+                            }
+                            else
+                            {
+                                // No change
+                                newTree.SetItemToIndex(index, exp);
+                                SimplifyInner(first, indexTree.GetFirstChild(index));
+                                SimplifyInner(second, indexTree.GetSecondChild(index));
+                            }
                         }
-                        else if (IsEmpty(second))
+                        break;
+                    case RegExNodeTypes.Concatenation:
                         {
-                            return first; //r + empty = r
-                        }
-                    }
-                    return exp;//No change
+                            var first = forest.GetChildren(exp).First();
+                            var second = forest.GetChildren(exp).Last();
 
-                case RegExNodeTypes.Concatenation:
-                    {
-                        var first = exp.GetChildren().First();
-                        var second = exp.GetChildren().Last();
+                            if (IsEmpty(forest, first) || IsEmpty(forest, second))
+                            {
+                                //empty r = r empty = empty
+                                newTree.SetItemToIndex(index, Empty<TLetter>.Instance);
+                            }
+                            else if (IsEmptyWord(forest, first))
+                            {
+                                //epsilon r = r
+                                SimplifyInner(second, index);
+                            }
+                            else if (IsEmptyWord(forest, second))
+                            {
+                                //r epsilon = r
+                                SimplifyInner(first, index);
+                            }
+                            else if (first.Type == RegExNodeTypes.Choise)
+                            {
+                                //(s + t) r = s r + t r
+                                var first2 = forest.GetChildren(first).First();
+                                var second2 = forest.GetChildren(first).Last();
+                                var firstChildIndex = indexTree.GetFirstChild(index);
+                                var secondChildIndex = indexTree.GetSecondChild(index);
 
-                        if (IsEmpty(first))
-                        {
-                            return first; //empty r = empty
-                        }
-                        else if (IsEmpty(second))
-                        {
-                            return second; //r empty = empty
-                        }
+                                newTree.SetItemToIndex(index, Choise<TLetter>.Instance);
+                                newTree.SetItemToIndex(firstChildIndex, Concatenation<TLetter>.Instance);
+                                newTree.SetItemToIndex(secondChildIndex, Concatenation<TLetter>.Instance);
 
-                        if (IsEmptyWord(first))
-                        {
-                            return second; //epsilon r = r
-                        }
-                        else if (IsEmptyWord(second))
-                        {
-                            return first; //r epsilon = r
-                        }
+                                SimplifyInner(first2, indexTree.GetFirstChild(firstChildIndex));
+                                SimplifyInner(second, indexTree.GetSecondChild(firstChildIndex));
+                                SimplifyInner(second2, indexTree.GetFirstChild(secondChildIndex));
+                                SimplifyInner(second, indexTree.GetSecondChild(secondChildIndex));
+                            }
+                            else if (second.Type == RegExNodeTypes.Choise)
+                            {
+                                //r (s + t) r = r s + r t
+                                var first2 = forest.GetChildren(second).First();
+                                var second2 = forest.GetChildren(second).Last();
+                                var firstChildIndex = indexTree.GetFirstChild(index);
+                                var secondChildIndex = indexTree.GetSecondChild(index);
 
-                        if (first.Type == RegExNodeTypes.Choise)
-                        {
-                            var first2 = first.GetChildren().First();
-                            var second2 = first.GetChildren().Last();
+                                newTree.SetItemToIndex(index, Choise<TLetter>.Instance);
+                                newTree.SetItemToIndex(firstChildIndex, Concatenation<TLetter>.Instance);
+                                newTree.SetItemToIndex(secondChildIndex, Concatenation<TLetter>.Instance);
 
-                            return new Choise<TLetter>(
-                                new Concatenation<TLetter>(first2, second),
-                                new Concatenation<TLetter>(second2, second)
-                                );//(s + t) r = s r + t r
+                                SimplifyInner(first, indexTree.GetFirstChild(firstChildIndex));
+                                SimplifyInner(first2, indexTree.GetSecondChild(firstChildIndex));
+                                SimplifyInner(first, indexTree.GetFirstChild(secondChildIndex));
+                                SimplifyInner(second2, indexTree.GetSecondChild(secondChildIndex));
+                            }
+                            else
+                            {
+                                // No change
+                                newTree.SetItemToIndex(index, exp);
+                                SimplifyInner(first, indexTree.GetFirstChild(index));
+                                SimplifyInner(second, indexTree.GetSecondChild(index));
+                            }
                         }
-                        else if (second.Type == RegExNodeTypes.Choise)
-                        {
-                            var first2 = second.GetChildren().First();
-                            var second2 = second.GetChildren().Last();
-
-                            return new Choise<TLetter>(
-                                new Concatenation<TLetter>(first, first2),
-                                new Concatenation<TLetter>(first, second2)
-                                );//r (s + t) r = r s + r t
-                        }
-                    }
-                    return exp;//No change
-                default:
-                    throw new ArgumentException();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(exp.Type), exp.Type, "Unknown type");
+                }
             }
+
+            SimplifyInner(head, newTree.RootIndex);
+
+            return newTree;
         }
 
         private class EpsilonDFA<TState, TLetter> : IGraph<TState>
         {
-            /*
-             //For IGraph<TState> implementation
-             public readonly int stateCount;
-             public readonly IEnumerable<TState> states;
-             */
-
             public readonly IEnumerable<Tuple<TState, TLetter, TState>> transitions;
             public readonly IEnumerable<Tuple<TState, TState>> epsilonTransitions;
             public readonly TState startState;
