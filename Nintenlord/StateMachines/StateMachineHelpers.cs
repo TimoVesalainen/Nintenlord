@@ -36,6 +36,20 @@ namespace Nintenlord.StateMachines
             yield return start;
         }
 
+        public static bool IsAccepted<TState, TInput>(
+            this IStateMachine<TState, TInput> machine,
+            IEnumerable<TInput> input)
+        {
+            TState start = machine.StartState;
+
+            foreach (var item in input)
+            {
+                start = machine.Transition(start, item);
+            }
+
+            return machine.IsFinalState(start);
+        }
+
         public static IEnumerable<TState> GetFinalStates<TState, TInput>(this IFiniteStateMachine<TState, TInput> stateMachine)
         {
             return stateMachine.States.Where(x => stateMachine.IsFinalState(x));
