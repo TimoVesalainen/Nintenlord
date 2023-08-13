@@ -168,7 +168,7 @@ namespace Nintenlord.Grammars.RegularExpression
         private static EpsilonDFA<TState, TLetter> GetNFA<TState, TLetter>(
             this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> head, Func<TState> getNewState)
         {
-            EpsilonDFA<TState, TLetter> GetNFAInner(IRegExExpressionNode<TLetter> node)
+            EpsilonDFA<TState, TLetter> GetNFAInner(IRegExExpressionNode<TLetter> node, IEnumerable<EpsilonDFA<TState, TLetter>> children)
             {
                 return node.Type switch
                 {
@@ -177,22 +177,26 @@ namespace Nintenlord.Grammars.RegularExpression
                                                 getNewState),
                     RegExNodeTypes.EmptyWord => EpsilonDFA<TState, TLetter>.EmptyWord(getNewState),
                     RegExNodeTypes.Empty => EpsilonDFA<TState, TLetter>.Empty(getNewState),
+
                     RegExNodeTypes.KleeneClosure => EpsilonDFA<TState, TLetter>.KleeneClosure(
-                                                GetNFAInner(forest.GetChildren(node).First()),
+                                                children.First(),
                                                 getNewState),
+
                     RegExNodeTypes.Choise => EpsilonDFA<TState, TLetter>.Choise(
-                                                GetNFAInner(forest.GetChildren(node).First()),
-                                                GetNFAInner(forest.GetChildren(node).Last()),
+                                                children.First(),
+                                                children.Last(),
                                                 getNewState),
+
                     RegExNodeTypes.Concatenation => EpsilonDFA<TState, TLetter>.Concatenation(
-                                                GetNFAInner(forest.GetChildren(node).First()),
-                                                GetNFAInner(forest.GetChildren(node).Last()),
+                                                children.First(),
+                                                children.Last(),
                                                 getNewState),
-                    _ => throw new ArgumentException(),
+
+                    _ => throw new ArgumentOutOfRangeException(nameof(node.Type), node.Type, "Unknown type"),
                 };
             }
 
-            return GetNFAInner(head);
+            return forest.Aggregate<EpsilonDFA<TState, TLetter>, IRegExExpressionNode<TLetter>>(GetNFAInner, head);
         }
 
         public static ArrayTree<IRegExExpressionNode<TLetter>> Simplify<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> head)
