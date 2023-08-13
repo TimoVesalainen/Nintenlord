@@ -16,7 +16,7 @@ namespace Nintenlord.Trees
 
         public IEnumerable<int> GetChildren(int node)
         {
-            var firstChild = node << 1;
+            var firstChild = GetFirstChild(node);
             yield return firstChild;
             yield return firstChild + 1;
         }
@@ -34,6 +34,16 @@ namespace Nintenlord.Trees
         {
             parent = child >> 1;
             return child != Root;
+        }
+
+        public int GetFirstChild(int node)
+        {
+            return node << 1;
+        }
+
+        public int GetSecondChild(int node)
+        {
+            return node << 1 + 1;
         }
     }
 }
