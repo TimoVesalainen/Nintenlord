@@ -23,6 +23,27 @@ namespace Nintenlord.Matricis
             }
         }
 
+        public static bool TryGetValue<T>(this IMatrix<T> matrix, int x, int y, out T value)
+        {
+            if (x < 0 || y < 0 || x >= matrix.Width || y >= matrix.Height)
+            {
+                value = default;
+                return false;
+            }
+
+            value = matrix[x, y];
+            return true;
+        }
+
+        public static Maybe<T> TryGetValue<T>(this IMatrix<T> matrix, int x, int y)
+        {
+            if (matrix.TryGetValue(x, y, out var value))
+            {
+                return value;
+            }
+            return Maybe<T>.Nothing;
+        }
+
         public static IEnumerable<T> Column<T>(this IMatrix<T> matrix, int x)
         {
             if (matrix is null)
