@@ -1,6 +1,8 @@
-﻿namespace Nintenlord.StateMachines
+﻿using System;
+
+namespace Nintenlord.StateMachines
 {
-    public class StatefulObject<TState, TInput>
+    public class StatefulObject<TState, TInput> : ICloneable
     {
         readonly IStateMachine<TState, TInput> stateMachine;
         TState state;
@@ -21,6 +23,23 @@
         public bool IsFinished()
         {
             return stateMachine.IsFinalState(state);
+        }
+        public void Reset()
+        {
+            state = stateMachine.StartState;
+        }
+
+        public StatefulObject<TState, TInput> Clone()
+        {
+            return new StatefulObject<TState, TInput>(stateMachine)
+            {
+                state = this.state
+            };
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
         }
     }
 }
