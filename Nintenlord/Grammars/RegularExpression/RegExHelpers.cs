@@ -2,7 +2,8 @@
 using Nintenlord.Grammars.RegularExpression.Tree;
 using Nintenlord.Graph;
 using Nintenlord.Graph.PathFinding;
-using Nintenlord.StateMachines.Old;
+using Nintenlord.StateMachines;
+using Nintenlord.StateMachines.Finite;
 using Nintenlord.Trees;
 using Nintenlord.Utility;
 using Nintenlord.Utility.Primitives;
@@ -76,7 +77,7 @@ namespace Nintenlord.Grammars.RegularExpression
             };
         }
 
-        public static DeterministicFiniteAutomaton<bool[], TLetter> GetDFA<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
+        public static StatefulObject<bool[], TLetter> GetDFA<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
             int n = 0;
             var epsNFA = GetNFA(forest, exp, () => n++);
@@ -87,14 +88,13 @@ namespace Nintenlord.Grammars.RegularExpression
             var finalState = epsNFA.finalState;
             Predicate<bool[]> isFinal = x => x[finalState];
 
-            List<Tuple<bool[], TLetter, bool[]>> transitions = new List<Tuple<bool[], TLetter, bool[]>>();
 
-            foreach (var letter in alphabet)
-            {
-                transitions.AddRange(GetPWSTransitionsWithLetter(n, epsNFA, letter));
-            }
+            var transitions = alphabet.SelectMany(letter => GetPWSTransitionsWithLetter(n, epsNFA, letter))
+                .ToDictionary(tuple => (tuple.Item1, tuple.Item2), tuple => tuple.Item3);
 
-            return new DeterministicFiniteAutomaton<bool[], TLetter>(transitions, isFinal, startState);
+            var stateMachine = new DictionaryStateMachine<bool[], TLetter>(transitions, isFinal, startState);
+
+            return new StatefulObject<bool[], TLetter>(stateMachine);
         }
 
         private static IEnumerable<Tuple<bool[], TLetter, bool[]>> GetPWSTransitionsWithLetter<TLetter>(
