@@ -79,6 +79,11 @@ namespace Nintenlord.Grammars.RegularExpression
 
         public static StatefulObject<bool[], TLetter> GetDFA<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
+            return new StatefulObject<bool[], TLetter>(CreateStateMachine(forest, exp, alphabet));
+        }
+
+        public static DictionaryStateMachine<bool[], TLetter> CreateStateMachine<TLetter>(IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
+        {
             int n = 0;
             var epsNFA = GetNFA(forest, exp, () => n++);
 
@@ -92,9 +97,7 @@ namespace Nintenlord.Grammars.RegularExpression
             var transitions = alphabet.SelectMany(letter => GetPWSTransitionsWithLetter(n, epsNFA, letter))
                 .ToDictionary(tuple => (tuple.Item1, tuple.Item2), tuple => tuple.Item3);
 
-            var stateMachine = new DictionaryStateMachine<bool[], TLetter>(transitions, isFinal, startState);
-
-            return new StatefulObject<bool[], TLetter>(stateMachine);
+            return new DictionaryStateMachine<bool[], TLetter>(transitions, isFinal, startState);
         }
 
         private static IEnumerable<Tuple<bool[], TLetter, bool[]>> GetPWSTransitionsWithLetter<TLetter>(
