@@ -1,7 +1,5 @@
 ﻿using Nintenlord.Collections;
 using Nintenlord.Grammars.RegularExpression.Tree;
-using Nintenlord.Graph;
-using Nintenlord.Graph.PathFinding;
 using Nintenlord.StateMachines;
 using Nintenlord.StateMachines.Finite;
 using Nintenlord.Trees;
@@ -15,7 +13,6 @@ namespace Nintenlord.Grammars.RegularExpression
 {
     public static class RegExHelpers
     {
-
         public static bool IsEmpty<TLetter>(this ITree<IRegExExpressionNode<TLetter>> tree)
         {
             return tree.IsEmpty(tree.Root);
@@ -168,26 +165,26 @@ namespace Nintenlord.Grammars.RegularExpression
         private static EpsilonDFA<TState, TLetter> GetNFA<TState, TLetter>(
             this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> head, Func<TState> getNewState)
         {
-            EpsilonDFA<TState, TLetter> GetNFAInner(IRegExExpressionNode<TLetter> node, IEnumerable<EpsilonDFA<TState, TLetter>> children)
+            EpsilonDFA<TState, TLetter>.Builder GetNFAInner(IRegExExpressionNode<TLetter> node, IEnumerable<EpsilonDFA<TState, TLetter>.Builder> children)
             {
                 return node.Type switch
                 {
-                    RegExNodeTypes.Letter => EpsilonDFA<TState, TLetter>.Letter(
+                    RegExNodeTypes.Letter => EpsilonDFA<TState, TLetter>.Builder.Letter(
                                                 ((Letter<TLetter>)node).LetterToMatch,
                                                 getNewState),
-                    RegExNodeTypes.EmptyWord => EpsilonDFA<TState, TLetter>.EmptyWord(getNewState),
-                    RegExNodeTypes.Empty => EpsilonDFA<TState, TLetter>.Empty(getNewState),
+                    RegExNodeTypes.EmptyWord => EpsilonDFA<TState, TLetter>.Builder.EmptyWord(getNewState),
+                    RegExNodeTypes.Empty => EpsilonDFA<TState, TLetter>.Builder.Empty(getNewState),
 
-                    RegExNodeTypes.KleeneClosure => EpsilonDFA<TState, TLetter>.KleeneClosure(
+                    RegExNodeTypes.KleeneClosure => EpsilonDFA<TState, TLetter>.Builder.KleeneClosure(
                                                 children.First(),
                                                 getNewState),
 
-                    RegExNodeTypes.Choise => EpsilonDFA<TState, TLetter>.Choise(
+                    RegExNodeTypes.Choise => EpsilonDFA<TState, TLetter>.Builder.Choise(
                                                 children.First(),
                                                 children.Last(),
                                                 getNewState),
 
-                    RegExNodeTypes.Concatenation => EpsilonDFA<TState, TLetter>.Concatenation(
+                    RegExNodeTypes.Concatenation => EpsilonDFA<TState, TLetter>.Builder.Concatenation(
                                                 children.First(),
                                                 children.Last(),
                                                 getNewState),
@@ -196,7 +193,7 @@ namespace Nintenlord.Grammars.RegularExpression
                 };
             }
 
-            return forest.Aggregate<EpsilonDFA<TState, TLetter>, IRegExExpressionNode<TLetter>>(GetNFAInner, head);
+            return forest.Aggregate<EpsilonDFA<TState, TLetter>.Builder, IRegExExpressionNode<TLetter>>(GetNFAInner, head).Build();
         }
 
         public static ArrayTree<IRegExExpressionNode<TLetter>> Simplify<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> head)
@@ -356,136 +353,140 @@ namespace Nintenlord.Grammars.RegularExpression
             return newTree;
         }
 
-        private class EpsilonDFA<TState, TLetter> : IGraph<TState>
+        private class EpsilonDFA<TState, TLetter>
         {
-            public readonly IEnumerable<Tuple<TState, TLetter, TState>> transitions;
-            public readonly IEnumerable<Tuple<TState, TState>> epsilonTransitions;
+            public sealed class Builder
+            {
+                public readonly IEnumerable<Tuple<TState, TLetter, TState>> transitions;
+                public readonly IEnumerable<Tuple<TState, TState>> epsilonTransitions;
+                public readonly TState startState;
+                public readonly TState finalState;
+
+                private Builder(
+                    IEnumerable<Tuple<TState, TLetter, TState>> transitions,
+                    IEnumerable<Tuple<TState, TState>> epsilonTransitions,
+                    TState startState,
+                    TState finalState)
+                {
+                    this.transitions = transitions;
+                    this.epsilonTransitions = epsilonTransitions;
+                    this.startState = startState;
+                    this.finalState = finalState;
+                }
+
+                public static Builder Choise(
+                    Builder first,
+                    Builder second,
+                    Func<TState> getNewState)
+                {
+                    var start = getNewState();
+                    var final = getNewState();
+
+                    var epsilonTransitions =
+                        first.epsilonTransitions.Concat(
+                        second.epsilonTransitions).Concat(
+                            Tuple.Create(start, first.startState),
+                            Tuple.Create(start, second.startState),
+                            Tuple.Create(first.finalState, final),
+                            Tuple.Create(second.finalState, final));
+
+                    var transitions = first.transitions.Concat(second.transitions);
+
+                    return new Builder(transitions, epsilonTransitions, start, final);
+                }
+
+                public static Builder Concatenation(
+                    Builder first,
+                    Builder second,
+                    Func<TState> getNewState)
+                {
+                    var epsilonTransitions =
+                        first.epsilonTransitions.Concat(
+                        second.epsilonTransitions).Concat(
+                            Tuple.Create(first.finalState, second.startState));
+
+                    var transitions = first.transitions.Concat(second.transitions);
+
+                    return new Builder(transitions, epsilonTransitions,
+                        first.startState, second.finalState);
+                }
+
+                public static Builder KleeneClosure(
+                    Builder toRepeat,
+                    Func<TState> getNewState)
+                {
+                    var onlyNew = getNewState();
+
+                    var epsilonTransitions =
+                        toRepeat.epsilonTransitions.Concat(
+                            Tuple.Create(onlyNew, toRepeat.startState),
+                            Tuple.Create(toRepeat.finalState, onlyNew));
+
+                    return new Builder(toRepeat.transitions, epsilonTransitions, onlyNew, onlyNew);
+                }
+
+                public static Builder Letter(TLetter letter, Func<TState> getNewState)
+                {
+                    var start = getNewState();
+                    var final = getNewState();
+                    return new Builder(
+                        Tuple.Create(start, letter, final).GetArray(),
+                        Enumerable.Empty<Tuple<TState, TState>>(),
+                        start,
+                        final);
+                }
+
+                public static Builder EmptyWord(Func<TState> getNewState)
+                {
+                    var only = getNewState();
+
+                    return new Builder(
+                        Enumerable.Empty<Tuple<TState, TLetter, TState>>(),
+                        Enumerable.Empty<Tuple<TState, TState>>(),
+                        only,
+                        only);
+                }
+
+                public static Builder Empty(Func<TState> getNewState)
+                {
+                    var start = getNewState();
+                    var final = getNewState();
+                    return new Builder(
+                        Enumerable.Empty<Tuple<TState, TLetter, TState>>(),
+                        Enumerable.Empty<Tuple<TState, TState>>(),
+                        start,
+                        final);
+                }
+
+                public EpsilonDFA<TState, TLetter> Build()
+                {
+                    return new EpsilonDFA<TState, TLetter>(this);
+                }
+            }
+
+            public readonly Dictionary<(TState, TLetter), TState[]> transitions;
+            public readonly Dictionary<TState, TState[]> epsilonTransitions;
             public readonly TState startState;
             public readonly TState finalState;
 
-            public IEnumerable<TState> Nodes => throw new NotImplementedException();
-
-            private EpsilonDFA(
-                IEnumerable<Tuple<TState, TLetter, TState>> transitions,
-                IEnumerable<Tuple<TState, TState>> epsilonTransitions,
-                TState startState,
-                TState finalState)
+            private EpsilonDFA(Builder builder)
             {
-                this.transitions = transitions;
-                this.epsilonTransitions = epsilonTransitions;
-                this.startState = startState;
-                this.finalState = finalState;
+                transitions = builder.transitions
+                    .GroupBy(tuple => (tuple.Item1, tuple.Item2))
+                    .ToDictionary(group => group.Key, group => group.Select(t => t.Item3).ToArray());
+
+                epsilonTransitions = builder.epsilonTransitions
+                    .GroupBy(tuple => tuple.Item1)
+                    .ToDictionary(group => group.Key, group => group.Select(t => t.Item2).ToArray());
+
+                startState = builder.startState;
+                finalState = builder.finalState;
             }
 
-            public static EpsilonDFA<TState, TLetter> Choise(
-                EpsilonDFA<TState, TLetter> first,
-                EpsilonDFA<TState, TLetter> second,
-                Func<TState> getNewState)
-            {
-                var start = getNewState();
-                var final = getNewState();
-
-                var epsilonTransitions =
-                    first.epsilonTransitions.Concat(
-                    second.epsilonTransitions).Concat(
-                        Tuple.Create(start, first.startState),
-                        Tuple.Create(start, second.startState),
-                        Tuple.Create(first.finalState, final),
-                        Tuple.Create(second.finalState, final));
-
-                var transitions = first.transitions.Concat(second.transitions);
-
-                return new EpsilonDFA<TState, TLetter>(transitions, epsilonTransitions, start, final);
-            }
-
-            public static EpsilonDFA<TState, TLetter> Concatenation(
-                EpsilonDFA<TState, TLetter> first,
-                EpsilonDFA<TState, TLetter> second,
-                Func<TState> getNewState)
-            {
-                var epsilonTransitions =
-                    first.epsilonTransitions.Concat(
-                    second.epsilonTransitions).Concat(
-                        Tuple.Create(first.finalState, second.startState));
-
-                var transitions = first.transitions.Concat(second.transitions);
-
-                return new EpsilonDFA<TState, TLetter>(transitions, epsilonTransitions,
-                    first.startState, second.finalState);
-            }
-
-            public static EpsilonDFA<TState, TLetter> KleeneClosure(
-                EpsilonDFA<TState, TLetter> toRepeat,
-                Func<TState> getNewState)
-            {
-                var onlyNew = getNewState();
-
-                var epsilonTransitions =
-                    toRepeat.epsilonTransitions.Concat(
-                        Tuple.Create(onlyNew, toRepeat.startState),
-                        Tuple.Create(toRepeat.finalState, onlyNew));
-
-                return new EpsilonDFA<TState, TLetter>(toRepeat.transitions, epsilonTransitions, onlyNew, onlyNew);
-            }
-
-            public static EpsilonDFA<TState, TLetter> Letter(TLetter letter, Func<TState> getNewState)
-            {
-                var start = getNewState();
-                var final = getNewState();
-                return new EpsilonDFA<TState, TLetter>(
-                    Tuple.Create(start, letter, final).GetArray(),
-                    Enumerable.Empty<Tuple<TState, TState>>(),
-                    start,
-                    final);
-            }
-
-            public static EpsilonDFA<TState, TLetter> EmptyWord(Func<TState> getNewState)
-            {
-                var only = getNewState();
-
-                return new EpsilonDFA<TState, TLetter>(
-                    Enumerable.Empty<Tuple<TState, TLetter, TState>>(),
-                    Enumerable.Empty<Tuple<TState, TState>>(),
-                    only,
-                    only);
-            }
-
-            public static EpsilonDFA<TState, TLetter> Empty(Func<TState> getNewState)
-            {
-                var start = getNewState();
-                var final = getNewState();
-                return new EpsilonDFA<TState, TLetter>(
-                    Enumerable.Empty<Tuple<TState, TLetter, TState>>(),
-                    Enumerable.Empty<Tuple<TState, TState>>(),
-                    start,
-                    final);
-            }
-
-            public HashSet<TState> EpsClosure(TState state)
-            {
-                return Dijkstra_algorithm.GetConnectedNodes(state, this, EqualityComparer<TState>.Default);
-            }
-
-            public HashSet<TState> ReachableStates(TState state, TLetter letter)
+            public IEnumerable<TState> ReachableStates(TState state, TLetter letter)
             {
                 throw new NotImplementedException();
             }
-
-            #region IGraph<TState> Members
-
-            public IEnumerable<TState> GetNeighbours(TState node)
-            {
-                return from item in epsilonTransitions
-                       where EqualityComparer<TState>.Default.Equals(item.Item1, node)
-                       select item.Item2;
-            }
-
-            public bool IsEdge(TState node1, TState node2)
-            {
-                return epsilonTransitions.Contains(Tuple.Create(node1, node2));
-            }
-
-            #endregion
         }
     }
 }
