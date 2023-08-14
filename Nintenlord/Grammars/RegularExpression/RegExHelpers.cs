@@ -1,13 +1,17 @@
 ﻿using Nintenlord.Collections;
+using Nintenlord.Collections.EqualityComparer;
 using Nintenlord.Grammars.RegularExpression.Tree;
+using Nintenlord.Graph;
 using Nintenlord.StateMachines;
 using Nintenlord.StateMachines.Finite;
 using Nintenlord.Trees;
 using Nintenlord.Utility;
 using Nintenlord.Utility.Primitives;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Nintenlord.Grammars.RegularExpression
 {
@@ -465,19 +469,35 @@ namespace Nintenlord.Grammars.RegularExpression
             }
 
             public readonly Dictionary<(TState, TLetter), TState[]> transitions;
-            public readonly Dictionary<TState, TState[]> epsilonTransitions;
+            public readonly Dictionary<TState, IEnumerable<TState>> epsilonTransitions;
             public readonly TState startState;
             public readonly TState finalState;
+            readonly IEqualityComparer<TState> stateComparison;
+            readonly IEqualityComparer<TLetter> letterComparison;
+            readonly DictionaryBasedGraph<TState> epsilonGraph;
 
-            private EpsilonDFA(Builder builder)
+            private EpsilonDFA(Builder builder, IEqualityComparer<TState> stateComparison = null, IEqualityComparer<TLetter> letterComparison = null)
             {
+                stateComparison ??= EqualityComparer<TState>.Default;
+                letterComparison ??= EqualityComparer<TLetter>.Default;
+                this.stateComparison = stateComparison;
+                this.letterComparison = letterComparison;
+
                 transitions = builder.transitions
                     .GroupBy(tuple => (tuple.Item1, tuple.Item2))
-                    .ToDictionary(group => group.Key, group => group.Select(t => t.Item3).ToArray());
+                    .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(t => t.Item3).ToArray(),
+                    TupleEqualityComparer<TState, TLetter>.Create(stateComparison, letterComparison));
 
                 epsilonTransitions = builder.epsilonTransitions
                     .GroupBy(tuple => tuple.Item1)
-                    .ToDictionary(group => group.Key, group => group.Select(t => t.Item2).ToArray());
+                    .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(t => t.Item2).ToArray() as IEnumerable<TState>,
+                    stateComparison);
+
+                epsilonGraph = new DictionaryBasedGraph<TState>(epsilonTransitions);
 
                 startState = builder.startState;
                 finalState = builder.finalState;
@@ -485,7 +505,19 @@ namespace Nintenlord.Grammars.RegularExpression
 
             public IEnumerable<TState> ReachableStates(TState state, TLetter letter)
             {
-                throw new NotImplementedException();
+                var nodes = from start in EpsilonReachableStates(state)
+                            from letterTransition in transitions.Keys
+                            where stateComparison.Equals(start, letterTransition.Item1) && letterComparison.Equals(letter, letterTransition.Item2)
+                            from end in transitions[letterTransition]
+                            from end2 in EpsilonReachableStates(end)
+                            select end2;
+
+                return new HashSet<TState>(nodes, stateComparison);
+            }
+
+            public IEnumerable<TState> EpsilonReachableStates(TState state)
+            {
+                return epsilonGraph.BreadthFirstTraversal(state);
             }
         }
     }
