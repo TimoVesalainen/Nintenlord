@@ -78,37 +78,36 @@ namespace Nintenlord.Grammars.RegularExpression
             };
         }
 
-        public static StatefulObject<bool[], TLetter> GetDFA<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
+        public static StatefulObject<BitArray, TLetter> GetDFA<TLetter>(this IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
-            return new StatefulObject<bool[], TLetter>(CreateStateMachine(forest, exp, alphabet));
+            return new StatefulObject<BitArray, TLetter>(CreateStateMachine(forest, exp, alphabet));
         }
 
-        public static DictionaryStateMachine<bool[], TLetter> CreateStateMachine<TLetter>(IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
+        public static DictionaryStateMachine<BitArray, TLetter> CreateStateMachine<TLetter>(IForest<IRegExExpressionNode<TLetter>> forest, IRegExExpressionNode<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
             int n = 0;
-            var epsNFA = GetNFA(forest, exp, () => n++);
+            var epsNFA = forest.GetNFA(exp, () => n++);
 
-            bool[] startState = new bool[n];
+            var startState = new BitArray(n);
             startState[epsNFA.startState] = true;
 
             var finalState = epsNFA.finalState;
-            Predicate<bool[]> isFinal = x => x[finalState];
-
+            bool isFinal(BitArray x) => x[finalState];
 
             var transitions = alphabet.SelectMany(letter => GetPWSTransitionsWithLetter(n, epsNFA, letter))
                 .ToDictionary(tuple => (tuple.Item1, tuple.Item2), tuple => tuple.Item3);
 
-            return new DictionaryStateMachine<bool[], TLetter>(transitions, isFinal, startState);
+            return new DictionaryStateMachine<BitArray, TLetter>(transitions, isFinal, startState);
         }
 
-        private static IEnumerable<Tuple<bool[], TLetter, bool[]>> GetPWSTransitionsWithLetter<TLetter>(
+        private static IEnumerable<Tuple<BitArray, TLetter, BitArray>> GetPWSTransitionsWithLetter<TLetter>(
             int n, EpsilonDFA<int, TLetter> epsNFA, TLetter letter)
         {
-            bool[][] reachable = new bool[n][];
+            BitArray[] reachable = new BitArray[n];
             for (int i = 0; i < n; i++)
             {
                 var states = epsNFA.ReachableStates(i, letter);
-                reachable[i] = new bool[n];
+                reachable[i] = new BitArray(n);
                 foreach (var endState in states)
                 {
                     reachable[i][endState] = true;
@@ -117,14 +116,14 @@ namespace Nintenlord.Grammars.RegularExpression
 
             foreach (var powerSet in AllStates(n))
             {
-                bool[] endPowerSet = new bool[n];
+                var endPowerSet = new BitArray(n);
                 for (int i = 0; i < n; i++)
                 {
                     if (powerSet[i])
                     {
                         for (int j = 0; j < n; j++)
                         {
-                            endPowerSet[j] |= reachable[i][j];//So many things can go wrong here.
+                            endPowerSet.Or(reachable[i]);
                         }
                     }
                 }
@@ -132,37 +131,17 @@ namespace Nintenlord.Grammars.RegularExpression
             }
         }
 
-        public static IEnumerable<bool[]> AllStates(int length)
+        public static IEnumerable<BitArray> AllStates(int length)
         {
-            bool[] values = new bool[length];
+            BigInteger pow = BigInteger.One << length;
 
-            if (length < 32)
+            for (BigInteger i = 0; i <= pow; i++)
             {
-                int pow = 1 << length;
-                yield return values.Clone() as bool[];
-
-                for (int i = 1; i <= pow; i++)
+                var a = new BitArray(i.ToByteArray())
                 {
-                    int index = i.TrailingZeroCount();
-                    values[index] ^= true;
-                    yield return values.Clone() as bool[];
-                }
-            }
-            else if (length <= 64)
-            {
-                long pow = (long)1 << length;
-                yield return values.Clone() as bool[];
-
-                for (long i = 1; i <= pow; i++)
-                {
-                    int index = i.TrailingZeroCount();
-                    values[index] ^= true;
-                    yield return values.Clone() as bool[];
-                }
-            }
-            else
-            {
-                throw new NotImplementedException();
+                    Length = length
+                };
+                yield return a;
             }
         }
 
