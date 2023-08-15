@@ -1,0 +1,55 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+namespace Nintenlord.StateMachines
+{
+<#
+for (int i = 2; i < 8; i++)
+{
+    var states = Enumerable.Range(0, i).Select(index => $"TState{index}").ToArray();
+    var state = $"({string.Join(", ", states)})";
+    var machineTypes = states.Select(state => $"IStateMachine<{state}, TInput>");
+    var parameters = Enumerable.Range(0, i).Select(index => $"machine{index}");
+#>
+    public sealed class ParallelStateMachine<<#= string.Join(", ", states) #>, TInput> : IStateMachine<<#= state #>, TInput>
+    {
+<#
+    foreach (var (type, name) in machineTypes.Zip(parameters, (a, b) => (a, b)))
+    {
+#>
+        private readonly <#= type #> <#= name #>;
+<#
+    }
+#>
+
+        public ParallelStateMachine(<#= String.Join(", ", machineTypes.Zip(parameters, (type, name) => $"{type} {name}")) #>)
+        {
+<#
+    foreach (var name in parameters)
+    {
+#>
+            this.<#= name #> = <#= name #>;
+<#
+    }
+#>
+        }
+
+        public <#= state #> StartState => (<#= string.Join(", ", parameters.Select(name => $"{name}.StartState")) #>);
+
+        public bool IsFinalState(<#= state #> state)
+        {
+            return <#= string.Join(" && ", parameters.Zip(Enumerable.Range(1, i), (name, tuple) => $"{name}.IsFinalState(state.Item{tuple})")) #>;
+        }
+
+        public <#= state #> Transition(<#= state #> currentState, TInput input)
+        {
+            return (<#= string.Join(", ", parameters.Zip(Enumerable.Range(1, i), (name, tuple) => $"{name}.Transition(currentState.Item{tuple}, input)"))#>);
+        }
+    }
+<#
+}
+#>
+}
