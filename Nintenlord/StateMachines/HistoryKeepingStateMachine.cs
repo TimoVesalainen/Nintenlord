@@ -53,7 +53,7 @@ namespace Nintenlord.StateMachines
             {
                 if (currentState.Length == 0)
                 {
-                    throw new ArgumentException("Can't go back with no history", nameof(input));
+                    return currentState;
                 }
                 return currentState.Take(currentState.Length - 1).ToArray();
             }
