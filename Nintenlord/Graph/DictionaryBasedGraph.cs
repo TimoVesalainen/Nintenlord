@@ -3,10 +3,6 @@ using System.Linq;
 
 namespace Nintenlord.Graph
 {
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public sealed class DictionaryBasedGraph<TNode> : IGraph<TNode>
     {
         private readonly IDictionary<TNode, IEnumerable<TNode>> neighbours;
