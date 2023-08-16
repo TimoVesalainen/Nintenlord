@@ -1,0 +1,97 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using Nintenlord.Utility;
+using System;
+
+namespace Nintenlord.StateMachines
+{
+<#
+for (int i = 2; i < 8; i++)
+{
+    var states = Enumerable.Range(0, i).Select(index => $"TState{index}").ToArray();
+    var state = $"Either<{string.Join(", ", states)}>";
+    var input = $"Either<TInput, UnionStateMachine<{string.Join(", ", states)}, TInput>.SwitchTo>";
+    var machineTypes = states.Select(state => $"IStateMachine<{state}, TInput>");
+    var parameters = Enumerable.Range(0, i).Select(index => $"machine{index}");
+    var enumType = $"Enum{i}";
+    var enumValues = Enumerable.Range(0, i).Select(index => $"Item{index}");
+    var switchInstanceNames = Enumerable.Range(0, i).Select(index => $"SwitchTo{index}");
+#>
+    public sealed class UnionStateMachine<<#= string.Join(", ", states) #>, TInput> :
+    IStateMachine<<#= state #>, <#= input #>>
+    {
+<#
+    foreach (var (type, name) in machineTypes.Zip(parameters, (a, b) => (a, b)))
+    {
+#>
+        private readonly <#= type #> <#= name #>;
+<#
+    }
+#>
+
+        public UnionStateMachine(<#= String.Join(", ", machineTypes.Zip(parameters, (type, name) => $"{type} {name}")) #>,
+            <#= state #> startState = null)
+        {
+<#
+    foreach (var name in parameters)
+    {
+#>
+            this.<#= name #> = <#= name #>;
+<#
+    }
+#>
+            StartState = startState ?? machine0.StartState;
+        }
+
+        public <#= state #> StartState { get; }
+
+        public bool IsFinalState(<#= state #> state)
+        {
+            return state.Apply(<#= string.Join(", ", parameters.Select(name => $"{name}.IsFinalState")) #>);
+        }
+
+        public <#= state #> Transition(<#= state #> currentState, Either<TInput, SwitchTo> input)
+        {
+            return input.Apply(
+                inputProper => currentState.Apply<<#= state #>>(<#= string.Join(", ", parameters.Select(name => $"innerState => {name}.Transition(innerState, inputProper)")) #>),
+                switchTo => switchTo.Value switch
+                    {
+<#
+    foreach (var (name, enumValue) in parameters.Zip(enumValues, (a,b) => (a,b)))
+    {
+#>
+                        <#= enumType #>.<#= enumValue #> => (<#= state #>)<#= name #>.StartState,
+<#
+    }
+#>
+                        _ => throw new InvalidProgramException(),
+                    });
+        }
+
+        public sealed class SwitchTo
+        {
+<#
+    foreach (var (name, enumValue) in switchInstanceNames.Zip(enumValues, (a,b) => (a,b)))
+    {
+#>
+            public static readonly SwitchTo <#= name #> = new(<#= enumType #>.<#= enumValue #>);
+<#
+    }
+#>
+
+            public <#= enumType #> Value { get; }
+
+            private SwitchTo( <#= enumType #> value)
+            {
+                Value = value;
+            }
+        }
+    }
+<#
+}
+#>
+}

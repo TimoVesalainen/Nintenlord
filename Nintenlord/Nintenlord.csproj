@@ -28,6 +28,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CombinedStateMachine.tt</DependentUpon>
     </None>
+    <None Include="StateMachines\ParallelStateMachine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ParallelStateMachine.tt</DependentUpon>
+    </None>
+    <None Include="StateMachines\UnionStateMachine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnionStateMachine.tt</DependentUpon>
+    </None>
     <None Include="Trees\DisjoinUnionTrees.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -68,6 +78,14 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CombinedStateMachine.cs</LastGenOutput>
     </None>
+    <None Update="StateMachines\ParallelStateMachine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ParallelStateMachine.cs</LastGenOutput>
+    </None>
+    <None Update="StateMachines\UnionStateMachine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UnionStateMachine.cs</LastGenOutput>
+    </None>
     <None Update="Trees\DisjoinUnionTrees.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DisjoinUnionTrees.cs</LastGenOutput>
@@ -105,6 +123,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CombinedStateMachine.tt</DependentUpon>
+    </Compile>
+    <Compile Update="StateMachines\ParallelStateMachine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ParallelStateMachine.tt</DependentUpon>
+    </Compile>
+    <Compile Update="StateMachines\UnionStateMachine.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnionStateMachine.tt</DependentUpon>
     </Compile>
     <Compile Update="Trees\DisjoinUnionTrees.cs">
       <DesignTime>True</DesignTime>
