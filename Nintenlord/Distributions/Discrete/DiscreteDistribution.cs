@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nintenlord.Distributions;
-using Nintenlord.Utility.Primitives;
+using Nintenlord.Numerics;
 
 namespace Nintenlord.Distributions.Discrete
 {

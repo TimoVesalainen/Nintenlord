@@ -1,4 +1,4 @@
-﻿using Nintenlord.Utility.Primitives;
+﻿using Nintenlord.Numerics;
 
 namespace Nintenlord.Geometry.Hamming
 {

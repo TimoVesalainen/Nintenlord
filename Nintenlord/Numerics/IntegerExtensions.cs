@@ -1,9 +1,10 @@
 ﻿using Nintenlord.Collections;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Utility.Primitives
+namespace Nintenlord.Numerics
 {
     /// <summary>
     /// Extensions and helper methods to integers
@@ -56,7 +57,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static string ToHexString(this int i, string prefix)
         {
-            return ToHexString(i, prefix, "");
+            return i.ToHexString(prefix, "");
         }
         public static string ToHexString(this int i, string prefix, string postfix)
         {
@@ -65,7 +66,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static string ToBinString(this int i, string postfix)
         {
-            return ToBinString(i, "", postfix);
+            return i.ToBinString("", postfix);
         }
         public static string ToBinString(this int i, string prefix, string postfix)
         {
@@ -79,8 +80,8 @@ namespace Nintenlord.Utility.Primitives
                 return false;
             }
 
-            return (index1 < index2 + length2 && index1 >= index2) ||
-                   (index2 < index1 + length1 && index2 >= index1);
+            return index1 < index2 + length2 && index1 >= index2 ||
+                   index2 < index1 + length1 && index2 >= index1;
         }
 
         public static int ToPower2(this int value)
@@ -300,13 +301,13 @@ namespace Nintenlord.Utility.Primitives
             }
             if (number == 1)
             {
-                yield return EnumerableExtensions.Return(1);
+                yield return 1.Return();
             }
             else
             {
                 for (int i = 0; i < number; i++)
                 {
-                    foreach (var item in Compositions(i))
+                    foreach (var item in i.Compositions())
                     {
                         yield return item.Prepend(number - i);
                     }
@@ -333,7 +334,7 @@ namespace Nintenlord.Utility.Primitives
             int result = 0;
             while (number > 0)
             {
-                number &= (number - 1);
+                number &= number - 1;
                 result++;
             }
             return result;
@@ -344,7 +345,7 @@ namespace Nintenlord.Utility.Primitives
             int result = 0;
             while (number > 0)
             {
-                number &= (number - 1);
+                number &= number - 1;
                 result++;
             }
             return result;
@@ -417,7 +418,7 @@ namespace Nintenlord.Utility.Primitives
         {
             for (int i = 0; i < 32; i++)
             {
-                yield return (value & (1 << i)) != 0;
+                yield return (value & 1 << i) != 0;
             }
         }
 
@@ -425,7 +426,7 @@ namespace Nintenlord.Utility.Primitives
         {
             for (int i = 0; i < 32; i++)
             {
-                if ((value & (1 << i)) != 0)
+                if ((value & 1 << i) != 0)
                 {
                     yield return i;
                 }
@@ -436,7 +437,7 @@ namespace Nintenlord.Utility.Primitives
         {
             for (int i = 0; i < 32; i++)
             {
-                if ((value & (1 << i)) == 0)
+                if ((value & 1 << i) == 0)
                 {
                     yield return i;
                 }
@@ -461,7 +462,7 @@ namespace Nintenlord.Utility.Primitives
                 {
                     return 1;
                 }
-                return Inner(n-1, k-1) + Inner(n-1, k);
+                return Inner(n - 1, k - 1) + Inner(n - 1, k);
             }
 
             return Inner(n, k);
@@ -498,7 +499,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static int LeastCommonDivider(this int a, int b)
         {
-            return a * b / GreatestCommonDivisor(a, b);
+            return a * b / a.GreatestCommonDivisor(b);
         }
 
         public static int LeastCommonDivider(this IEnumerable<int> numbers)

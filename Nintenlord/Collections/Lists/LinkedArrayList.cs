@@ -1,4 +1,4 @@
-﻿using Nintenlord.Utility.Primitives;
+﻿using Nintenlord.Numerics;
 using System;
 using System.Collections;
 using System.Collections.Generic;

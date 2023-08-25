@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using Nintenlord.Utility.Primitives;
 using System.Linq;
+using Nintenlord.Numerics;
 
 namespace Nintenlord.Tests.Utility.Primitives
 {

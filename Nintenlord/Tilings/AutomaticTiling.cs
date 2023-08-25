@@ -1,5 +1,5 @@
-﻿using Nintenlord.StateMachines;
-using Nintenlord.Utility.Primitives;
+﻿using Nintenlord.Numerics;
+using Nintenlord.StateMachines;
 using System;
 using System.Linq;
 

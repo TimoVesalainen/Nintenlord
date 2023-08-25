@@ -1,5 +1,5 @@
-﻿using Nintenlord.Utility;
-using Nintenlord.Utility.Primitives;
+﻿using Nintenlord.Numerics;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
-﻿using Nintenlord.Trees;
-using Nintenlord.Utility.Primitives;
+﻿using Nintenlord.Numerics;
+using Nintenlord.Trees;
 using System;
 using System.Collections.Generic;
 

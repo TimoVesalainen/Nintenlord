@@ -1,7 +1,7 @@
 ﻿using Nintenlord.Collections.Comparers;
 using Nintenlord.Geometry;
+using Nintenlord.Numerics;
 using Nintenlord.Utility;
-using Nintenlord.Utility.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;

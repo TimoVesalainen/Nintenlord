@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.Utility.Primitives
+namespace Nintenlord.Numerics
 {
     public static class FloatingPointExtensions
     {

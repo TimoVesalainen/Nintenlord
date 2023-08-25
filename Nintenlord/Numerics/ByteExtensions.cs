@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Nintenlord.Utility.Primitives
+namespace Nintenlord.Numerics
 {
     /// <summary>
     /// Extensions for byte and arrays of it
@@ -63,10 +63,10 @@ namespace Nintenlord.Utility.Primitives
             byte[] result;
 
             int begIndex = position / 8;
-            int firstByteBits = (8 - position & 0x7) & 0x7;
+            int firstByteBits = 8 - position & 0x7 & 0x7;
 
             int endIndex = (position + length) / 8;
-            int lastByteBits = (position + length) & 0x7;
+            int lastByteBits = position + length & 0x7;
 
             int resultLength = endIndex;
 
@@ -75,7 +75,7 @@ namespace Nintenlord.Utility.Primitives
                 resultLength++;
             }
             result = new byte[resultLength];
-            if (((position & 0x7) + length) < 9)
+            if ((position & 0x7) + length < 9)
             {
                 result[begIndex] = GetMask(position & 0x7, length);
             }
@@ -192,11 +192,11 @@ namespace Nintenlord.Utility.Primitives
             }
             else if (toShift > 0)
             {
-                return ShiftLeft(array, toShift);
+                return array.ShiftLeft(toShift);
             }
             else
             {
-                return ShiftRight(array, -toShift);
+                return array.ShiftRight(-toShift);
             }
         }
 
@@ -212,7 +212,7 @@ namespace Nintenlord.Utility.Primitives
             byte temp = 0;
             for (int i = 0; i < result.Length; i++)
             {
-                byte value = (byte)((result[i] << bitsToMove) | (temp >> (8 - bitsToMove)));
+                byte value = (byte)(result[i] << bitsToMove | temp >> 8 - bitsToMove);
                 temp = (byte)(result[i] & mask);
                 result[i] = value;
             }
@@ -237,7 +237,7 @@ namespace Nintenlord.Utility.Primitives
             byte temp = 0;
             for (int i = result.Length - 1; i >= 0; i--)
             {
-                byte value = (byte)((result[i] >> bitsToMove) | (temp << (8 - bitsToMove)));
+                byte value = (byte)(result[i] >> bitsToMove | temp << 8 - bitsToMove);
                 temp = (byte)(result[i] & mask);
                 result[i] = value;
             }
@@ -298,7 +298,7 @@ namespace Nintenlord.Utility.Primitives
             byte[] result = new byte[array.Length];
             for (int i = 0; i < result.Length; i++)
             {
-                result[i] = (byte)(~array[i]);
+                result[i] = (byte)~array[i];
             }
             return result;
         }
@@ -330,7 +330,7 @@ namespace Nintenlord.Utility.Primitives
         {
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = (byte)(~array[i]);
+                array[i] = (byte)~array[i];
             }
         }
 
@@ -369,11 +369,11 @@ namespace Nintenlord.Utility.Primitives
         public static byte ReverseBits(this byte value)
         {
             //Swap 4 bit groups
-            value = (byte)(((value & 0xF0) >> 4) | ((value & 0x0F) << 4));
+            value = (byte)((value & 0xF0) >> 4 | (value & 0x0F) << 4);
             //Swap 2 bit groups
-            value = (byte)(((value & 0xCC) >> 2) | ((value & 0x33) << 2));
+            value = (byte)((value & 0xCC) >> 2 | (value & 0x33) << 2);
             //Swap 1 bit groups
-            value = (byte)(((value & 0xAA) >> 1) | ((value & 0x55) << 1));
+            value = (byte)((value & 0xAA) >> 1 | (value & 0x55) << 1);
             return value;
         }
 
