@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace Nintenlord.Utility
+namespace Nintenlord.Numerics
 {
-    public readonly struct FixedPointInteger : IEquatable<FixedPointInteger>, IComparable<FixedPointInteger>//, IConvertible
+    public readonly struct FixedPointNumber : IEquatable<FixedPointNumber>, IComparable<FixedPointNumber>//, IConvertible
     {
         #region Static
         private static readonly int[] masks;
 
-        static FixedPointInteger()
+        static FixedPointNumber()
         {
             masks = new int[sizeof(int) * 8];
             int mask = 0;
@@ -27,109 +27,109 @@ namespace Nintenlord.Utility
 
         private readonly int rawValue;
 
-        private FixedPointInteger(int rawVal)
+        private FixedPointNumber(int rawVal)
         {
             rawValue = rawVal;
         }
 
-        public static explicit operator int(FixedPointInteger val)
+        public static explicit operator int(FixedPointNumber val)
         {
             return val.rawValue >> decimals;
         }
 
-        public static implicit operator FixedPointInteger(int val)
+        public static implicit operator FixedPointNumber(int val)
         {
-            return new FixedPointInteger(val << decimals);
+            return new FixedPointNumber(val << decimals);
         }
 
-        public static explicit operator float(FixedPointInteger val)
+        public static explicit operator float(FixedPointNumber val)
         {
             float value = (int)val;
             value += (val.rawValue & decimalMask) / (float)(decimalMask + 1);
             return value;
         }
 
-        public static implicit operator FixedPointInteger(float val)
+        public static implicit operator FixedPointNumber(float val)
         {
             int rawval = (int)val;
             rawval <<= decimals;
             double decimalval = val - Math.Floor(val);
             rawval |= (int)((decimalMask + 1) * decimalval);
-            return new FixedPointInteger(rawval);
+            return new FixedPointNumber(rawval);
         }
 
-        public static FixedPointInteger operator +(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator +(FixedPointNumber val, FixedPointNumber val2)
         {
-            return new FixedPointInteger(val.rawValue + val2.rawValue);
+            return new FixedPointNumber(val.rawValue + val2.rawValue);
         }
 
-        public static FixedPointInteger operator -(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator -(FixedPointNumber val, FixedPointNumber val2)
         {
-            return new FixedPointInteger(val.rawValue - val2.rawValue);
+            return new FixedPointNumber(val.rawValue - val2.rawValue);
         }
 
-        public static FixedPointInteger operator *(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator *(FixedPointNumber val, FixedPointNumber val2)
         {
             long temp = Math.BigMul(val.rawValue, val2.rawValue);
-            return new FixedPointInteger((int)(temp >> decimals));
+            return new FixedPointNumber((int)(temp >> decimals));
         }
 
-        public static FixedPointInteger operator /(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator /(FixedPointNumber val, FixedPointNumber val2)
         {
             int remainder = Math.DivRem(val.rawValue, val2.rawValue, out int quatient);
-            int result = (remainder << decimals) | (quatient / (val2.rawValue >> decimals));
-            return new FixedPointInteger(result);
+            int result = remainder << decimals | quatient / (val2.rawValue >> decimals);
+            return new FixedPointNumber(result);
         }
 
-        public static FixedPointInteger operator <<(FixedPointInteger val, int val2)
+        public static FixedPointNumber operator <<(FixedPointNumber val, int val2)
         {
-            return new FixedPointInteger(val.rawValue << val2);
+            return new FixedPointNumber(val.rawValue << val2);
         }
 
-        public static FixedPointInteger operator >>(FixedPointInteger val, int val2)
+        public static FixedPointNumber operator >>(FixedPointNumber val, int val2)
         {
-            return new FixedPointInteger(val.rawValue >> val2);
+            return new FixedPointNumber(val.rawValue >> val2);
         }
 
-        public static FixedPointInteger operator &(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator &(FixedPointNumber val, FixedPointNumber val2)
         {
-            return new FixedPointInteger(val.rawValue & val2.rawValue);
+            return new FixedPointNumber(val.rawValue & val2.rawValue);
         }
 
-        public static FixedPointInteger operator |(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator |(FixedPointNumber val, FixedPointNumber val2)
         {
-            return new FixedPointInteger(val.rawValue | val2.rawValue);
+            return new FixedPointNumber(val.rawValue | val2.rawValue);
         }
 
-        public static FixedPointInteger operator ^(FixedPointInteger val, FixedPointInteger val2)
+        public static FixedPointNumber operator ^(FixedPointNumber val, FixedPointNumber val2)
         {
-            return new FixedPointInteger(val.rawValue ^ val2.rawValue);
+            return new FixedPointNumber(val.rawValue ^ val2.rawValue);
         }
 
 
         #region IEquatable<FixedPointInteger> Members
 
-        public bool Equals(FixedPointInteger other)
+        public bool Equals(FixedPointNumber other)
         {
-            return this.CompareTo(other) == 0;
+            return CompareTo(other) == 0;
         }
 
         #endregion
 
         #region IComparable<FixedPointInteger> Members
 
-        public int CompareTo(FixedPointInteger other)
+        public int CompareTo(FixedPointNumber other)
         {
-            return this.rawValue - other.rawValue;
+            return rawValue - other.rawValue;
         }
 
         #endregion
 
         public override bool Equals(object obj)
         {
-            if (obj is FixedPointInteger)
+            if (obj is FixedPointNumber)
             {
-                return this.Equals((FixedPointInteger)obj);
+                return Equals((FixedPointNumber)obj);
             }
             else
             {
