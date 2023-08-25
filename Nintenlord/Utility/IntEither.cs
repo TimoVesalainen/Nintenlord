@@ -45,5 +45,15 @@ namespace Nintenlord.Utility
         {
             return $"{{Option{index}: {value}}}";
         }
+
+        public static bool operator ==(IntEither left, IntEither right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(IntEither left, IntEither right)
+        {
+            return !(left == right);
+        }
     }
 }
