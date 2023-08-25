@@ -175,7 +175,7 @@ namespace Nintenlord.Utility
         {
             if (index < 0 || index >= list.Length)
             {
-                return Maybe<object>.Nothing;
+                return error;
             }
             else
             {
