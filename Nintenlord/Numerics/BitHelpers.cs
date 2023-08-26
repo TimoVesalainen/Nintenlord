@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Nintenlord.Numerics
 {
-    /// <summary>
-    /// Extensions for byte and arrays of it
-    /// </summary>
-    public static class ByteExtensions
+    public static class BitHelpers
     {
         public static byte Shift(this byte i, int amount)
         {
@@ -18,22 +18,6 @@ namespace Nintenlord.Numerics
             {
                 return (byte)(i >> -amount);
             }
-        }
-
-        public static bool IsInRange(this byte i, byte min, byte max)
-        {
-            return i <= max && i >= min;
-        }
-
-        public static int Clamp(this byte i, byte min, byte max)
-        {
-            return i < min ? min :
-                   i > max ? max : i;
-        }
-
-        public static string ToHexString(this byte i, string prefix)
-        {
-            return prefix + Convert.ToString(i, 16).ToUpper();
         }
 
         public static byte GetBits(this byte i, int position, int length)
@@ -159,21 +143,6 @@ namespace Nintenlord.Numerics
             }
 
             return result;
-        }
-
-
-        public static string ToString(this byte[] i, int bytesPerWord)
-        {
-            StringBuilder result = new StringBuilder();
-            for (int j = 0; j < i.Length; j++)
-            {
-                result.Append(i[j].ToHexString("").PadLeft(2, '0'));
-                if (j % bytesPerWord == bytesPerWord - 1)
-                {
-                    result.Append(" ");
-                }
-            }
-            return result.ToString();
         }
 
         /// <summary>
@@ -427,5 +396,299 @@ namespace Nintenlord.Numerics
 
             return (byte)(rest | valA | valB | valC | valD);
         }
+
+        public static int TrailingZeroCount(this int value)
+        {
+            if (value == 0)
+            {
+                return 32;
+            }
+
+            int result = 0;
+
+            if ((value & 0x0000FFFF) == 0)
+            {
+                result += 16;
+                value >>= 16;
+            }
+            if ((value & 0x000000FF) == 0)
+            {
+                result += 8;
+                value >>= 8;
+            }
+            if ((value & 0x0000000F) == 0)
+            {
+                result += 4;
+                value >>= 4;
+            }
+            if ((value & 0x00000003) == 0)
+            {
+                result += 2;
+                value >>= 2;
+            }
+            if ((value & 0x00000001) == 0)
+            {
+                result += 1;
+                //value >>= 1;
+            }
+
+            return result;
+        }
+
+        public static int LeadingZeroCount(this int value)
+        {
+            if (value == 0)
+            {
+                return 32;
+            }
+
+            int result = 0;
+
+            if ((value & 0xFFFF0000) == 0)
+            {
+                result += 16;
+                value <<= 16;
+            }
+            if ((value & 0xFF000000) == 0)
+            {
+                result += 8;
+                value <<= 8;
+            }
+            if ((value & 0xF0000000) == 0)
+            {
+                result += 4;
+                value <<= 4;
+            }
+            if ((value & 0xC0000000) == 0)
+            {
+                result += 2;
+                value <<= 2;
+            }
+            if ((value & 0x80000000) == 0)
+            {
+                result += 1;
+                //value <<= 1;
+            }
+
+            return result;
+        }
+
+        public static int TrailingZeroCount(this long value)
+        {
+            if (value == 0)
+            {
+                return 64;
+            }
+
+            int result = 0;
+
+            if ((value & 0x00000000FFFFFFFF) == 0)
+            {
+                result += 32;
+                value >>= 32;
+            }
+            if ((value & 0x000000000000FFFF) == 0)
+            {
+                result += 16;
+                value >>= 16;
+            }
+            if ((value & 0x00000000000000FF) == 0)
+            {
+                result += 8;
+                value >>= 8;
+            }
+            if ((value & 0x000000000000000F) == 0)
+            {
+                result += 4;
+                value >>= 4;
+            }
+            if ((value & 0x0000000000000003) == 0)
+            {
+                result += 2;
+                value >>= 2;
+            }
+            if ((value & 0x0000000000000001) == 0)
+            {
+                result += 1;
+                //value >>= 1;
+            }
+
+            return result;
+        }
+
+        public static int LeadingZeroCount(this ulong value)
+        {
+            if (value == 0)
+            {
+                return 64;
+            }
+
+            int result = 0;
+
+            if ((value & 0xFFFFFFFF00000000) == 0)
+            {
+                result += 32;
+                value <<= 32;
+            }
+            if ((value & 0xFFFF000000000000) == 0)
+            {
+                result += 16;
+                value <<= 16;
+            }
+            if ((value & 0xFF00000000000000) == 0)
+            {
+                result += 8;
+                value <<= 8;
+            }
+            if ((value & 0xF000000000000000) == 0)
+            {
+                result += 4;
+                value <<= 4;
+            }
+            if ((value & 0xC000000000000000) == 0)
+            {
+                result += 2;
+                value <<= 2;
+            }
+            if ((value & 0x8000000000000000) == 0)
+            {
+                result += 1;
+                //value <<= 1;
+            }
+
+            return result;
+        }
+        public static int CountOneBits(this int number)
+        {
+            int result = 0;
+            while (number > 0)
+            {
+                number &= number - 1;
+                result++;
+            }
+            return result;
+        }
+
+        public static int CountOneBits(this long number)
+        {
+            int result = 0;
+            while (number > 0)
+            {
+                number &= number - 1;
+                result++;
+            }
+            return result;
+        }
+
+        public static int Shift(this int value, int by)
+        {
+            if (by < 0)
+            {
+                return value >> -by;
+            }
+            else
+            {
+                return value << by;
+            }
+        }
+
+        public static int SwapBits(this int value, int a, int b)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+
+            var diffAB = a - b;
+            var diffBA = b - a;
+            var valA = (value & maskA).Shift(-diffAB);
+            var valB = (value & maskB).Shift(-diffBA);
+            var rest = value & ~(maskA | maskB);
+
+            return rest | valA | valB;
+        }
+
+        public static int SwapBits(this int value, int a, int b, int c)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+            int maskC = 1 << c;
+
+            var diffAB = a - b;
+            var diffBC = b - c;
+            var diffCA = c - a;
+            var valA = (value & maskA).Shift(-diffAB);
+            var valB = (value & maskB).Shift(-diffBC);
+            var valC = (value & maskC).Shift(-diffCA);
+            var rest = value & ~(maskA | maskB | maskC);
+
+            return rest | valA | valB | valC;
+        }
+
+        public static int SwapBits(this int value, int a, int b, int c, int d)
+        {
+            int maskA = 1 << a;
+            int maskB = 1 << b;
+            int maskC = 1 << c;
+            int maskD = 1 << d;
+
+            var diffAB = a - b;
+            var diffBC = b - c;
+            var diffCD = c - d;
+            var diffDA = d - a;
+            var valA = (value & maskA).Shift(-diffAB);
+            var valB = (value & maskB).Shift(-diffBC);
+            var valC = (value & maskC).Shift(-diffCD);
+            var valD = (value & maskD).Shift(-diffDA);
+            var rest = value & ~(maskA | maskB | maskC | maskD);
+
+            return rest | valA | valB | valC | valD;
+        }
+
+        public static IEnumerable<bool> GetBits(this int value)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                yield return (value & 1 << i) != 0;
+            }
+        }
+
+        public static IEnumerable<int> GetOneIndicis(this int value)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if ((value & 1 << i) != 0)
+                {
+                    yield return i;
+                }
+            }
+        }
+
+        public static IEnumerable<int> GetZeroIndicis(this int value)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if ((value & 1 << i) == 0)
+                {
+                    yield return i;
+                }
+            }
+        }
+
+        public static int ToPower2(this int value)
+        {
+            ToPower2(ref value);
+            return value;
+        }
+
+        public static void ToPower2(ref int value)
+        {
+            value--;
+            value |= value >> 1;
+            value |= value >> 2;
+            value |= value >> 4;
+            value |= value >> 8;
+            value |= value >> 16;
+            value++;
+        }
+
     }
 }

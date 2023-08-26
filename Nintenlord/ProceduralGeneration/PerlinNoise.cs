@@ -145,14 +145,14 @@ namespace Nintenlord.ProceduralGeneration
             double gradaa = Grad(permuteLookup[aa], x, y);
             double gradba = Grad(permuteLookup[ba], x - 1, y);
 
-            double edge1 = FloatingPointExtensions.Lerp(gradaa, gradba, u);
+            double edge1 = gradaa.Lerp(gradba, u);
 
             double gradab = Grad(permuteLookup[ab], x, y - 1);
             double gradbb = Grad(permuteLookup[bb], x - 1, y - 1);
 
-            double edge2 = FloatingPointExtensions.Lerp(gradab, gradbb, u);
+            double edge2 = gradab.Lerp(gradbb, u);
 
-            double lerped = FloatingPointExtensions.Lerp(edge1, edge2, v);
+            double lerped = edge1.Lerp(edge2, v);
 
             return lerped;
         }

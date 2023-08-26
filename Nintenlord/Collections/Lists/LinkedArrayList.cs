@@ -68,7 +68,7 @@ namespace Nintenlord.Collections.Lists
 
         public LinkedArrayList(int capacity)
         {
-            IntegerExtensions.ToPower2(ref capacity);
+            BitHelpers.ToPower2(ref capacity);
             items = new T[capacity];
             count = 0;
             firstReservedIndex = 0;

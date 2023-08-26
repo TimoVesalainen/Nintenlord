@@ -1,90 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Nintenlord.Numerics
 {
     public static class FloatingPointExtensions
     {
-        public static IEnumerable<int> GetIntegersBetween(float min, float max)
+        public static IEnumerable<TInt> GetIntegersBetween<TInt, TFloat>(TFloat min, TFloat max)
+            where TFloat : IFloatingPoint<TFloat> 
+            where TInt : INumberBase<TInt>, IComparisonOperators<TInt, TInt, bool>
         {
             if (min > max)
             {
                 throw new ArgumentException("min is larger than max");
             }
-            min = (float)Math.Ceiling(min);
-            max = (float)Math.Floor(max);
-            int minI = (int)min;
-            int maxI = (int)max;
 
-            for (int i = minI; i <= maxI; i++)
+            TInt minI = TInt.CreateChecked(TFloat.Ceiling(min));
+            TInt maxI = TInt.CreateChecked(TFloat.Floor(max));
+
+            for (TInt i = minI; i <= maxI; i++)
             {
                 yield return i;
             }
         }
 
-        public static bool IsInRange(this float val, float min, float max)
+        public static IEnumerable<TFloat> GetFloats<TFloat>(int n)
+             where TFloat : IFloatingPoint<TFloat>
         {
-            return val >= min && val <= max;
-        }
-
-        public static IEnumerable<float> GetFloats(int n)
-        {
+            var paramAsFloat = TFloat.CreateChecked(n);
             for (int i = 0; i <= n; i++)
             {
-                yield return i / (float)n;
+                yield return TFloat.CreateChecked(i) / paramAsFloat;
             }
         }
 
-        public static double Lerp(double a, double b, double t)
-        {
-            return a + t * (b - a);
-        }
-
-        public static float Lerp(float a, float b, float t)
-        {
-            return a + t * (b - a);
-        }
-
-        public static float Clamp(this float value, float min, float max)
+        public static TNumber SigmoidRP<TNumber>(this TNumber value, TNumber min, TNumber max)
+            where TNumber: IExponentialFunctions<TNumber>, IComparisonOperators<TNumber, TNumber, bool>
         {
             if (min > max)
             {
                 throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
             }
-            return min > value ? min : max < value ? max : value;
-        }
 
-        public static double Clamp(this double value, double min, double max)
-        {
-            if (min > max)
-            {
-                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
-            }
-            return min > value ? min : max < value ? max : value;
-        }
+            var exponent = TNumber.Exp(value * TNumber.CreateChecked(10) - TNumber.CreateChecked(5));
 
-        public static double SigmoidRP(this double value, double min, double max)
-        {
-            if (min > max)
-            {
-                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
-            }
-            var exponent = Math.Exp(value * 10 - 5);
-
-            var sigmoid = exponent / (1 + exponent);
-
-            return min + sigmoid * (max - min);
-        }
-
-        public static float SigmoidRP(this float value, float min, float max)
-        {
-            if (min > max)
-            {
-                throw new ArgumentOutOfRangeException(nameof(min), "Min > max");
-            }
-            var exponent = (float)Math.Exp(value * 10 - 5);
-
-            var sigmoid = exponent / (1 + exponent);
+            var sigmoid = exponent / (TNumber.One + exponent);
 
             return min + sigmoid * (max - min);
         }
