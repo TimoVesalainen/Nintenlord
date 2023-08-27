@@ -1119,7 +1119,7 @@ namespace Nintenlord.Collections
         public static IDistribution<T> RandomItem<T>(this IEnumerable<T> items)
         {
             var count = items.Count();
-            var indexDistribution = DiscreteUniformDistribution.Create(0, count + 1);
+            var indexDistribution = DiscreteUniformDistribution.Create(0, count - 1);
             return DiscreteDistribution<T>.Create(indexDistribution, items);
         }
     }
