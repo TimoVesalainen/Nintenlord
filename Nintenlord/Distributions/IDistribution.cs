@@ -294,7 +294,11 @@ namespace Nintenlord.Distributions
                 throw new ArgumentOutOfRangeException(nameof(amount));
             }
 
-            if (distribution is EmptyDistribution<T>)
+            if (amount == 0)
+            {
+                return SingletonDistribution<T[]>.Create(Array.Empty<T>());
+            }
+            else if (distribution is EmptyDistribution<T>)
             {
                 return EmptyDistribution<T[]>.Instance;
             }
@@ -302,19 +306,15 @@ namespace Nintenlord.Distributions
             {
                 return SingletonDistribution<T[]>.Create(Enumerable.Repeat(singleton.Value, amount).ToArray());
             }
-            else if (distribution is IDiscreteDistribution<T> discrete)
+            else if (amount == 1)
             {
-                (T[] items, int weight) GetPair(IEnumerable<T> items)
-                {
-                    var array = items.ToArray();
-
-                    return (array, array.Select(discrete.Weight).Sum());
-                }
-
-                return discrete.Support()
-                    .GetSequencesFrom(amount)
-                    .Select(GetPair)
-                    .ToWeighedDistribution(equalityComparer: comparer.ToArrayComparer());
+                return distribution.Select(item => new[] { item });
+            }
+            else if (amount == 2)
+            {
+                return from first in distribution
+                       from second in distribution
+                       select new[] { first, second };
             }
 
             return new ArrayDistribution<T>(distribution, amount);
