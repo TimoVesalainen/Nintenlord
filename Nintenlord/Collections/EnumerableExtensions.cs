@@ -1,4 +1,6 @@
 ﻿using Nintenlord.Collections.Comparers;
+using Nintenlord.Distributions;
+using Nintenlord.Distributions.Discrete;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
@@ -1112,6 +1114,13 @@ namespace Nintenlord.Collections
             }
 
             return Inner();
+        }
+
+        public static IDistribution<T> RandomItem<T>(this IEnumerable<T> items)
+        {
+            var count = items.Count();
+            var indexDistribution = DiscreteUniformDistribution.Create(0, count + 1);
+            return DiscreteDistribution<T>.Create(indexDistribution, items);
         }
     }
 }
