@@ -32,7 +32,14 @@ namespace Nintenlord.StateMachines.Finite
 
         public TState Transition(TState currentState, TInput input)
         {
-            return transitions[(currentState, input)];
+            if (transitions.TryGetValue((currentState, input), out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return currentState;
+            }
         }
     }
 }
