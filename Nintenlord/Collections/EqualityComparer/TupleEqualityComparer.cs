@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nintenlord.Collections.EqualityComparer
 {
+    // TODO: Templatify
     public sealed class TupleEqualityComparer<T1, T2> : IEqualityComparer<(T1, T2)>
     {
         readonly IEqualityComparer<T1> first;
