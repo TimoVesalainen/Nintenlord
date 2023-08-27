@@ -1,9 +1,12 @@
-﻿using Nintenlord.StateMachines.Finite;
+﻿using Nintenlord.Collections;
+using Nintenlord.StateMachines;
+using Nintenlord.StateMachines.Finite;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Nintenlord.Tests.StateMachine.Finite
 {
-    internal class FiniteStateMachineHelpers
+    internal class FiniteStateMachineHelperTests
     {
         [Test]
         public static void TestEquivalenceFindingEvenNumberOfAs()
@@ -64,6 +67,33 @@ namespace Nintenlord.Tests.StateMachine.Finite
                 new[] { 0, 1, 2, 3 },
                 new[] { 4, 5, 6, 7 }
             });
+        }
+
+        [Test]
+        public static void TestRandomMachine()
+        {
+            var stateCount = 16;
+            var transitionCount = 48;
+            var states = Enumerable.Range(0, stateCount);
+            var inputs = "abc";
+            var randomInput = inputs.RandomItem();
+
+            var stateMachines = FiniteStateMachineHelpers.Create(states, inputs, transitionCount);
+
+            var randomMachine = stateMachines.Sample();
+            var optimized = randomMachine.FindMinimumStateMachine(inputs);
+
+            for (int length = 1; length < 16; length++)
+            {
+                var input = new char[length];
+
+                for (int i = 0; i < length; i++)
+                {
+                    input[i] = randomInput.Sample();
+                }
+
+                Assert.AreEqual(randomMachine.IsAccepted(input), optimized.IsAccepted(input));
+            }
         }
     }
 }
