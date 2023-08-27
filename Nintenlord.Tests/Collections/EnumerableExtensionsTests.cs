@@ -53,5 +53,18 @@ namespace Nintenlord.Tests.Collections
                 new[] { 0 },
                 Enumerable.Repeat(0, 1).Intersperse(1));
         }
+
+        [Test]
+        public void TestUntilNotDistinct()
+        {
+            Assert.AreEqual(
+                new int[] { 0, 1, 1 }.UntilNotDistinct(),
+                new int[] { 0, 1 }
+                );
+            Assert.AreEqual(
+                new int[] { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, }.UntilNotDistinct(),
+                new int[] { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, }
+                );
+        }
     }
 }

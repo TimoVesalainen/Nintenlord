@@ -1082,5 +1082,36 @@ namespace Nintenlord.Collections
 
             return GetIndexLists(length).Select(indecis => indecis.Select(index => array[index]));
         }
+
+        public static IEnumerable<T> UntilNotDistinct<T>(this IEnumerable<T> items, IEqualityComparer<T> comparer = null)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            comparer ??= EqualityComparer<T>.Default;
+
+            IEnumerable<T> Inner()
+            {
+                T previous = default;
+                bool first = true;
+
+                using var enumerator = items.GetEnumerator();
+
+                while (enumerator.MoveNext())
+                {
+                    if (!first && comparer.Equals(previous, enumerator.Current))
+                    {
+                        yield break;
+                    }
+                    yield return enumerator.Current;
+                    previous = enumerator.Current;
+                    first = false;
+                }
+            }
+
+            return Inner();
+        }
     }
 }
