@@ -1063,7 +1063,7 @@ namespace Nintenlord.Collections
                 }
             }
 
-            return GetIndexLists(length);
+            return Inner(length);
         }
 
         public static IEnumerable<IEnumerable<T>> GetSequencesFrom<T>(this IEnumerable<T> items, int length)
