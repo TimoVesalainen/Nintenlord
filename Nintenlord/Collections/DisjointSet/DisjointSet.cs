@@ -22,9 +22,14 @@ namespace Nintenlord.Collections.DisjointSet
             indexSet = new DisjointIntSet(this.items.Length);
         }
 
+        private int GetIndex(T item1)
+        {
+            return Array.IndexOf(items, item1);
+        }
+
         public T FindRepresentative(T item)
         {
-            var index = Array.IndexOf(items, item);
+            var index = GetIndex(item);
             var parentIndex = indexSet.FindRepresentative(index);
             return items[parentIndex];
         }
@@ -32,15 +37,15 @@ namespace Nintenlord.Collections.DisjointSet
 
         public bool Union(T item1, T item2)
         {
-            var index1 = Array.IndexOf(items, item1);
-            var index2 = Array.IndexOf(items, item2);
+            var index1 = GetIndex(item1);
+            var index2 = GetIndex(item2);
             return indexSet.Union(index1, index2);
         }
 
         public bool AreSameSet(T item1, T item2)
         {
-            var index1 = Array.IndexOf(items, item1);
-            var index2 = Array.IndexOf(items, item2);
+            int index1 = GetIndex(item1);
+            var index2 = GetIndex(item2);
 
             return indexSet.AreSameSet(index1, index2);
         }
