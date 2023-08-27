@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections.DisjointSet;
+using Nintenlord.Trees;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
@@ -119,6 +120,19 @@ namespace Nintenlord.Graph
             }
 
             return newGraph;
+        }
+
+        public static ITree<T> MinimunSpanningTree2<T>(this IGraph<T> graph, Func<T, T, int> cost)
+        {
+            var set = new DisjointSet<T>(graph.Nodes);
+
+            foreach (var (start, end) in graph.GetEdges(ValueTuple.Create).OrderBy(edge => cost(edge.Item1, edge.Item2)))
+            {
+                set.Union(start, end);
+            }
+            var root = set.FindRepresentative(graph.Nodes.First());
+
+            return set.SetRoot(root);
         }
     }
 }
