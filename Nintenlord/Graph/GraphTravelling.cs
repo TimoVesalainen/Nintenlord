@@ -17,6 +17,7 @@
             Queue<TNode> queue = new Queue<TNode>();
 
             queue.Enqueue(startNode);
+            travelledNodes.Add(startNode);
 
             while (queue.Count > 0)
             {
@@ -29,6 +30,7 @@
                     if (!travelledNodes.Contains(node))
                     {
                         queue.Enqueue(node);
+                        travelledNodes.Add(node);
                     }
                 }
             }
