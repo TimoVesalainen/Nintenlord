@@ -81,16 +81,6 @@ namespace Nintenlord.StateMachines.Finite
             int transitionCount
             )
         {
-            var randomState = states.RandomItem();
-            var randomInput = inputs.RandomItem();
-            var isFinal = BernuelliDistribution.Create(1, 1).Select(x => x == 0);
-            var transition = from start in randomState
-                             from end in randomState
-                             from letter in randomInput
-                             select (start, letter, end);
-            var finalStates = isFinal.ArrayDistribution(states.Count());
-            var transitions = transition.ArrayDistribution(transitionCount);
-
             IFiniteStateMachine<TState, TInput> Build(
                 TState startState,
                 bool[] finalsStates,
@@ -112,6 +102,16 @@ namespace Nintenlord.StateMachines.Finite
 
                 return randomMachineBuilder.Build();
             }
+
+            var randomState = states.RandomItem();
+            var randomInput = inputs.RandomItem();
+            var isFinal = BernuelliDistribution.Create(1, 1).Select(x => x == 0);
+            var transition = from start in randomState
+                             from end in randomState
+                             from letter in randomInput
+                             select (start, letter, end);
+            var finalStates = isFinal.ArrayDistribution(states.Count());
+            var transitions = transition.ArrayDistribution(transitionCount);
 
             return from startState in randomState
                    from isFinalState in finalStates
