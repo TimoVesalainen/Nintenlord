@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Nintenlord.Trees;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Nintenlord.Collections.DisjointSet
 {
-    public sealed class DisjointSet<T> : IDisjointSet<T>
+    public sealed class DisjointSet<T> : IDisjointSet<T>, IParentForest<(T item, int index)>, IForest<(T item, int index)>, IForest<T>
     {
         readonly DisjointIntSet indexSet;
         readonly T[] items;
@@ -48,6 +49,33 @@ namespace Nintenlord.Collections.DisjointSet
             var index2 = GetIndex(item2);
 
             return indexSet.AreSameSet(index1, index2);
+        }
+
+        public bool TryGetParent((T item, int index) child, out (T item, int index) parent)
+        {
+            var (item, index) = child;
+
+            if (indexSet.TryGetParent(index, out var parentIndex))
+            {
+                parent = (items[parentIndex], parentIndex);
+                return true;
+            }
+            else
+            {
+                parent = child;
+                return false;
+            }
+        }
+
+        public IEnumerable<(T item, int index)> GetChildren((T item, int index) node)
+        {
+            return indexSet.GetChildren(node.index).Select(index => (items[index], index));
+        }
+
+        public IEnumerable<T> GetChildren(T node)
+        {
+            var index = GetIndex(node);
+            return indexSet.GetChildren(index).Select(index => items[index]);
         }
     }
 }

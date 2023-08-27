@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Nintenlord.Trees;
+using System;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections.DisjointSet
 {
-    public sealed class DisjointIntSet : IDisjointSet<int>
+    public sealed class DisjointIntSet : IDisjointSet<int>, IParentForest<int>, IForest<int>
     {
         readonly int[] parents;
         readonly int[] descendants;
@@ -70,6 +72,23 @@ namespace Nintenlord.Collections.DisjointSet
         public bool AreSameSet(int item1, int item2)
         {
             return FindRepresentative(item1) == FindRepresentative(item2);
+        }
+
+        public bool TryGetParent(int child, out int parent)
+        {
+            parent = parents[child];
+            return parents[child] != child;
+        }
+
+        public IEnumerable<int> GetChildren(int node)
+        {
+            for (int i = 0; i < parents.Length; i++)
+            {
+                if (parents[i] == node)
+                {
+                    yield return i;
+                }
+            }
         }
     }
 }
