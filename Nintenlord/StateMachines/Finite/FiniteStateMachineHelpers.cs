@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Nintenlord.Collections;
 using Nintenlord.Collections.EqualityComparer;
+using Nintenlord.Distributions;
+using Nintenlord.Distributions.Discrete;
 
 namespace Nintenlord.StateMachines.Finite
 {
@@ -71,6 +73,50 @@ namespace Nintenlord.StateMachines.Finite
             var transitionsDictionary = transitions.ToDictionary(t => (t.state, t.input), t => t.toTransition);
 
             return new DictionaryStateMachine<int, TInput>(transitionsDictionary, x => finalStates[x], startState);
+        }
+
+        public static IDistribution<IFiniteStateMachine<TState, TInput>> Create<TState, TInput>(
+            IEnumerable<TState> states,
+            IEnumerable<TInput> inputs,
+            int transitionCount
+            )
+        {
+            var randomState = states.RandomItem();
+            var randomInput = inputs.RandomItem();
+            var isFinal = BernuelliDistribution.Create(1, 1).Select(x => x == 0);
+            var transition = from start in randomState
+                             from end in randomState
+                             from letter in randomInput
+                             select (start, letter, end);
+            var finalStates = isFinal.ArrayDistribution(states.Count());
+            var transitions = transition.ArrayDistribution(transitionCount);
+
+            IFiniteStateMachine<TState, TInput> Build(
+                TState startState,
+                bool[] finalsStates,
+                (TState start, TInput letter, TState end)[] transitions)
+            {
+                var randomMachineBuilder = new DictionaryStateMachine<TState, TInput>.Builder();
+
+                foreach (var (state, isFinal) in states.Zip(finalsStates, (a,b) => (a,b)))
+                {
+                    randomMachineBuilder.AddState(state);
+                    randomMachineBuilder.SetIsFinalState(state, isFinal);
+                }
+                randomMachineBuilder.SetStartState(startState);
+
+                foreach (var (start, letter, end) in transitions)
+                {
+                    randomMachineBuilder.AddTransition(start, letter, end);
+                }
+
+                return randomMachineBuilder.Build();
+            }
+
+            return from startState in randomState
+                   from isFinalState in finalStates
+                   from transitionsToUse in transitions
+                   select Build(startState, isFinalState, transitionsToUse);
         }
     }
 }
