@@ -1,7 +1,10 @@
-﻿namespace Nintenlord.Collections.DisjointSet
+﻿using System.Collections.Generic;
+
+namespace Nintenlord.Collections.DisjointSet
 {
     public interface IDisjointSet<T>
     {
+        IEnumerable<T> Items { get; }
         bool AreSameSet(T item1, T item2);
         T FindRepresentative(T item);
 

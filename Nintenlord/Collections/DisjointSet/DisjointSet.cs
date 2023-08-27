@@ -1,5 +1,6 @@
 ﻿using Nintenlord.Trees;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +12,8 @@ namespace Nintenlord.Collections.DisjointSet
         readonly T[] items;
 
         public int ElementCount => items.Length;
+
+        public IEnumerable<T> Items => items;
 
         public DisjointSet(IEnumerable<T> items)
         {
