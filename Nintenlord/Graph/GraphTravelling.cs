@@ -1,11 +1,9 @@
-﻿namespace Nintenlord.Graph
-{
-    using Nintenlord.Trees;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Immutable;
-    using System.Linq;
+﻿using Nintenlord.Trees;
+using System;
+using System.Collections.Generic;
 
+namespace Nintenlord.Graph
+{
     public static class GraphTraversal
     {
         public static IEnumerable<TNode> BreadthFirstTraversal<TNode>(
