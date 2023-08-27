@@ -2,6 +2,10 @@
 
 namespace Nintenlord.Collections.DisjointSet
 {
+    /// <summary>
+    /// Set divided to subsets with fast unions
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IDisjointSet<T>
     {
         IEnumerable<T> Items { get; }
