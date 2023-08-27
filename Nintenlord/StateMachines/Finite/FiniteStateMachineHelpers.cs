@@ -40,10 +40,6 @@ namespace Nintenlord.StateMachines.Finite
                 });
             }
 
-            var t = EnumerableExtensions.Iterate(ToIterate, grouping).UntilNotDistinct(
-                ByLengthComparer<HashSet<TState>>.Instance as IEqualityComparer<List<HashSet<TState>>>
-                ).ToList();
-
             return EnumerableExtensions.Iterate(ToIterate, grouping).UntilNotDistinct(
                 ByLengthComparer<HashSet<TState>>.Instance as IEqualityComparer<List<HashSet<TState>>>
                 ).Last();
