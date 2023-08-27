@@ -1043,7 +1043,7 @@ namespace Nintenlord.Collections
             return first;
         }
 
-        private static IEnumerable<IEnumerable<int>> GetIndexLists(int length)
+        public static IEnumerable<IEnumerable<int>> GetIndexLists(int length)
         {
             if (length < 0)
             {
@@ -1055,7 +1055,7 @@ namespace Nintenlord.Collections
             {
                 if (n == 0)
                 {
-                    return Enumerable.Empty<IEnumerable<int>>();
+                    return new[] { Enumerable.Empty<int>() };
                 }
                 else
                 {

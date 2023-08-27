@@ -66,5 +66,17 @@ namespace Nintenlord.Tests.Collections
                 new int[] { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, }
                 );
         }
+
+        [Test]
+        public void TestIndexLists()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                var items = EnumerableExtensions.GetIndexLists(i).ToList();
+
+                Assert.AreEqual(Math.Pow(i, i), items.Count);
+                Assert.IsTrue(items.All(x => x.Count() == i));
+            }
+        }
     }
 }
