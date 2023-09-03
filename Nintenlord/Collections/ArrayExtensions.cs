@@ -123,11 +123,6 @@ namespace Nintenlord.Collections
             }
         }
 
-        public static int Total(this int[] array)
-        {
-            return array.Aggregate(1, (current, item) => current * item);
-        }
-
         public static int AmountOfSame<T>(T[] array1, int index1, T[] array2, int index2)
         {
             int length = Math.Min(array1.Length - index1, array2.Length - index2);

@@ -5,6 +5,7 @@ using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace Nintenlord.Collections
@@ -34,14 +35,26 @@ namespace Nintenlord.Collections
             return collection.All(x => x);
         }
 
-        public static int Product(this IEnumerable<int> collection)
+        public static T Sum<T>(this IEnumerable<T> collection)
+            where T : IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
         {
             if (collection is null)
             {
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            return collection.Aggregate(1, (a, b) => a * b);
+            return collection.Aggregate(T.AdditiveIdentity, (a, b) => a + b);
+        }
+
+        public static T Product<T>(this IEnumerable<T> collection)
+            where T : IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            return collection.Aggregate(T.MultiplicativeIdentity, (a, b) => a * b);
         }
 
         public static T Max<T>(this IEnumerable<T> collection) where T : IComparable<T>
