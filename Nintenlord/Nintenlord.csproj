@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Collections\ArrayMatrixHelpersN.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ArrayMatrixHelpersN.tt</DependentUpon>
+    </None>
     <None Include="Collections\EnumerableExtensions_Tuple.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -66,6 +71,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Collections\ArrayMatrixHelpersN.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ArrayMatrixHelpersN.cs</LastGenOutput>
+    </None>
     <None Update="Collections\EnumerableExtensions_Tuple.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EnumerableExtensions_Tuple.cs</LastGenOutput>
@@ -109,6 +118,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Collections\ArrayMatrixHelpersN.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ArrayMatrixHelpersN.tt</DependentUpon>
+    </Compile>
     <Compile Update="Collections\EnumerableExtensions_Tuple.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

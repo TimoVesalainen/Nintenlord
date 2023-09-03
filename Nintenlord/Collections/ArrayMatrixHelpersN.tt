@@ -1,0 +1,70 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>using Nintenlord.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Nintenlord.Collections
+{
+    public static partial class ArrayMatrixHelpers
+    {
+<#
+for (int i = 2; i <= 8; i++)
+{
+    var arrayType = "[" + string.Join(",", Enumerable.Range(0, i).Select(_ => "")) + "]";
+    var listItemsTypes = Enumerable.Range(0, i).Select(n => $"TIn{n}").ToArray();
+    var listTypes = listItemsTypes.Select(item => $"List<{item}>");
+    var listVariable = Enumerable.Range(0, i).Select(n => $"list{n}").ToArray();
+    var listVariableR = listVariable.ToArray().Reverse();
+    var indexis = Enumerable.Range(0, i).Select(n => $"x{n}").ToArray();
+    var indexisR = indexis.ToArray().Reverse();
+#>
+        public static TOut<#= arrayType #> TensorProduct<TOut, <#= string.Join(", ", listItemsTypes) #>>(this <#= string.Join(", ", listTypes.Zip(listVariable, (t, v) => $"{t} {v}")) #>, Func<<#= string.Join(", ", listItemsTypes) #>, TOut> product)
+        {
+            TOut<#= arrayType #> result = new TOut[<#= string.Join(", ", listVariableR.Select(n => $"{n}.Count")) #>];
+
+<#
+            foreach (var (v, l) in indexisR.Zip(listVariableR, (a,b) => (a,b)))
+            {
+#>
+            for (int <#= v #> = 0; <#= v #> < <#= l #>.Count; <#= v #>++)
+            {
+<#
+            }
+#>
+                result[<#= string.Join(", ", indexisR) #>] = product(<#= string.Join(", ", indexis.Zip(listVariable, (v, l) => $"{l}[{v}]")) #>);
+<#
+            foreach (var t in indexis)
+            {
+#>
+            }
+<#
+            }
+#>
+
+            return result;
+        }
+
+        public static Maybe<T> GetSafe<T>(this T<#= arrayType #> items, <#= string.Join(", ", indexis.Select(n => $"int {n}")) #>)
+        {
+            if (<#= string.Join(" || ", indexisR.Select((index, n) => $"{index} < 0 || {index} >= items.GetLength({n})")) #>)
+            {
+                return Maybe<T>.Nothing;
+            }
+            else
+            {
+                return items[<#= string.Join(", ", indexisR) #>];
+            }
+        }
+<#
+}
+#>
+    }
+}
