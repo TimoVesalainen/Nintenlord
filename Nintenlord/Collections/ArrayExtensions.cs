@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Nintenlord.Collections
 {
@@ -339,6 +340,40 @@ namespace Nintenlord.Collections
                 result[y, x] = sum(row.Zip(column, multiply));
             }
             return result;
+        }
+
+        public static TResult[,] MatrixMultiply<T1, T2, TResult>(this T1[,] matrix1, T2[,] matrix2) 
+            where T1 : IMultiplyOperators<T1, T2, TResult>
+            where TResult : IAdditionOperators<TResult, TResult, TResult>, IAdditiveIdentity<TResult, TResult>
+        {
+            if (matrix1 is null)
+            {
+                throw new ArgumentNullException(nameof(matrix1));
+            }
+
+            if (matrix2 is null)
+            {
+                throw new ArgumentNullException(nameof(matrix2));
+            }
+
+            if (matrix1.GetLength(1) != matrix2.GetLength(0))
+            {
+                throw new ArgumentException($"Width of {nameof(matrix1)} is different from height of {nameof(matrix2)}");
+            }
+
+            TResult[,] result = new TResult[matrix1.GetLength(0), matrix2.GetLength(1)];
+            foreach (var ((row, y), (column, x)) in GetRows(matrix1).Select((x, i) => (x, i)).Zip(GetColumns(matrix2).Select((x, i) => (x, i)),
+                (x, y) => (x, y)))
+            {
+                result[y, x] = row.Zip(column, (a, b) => a * b).Aggregate(TResult.AdditiveIdentity, (x, y) => x + y);
+            }
+            return result;
+        }
+
+        public static T[,] MatrixMultiply<T>(this T[,] matrix1, T[,] matrix2)
+            where T : INumberBase<T>
+        {
+            return MatrixMultiply<T, T, T>(matrix1, matrix2);
         }
 
         public static TOut[,] TensorProduct<TOut, TIn1, TIn2>(this IList<TIn1> list1, IList<TIn2> list2, Func<TIn1, TIn2, TOut> product)
