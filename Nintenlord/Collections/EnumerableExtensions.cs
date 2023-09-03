@@ -69,18 +69,6 @@ namespace Nintenlord.Collections
             return collection.Aggregate(comp.Max);
         }
 
-        public static Maybe<T> MaxSafe<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            comp ??= Comparer<T>.Default;
-
-            return collection.MaxScan(comp).LastSafe();
-        }
-
         public static IEnumerable<T> MaxScan<T>(this IEnumerable<T> items, IComparer<T> comparer = null)
         {
             if (items is null)
@@ -108,21 +96,6 @@ namespace Nintenlord.Collections
             return collection.Max(new SelectComparer<T, float>(comp));
         }
 
-        public static Maybe<T> MaxBySafe<T>(this IEnumerable<T> collection, Func<T, float> comp)
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            if (comp is null)
-            {
-                throw new ArgumentNullException(nameof(comp));
-            }
-
-            return collection.MaxSafe(new SelectComparer<T, float>(comp));
-        }
-
         public static T Min<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
         {
             if (collection is null)
@@ -133,18 +106,6 @@ namespace Nintenlord.Collections
             comp ??= Comparer<T>.Default;
 
             return collection.Aggregate(comp.Min);
-        }
-
-        public static Maybe<T> MinSafe<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            comp ??= Comparer<T>.Default;
-
-            return collection.MinScan(comp).LastSafe();
         }
 
         public static IEnumerable<T> MinScan<T>(this IEnumerable<T> items, IComparer<T> comparer = null)
@@ -172,21 +133,6 @@ namespace Nintenlord.Collections
             }
 
             return collection.Min(new SelectComparer<T, float>(comp));
-        }
-
-        public static Maybe<T> MinBySafe<T>(this IEnumerable<T> collection, Func<T, float> comp)
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            if (comp is null)
-            {
-                throw new ArgumentNullException(nameof(comp));
-            }
-
-            return collection.MinSafe(new SelectComparer<T, float>(comp));
         }
 
         public static string ToElementWiseString<T>(this IEnumerable<T> collection, string separator = ", ", string beginning = "{", string end = "}")
