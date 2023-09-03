@@ -2,6 +2,9 @@
 
 namespace Nintenlord.Matricis
 {
+    /// <summary>
+    /// Skips given row and column of the parent matrix
+    /// </summary>
     public readonly struct ElementComplementMatrix<T> : IMatrix<T>
     {
         readonly IMatrix<T> parentMatrix;
