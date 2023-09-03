@@ -95,17 +95,7 @@ namespace Nintenlord.Utility
 
         public override int GetHashCode()
         {
-            if (hasValue)
-            {
-                unchecked
-                {
-                    return value.GetHashCode() << 1;
-                }
-            }
-            else
-            {
-                return 1; 
-            }
+            return HashCode.Combine(value, hasValue);
         }
 
         public override string ToString()
