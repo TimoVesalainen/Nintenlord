@@ -444,19 +444,58 @@ namespace Nintenlord.Utility
 
         public static Maybe<T> FirstSafe<T>(this IEnumerable<T> enumerable)
         {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
+
             return enumerable.Select(Maybe<T>.Just).FirstOrDefault() ?? Maybe<T>.Nothing;
         }
 
         public static Maybe<T> FirstSafe<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
         {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
+
+            if (predicate is null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
             return enumerable.Where(predicate).Select(Maybe<T>.Just).FirstOrDefault() ?? Maybe<T>.Nothing;
         }
 
         public static Maybe<T> LastSafe<T>(this IEnumerable<T> enumerable)
         {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
+
             if (enumerable is IReadOnlyList<T> list)
             {
-                return ListExtensions.LastSafe(list);
+                if (list.Count > 0)
+                {
+                    return list[list.Count - 1];
+                }
+                else
+                {
+                    return Maybe<T>.Nothing;
+                }
+            }
+
+            if (enumerable is IList<T> list2)
+            {
+                if (list2.Count > 0)
+                {
+                    return list2[list2.Count - 1];
+                }
+                else
+                {
+                    return Maybe<T>.Nothing;
+                }
             }
 
             //Is done like this so not to create Maybe.Just from every intermediate value
