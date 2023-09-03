@@ -157,22 +157,7 @@ namespace Nintenlord.Matricis
                 throw new ArgumentNullException(nameof(matrix));
             }
 
-            if (matrix is TransposeMatrix<T> transpose)
-            {
-                return transpose.BaseMatrix;
-            }
-            else if (matrix is SymmetricMatrix<T>)
-            {
-                return matrix;
-            }
-            else if (matrix is DiagonalMatrix<T>)
-            {
-                return matrix;
-            }
-            else
-            {
-                return new TransposeMatrix<T>(matrix);
-            }
+            return TransposeMatrix<T>.CreateTranspose(matrix);
         }
 
         public static bool TryGetSymmetric<T>(this IMatrix<T> matrix, out SymmetricMatrix<T> symmetricMatrix, IEqualityComparer<T> comparer = null)
