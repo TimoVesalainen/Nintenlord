@@ -163,6 +163,10 @@ namespace Nintenlord.Matricis
             {
                 return matrix;
             }
+            else if (matrix is DiagonalMatrix<T>)
+            {
+                return matrix;
+            }
             else
             {
                 return new TransposeMatrix<T>(matrix);
