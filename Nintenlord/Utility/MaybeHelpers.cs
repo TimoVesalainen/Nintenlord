@@ -1,4 +1,5 @@
-﻿using Nintenlord.Collections.Comparers;
+﻿using Nintenlord.Collections;
+using Nintenlord.Collections.Comparers;
 using Nintenlord.Collections.Lists;
 using System;
 using System.Collections.Generic;
@@ -480,66 +481,6 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static Maybe<T> MaxSafe<T>(this IEnumerable<T> enumerable, IComparer<T> comparer = null)
-        {
-            comparer ??= Comparer<T>.Default;
-
-            bool hasValue = false;
-            T max = default;//Not used, to make compiler not complain
-
-            foreach (var item in enumerable)
-            {
-                if (!hasValue)
-                {
-                    max = item;
-                    hasValue = true;
-                }
-                else
-                {
-                    max = comparer.Max(max, item);
-                }
-            }
-
-            if (hasValue)
-            {
-                return max;
-            }
-            else
-            {
-                return Maybe<T>.Nothing;
-            }
-        }
-
-        public static Maybe<T> MinSafe<T>(this IEnumerable<T> enumerable, IComparer<T> comparer = null)
-        {
-            comparer ??= Comparer<T>.Default;
-
-            bool hasValue = false;
-            T min = default;//Not used, to make compiler not complain
-
-            foreach (var item in enumerable)
-            {
-                if (!hasValue)
-                {
-                    min = item;
-                    hasValue = true;
-                }
-                else
-                {
-                    min = comparer.Min(min, item);
-                }
-            }
-
-            if (hasValue)
-            {
-                return min;
-            }
-            else
-            {
-                return Maybe<T>.Nothing;
-            }
-        }
-
         public static Maybe<IEnumerable<T>> NonEmpty<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable.Any())
@@ -550,6 +491,60 @@ namespace Nintenlord.Utility
             {
                 return Maybe<IEnumerable<T>>.Nothing;
             }
+        }
+
+        public static Maybe<T> MinSafe<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            comp ??= Comparer<T>.Default;
+
+            return collection.MinScan(comp).LastSafe();
+        }
+
+        public static Maybe<T> MinBySafe<T>(this IEnumerable<T> collection, Func<T, float> comp)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            if (comp is null)
+            {
+                throw new ArgumentNullException(nameof(comp));
+            }
+
+            return collection.MinSafe(new SelectComparer<T, float>(comp));
+        }
+
+        public static Maybe<T> MaxSafe<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            comp ??= Comparer<T>.Default;
+
+            return collection.MaxScan(comp).LastSafe();
+        }
+
+        public static Maybe<T> MaxBySafe<T>(this IEnumerable<T> collection, Func<T, float> comp)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            if (comp is null)
+            {
+                throw new ArgumentNullException(nameof(comp));
+            }
+
+            return collection.MaxSafe(new SelectComparer<T, float>(comp));
         }
     }
 }

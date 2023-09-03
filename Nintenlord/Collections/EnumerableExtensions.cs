@@ -57,50 +57,6 @@ namespace Nintenlord.Collections
             return collection.Aggregate(T.MultiplicativeIdentity, (a, b) => a * b);
         }
 
-        public static T Max<T>(this IEnumerable<T> collection) where T : IComparable<T>
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            static T MaxBy(T item1, T item2)
-            {
-                if (item1.CompareTo(item2) >= 0)
-                {
-                    return item1;
-                }
-                else
-                {
-                    return item2;
-                }
-            }
-
-            return collection.Aggregate(MaxBy);
-        }
-
-        public static Maybe<T> MaxSafe<T>(this IEnumerable<T> collection) where T : IComparable<T>
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            static T MaxBy(T item1, T item2)
-            {
-                if (item1.CompareTo(item2) >= 0)
-                {
-                    return item1;
-                }
-                else
-                {
-                    return item2;
-                }
-            }
-
-            return collection.Scan(MaxBy).LastSafe();
-        }
-
         public static T Max<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
         {
             if (collection is null)
@@ -167,51 +123,7 @@ namespace Nintenlord.Collections
             return collection.MaxSafe(new SelectComparer<T, float>(comp));
         }
 
-        public static T Min<T>(this IEnumerable<T> collection) where T : IComparable<T>
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            static T MinBy(T item1, T item2)
-            {
-                if (item1.CompareTo(item2) <= 0)
-                {
-                    return item1;
-                }
-                else
-                {
-                    return item2;
-                }
-            }
-
-            return collection.Aggregate(MinBy);
-        }
-
-        public static Maybe<T> MinSafe<T>(this IEnumerable<T> collection) where T : IComparable<T>
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            static T MinBy(T item1, T item2)
-            {
-                if (item1.CompareTo(item2) <= 0)
-                {
-                    return item1;
-                }
-                else
-                {
-                    return item2;
-                }
-            }
-
-            return collection.Scan(MinBy).LastSafe();
-        }
-
-        public static T Min<T>(this IEnumerable<T> collection, IComparer<T> comp)
+        public static T Min<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
         {
             if (collection is null)
             {
@@ -223,7 +135,7 @@ namespace Nintenlord.Collections
             return collection.Aggregate(comp.Min);
         }
 
-        public static Maybe<T> MinSafe<T>(this IEnumerable<T> collection, IComparer<T> comp)
+        public static Maybe<T> MinSafe<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
         {
             if (collection is null)
             {
