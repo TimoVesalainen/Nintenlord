@@ -481,6 +481,75 @@ namespace Nintenlord.Utility
             }
         }
 
+        public static Maybe<T> LastSafe<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+        {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
+
+            if (predicate is null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            if (enumerable is IReadOnlyList<T> list)
+            {
+                if (list.Count > 0)
+                {
+                    for (int i = list.Count - 1; i >= 0; i--)
+                    {
+                        if (predicate(list[i]))
+                        {
+                            return list[i];
+                        }
+                    }
+                }
+
+                return Maybe<T>.Nothing;
+            }
+
+            if (enumerable is IList<T> list2)
+            {
+                if (list2.Count > 0)
+                {
+                    for (int i = list2.Count - 1; i >= 0; i--)
+                    {
+                        if (predicate(list2[i]))
+                        {
+                            return list2[i];
+                        }
+                    }
+                }
+
+                return Maybe<T>.Nothing;
+            }
+
+            //Is done like this so not to create Maybe.Just from every intermediate value
+            bool hasValue = false;
+            T latest = default;
+            using (var enumerator = enumerable.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        hasValue = true;
+                        latest = enumerator.Current;
+                    }
+                }
+            }
+
+            if (hasValue)
+            {
+                return latest;
+            }
+            else
+            {
+                return Maybe<T>.Nothing;
+            }
+        }
+
         public static Maybe<IEnumerable<T>> NonEmpty<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable.Any())

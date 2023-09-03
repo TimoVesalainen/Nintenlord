@@ -196,18 +196,6 @@ namespace Nintenlord.Collections.Lists
             return result != list.Count ? result : -1;
         }
 
-        public static Maybe<T> LastSafe<T>(this IReadOnlyList<T> list)
-        {
-            if (list.Count > 0)
-            {
-                return list[list.Count - 1];
-            }
-            else
-            {
-                return Maybe<T>.Nothing;
-            }
-        }
-
         public static int GetEqualsInBeginning<T>(this IReadOnlyList<T> a, IReadOnlyList<T> b, IEqualityComparer<T> comp)
         {
             int max = Math.Min(a.Count, b.Count);
