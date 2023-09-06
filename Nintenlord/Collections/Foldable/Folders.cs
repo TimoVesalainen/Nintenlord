@@ -1,6 +1,7 @@
 ﻿using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Nintenlord.Collections.Foldable
 {
@@ -11,16 +12,17 @@ namespace Nintenlord.Collections.Foldable
         public static readonly AnyFolder<bool> Or = new(x => x);
         public static AnyFolder<T> Any<T>(Predicate<T> predicate) => new(predicate);
 
-        // TODO: Rewrite using generic math
-        public static readonly IFolder<int, int, int> SumI = new FunctionFolder<int, int, int>(0, (x, y) => x + y, x => x);
-        public static readonly IFolder<long, long, long> SumL = new FunctionFolder<long, long, long>(0, (x, y) => x + y, x => x);
-        public static readonly IFolder<float, float, float> SumF = new FunctionFolder<float, float, float>(0, (x, y) => x + y, x => x);
-        public static readonly IFolder<double, double, double> SumD = new FunctionFolder<double, double, double>(0, (x, y) => x + y, x => x);
+        public static SumFolder<TNumber> Sum<TNumber>() where TNumber : IAdditiveIdentity<TNumber, TNumber>, IAdditionOperators<TNumber, TNumber, TNumber> => SumFolder<TNumber>.Instance;
+        public static readonly SumFolder<int> SumI = Sum<int>();
+        public static readonly SumFolder<long> SumL = Sum<long>();
+        public static readonly SumFolder<float> SumF = Sum<float>();
+        public static readonly SumFolder<double> SumD = Sum<double>();
 
-        public static readonly IFolder<int, int, int> ProductI = new FunctionFolder<int, int, int>(0, (x, y) => x * y, x => x);
-        public static readonly IFolder<long, long, long> ProductL = new FunctionFolder<long, long, long>(0, (x, y) => x * y, x => x);
-        public static readonly IFolder<float, float, float> ProductF = new FunctionFolder<float, float, float>(0, (x, y) => x * y, x => x);
-        public static readonly IFolder<double, double, double> ProductD = new FunctionFolder<double, double, double>(0, (x, y) => x * y, x => x);
+        public static ProductFolder<TNumber> Product<TNumber>() where TNumber : IMultiplicativeIdentity<TNumber, TNumber>, IMultiplyOperators<TNumber, TNumber, TNumber> => ProductFolder<TNumber>.Instance;
+        public static readonly ProductFolder<int> ProductI = Product<int>();
+        public static readonly ProductFolder<long> ProductL = Product<long>();
+        public static readonly ProductFolder<float> ProductF = Product<float>();
+        public static readonly ProductFolder<double> ProductD = Product<double>();
 
         public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
         public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Instance;
