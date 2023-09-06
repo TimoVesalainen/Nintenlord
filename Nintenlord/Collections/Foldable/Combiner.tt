@@ -1,0 +1,65 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System;
+
+namespace Nintenlord.Collections.Foldable
+{
+<#
+for (int i = 2; i < 8; i++)
+{
+    var stateTypes = Enumerable.Range(0, i).Select(index => $"TState{index}").ToArray();
+    var outputTypes = Enumerable.Range(0, i).Select(index => $"TOut{index}").ToArray();
+    var stateNames = Enumerable.Range(0, i).Select(index => $"state{index}").ToArray();
+    var folderNames = Enumerable.Range(0, i).Select(index => $"folder{index}").ToArray();
+    var folderTypes = stateTypes.Zip(outputTypes, (state, output) => $"IFolder<TIn, {state}, {output}>").ToArray();
+
+#>
+    public sealed class Combiner<TIn, <#= string.Join(", ", stateTypes) #>, <#= string.Join(", ", outputTypes) #>, TOut> : IFolder<TIn, (<#= string.Join(", ", stateTypes) #>), TOut>
+    {
+<#
+    foreach(var (type, name) in folderTypes.Zip(folderNames, (a, b) => (a, b)))
+    {
+#>
+        readonly <#= type #> <#= name #>;
+<#
+    }
+#>
+        readonly Func<<#= string.Join(", ", outputTypes) #>, TOut> transform;
+
+        public Combiner(<#= string.Join(", ", folderTypes.Zip(folderNames, (type, name) => $"{type} {name}")) #>, Func<<#= string.Join(", ", outputTypes) #>, TOut> transform)
+        {
+<#
+    foreach(var folderName in folderNames)
+    {
+#>
+            this.<#= folderName #> = <#= folderName #> ?? throw new ArgumentNullException(nameof(<#= folderName #>));
+<#
+    }
+#>
+            this.transform = transform ?? throw new ArgumentNullException(nameof(transform));
+        }
+
+        public (<#= string.Join(", ", stateTypes) #>) Start => (<#= string.Join(", ", folderNames.Select(name => $"{name}.Start")) #>);
+
+        public (<#= string.Join(", ", stateTypes) #>) Fold((<#= string.Join(", ", stateTypes) #>) state, TIn input)
+        {
+            var (<#= string.Join(", ", stateNames) #>) = state;
+
+            return (<#= string.Join(", ", folderNames.Zip(stateNames, (folder, state) => $"{folder}.Fold({state}, input)")) #>);
+        }
+
+        public TOut Transform((<#= string.Join(", ", stateTypes) #>) state)
+        {
+            var (<#= string.Join(", ", stateNames) #>) = state;
+
+            return transform(<#= string.Join(", ", folderNames.Zip(stateNames, (folder, state) => $"{folder}.Transform({state})")) #>);
+        }
+    }
+<#
+}
+#>
+}

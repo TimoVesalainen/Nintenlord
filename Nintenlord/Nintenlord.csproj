@@ -23,6 +23,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
     </None>
+    <None Include="Collections\Foldable\Combiner.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Combiner.tt</DependentUpon>
+    </None>
     <None Include="Distributions\FuncTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -79,6 +84,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EnumerableExtensions_Tuple.cs</LastGenOutput>
     </None>
+    <None Update="Collections\Foldable\Combiner.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Combiner.cs</LastGenOutput>
+    </None>
     <None Update="Distributions\FuncTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FuncTemplate.cs</LastGenOutput>
@@ -127,6 +136,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Collections\Foldable\Combiner.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Combiner.tt</DependentUpon>
     </Compile>
     <Compile Update="Distributions\FuncTemplate.cs">
       <DesignTime>True</DesignTime>
