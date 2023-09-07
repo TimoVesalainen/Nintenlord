@@ -30,7 +30,7 @@ namespace Nintenlord.Collections.Foldable
 
         public Maybe<T> Transform(Maybe<T> state)
         {
-            return state.Value;
+            return state;
         }
     }
 }
