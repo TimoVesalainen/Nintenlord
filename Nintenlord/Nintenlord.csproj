@@ -28,6 +28,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Combiner.tt</DependentUpon>
     </None>
+    <None Include="Collections\Foldable\EitherFolder.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EitherFolder.tt</DependentUpon>
+    </None>
     <None Include="Distributions\FuncTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -88,6 +93,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Combiner.cs</LastGenOutput>
     </None>
+    <None Update="Collections\Foldable\EitherFolder.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EitherFolder.cs</LastGenOutput>
+    </None>
     <None Update="Distributions\FuncTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FuncTemplate.cs</LastGenOutput>
@@ -141,6 +150,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Combiner.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Collections\Foldable\EitherFolder.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EitherFolder.tt</DependentUpon>
     </Compile>
     <Compile Update="Distributions\FuncTemplate.cs">
       <DesignTime>True</DesignTime>

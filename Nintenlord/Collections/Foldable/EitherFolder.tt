@@ -1,0 +1,61 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using Nintenlord.Utility;
+using System;
+
+namespace Nintenlord.Collections.Foldable
+{
+<#
+for (int i = 2; i < 8; i++)
+{
+    var stateTypes = Enumerable.Range(0, i).Select(index => $"TState{index}").ToArray();
+    var inputTypes = Enumerable.Range(0, i).Select(index => $"TIn{index}").ToArray();
+    var outputTypes = Enumerable.Range(0, i).Select(index => $"TOut{index}").ToArray();
+    var stateNames = Enumerable.Range(0, i).Select(index => $"state{index}").ToArray();
+    var folderNames = Enumerable.Range(0, i).Select(index => $"folder{index}").ToArray();
+    var folderTypes = inputTypes.Zip(stateTypes.Zip(outputTypes, (state, output) => (state, output)), (input, t) => $"IFolder<{input}, {t.state}, {t.output}>").ToArray();
+
+#>
+    public sealed class EitherFolder<<#= string.Join(", ", inputTypes) #>, <#= string.Join(", ", stateTypes) #>, <#= string.Join(", ", outputTypes) #>> : IFolder<Either<<#= string.Join(", ", inputTypes) #>>, (<#= string.Join(", ", stateTypes)#>), ( <#= string.Join(", ", outputTypes) #>)>
+    {
+<#
+    foreach (var (type, name) in folderTypes.Zip(folderNames, (a,b) => (a,b)))
+    {
+#>
+        readonly <#= type #> <#= name #>;
+<#
+    }
+#>
+
+        public EitherFolder(<#= string.Join(", ", folderTypes.Zip(folderNames, (type, name) => $"{type} {name}")) #>)
+        {
+<#
+    foreach (var name in folderNames)
+    {
+#>
+            this.<#= name #> = <#= name #> ?? throw new ArgumentNullException(nameof(<#= name #>));
+<#
+    }
+#>
+        }
+
+        public (<#= string.Join(", ", stateTypes) #>) Start => (<#= string.Join(", ", folderNames.Select(name => $"{name}.Start")) #>);
+
+        public (<#= string.Join(", ", stateTypes) #>) Fold((<#= string.Join(", ", stateTypes) #>) state, Either<<#= string.Join(", ", inputTypes) #>> input)
+        {
+            return input.Apply(<#= string.Join(", ", folderNames.Select((name, index) => $"input{index} => ({string.Join(", ", Enumerable.Range(0, i).Select(jndex => index == jndex ? $"{name}.Fold(state.Item{index + 1}, input{index})" : $"state.Item{jndex + 1}"))})")) #>);
+        }
+
+        public (<#= string.Join(", ", outputTypes) #>) Transform((<#= string.Join(", ", stateTypes) #>) state)
+        {
+            return (<#= string.Join(", ", folderNames.Select((name, index) => $"{name}.Transform(state.Item{index + 1})")) #>);
+        }
+    }
+<#
+}
+#>
+}
