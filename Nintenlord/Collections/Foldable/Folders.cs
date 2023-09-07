@@ -25,10 +25,10 @@ namespace Nintenlord.Collections.Foldable
         public static readonly ProductFolder<double> ProductD = Product<double>();
 
         public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
-        public static CountIntFolder<T> CountI<T>() => CountIntFolder<T>.Instance;
-        public static AmountOfFolderInt<T> CountI<T>(Predicate<T> predicate) => new AmountOfFolderInt<T>(predicate);
-        public static CountLongFolder<T> CountL<T>() => CountLongFolder<T>.Instance;
-        public static AmountOfFolderLong<T> CountL<T>(Predicate<T> predicate) => new AmountOfFolderLong<T>(predicate);
+        public static CountFolder<T, int> CountI<T>() => CountFolder<T, int>.Instance;
+        public static AmountOfFolder<T, int> CountI<T>(Predicate<T> predicate) => new AmountOfFolder<T, int>(predicate);
+        public static CountFolder<T, long> CountL<T>() => CountFolder<T, long>.Instance;
+        public static AmountOfFolder<T, long> CountL<T>(Predicate<T> predicate) => new AmountOfFolder<T, long>(predicate);
 
         public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
         public static readonly MeanFloatFolder AverageFloat = MeanFloatFolder.Instance;
