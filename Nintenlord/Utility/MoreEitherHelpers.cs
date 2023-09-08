@@ -86,6 +86,35 @@ namespace Nintenlord.Utility
         }
         #endregion TryGetHelpers
 
+        public static Either<TNumber, TError> TryParseNumber<TNumber, TError>(this string text, NumberStyles style, IFormatProvider provider, TError error)
+            where TNumber : INumberBase<TNumber>
+            => TryGetValueHelper<string, NumberStyles, IFormatProvider, TNumber, TError>(TNumber.TryParse, text, style, provider, error);
+
+        public static Either<TNumber, TError> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, IFormatProvider provider, TError error)
+            where TNumber : ISpanParsable<TNumber>
+        {
+            if (TNumber.TryParse(text, provider, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return error;
+            }
+        }
+        public static Either<TNumber, TError> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider, TError error)
+            where TNumber : INumberBase<TNumber>
+        {
+            if (TNumber.TryParse(text, style, provider, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return error;
+            }
+        }
+
         public static Either<int, TError> TryParseInt<TError>(this string text, TError error) => TryGetValueHelper<string, int, TError>(int.TryParse, text, error);
         public static Either<int, TError> TryParseInt<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, int, TError>(int.TryParse, text, style, provider, error);
         public static Either<uint, TError> TryParseUInt<TError>(this string text, TError error) => TryGetValueHelper<string, uint, TError>(uint.TryParse, text, error);
