@@ -120,20 +120,18 @@ namespace Nintenlord.Utility
 #>
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
 <#
             for (int i = 0; i < paramCount; i++)
             {
 #>
-                case <#= enumItemNames[i] #>:
-                    return this.<#= fieldNames[i] #>;
+                <#= enumItemNames[i] #> => this.<#= fieldNames[i] #>,
 <#
             }
 #>
-                default:
-                    throw new InvalidProgramException();
-            }
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()

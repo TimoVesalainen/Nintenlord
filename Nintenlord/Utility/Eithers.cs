@@ -54,15 +54,12 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum2.Item0:
-                    return this.option0;
-                case Enum2.Item1:
-                    return this.option1;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum2.Item0 => this.option0,
+                Enum2.Item1 => this.option1,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
@@ -214,17 +211,13 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum3.Item0:
-                    return this.option0;
-                case Enum3.Item1:
-                    return this.option1;
-                case Enum3.Item2:
-                    return this.option2;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum3.Item0 => this.option0,
+                Enum3.Item1 => this.option1,
+                Enum3.Item2 => this.option2,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
@@ -420,19 +413,14 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum4.Item0:
-                    return this.option0;
-                case Enum4.Item1:
-                    return this.option1;
-                case Enum4.Item2:
-                    return this.option2;
-                case Enum4.Item3:
-                    return this.option3;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum4.Item0 => this.option0,
+                Enum4.Item1 => this.option1,
+                Enum4.Item2 => this.option2,
+                Enum4.Item3 => this.option3,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
@@ -677,21 +665,15 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum5.Item0:
-                    return this.option0;
-                case Enum5.Item1:
-                    return this.option1;
-                case Enum5.Item2:
-                    return this.option2;
-                case Enum5.Item3:
-                    return this.option3;
-                case Enum5.Item4:
-                    return this.option4;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum5.Item0 => this.option0,
+                Enum5.Item1 => this.option1,
+                Enum5.Item2 => this.option2,
+                Enum5.Item3 => this.option3,
+                Enum5.Item4 => this.option4,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
@@ -990,23 +972,16 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum6.Item0:
-                    return this.option0;
-                case Enum6.Item1:
-                    return this.option1;
-                case Enum6.Item2:
-                    return this.option2;
-                case Enum6.Item3:
-                    return this.option3;
-                case Enum6.Item4:
-                    return this.option4;
-                case Enum6.Item5:
-                    return this.option5;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum6.Item0 => this.option0,
+                Enum6.Item1 => this.option1,
+                Enum6.Item2 => this.option2,
+                Enum6.Item3 => this.option3,
+                Enum6.Item4 => this.option4,
+                Enum6.Item5 => this.option5,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
@@ -1364,25 +1339,17 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum7.Item0:
-                    return this.option0;
-                case Enum7.Item1:
-                    return this.option1;
-                case Enum7.Item2:
-                    return this.option2;
-                case Enum7.Item3:
-                    return this.option3;
-                case Enum7.Item4:
-                    return this.option4;
-                case Enum7.Item5:
-                    return this.option5;
-                case Enum7.Item6:
-                    return this.option6;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum7.Item0 => this.option0,
+                Enum7.Item1 => this.option1,
+                Enum7.Item2 => this.option2,
+                Enum7.Item3 => this.option3,
+                Enum7.Item4 => this.option4,
+                Enum7.Item5 => this.option5,
+                Enum7.Item6 => this.option6,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
@@ -1804,27 +1771,18 @@ namespace Nintenlord.Utility
 
         private object ToObject()
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum8.Item0:
-                    return this.option0;
-                case Enum8.Item1:
-                    return this.option1;
-                case Enum8.Item2:
-                    return this.option2;
-                case Enum8.Item3:
-                    return this.option3;
-                case Enum8.Item4:
-                    return this.option4;
-                case Enum8.Item5:
-                    return this.option5;
-                case Enum8.Item6:
-                    return this.option6;
-                case Enum8.Item7:
-                    return this.option7;
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum8.Item0 => this.option0,
+                Enum8.Item1 => this.option1,
+                Enum8.Item2 => this.option2,
+                Enum8.Item3 => this.option3,
+                Enum8.Item4 => this.option4,
+                Enum8.Item5 => this.option5,
+                Enum8.Item6 => this.option6,
+                Enum8.Item7 => this.option7,
+                _ => throw new InvalidProgramException(),
+            };
         }
 
         public override string ToString()
