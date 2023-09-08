@@ -314,6 +314,35 @@ namespace Nintenlord.Utility
         }
         #endregion TryGetHelpers
 
+        public static Maybe<TNumber> TryParseNumber<TNumber, TError>(this string text, NumberStyles style, IFormatProvider provider)
+            where TNumber : INumberBase<TNumber>
+            => TryGetValueHelper<string, NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
+
+        public static Maybe<TNumber> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, IFormatProvider provider)
+            where TNumber : ISpanParsable<TNumber>
+        {
+            if (TNumber.TryParse(text, provider, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return Maybe<TNumber>.Nothing;
+            }
+        }
+        public static Maybe<TNumber> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider)
+            where TNumber : INumberBase<TNumber>
+        {
+            if (TNumber.TryParse(text, style, provider, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return Maybe<TNumber>.Nothing;
+            }
+        }
+
         public static Maybe<int> TryParseInt(this string text) => TryGetValueHelper<string, int>(int.TryParse, text);
         public static Maybe<int> TryParseInt(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, int>(int.TryParse, text, style, provider);
         public static Maybe<uint> TryParseUInt(this string text) => TryGetValueHelper<string, uint>(uint.TryParse, text);
