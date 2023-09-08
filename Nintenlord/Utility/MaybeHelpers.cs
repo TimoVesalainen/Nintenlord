@@ -250,6 +250,11 @@ namespace Nintenlord.Utility
 
         #region TryGetHelpers
 
+        private delegate bool TryGetFromSpanDelegate<TValue>(ReadOnlySpan<char> text, out TValue value);
+        private delegate bool TryGetFromSpanDelegate<TKey1, TValue>(ReadOnlySpan<char> text, TKey1 key1, out TValue value);
+        private delegate bool TryGetFromSpanDelegate<TKey1, TKey2, TValue>(ReadOnlySpan<char> text, TKey1 key1, TKey2 key2, out TValue value);
+        private delegate bool TryGetFromSpanDelegate<TKey1, TKey2, TKey3, TValue>(ReadOnlySpan<char> text, TKey1 key1, TKey2 key2, TKey3 key3, out TValue value);
+
         private delegate bool TryGetDelegate<TValue>(out TValue value);
         private delegate bool TryGetDelegate<TKey, TValue>(TKey key, out TValue value);
         private delegate bool TryGetDelegate<TKey1, TKey2, TValue>(TKey1 key1, TKey2 key2, out TValue value);
@@ -312,6 +317,41 @@ namespace Nintenlord.Utility
                 return Maybe<TValue>.Nothing;
             }
         }
+
+        private static Maybe<TValue> TryGetFromSpanValueHelper<TKey, TValue>(TryGetFromSpanDelegate<TKey, TValue> tryGetValue, ReadOnlySpan<char> span, TKey key)
+        {
+            if (tryGetValue(span, key, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return Maybe<TValue>.Nothing;
+            }
+        }
+        private static Maybe<TValue> TryGetFromSpanValueHelper<TKey1, TKey2, TValue>(TryGetFromSpanDelegate<TKey1, TKey2, TValue> tryGetValue, ReadOnlySpan<char> span, TKey1 key1, TKey2 key2)
+        {
+            if (tryGetValue(span, key1, key2, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return Maybe<TValue>.Nothing;
+            }
+        }
+        private static Maybe<TValue> TryGetFromSpanValueHelper<TKey1, TKey2, TKey3, TValue>(TryGetFromSpanDelegate<TKey1, TKey2, TKey3, TValue> tryGetValue, ReadOnlySpan<char> span, TKey1 key1, TKey2 key2, TKey3 key3)
+        {
+            if (tryGetValue(span, key1, key2, key3, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return Maybe<TValue>.Nothing;
+            }
+        }
+
         #endregion TryGetHelpers
 
         public static Maybe<TNumber> TryParseNumber<TNumber>(this string text, NumberStyles style, IFormatProvider provider)
@@ -319,29 +359,10 @@ namespace Nintenlord.Utility
             => TryGetValueHelper<string, NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
 
         public static Maybe<TNumber> TryParseNumber<TNumber>(this ReadOnlySpan<char> text, IFormatProvider provider)
-            where TNumber : ISpanParsable<TNumber>
-        {
-            if (TNumber.TryParse(text, provider, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TNumber>.Nothing;
-            }
-        }
+            where TNumber : ISpanParsable<TNumber> => TryGetFromSpanValueHelper<IFormatProvider, TNumber>(TNumber.TryParse, text, provider);
+
         public static Maybe<TNumber> TryParseNumber<TNumber>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider)
-            where TNumber : INumberBase<TNumber>
-        {
-            if (TNumber.TryParse(text, style, provider, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TNumber>.Nothing;
-            }
-        }
+            where TNumber : INumberBase<TNumber> => TryGetFromSpanValueHelper<NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
 
         public static Maybe<int> TryParseInt(this string text) => TryGetValueHelper<string, int>(int.TryParse, text);
         public static Maybe<int> TryParseInt(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<int>(text, style, provider);
