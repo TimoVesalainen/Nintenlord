@@ -23,6 +23,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
     </None>
+    <None Include="Collections\EqualityComparer\TupleEqualityComparer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TupleEqualityComparer.tt</DependentUpon>
+    </None>
     <None Include="Collections\Foldable\Combiner.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -94,6 +99,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EnumerableExtensions_Tuple.cs</LastGenOutput>
     </None>
+    <None Update="Collections\EqualityComparer\TupleEqualityComparer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TupleEqualityComparer.cs</LastGenOutput>
+    </None>
     <None Update="Collections\Foldable\Combiner.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Combiner.cs</LastGenOutput>
@@ -154,6 +163,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumerableExtensions_Tuple.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Collections\EqualityComparer\TupleEqualityComparer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TupleEqualityComparer.tt</DependentUpon>
     </Compile>
     <Compile Update="Collections\Foldable\Combiner.cs">
       <DesignTime>True</DesignTime>

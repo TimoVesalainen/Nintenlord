@@ -1,0 +1,67 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
+namespace Nintenlord.Collections.EqualityComparer
+{
+<#
+for (int i = 2; i < 8; i++)
+{
+    var types = Enumerable.Range(0, i).Select(index => $"T{index}").ToArray();
+    var tuple = $"({string.Join(", ", types)})";
+    var equalityComparerTypes = types.Select(type => $"IEqualityComparer<{type}>");
+    var equalityComparerNames = Enumerable.Range(0, i).Select(type => $"comparer{type}");
+    var parameters = equalityComparerTypes.Zip(equalityComparerNames, (type, name) => $"{type} {name}");
+#>
+    public sealed class TupleEqualityComparer<<#= string.Join(", ", types) #>> : IEqualityComparer<<#= tuple #>>
+    {
+<#
+    foreach (var parameter in parameters)
+    {
+#>
+        readonly <#= parameter #>;
+<#
+    }
+#>
+
+        public static IEqualityComparer<<#= tuple #>> Create(<#= string.Join(", ", parameters) #>)
+        {
+            if (<#= string.Join(" && ", equalityComparerNames.Zip(types, (name, type) => $"{name} ==  EqualityComparer<{type}>.Default")) #>)
+            {
+                return EqualityComparer<<#= tuple #>>.Default;
+            }
+            return new TupleEqualityComparer<<#= string.Join(", ", types) #>>(<#= string.Join(", ", equalityComparerNames) #>);
+        }
+
+        private TupleEqualityComparer(<#= string.Join(", ", parameters) #>)
+        {
+<#
+    foreach (var name in equalityComparerNames)
+    {
+#>
+            this.<#= name #> = <#= name #> ?? throw new ArgumentNullException(nameof(<#= name #>));
+<#
+    }
+#>
+        }
+
+        public bool Equals(<#= tuple #> x, <#= tuple #> y)
+        {
+            return <#= string.Join(" && ", equalityComparerNames.Select((name, index) => $"{name}.Equals(x.Item{index + 1}, y.Item{index + 1})")) #>;
+        }
+
+        public int GetHashCode([DisallowNull] <#= tuple #> obj)
+        {
+            return HashCode.Combine(<#= string.Join(", ", equalityComparerNames.Select((name, index) => $"{name}.GetHashCode(obj.Item{index + 1})")) #>);
+        }
+    }
+<#
+}
+#>
+}
