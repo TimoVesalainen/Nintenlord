@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
-using System.Text;
 
 namespace Nintenlord.Utility
 {
@@ -21,6 +20,10 @@ namespace Nintenlord.Utility
         }
 
         #region TryGetHelpers
+        private delegate bool TryGetFromSpanDelegate<TValue>(ReadOnlySpan<char> text, out TValue value);
+        private delegate bool TryGetFromSpanDelegate<TKey1, TValue>(ReadOnlySpan<char> text, TKey1 key1, out TValue value);
+        private delegate bool TryGetFromSpanDelegate<TKey1, TKey2, TValue>(ReadOnlySpan<char> text, TKey1 key1, TKey2 key2, out TValue value);
+        private delegate bool TryGetFromSpanDelegate<TKey1, TKey2, TKey3, TValue>(ReadOnlySpan<char> text, TKey1 key1, TKey2 key2, TKey3 key3, out TValue value);
 
         private delegate bool TryGetDelegate<TValue>(out TValue value);
         private delegate bool TryGetDelegate<TKey, TValue>(TKey key, out TValue value);
@@ -84,6 +87,40 @@ namespace Nintenlord.Utility
                 return error;
             }
         }
+        private static Either<TValue, TError> TryGetFromSpanValueHelper<TKey, TValue, TError>(TryGetFromSpanDelegate<TKey, TValue> tryGetValue, ReadOnlySpan<char> span, TKey key, TError error)
+        {
+            if (tryGetValue(span, key, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return error;
+            }
+        }
+        private static Either<TValue, TError> TryGetFromSpanValueHelper<TKey1, TKey2, TValue, TError>(TryGetFromSpanDelegate<TKey1, TKey2, TValue> tryGetValue, ReadOnlySpan<char> span, TKey1 key1, TKey2 key2, TError error)
+        {
+            if (tryGetValue(span, key1, key2, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return error;
+            }
+        }
+        private static Either<TValue, TError> TryGetFromSpanValueHelper<TKey1, TKey2, TKey3, TValue, TError>(TryGetFromSpanDelegate<TKey1, TKey2, TKey3, TValue> tryGetValue, ReadOnlySpan<char> span, TKey1 key1, TKey2 key2, TKey3 key3, TError error)
+        {
+            if (tryGetValue(span, key1, key2, key3, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return error;
+            }
+        }
+
         #endregion TryGetHelpers
 
         public static Either<TNumber, TError> TryParseNumber<TNumber, TError>(this string text, NumberStyles style, IFormatProvider provider, TError error)
@@ -91,29 +128,10 @@ namespace Nintenlord.Utility
             => TryGetValueHelper<string, NumberStyles, IFormatProvider, TNumber, TError>(TNumber.TryParse, text, style, provider, error);
 
         public static Either<TNumber, TError> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, IFormatProvider provider, TError error)
-            where TNumber : ISpanParsable<TNumber>
-        {
-            if (TNumber.TryParse(text, provider, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return error;
-            }
-        }
+            where TNumber : ISpanParsable<TNumber> => TryGetFromSpanValueHelper<IFormatProvider, TNumber, TError>(TNumber.TryParse, text, provider, error);
+
         public static Either<TNumber, TError> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider, TError error)
-            where TNumber : INumberBase<TNumber>
-        {
-            if (TNumber.TryParse(text, style, provider, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return error;
-            }
-        }
+            where TNumber : INumberBase<TNumber> => TryGetFromSpanValueHelper<NumberStyles, IFormatProvider, TNumber, TError>(TNumber.TryParse, text, style, provider, error);
 
         public static Either<int, TError> TryParseInt<TError>(this string text, TError error) => TryGetValueHelper<string, int, TError>(int.TryParse, text, error);
         public static Either<int, TError> TryParseInt<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<int, TError>(text, style, provider, error);
