@@ -116,28 +116,28 @@ namespace Nintenlord.Utility
         }
 
         public static Either<int, TError> TryParseInt<TError>(this string text, TError error) => TryGetValueHelper<string, int, TError>(int.TryParse, text, error);
-        public static Either<int, TError> TryParseInt<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, int, TError>(int.TryParse, text, style, provider, error);
+        public static Either<int, TError> TryParseInt<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<int, TError>(text, style, provider, error);
         public static Either<uint, TError> TryParseUInt<TError>(this string text, TError error) => TryGetValueHelper<string, uint, TError>(uint.TryParse, text, error);
-        public static Either<uint, TError> TryParseUInt<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, uint, TError>(uint.TryParse, text, style, provider, error);
+        public static Either<uint, TError> TryParseUInt<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<uint, TError>(text, style, provider, error);
         public static Either<short, TError> TryParseShort<TError>(this string text, TError error) => TryGetValueHelper<string, short, TError>(short.TryParse, text, error);
-        public static Either<short, TError> TryParseShort<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, short, TError>(short.TryParse, text, style, provider, error);
+        public static Either<short, TError> TryParseShort<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<short, TError>(text, style, provider, error);
         public static Either<ushort, TError> TryParseUShort<TError>(this string text, TError error) => TryGetValueHelper<string, ushort, TError>(ushort.TryParse, text, error);
-        public static Either<ushort, TError> TryParseUShort<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, ushort, TError>(ushort.TryParse, text, style, provider, error);
+        public static Either<ushort, TError> TryParseUShort<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<ushort, TError>(text, style, provider, error);
         public static Either<byte, TError> TryParseByte<TError>(this string text, TError error) => TryGetValueHelper<string, byte, TError>(byte.TryParse, text, error);
-        public static Either<byte, TError> TryParseByte<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, byte, TError>(byte.TryParse, text, style, provider, error);
+        public static Either<byte, TError> TryParseByte<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<byte, TError>(text, style, provider, error);
         public static Either<sbyte, TError> TryParseSByte<TError>(this string text, TError error) => TryGetValueHelper<string, sbyte, TError>(sbyte.TryParse, text, error);
-        public static Either<sbyte, TError> TryParseSByte<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, sbyte, TError>(sbyte.TryParse, text, style, provider, error);
+        public static Either<sbyte, TError> TryParseSByte<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<sbyte, TError>(text, style, provider, error);
         public static Either<long, TError> TryParseLong<TError>(this string text, TError error) => TryGetValueHelper<string, long, TError>(long.TryParse, text, error);
-        public static Either<long, TError> TryParseLong<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, long, TError>(long.TryParse, text, style, provider, error);
+        public static Either<long, TError> TryParseLong<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<long, TError>(text, style, provider, error);
         public static Either<ulong, TError> TryParseULong<TError>(this string text, TError error) => TryGetValueHelper<string, ulong, TError>(ulong.TryParse, text, error);
-        public static Either<ulong, TError> TryParseULong<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, ulong, TError>(ulong.TryParse, text, style, provider, error);
+        public static Either<ulong, TError> TryParseULong<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<ulong, TError>(text, style, provider, error);
         public static Either<BigInteger, TError> TryParseBigInteger<TError>(this string text, TError error) => TryGetValueHelper<string, BigInteger, TError>(BigInteger.TryParse, text, error);
-        public static Either<BigInteger, TError> TryParseBigInteger<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, BigInteger, TError>(BigInteger.TryParse, text, style, provider, error);
+        public static Either<BigInteger, TError> TryParseBigInteger<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<BigInteger, TError>(text, style, provider, error);
 
         public static Either<double, TError> TryParseDouble<TError>(this string text, TError error) => TryGetValueHelper<string, double, TError>(double.TryParse, text, error);
-        public static Either<double, TError> TryParseDouble<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, double, TError>(double.TryParse, text, style, provider, error);
+        public static Either<double, TError> TryParseDouble<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<double, TError>(text, style, provider, error);
         public static Either<float, TError> TryParseFloat<TError>(this string text, TError error) => TryGetValueHelper<string, float, TError>(float.TryParse, text, error);
-        public static Either<float, TError> TryParseFloat<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryGetValueHelper<string, NumberStyles, IFormatProvider, float, TError>(float.TryParse, text, style, provider, error);
+        public static Either<float, TError> TryParseFloat<TError>(this string text, NumberStyles style, IFormatProvider provider, TError error) => TryParseNumber<float, TError>(text, style, provider, error);
 
         public static Either<DateTime, TError> TryParseDateTime<TError>(this string text, TError error) => TryGetValueHelper<string, DateTime, TError>(DateTime.TryParse, text, error);
         public static Either<DateTime, TError> TryParseDateTime<TError>(this string text, IFormatProvider provider, DateTimeStyles styles, TError error) => TryGetValueHelper<string, IFormatProvider, DateTimeStyles, DateTime, TError>(DateTime.TryParse, text, provider, styles, error);

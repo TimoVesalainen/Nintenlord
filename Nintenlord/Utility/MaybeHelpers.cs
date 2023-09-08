@@ -314,11 +314,11 @@ namespace Nintenlord.Utility
         }
         #endregion TryGetHelpers
 
-        public static Maybe<TNumber> TryParseNumber<TNumber, TError>(this string text, NumberStyles style, IFormatProvider provider)
+        public static Maybe<TNumber> TryParseNumber<TNumber>(this string text, NumberStyles style, IFormatProvider provider)
             where TNumber : INumberBase<TNumber>
             => TryGetValueHelper<string, NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
 
-        public static Maybe<TNumber> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, IFormatProvider provider)
+        public static Maybe<TNumber> TryParseNumber<TNumber>(this ReadOnlySpan<char> text, IFormatProvider provider)
             where TNumber : ISpanParsable<TNumber>
         {
             if (TNumber.TryParse(text, provider, out var value))
@@ -330,7 +330,7 @@ namespace Nintenlord.Utility
                 return Maybe<TNumber>.Nothing;
             }
         }
-        public static Maybe<TNumber> TryParseNumber<TNumber, TError>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider)
+        public static Maybe<TNumber> TryParseNumber<TNumber>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider)
             where TNumber : INumberBase<TNumber>
         {
             if (TNumber.TryParse(text, style, provider, out var value))
@@ -344,28 +344,28 @@ namespace Nintenlord.Utility
         }
 
         public static Maybe<int> TryParseInt(this string text) => TryGetValueHelper<string, int>(int.TryParse, text);
-        public static Maybe<int> TryParseInt(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, int>(int.TryParse, text, style, provider);
+        public static Maybe<int> TryParseInt(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<int>(text, style, provider);
         public static Maybe<uint> TryParseUInt(this string text) => TryGetValueHelper<string, uint>(uint.TryParse, text);
-        public static Maybe<uint> TryParseUInt(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, uint>(uint.TryParse, text, style, provider);
+        public static Maybe<uint> TryParseUInt(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<uint>(text, style, provider);
         public static Maybe<short> TryParseShort(this string text) => TryGetValueHelper<string, short>(short.TryParse, text);
-        public static Maybe<short> TryParseShort(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, short>(short.TryParse, text, style, provider);
+        public static Maybe<short> TryParseShort(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<short>(text, style, provider);
         public static Maybe<ushort> TryParseUShort(this string text) => TryGetValueHelper<string, ushort>(ushort.TryParse, text);
-        public static Maybe<ushort> TryParseUShort(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, ushort>(ushort.TryParse, text, style, provider);
+        public static Maybe<ushort> TryParseUShort(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<ushort>(text, style, provider);
         public static Maybe<byte> TryParseByte(this string text) => TryGetValueHelper<string, byte>(byte.TryParse, text);
-        public static Maybe<byte> TryParseByte(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, byte>(byte.TryParse, text, style, provider);
+        public static Maybe<byte> TryParseByte(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<byte>(text, style, provider);
         public static Maybe<sbyte> TryParseSByte(this string text) => TryGetValueHelper<string, sbyte>(sbyte.TryParse, text);
-        public static Maybe<sbyte> TryParseSByte(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, sbyte>(sbyte.TryParse, text, style, provider);
+        public static Maybe<sbyte> TryParseSByte(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<sbyte>(text, style, provider);
         public static Maybe<long> TryParseLong(this string text) => TryGetValueHelper<string, long>(long.TryParse, text);
-        public static Maybe<long> TryParseLong(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, long>(long.TryParse, text, style, provider);
+        public static Maybe<long> TryParseLong(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<long>(text, style, provider);
         public static Maybe<ulong> TryParseULong(this string text) => TryGetValueHelper<string, ulong>(ulong.TryParse, text);
-        public static Maybe<ulong> TryParseULong(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, ulong>(ulong.TryParse, text, style, provider);
+        public static Maybe<ulong> TryParseULong(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<ulong>(text, style, provider);
         public static Maybe<BigInteger> TryParseBigInteger(this string text) => TryGetValueHelper<string, BigInteger>(BigInteger.TryParse, text);
-        public static Maybe<BigInteger> TryParseBigInteger(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, BigInteger>(BigInteger.TryParse, text, style, provider);
+        public static Maybe<BigInteger> TryParseBigInteger(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<BigInteger>(text, style, provider);
 
         public static Maybe<double> TryParseDouble(this string text) => TryGetValueHelper<string, double>(double.TryParse, text);
-        public static Maybe<double> TryParseDouble(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, double>(double.TryParse, text, style, provider);
+        public static Maybe<double> TryParseDouble(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<double>(text, style, provider);
         public static Maybe<float> TryParseFloat(this string text) => TryGetValueHelper<string, float>(float.TryParse, text);
-        public static Maybe<float> TryParseFloat(this string text, NumberStyles style, IFormatProvider provider) => TryGetValueHelper<string, NumberStyles, IFormatProvider, float>(float.TryParse, text, style, provider);
+        public static Maybe<float> TryParseFloat(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<float>(text, style, provider);
 
         public static Maybe<DateTime> TryParseDateTime(this string text) => TryGetValueHelper<string, DateTime>(DateTime.TryParse, text);
         public static Maybe<DateTime> TryParseDateTime(this string text, IFormatProvider provider, DateTimeStyles styles) => TryGetValueHelper<string, IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParse, text, provider, styles);
