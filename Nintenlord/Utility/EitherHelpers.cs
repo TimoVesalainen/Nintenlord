@@ -5,10 +5,36 @@ namespace Nintenlord.Utility
 {
 	public static partial class EitherHelpers
 	{
+        public static Maybe<T0> TryGetValue0<T0, T1>(this Either<T0, T1> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1>(this Either<T0, T1> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1> Select0<T0, T1, TOut>(this Either<T0, T1> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1>.From0(selector(item)), Either<TOut, T1>.From1);
 		}
+
 
 		public static Either<T0, TOut> Select1<T0, T1, TOut>(this Either<T0, T1> either, Func<T1, TOut> selector)
 		{
@@ -69,15 +95,54 @@ namespace Nintenlord.Utility
 #endregion Associate for 2
 
 		//TODO: Commutative operations
+        public static Maybe<T0> TryGetValue0<T0, T1, T2>(this Either<T0, T1, T2> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1, T2>(this Either<T0, T1, T2> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+        public static Maybe<T2> TryGetValue2<T0, T1, T2>(this Either<T0, T1, T2> either)
+        {
+            if (either.TryGetValue2(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1, T2> Select0<T0, T1, T2, TOut>(this Either<T0, T1, T2> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1, T2>.From0(selector(item)), Either<TOut, T1, T2>.From1, Either<TOut, T1, T2>.From2);
 		}
 
+
 		public static Either<T0, TOut, T2> Select1<T0, T1, T2, TOut>(this Either<T0, T1, T2> either, Func<T1, TOut> selector)
 		{
 			return either.Apply(Either<T0, TOut, T2>.From0, item => Either<T0, TOut, T2>.From1(selector(item)), Either<T0, TOut, T2>.From2);
 		}
+
 
 		public static Either<T0, T1, TOut> Select2<T0, T1, T2, TOut>(this Either<T0, T1, T2> either, Func<T2, TOut> selector)
 		{
@@ -167,20 +232,72 @@ namespace Nintenlord.Utility
 #endregion Associate for 3
 
 		//TODO: Commutative operations
+        public static Maybe<T0> TryGetValue0<T0, T1, T2, T3>(this Either<T0, T1, T2, T3> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1, T2, T3>(this Either<T0, T1, T2, T3> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+        public static Maybe<T2> TryGetValue2<T0, T1, T2, T3>(this Either<T0, T1, T2, T3> either)
+        {
+            if (either.TryGetValue2(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+
+        public static Maybe<T3> TryGetValue3<T0, T1, T2, T3>(this Either<T0, T1, T2, T3> either)
+        {
+            if (either.TryGetValue3(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1, T2, T3> Select0<T0, T1, T2, T3, TOut>(this Either<T0, T1, T2, T3> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1, T2, T3>.From0(selector(item)), Either<TOut, T1, T2, T3>.From1, Either<TOut, T1, T2, T3>.From2, Either<TOut, T1, T2, T3>.From3);
 		}
+
 
 		public static Either<T0, TOut, T2, T3> Select1<T0, T1, T2, T3, TOut>(this Either<T0, T1, T2, T3> either, Func<T1, TOut> selector)
 		{
 			return either.Apply(Either<T0, TOut, T2, T3>.From0, item => Either<T0, TOut, T2, T3>.From1(selector(item)), Either<T0, TOut, T2, T3>.From2, Either<T0, TOut, T2, T3>.From3);
 		}
 
+
 		public static Either<T0, T1, TOut, T3> Select2<T0, T1, T2, T3, TOut>(this Either<T0, T1, T2, T3> either, Func<T2, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, TOut, T3>.From0, Either<T0, T1, TOut, T3>.From1, item => Either<T0, T1, TOut, T3>.From2(selector(item)), Either<T0, T1, TOut, T3>.From3);
 		}
+
 
 		public static Either<T0, T1, T2, TOut> Select3<T0, T1, T2, T3, TOut>(this Either<T0, T1, T2, T3> either, Func<T3, TOut> selector)
 		{
@@ -316,25 +433,90 @@ namespace Nintenlord.Utility
 #endregion Associate for 4
 
 		//TODO: Commutative operations
+        public static Maybe<T0> TryGetValue0<T0, T1, T2, T3, T4>(this Either<T0, T1, T2, T3, T4> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1, T2, T3, T4>(this Either<T0, T1, T2, T3, T4> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+        public static Maybe<T2> TryGetValue2<T0, T1, T2, T3, T4>(this Either<T0, T1, T2, T3, T4> either)
+        {
+            if (either.TryGetValue2(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+
+        public static Maybe<T3> TryGetValue3<T0, T1, T2, T3, T4>(this Either<T0, T1, T2, T3, T4> either)
+        {
+            if (either.TryGetValue3(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+
+        public static Maybe<T4> TryGetValue4<T0, T1, T2, T3, T4>(this Either<T0, T1, T2, T3, T4> either)
+        {
+            if (either.TryGetValue4(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1, T2, T3, T4> Select0<T0, T1, T2, T3, T4, TOut>(this Either<T0, T1, T2, T3, T4> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1, T2, T3, T4>.From0(selector(item)), Either<TOut, T1, T2, T3, T4>.From1, Either<TOut, T1, T2, T3, T4>.From2, Either<TOut, T1, T2, T3, T4>.From3, Either<TOut, T1, T2, T3, T4>.From4);
 		}
+
 
 		public static Either<T0, TOut, T2, T3, T4> Select1<T0, T1, T2, T3, T4, TOut>(this Either<T0, T1, T2, T3, T4> either, Func<T1, TOut> selector)
 		{
 			return either.Apply(Either<T0, TOut, T2, T3, T4>.From0, item => Either<T0, TOut, T2, T3, T4>.From1(selector(item)), Either<T0, TOut, T2, T3, T4>.From2, Either<T0, TOut, T2, T3, T4>.From3, Either<T0, TOut, T2, T3, T4>.From4);
 		}
 
+
 		public static Either<T0, T1, TOut, T3, T4> Select2<T0, T1, T2, T3, T4, TOut>(this Either<T0, T1, T2, T3, T4> either, Func<T2, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, TOut, T3, T4>.From0, Either<T0, T1, TOut, T3, T4>.From1, item => Either<T0, T1, TOut, T3, T4>.From2(selector(item)), Either<T0, T1, TOut, T3, T4>.From3, Either<T0, T1, TOut, T3, T4>.From4);
 		}
 
+
 		public static Either<T0, T1, T2, TOut, T4> Select3<T0, T1, T2, T3, T4, TOut>(this Either<T0, T1, T2, T3, T4> either, Func<T3, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, TOut, T4>.From0, Either<T0, T1, T2, TOut, T4>.From1, Either<T0, T1, T2, TOut, T4>.From2, item => Either<T0, T1, T2, TOut, T4>.From3(selector(item)), Either<T0, T1, T2, TOut, T4>.From4);
 		}
+
 
 		public static Either<T0, T1, T2, T3, TOut> Select4<T0, T1, T2, T3, T4, TOut>(this Either<T0, T1, T2, T3, T4> either, Func<T4, TOut> selector)
 		{
@@ -552,30 +734,108 @@ namespace Nintenlord.Utility
 #endregion Associate for 5
 
 		//TODO: Commutative operations
+        public static Maybe<T0> TryGetValue0<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, T4, T5> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, T4, T5> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+        public static Maybe<T2> TryGetValue2<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, T4, T5> either)
+        {
+            if (either.TryGetValue2(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+
+        public static Maybe<T3> TryGetValue3<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, T4, T5> either)
+        {
+            if (either.TryGetValue3(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+
+        public static Maybe<T4> TryGetValue4<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, T4, T5> either)
+        {
+            if (either.TryGetValue4(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+
+        public static Maybe<T5> TryGetValue5<T0, T1, T2, T3, T4, T5>(this Either<T0, T1, T2, T3, T4, T5> either)
+        {
+            if (either.TryGetValue5(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T5>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1, T2, T3, T4, T5> Select0<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1, T2, T3, T4, T5>.From0(selector(item)), Either<TOut, T1, T2, T3, T4, T5>.From1, Either<TOut, T1, T2, T3, T4, T5>.From2, Either<TOut, T1, T2, T3, T4, T5>.From3, Either<TOut, T1, T2, T3, T4, T5>.From4, Either<TOut, T1, T2, T3, T4, T5>.From5);
 		}
+
 
 		public static Either<T0, TOut, T2, T3, T4, T5> Select1<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T1, TOut> selector)
 		{
 			return either.Apply(Either<T0, TOut, T2, T3, T4, T5>.From0, item => Either<T0, TOut, T2, T3, T4, T5>.From1(selector(item)), Either<T0, TOut, T2, T3, T4, T5>.From2, Either<T0, TOut, T2, T3, T4, T5>.From3, Either<T0, TOut, T2, T3, T4, T5>.From4, Either<T0, TOut, T2, T3, T4, T5>.From5);
 		}
 
+
 		public static Either<T0, T1, TOut, T3, T4, T5> Select2<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T2, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, TOut, T3, T4, T5>.From0, Either<T0, T1, TOut, T3, T4, T5>.From1, item => Either<T0, T1, TOut, T3, T4, T5>.From2(selector(item)), Either<T0, T1, TOut, T3, T4, T5>.From3, Either<T0, T1, TOut, T3, T4, T5>.From4, Either<T0, T1, TOut, T3, T4, T5>.From5);
 		}
+
 
 		public static Either<T0, T1, T2, TOut, T4, T5> Select3<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T3, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, TOut, T4, T5>.From0, Either<T0, T1, T2, TOut, T4, T5>.From1, Either<T0, T1, T2, TOut, T4, T5>.From2, item => Either<T0, T1, T2, TOut, T4, T5>.From3(selector(item)), Either<T0, T1, T2, TOut, T4, T5>.From4, Either<T0, T1, T2, TOut, T4, T5>.From5);
 		}
 
+
 		public static Either<T0, T1, T2, T3, TOut, T5> Select4<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T4, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, T3, TOut, T5>.From0, Either<T0, T1, T2, T3, TOut, T5>.From1, Either<T0, T1, T2, T3, TOut, T5>.From2, Either<T0, T1, T2, T3, TOut, T5>.From3, item => Either<T0, T1, T2, T3, TOut, T5>.From4(selector(item)), Either<T0, T1, T2, T3, TOut, T5>.From5);
 		}
+
 
 		public static Either<T0, T1, T2, T3, T4, TOut> Select5<T0, T1, T2, T3, T4, T5, TOut>(this Either<T0, T1, T2, T3, T4, T5> either, Func<T5, TOut> selector)
 		{
@@ -947,35 +1207,126 @@ namespace Nintenlord.Utility
 #endregion Associate for 6
 
 		//TODO: Commutative operations
+        public static Maybe<T0> TryGetValue0<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+        public static Maybe<T2> TryGetValue2<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue2(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+
+        public static Maybe<T3> TryGetValue3<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue3(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+
+        public static Maybe<T4> TryGetValue4<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue4(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+
+        public static Maybe<T5> TryGetValue5<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue5(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T5>.Nothing;
+            }
+        }
+
+        public static Maybe<T6> TryGetValue6<T0, T1, T2, T3, T4, T5, T6>(this Either<T0, T1, T2, T3, T4, T5, T6> either)
+        {
+            if (either.TryGetValue6(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T6>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1, T2, T3, T4, T5, T6> Select0<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1, T2, T3, T4, T5, T6>.From0(selector(item)), Either<TOut, T1, T2, T3, T4, T5, T6>.From1, Either<TOut, T1, T2, T3, T4, T5, T6>.From2, Either<TOut, T1, T2, T3, T4, T5, T6>.From3, Either<TOut, T1, T2, T3, T4, T5, T6>.From4, Either<TOut, T1, T2, T3, T4, T5, T6>.From5, Either<TOut, T1, T2, T3, T4, T5, T6>.From6);
 		}
+
 
 		public static Either<T0, TOut, T2, T3, T4, T5, T6> Select1<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T1, TOut> selector)
 		{
 			return either.Apply(Either<T0, TOut, T2, T3, T4, T5, T6>.From0, item => Either<T0, TOut, T2, T3, T4, T5, T6>.From1(selector(item)), Either<T0, TOut, T2, T3, T4, T5, T6>.From2, Either<T0, TOut, T2, T3, T4, T5, T6>.From3, Either<T0, TOut, T2, T3, T4, T5, T6>.From4, Either<T0, TOut, T2, T3, T4, T5, T6>.From5, Either<T0, TOut, T2, T3, T4, T5, T6>.From6);
 		}
 
+
 		public static Either<T0, T1, TOut, T3, T4, T5, T6> Select2<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T2, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, TOut, T3, T4, T5, T6>.From0, Either<T0, T1, TOut, T3, T4, T5, T6>.From1, item => Either<T0, T1, TOut, T3, T4, T5, T6>.From2(selector(item)), Either<T0, T1, TOut, T3, T4, T5, T6>.From3, Either<T0, T1, TOut, T3, T4, T5, T6>.From4, Either<T0, T1, TOut, T3, T4, T5, T6>.From5, Either<T0, T1, TOut, T3, T4, T5, T6>.From6);
 		}
+
 
 		public static Either<T0, T1, T2, TOut, T4, T5, T6> Select3<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T3, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, TOut, T4, T5, T6>.From0, Either<T0, T1, T2, TOut, T4, T5, T6>.From1, Either<T0, T1, T2, TOut, T4, T5, T6>.From2, item => Either<T0, T1, T2, TOut, T4, T5, T6>.From3(selector(item)), Either<T0, T1, T2, TOut, T4, T5, T6>.From4, Either<T0, T1, T2, TOut, T4, T5, T6>.From5, Either<T0, T1, T2, TOut, T4, T5, T6>.From6);
 		}
 
+
 		public static Either<T0, T1, T2, T3, TOut, T5, T6> Select4<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T4, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, T3, TOut, T5, T6>.From0, Either<T0, T1, T2, T3, TOut, T5, T6>.From1, Either<T0, T1, T2, T3, TOut, T5, T6>.From2, Either<T0, T1, T2, T3, TOut, T5, T6>.From3, item => Either<T0, T1, T2, T3, TOut, T5, T6>.From4(selector(item)), Either<T0, T1, T2, T3, TOut, T5, T6>.From5, Either<T0, T1, T2, T3, TOut, T5, T6>.From6);
 		}
 
+
 		public static Either<T0, T1, T2, T3, T4, TOut, T6> Select5<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T5, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, T3, T4, TOut, T6>.From0, Either<T0, T1, T2, T3, T4, TOut, T6>.From1, Either<T0, T1, T2, T3, T4, TOut, T6>.From2, Either<T0, T1, T2, T3, T4, TOut, T6>.From3, Either<T0, T1, T2, T3, T4, TOut, T6>.From4, item => Either<T0, T1, T2, T3, T4, TOut, T6>.From5(selector(item)), Either<T0, T1, T2, T3, T4, TOut, T6>.From6);
 		}
+
 
 		public static Either<T0, T1, T2, T3, T4, T5, TOut> Select6<T0, T1, T2, T3, T4, T5, T6, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6> either, Func<T6, TOut> selector)
 		{
@@ -1645,40 +1996,144 @@ namespace Nintenlord.Utility
 #endregion Associate for 7
 
 		//TODO: Commutative operations
+        public static Maybe<T0> TryGetValue0<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue0(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T0>.Nothing;
+            }
+        }
+
+        public static Maybe<T1> TryGetValue1<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue1(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T1>.Nothing;
+            }
+        }
+
+        public static Maybe<T2> TryGetValue2<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue2(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T2>.Nothing;
+            }
+        }
+
+        public static Maybe<T3> TryGetValue3<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue3(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T3>.Nothing;
+            }
+        }
+
+        public static Maybe<T4> TryGetValue4<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue4(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T4>.Nothing;
+            }
+        }
+
+        public static Maybe<T5> TryGetValue5<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue5(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T5>.Nothing;
+            }
+        }
+
+        public static Maybe<T6> TryGetValue6<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue6(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T6>.Nothing;
+            }
+        }
+
+        public static Maybe<T7> TryGetValue7<T0, T1, T2, T3, T4, T5, T6, T7>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either)
+        {
+            if (either.TryGetValue7(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<T7>.Nothing;
+            }
+        }
+
+
 		public static Either<TOut, T1, T2, T3, T4, T5, T6, T7> Select0<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T0, TOut> selector)
 		{
 			return either.Apply(item => Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From0(selector(item)), Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From1, Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From2, Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From3, Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From4, Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From5, Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From6, Either<TOut, T1, T2, T3, T4, T5, T6, T7>.From7);
 		}
+
 
 		public static Either<T0, TOut, T2, T3, T4, T5, T6, T7> Select1<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T1, TOut> selector)
 		{
 			return either.Apply(Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From0, item => Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From1(selector(item)), Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From2, Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From3, Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From4, Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From5, Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From6, Either<T0, TOut, T2, T3, T4, T5, T6, T7>.From7);
 		}
 
+
 		public static Either<T0, T1, TOut, T3, T4, T5, T6, T7> Select2<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T2, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From0, Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From1, item => Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From2(selector(item)), Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From3, Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From4, Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From5, Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From6, Either<T0, T1, TOut, T3, T4, T5, T6, T7>.From7);
 		}
+
 
 		public static Either<T0, T1, T2, TOut, T4, T5, T6, T7> Select3<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T3, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From0, Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From1, Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From2, item => Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From3(selector(item)), Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From4, Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From5, Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From6, Either<T0, T1, T2, TOut, T4, T5, T6, T7>.From7);
 		}
 
+
 		public static Either<T0, T1, T2, T3, TOut, T5, T6, T7> Select4<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T4, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From0, Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From1, Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From2, Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From3, item => Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From4(selector(item)), Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From5, Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From6, Either<T0, T1, T2, T3, TOut, T5, T6, T7>.From7);
 		}
+
 
 		public static Either<T0, T1, T2, T3, T4, TOut, T6, T7> Select5<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T5, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From0, Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From1, Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From2, Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From3, Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From4, item => Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From5(selector(item)), Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From6, Either<T0, T1, T2, T3, T4, TOut, T6, T7>.From7);
 		}
 
+
 		public static Either<T0, T1, T2, T3, T4, T5, TOut, T7> Select6<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T6, TOut> selector)
 		{
 			return either.Apply(Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From0, Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From1, Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From2, Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From3, Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From4, Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From5, item => Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From6(selector(item)), Either<T0, T1, T2, T3, T4, T5, TOut, T7>.From7);
 		}
+
 
 		public static Either<T0, T1, T2, T3, T4, T5, T6, TOut> Select7<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this Either<T0, T1, T2, T3, T4, T5, T6, T7> either, Func<T7, TOut> selector)
 		{

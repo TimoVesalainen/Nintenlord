@@ -114,37 +114,24 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum2.Item0:
-                    return func0(this.option0);
-                case Enum2.Item1:
-                    return func1(this.option1);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum2.Item0 => func0(this.option0),
+                Enum2.Item1 => func1(this.option1),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum2.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum2.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum2.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum2.Item1;
         }
 	}
     [DataContract]
@@ -292,50 +279,31 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1, Func<T2, T> func2)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum3.Item0:
-                    return func0(this.option0);
-                case Enum3.Item1:
-                    return func1(this.option1);
-                case Enum3.Item2:
-                    return func2(this.option2);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum3.Item0 => func0(this.option0),
+                Enum3.Item1 => func1(this.option1),
+                Enum3.Item2 => func2(this.option2),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum3.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum3.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum3.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum3.Item1;
         }
-        public Maybe<T2> TryGetValue2()
+
+        public bool TryGetValue2(out T2 item)
         {
-            if(this.mode == Enum3.Item2)
-            {
-                return option2;
-            }
-            else
-            {
-                return Maybe<T2>.Nothing;
-            }
+            item = option2;
+            return this.mode == Enum3.Item2;
         }
 	}
     [DataContract]
@@ -522,63 +490,38 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1, Func<T2, T> func2, Func<T3, T> func3)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum4.Item0:
-                    return func0(this.option0);
-                case Enum4.Item1:
-                    return func1(this.option1);
-                case Enum4.Item2:
-                    return func2(this.option2);
-                case Enum4.Item3:
-                    return func3(this.option3);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum4.Item0 => func0(this.option0),
+                Enum4.Item1 => func1(this.option1),
+                Enum4.Item2 => func2(this.option2),
+                Enum4.Item3 => func3(this.option3),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum4.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum4.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum4.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum4.Item1;
         }
-        public Maybe<T2> TryGetValue2()
+
+        public bool TryGetValue2(out T2 item)
         {
-            if(this.mode == Enum4.Item2)
-            {
-                return option2;
-            }
-            else
-            {
-                return Maybe<T2>.Nothing;
-            }
+            item = option2;
+            return this.mode == Enum4.Item2;
         }
-        public Maybe<T3> TryGetValue3()
+
+        public bool TryGetValue3(out T3 item)
         {
-            if(this.mode == Enum4.Item3)
-            {
-                return option3;
-            }
-            else
-            {
-                return Maybe<T3>.Nothing;
-            }
+            item = option3;
+            return this.mode == Enum4.Item3;
         }
 	}
     [DataContract]
@@ -809,76 +752,45 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1, Func<T2, T> func2, Func<T3, T> func3, Func<T4, T> func4)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum5.Item0:
-                    return func0(this.option0);
-                case Enum5.Item1:
-                    return func1(this.option1);
-                case Enum5.Item2:
-                    return func2(this.option2);
-                case Enum5.Item3:
-                    return func3(this.option3);
-                case Enum5.Item4:
-                    return func4(this.option4);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum5.Item0 => func0(this.option0),
+                Enum5.Item1 => func1(this.option1),
+                Enum5.Item2 => func2(this.option2),
+                Enum5.Item3 => func3(this.option3),
+                Enum5.Item4 => func4(this.option4),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum5.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum5.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum5.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum5.Item1;
         }
-        public Maybe<T2> TryGetValue2()
+
+        public bool TryGetValue2(out T2 item)
         {
-            if(this.mode == Enum5.Item2)
-            {
-                return option2;
-            }
-            else
-            {
-                return Maybe<T2>.Nothing;
-            }
+            item = option2;
+            return this.mode == Enum5.Item2;
         }
-        public Maybe<T3> TryGetValue3()
+
+        public bool TryGetValue3(out T3 item)
         {
-            if(this.mode == Enum5.Item3)
-            {
-                return option3;
-            }
-            else
-            {
-                return Maybe<T3>.Nothing;
-            }
+            item = option3;
+            return this.mode == Enum5.Item3;
         }
-        public Maybe<T4> TryGetValue4()
+
+        public bool TryGetValue4(out T4 item)
         {
-            if(this.mode == Enum5.Item4)
-            {
-                return option4;
-            }
-            else
-            {
-                return Maybe<T4>.Nothing;
-            }
+            item = option4;
+            return this.mode == Enum5.Item4;
         }
 	}
     [DataContract]
@@ -1158,89 +1070,52 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1, Func<T2, T> func2, Func<T3, T> func3, Func<T4, T> func4, Func<T5, T> func5)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum6.Item0:
-                    return func0(this.option0);
-                case Enum6.Item1:
-                    return func1(this.option1);
-                case Enum6.Item2:
-                    return func2(this.option2);
-                case Enum6.Item3:
-                    return func3(this.option3);
-                case Enum6.Item4:
-                    return func4(this.option4);
-                case Enum6.Item5:
-                    return func5(this.option5);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum6.Item0 => func0(this.option0),
+                Enum6.Item1 => func1(this.option1),
+                Enum6.Item2 => func2(this.option2),
+                Enum6.Item3 => func3(this.option3),
+                Enum6.Item4 => func4(this.option4),
+                Enum6.Item5 => func5(this.option5),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum6.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum6.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum6.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum6.Item1;
         }
-        public Maybe<T2> TryGetValue2()
+
+        public bool TryGetValue2(out T2 item)
         {
-            if(this.mode == Enum6.Item2)
-            {
-                return option2;
-            }
-            else
-            {
-                return Maybe<T2>.Nothing;
-            }
+            item = option2;
+            return this.mode == Enum6.Item2;
         }
-        public Maybe<T3> TryGetValue3()
+
+        public bool TryGetValue3(out T3 item)
         {
-            if(this.mode == Enum6.Item3)
-            {
-                return option3;
-            }
-            else
-            {
-                return Maybe<T3>.Nothing;
-            }
+            item = option3;
+            return this.mode == Enum6.Item3;
         }
-        public Maybe<T4> TryGetValue4()
+
+        public bool TryGetValue4(out T4 item)
         {
-            if(this.mode == Enum6.Item4)
-            {
-                return option4;
-            }
-            else
-            {
-                return Maybe<T4>.Nothing;
-            }
+            item = option4;
+            return this.mode == Enum6.Item4;
         }
-        public Maybe<T5> TryGetValue5()
+
+        public bool TryGetValue5(out T5 item)
         {
-            if(this.mode == Enum6.Item5)
-            {
-                return option5;
-            }
-            else
-            {
-                return Maybe<T5>.Nothing;
-            }
+            item = option5;
+            return this.mode == Enum6.Item5;
         }
 	}
     [DataContract]
@@ -1574,102 +1449,59 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1, Func<T2, T> func2, Func<T3, T> func3, Func<T4, T> func4, Func<T5, T> func5, Func<T6, T> func6)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum7.Item0:
-                    return func0(this.option0);
-                case Enum7.Item1:
-                    return func1(this.option1);
-                case Enum7.Item2:
-                    return func2(this.option2);
-                case Enum7.Item3:
-                    return func3(this.option3);
-                case Enum7.Item4:
-                    return func4(this.option4);
-                case Enum7.Item5:
-                    return func5(this.option5);
-                case Enum7.Item6:
-                    return func6(this.option6);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum7.Item0 => func0(this.option0),
+                Enum7.Item1 => func1(this.option1),
+                Enum7.Item2 => func2(this.option2),
+                Enum7.Item3 => func3(this.option3),
+                Enum7.Item4 => func4(this.option4),
+                Enum7.Item5 => func5(this.option5),
+                Enum7.Item6 => func6(this.option6),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum7.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum7.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum7.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum7.Item1;
         }
-        public Maybe<T2> TryGetValue2()
+
+        public bool TryGetValue2(out T2 item)
         {
-            if(this.mode == Enum7.Item2)
-            {
-                return option2;
-            }
-            else
-            {
-                return Maybe<T2>.Nothing;
-            }
+            item = option2;
+            return this.mode == Enum7.Item2;
         }
-        public Maybe<T3> TryGetValue3()
+
+        public bool TryGetValue3(out T3 item)
         {
-            if(this.mode == Enum7.Item3)
-            {
-                return option3;
-            }
-            else
-            {
-                return Maybe<T3>.Nothing;
-            }
+            item = option3;
+            return this.mode == Enum7.Item3;
         }
-        public Maybe<T4> TryGetValue4()
+
+        public bool TryGetValue4(out T4 item)
         {
-            if(this.mode == Enum7.Item4)
-            {
-                return option4;
-            }
-            else
-            {
-                return Maybe<T4>.Nothing;
-            }
+            item = option4;
+            return this.mode == Enum7.Item4;
         }
-        public Maybe<T5> TryGetValue5()
+
+        public bool TryGetValue5(out T5 item)
         {
-            if(this.mode == Enum7.Item5)
-            {
-                return option5;
-            }
-            else
-            {
-                return Maybe<T5>.Nothing;
-            }
+            item = option5;
+            return this.mode == Enum7.Item5;
         }
-        public Maybe<T6> TryGetValue6()
+
+        public bool TryGetValue6(out T6 item)
         {
-            if(this.mode == Enum7.Item6)
-            {
-                return option6;
-            }
-            else
-            {
-                return Maybe<T6>.Nothing;
-            }
+            item = option6;
+            return this.mode == Enum7.Item6;
         }
 	}
     [DataContract]
@@ -2062,115 +1894,66 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(Func<T0, T> func0, Func<T1, T> func1, Func<T2, T> func2, Func<T3, T> func3, Func<T4, T> func4, Func<T5, T> func5, Func<T6, T> func6, Func<T7, T> func7)
         {
-            switch (this.mode)
+            return this.mode switch
             {
-                case Enum8.Item0:
-                    return func0(this.option0);
-                case Enum8.Item1:
-                    return func1(this.option1);
-                case Enum8.Item2:
-                    return func2(this.option2);
-                case Enum8.Item3:
-                    return func3(this.option3);
-                case Enum8.Item4:
-                    return func4(this.option4);
-                case Enum8.Item5:
-                    return func5(this.option5);
-                case Enum8.Item6:
-                    return func6(this.option6);
-                case Enum8.Item7:
-                    return func7(this.option7);
-                default:
-                    throw new InvalidProgramException();
-            }
+                Enum8.Item0 => func0(this.option0),
+                Enum8.Item1 => func1(this.option1),
+                Enum8.Item2 => func2(this.option2),
+                Enum8.Item3 => func3(this.option3),
+                Enum8.Item4 => func4(this.option4),
+                Enum8.Item5 => func5(this.option5),
+                Enum8.Item6 => func6(this.option6),
+                Enum8.Item7 => func7(this.option7),
+                _ => throw new InvalidProgramException(),
+            };
         }
-        public Maybe<T0> TryGetValue0()
+
+        public bool TryGetValue0(out T0 item)
         {
-            if(this.mode == Enum8.Item0)
-            {
-                return option0;
-            }
-            else
-            {
-                return Maybe<T0>.Nothing;
-            }
+            item = option0;
+            return this.mode == Enum8.Item0;
         }
-        public Maybe<T1> TryGetValue1()
+
+        public bool TryGetValue1(out T1 item)
         {
-            if(this.mode == Enum8.Item1)
-            {
-                return option1;
-            }
-            else
-            {
-                return Maybe<T1>.Nothing;
-            }
+            item = option1;
+            return this.mode == Enum8.Item1;
         }
-        public Maybe<T2> TryGetValue2()
+
+        public bool TryGetValue2(out T2 item)
         {
-            if(this.mode == Enum8.Item2)
-            {
-                return option2;
-            }
-            else
-            {
-                return Maybe<T2>.Nothing;
-            }
+            item = option2;
+            return this.mode == Enum8.Item2;
         }
-        public Maybe<T3> TryGetValue3()
+
+        public bool TryGetValue3(out T3 item)
         {
-            if(this.mode == Enum8.Item3)
-            {
-                return option3;
-            }
-            else
-            {
-                return Maybe<T3>.Nothing;
-            }
+            item = option3;
+            return this.mode == Enum8.Item3;
         }
-        public Maybe<T4> TryGetValue4()
+
+        public bool TryGetValue4(out T4 item)
         {
-            if(this.mode == Enum8.Item4)
-            {
-                return option4;
-            }
-            else
-            {
-                return Maybe<T4>.Nothing;
-            }
+            item = option4;
+            return this.mode == Enum8.Item4;
         }
-        public Maybe<T5> TryGetValue5()
+
+        public bool TryGetValue5(out T5 item)
         {
-            if(this.mode == Enum8.Item5)
-            {
-                return option5;
-            }
-            else
-            {
-                return Maybe<T5>.Nothing;
-            }
+            item = option5;
+            return this.mode == Enum8.Item5;
         }
-        public Maybe<T6> TryGetValue6()
+
+        public bool TryGetValue6(out T6 item)
         {
-            if(this.mode == Enum8.Item6)
-            {
-                return option6;
-            }
-            else
-            {
-                return Maybe<T6>.Nothing;
-            }
+            item = option6;
+            return this.mode == Enum8.Item6;
         }
-        public Maybe<T7> TryGetValue7()
+
+        public bool TryGetValue7(out T7 item)
         {
-            if(this.mode == Enum8.Item7)
-            {
-                return option7;
-            }
-            else
-            {
-                return Maybe<T7>.Nothing;
-            }
+            item = option7;
+            return this.mode == Enum8.Item7;
         }
 	}
 }

@@ -189,35 +189,28 @@ namespace Nintenlord.Utility
 
         public T Apply<T>(<#= string.Join(", ", funcTypes.Zip(funcNames, (type, name) => $"{type} {name}")) #>)
         {
-            switch (this.mode)
+            return this.mode switch
             {
 <#
             for (int i = 0; i < paramCount; i++)
             {
 #>
-                case <#= enumItemNames[i] #>:
-                    return <#= funcNames[i] #>(this.<#= fieldNames[i] #>);
+                <#= enumItemNames[i] #> => <#= funcNames[i] #>(this.<#= fieldNames[i] #>),
 <#
             }
 #>
-                default:
-                    throw new InvalidProgramException();
-            }
+                _ => throw new InvalidProgramException(),
+            };
         }
 <#
             for (int i = 0; i < paramCount; i++)
             {
 #>
-        public Maybe<<#= typeParamNames[i] #>> TryGetValue<#= i #>()
+
+        public bool TryGetValue<#= i #>(out <#= typeParamNames[i] #> item)
         {
-            if(this.mode == <#= enumItemNames[i] #>)
-            {
-                return <#= fieldNames[i] #>;
-            }
-            else
-            {
-                return Maybe<<#= typeParamNames[i] #>>.Nothing;
-            }
+            item = <#= fieldNames[i] #>;
+            return this.mode == <#= enumItemNames[i] #>;
         }
 <#
             }

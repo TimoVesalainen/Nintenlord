@@ -113,6 +113,24 @@ namespace Nintenlord.Utility
 		var observableNames = indicis.Select(index => $"observable{index}").ToArray();
 
 		var creatorFunctions = indicis.Select(i => $"From{i}").ToArray();
+		
+        for (int i = 0; i < paramCount; i++)
+        {
+#>
+        public static Maybe<<#= typeParamNames[i] #>> TryGetValue<#= i #><<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> either)
+        {
+            if (either.TryGetValue<#= i #>(out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return Maybe<<#= typeParamNames[i] #>>.Nothing;
+            }
+        }
+
+<#
+        }
 
 		for (int i = 0; i < paramCount; i++)
 		{
@@ -121,6 +139,7 @@ namespace Nintenlord.Utility
 											  .Select((x,index) => index == i ? $"item => {x}(selector(item))" : x).ToArray();
 
 #>
+
 		public static Either<<#= string.Join(", ", typeParamNames2) #>> Select<#= i #><<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= typeName #> either, Func<<#= typeParamNames[i] #>, TOut> selector)
 		{
 			return either.Apply(<#= string.Join(", ", selectFunctions) #>);
