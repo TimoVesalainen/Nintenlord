@@ -69,7 +69,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
@@ -227,7 +227,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1, T2> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
@@ -430,7 +430,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1, T2, T3> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
@@ -683,7 +683,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1, T2, T3, T4> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
@@ -991,7 +991,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1, T2, T3, T4, T5> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
@@ -1359,7 +1359,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1, T2, T3, T4, T5, T6> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
@@ -1792,7 +1792,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(Either<T0, T1, T2, T3, T4, T5, T6, T7> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }

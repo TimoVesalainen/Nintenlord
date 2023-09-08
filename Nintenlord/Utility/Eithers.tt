@@ -141,7 +141,7 @@ namespace Nintenlord.Utility
 
         public bool Equals(<#= typeName #> other)
         {
-            if (this.mode == other.mode)
+            if (this.mode == other?.mode)
             {
                 return Equals(this.ToObject(), other.ToObject());
             }
