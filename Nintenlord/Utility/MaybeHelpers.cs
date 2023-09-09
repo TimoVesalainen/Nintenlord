@@ -134,13 +134,18 @@ namespace Nintenlord.Utility
 
         public static Either<T, Unit> ToEither<T>(this Maybe<T> maybe)
         {
+            return maybe.ToEither(Unit.Default);
+        }
+
+        public static Either<T, TOTher> ToEither<T, TOTher>(this Maybe<T> maybe, TOTher other)
+        {
             if (maybe.HasValue)
             {
                 return maybe.Value;
             }
             else
             {
-                return Unit.Default;
+                return other;
             }
         }
 
