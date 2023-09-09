@@ -5,13 +5,9 @@ namespace Nintenlord.Collections.Lists
 {
     public static class ListExtensions
     {
-        public static void BubbleSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void BubbleSort<T>(this IList<T> list, IComparer<T> comp = null)
         {
-            list.BubbleSort<T>(Comparer<T>.Default);
-        }
-
-        public static void BubbleSort<T>(this IList<T> list, IComparer<T> comp)
-        {
+            comp ??= Comparer<T>.Default;
             bool isSorted = true;
             int length = list.Count;
             do
@@ -27,14 +23,9 @@ namespace Nintenlord.Collections.Lists
             } while (!isSorted);
         }
 
-
-        public static void SelectionSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void SelectionSort<T>(this IList<T> list, IComparer<T> comp = null)
         {
-            list.SelectionSort(Comparer<T>.Default);
-        }
-
-        public static void SelectionSort<T>(this IList<T> list, IComparer<T> comp)
-        {
+            comp ??= Comparer<T>.Default;
             for (int i = 0; i < list.Count; i++)
             {
                 int minIndex = i;
@@ -52,14 +43,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-
-        public static void InsertionSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void InsertionSort<T>(this IList<T> list, IComparer<T> comp = null)
         {
-            list.InsertionSort(Comparer<T>.Default);
-        }
-
-        public static void InsertionSort<T>(this IList<T> list, IComparer<T> comp)
-        {
+            comp ??= Comparer<T>.Default;
             for (int i = 0; i < list.Count; i++)
             {
                 for (int j = 0; j < i; j++)
@@ -75,14 +61,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-
-        public static void ShellSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void ShellSort<T>(this IList<T> list, IComparer<T> comp = null)
         {
-            list.ShellSort(Comparer<T>.Default);
-        }
-
-        public static void ShellSort<T>(this IList<T> list, IComparer<T> comp)
-        {
+            comp ??= Comparer<T>.Default;
             int inc = list.Count / 2;
             while (inc > 0)
             {
@@ -101,14 +82,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-
-        public static void CombSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void CombSort<T>(this IList<T> list, IComparer<T> comp = null)
         {
-            list.CombSort(Comparer<T>.Default);
-        }
-
-        public static void CombSort<T>(this IList<T> list, IComparer<T> comp)
-        {
+            comp ??= Comparer<T>.Default;
             int gap = list.Count;
             bool swapped = true;
             while (gap > 1 || swapped)
@@ -130,14 +106,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-
-        public static void MergeSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void MergeSort<T>(this IList<T> list, IComparer<T> comp = null)
         {
-            list.MergeSort(Comparer<T>.Default);
-        }
-
-        public static void MergeSort<T>(this IList<T> list, IComparer<T> comp)
-        {
+            comp ??= Comparer<T>.Default;
             if (list.Count > 1)
             {
                 SubList<T> first = new SubList<T>(list, 0, list.Count / 2);
