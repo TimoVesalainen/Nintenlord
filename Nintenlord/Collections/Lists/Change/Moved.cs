@@ -7,14 +7,14 @@ namespace Nintenlord.Collections.Lists.Change
     {
         private readonly int length;
 
-        public IList<T> Original { get; }
-        public IList<T> Next { get; }
+        public IReadOnlyList<T> Original { get; }
+        public IReadOnlyList<T> Next { get; }
         public int OriginalIndex { get; }
         public int OriginalLength => length;
         public int NextIndex { get; }
         public int NextLength => length;
 
-        public Moved(int length, IList<T> original, IList<T> next, int originalIndex, int nextIndex)
+        public Moved(int length, IReadOnlyList<T> original, IReadOnlyList<T> next, int originalIndex, int nextIndex)
         {
             this.length = length;
             Original = original;

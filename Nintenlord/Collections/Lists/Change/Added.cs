@@ -7,9 +7,9 @@ namespace Nintenlord.Collections.Lists.Change
     {
         readonly int index;
 
-        public IList<T> Original { get; }
+        public IReadOnlyList<T> Original { get; }
 
-        public IList<T> Next { get; }
+        public IReadOnlyList<T> Next { get; }
 
         public int OriginalIndex => index;
 
@@ -19,7 +19,7 @@ namespace Nintenlord.Collections.Lists.Change
 
         public int NextLength { get; }
 
-        public Added(int index, IList<T> original, IList<T> next, int nextLength)
+        public Added(int index, IReadOnlyList<T> original, IReadOnlyList<T> next, int nextLength)
         {
             this.index = index;
             Original = original;

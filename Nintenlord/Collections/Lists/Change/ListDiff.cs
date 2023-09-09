@@ -15,7 +15,7 @@ namespace Nintenlord.Collections.Lists.Change
         static readonly IComparer<(int x, int y, int length)> diagonalComparer = 
             new FunctionComparer<(int x, int y, int length)>(t => t.x);
 
-        public static IEnumerable<IListChange<T>> GetListDiff<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comparer = null)
+        public static IEnumerable<IListChange<T>> GetListDiff<T>(this IReadOnlyList<T> a, IReadOnlyList<T> b, IEqualityComparer<T> comparer = null)
         {
             comparer ??= EqualityComparer<T>.Default;
 
