@@ -46,6 +46,7 @@ namespace Nintenlord.Collections.Foldable
 
         public static ImmutableListFolder<T> ImmutableList<T>() => ImmutableListFolder<T>.Instance;
         public static ImmutableHashSetFolder<T> ImmutableHashSet<T>() => ImmutableHashSetFolder<T>.Instance;
+        public static ImmutableDictionaryFolder<TKey, TValue> ImmutableDictionary<TKey, TValue>() => ImmutableDictionaryFolder<TKey, TValue>.Instance;
 
         public static FirstFolder<T> First<T>() => FirstFolder<T>.Instance;
         public static FirstFolder<T> First<T>(Predicate<T> predicate) => new FirstFolder<T>(predicate);
