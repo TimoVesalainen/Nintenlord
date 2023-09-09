@@ -2,9 +2,6 @@
 
 namespace Nintenlord.Utility
 {
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class LazyHelpers
     {
         public static Lazy<TResult> SelectWhere<TSource, TLazy, TResult>(
