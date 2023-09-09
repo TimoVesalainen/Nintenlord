@@ -18,7 +18,6 @@ namespace Nintenlord.Collections
             return Array.LastIndexOf(array, match);
         }
 
-
         public static int IndexOf<T>(this T[] array, T[] toFind)
         {
             return array.IndexOf<T>(toFind, EqualityComparer<T>.Default);

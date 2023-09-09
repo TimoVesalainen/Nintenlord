@@ -452,29 +452,10 @@ namespace Nintenlord.Utility
             }
         }
 
-        // All dotnet dictionaries implement both IReadOnlyDictionary and IDictionary, so this shouldn't be needed
-        //public static Maybe<TValue> TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-        //{
-        //    return TryGetValueHelper<TKey, TValue>(dictionary.TryGetValue, key);
-        //}
-
         public static Maybe<TValue> TryGetValue<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
         {
             return TryGetValueHelper<TKey, TValue>(dictionary.TryGetValue, key);
         }
-
-        // All dotnet dictionaries implement both IReadOnlyList and IList, so this shouldn't be needed
-        //public static Maybe<T> TryGetValue<T>(this IList<T> list, int index)
-        //{
-        //    if (index < 0 || index >= list.Count)
-        //    {
-        //        return Maybe<T>.Nothing;
-        //    }
-        //    else
-        //    {
-        //        return list[index];
-        //    }
-        //}
 
         public static Maybe<T> TryGetValue<T>(this IReadOnlyList<T> list, int index)
         {
