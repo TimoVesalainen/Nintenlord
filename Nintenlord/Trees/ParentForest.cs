@@ -27,7 +27,7 @@ namespace Nintenlord.Trees
 
             var children = new Dictionary<T, HashSet<T>>(comparer);
 
-            if (leafs.TryGetNonEnumeratedCount(out var leafCount))
+            if (!leafs.TryGetNonEnumeratedCount(out var leafCount))
             {
                 leafCount = 4; //General default capacity in .Net
             }
