@@ -10,7 +10,7 @@ namespace Nintenlord.Collections
 {
     public static partial class ArrayMatrixHelpers
     {
-        public static TOut[,] TensorProduct<TOut, TIn0, TIn1>(this List<TIn0> list0, List<TIn1> list1, Func<TIn0, TIn1, TOut> product)
+        public static TOut[,] TensorProduct<TOut, TIn0, TIn1>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, Func<TIn0, TIn1, TOut> product)
         {
             TOut[,] result = new TOut[list1.Count, list0.Count];
 
@@ -36,7 +36,7 @@ namespace Nintenlord.Collections
                 return items[x1, x0];
             }
         }
-        public static TOut[,,] TensorProduct<TOut, TIn0, TIn1, TIn2>(this List<TIn0> list0, List<TIn1> list1, List<TIn2> list2, Func<TIn0, TIn1, TIn2, TOut> product)
+        public static TOut[,,] TensorProduct<TOut, TIn0, TIn1, TIn2>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, IReadOnlyList<TIn2> list2, Func<TIn0, TIn1, TIn2, TOut> product)
         {
             TOut[,,] result = new TOut[list2.Count, list1.Count, list0.Count];
 
@@ -65,7 +65,7 @@ namespace Nintenlord.Collections
                 return items[x2, x1, x0];
             }
         }
-        public static TOut[,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3>(this List<TIn0> list0, List<TIn1> list1, List<TIn2> list2, List<TIn3> list3, Func<TIn0, TIn1, TIn2, TIn3, TOut> product)
+        public static TOut[,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, IReadOnlyList<TIn2> list2, IReadOnlyList<TIn3> list3, Func<TIn0, TIn1, TIn2, TIn3, TOut> product)
         {
             TOut[,,,] result = new TOut[list3.Count, list2.Count, list1.Count, list0.Count];
 
@@ -97,7 +97,7 @@ namespace Nintenlord.Collections
                 return items[x3, x2, x1, x0];
             }
         }
-        public static TOut[,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4>(this List<TIn0> list0, List<TIn1> list1, List<TIn2> list2, List<TIn3> list3, List<TIn4> list4, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TOut> product)
+        public static TOut[,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, IReadOnlyList<TIn2> list2, IReadOnlyList<TIn3> list3, IReadOnlyList<TIn4> list4, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TOut> product)
         {
             TOut[,,,,] result = new TOut[list4.Count, list3.Count, list2.Count, list1.Count, list0.Count];
 
@@ -132,7 +132,7 @@ namespace Nintenlord.Collections
                 return items[x4, x3, x2, x1, x0];
             }
         }
-        public static TOut[,,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>(this List<TIn0> list0, List<TIn1> list1, List<TIn2> list2, List<TIn3> list3, List<TIn4> list4, List<TIn5> list5, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TOut> product)
+        public static TOut[,,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, IReadOnlyList<TIn2> list2, IReadOnlyList<TIn3> list3, IReadOnlyList<TIn4> list4, IReadOnlyList<TIn5> list5, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TOut> product)
         {
             TOut[,,,,,] result = new TOut[list5.Count, list4.Count, list3.Count, list2.Count, list1.Count, list0.Count];
 
@@ -170,7 +170,7 @@ namespace Nintenlord.Collections
                 return items[x5, x4, x3, x2, x1, x0];
             }
         }
-        public static TOut[,,,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(this List<TIn0> list0, List<TIn1> list1, List<TIn2> list2, List<TIn3> list3, List<TIn4> list4, List<TIn5> list5, List<TIn6> list6, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TOut> product)
+        public static TOut[,,,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, IReadOnlyList<TIn2> list2, IReadOnlyList<TIn3> list3, IReadOnlyList<TIn4> list4, IReadOnlyList<TIn5> list5, IReadOnlyList<TIn6> list6, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TOut> product)
         {
             TOut[,,,,,,] result = new TOut[list6.Count, list5.Count, list4.Count, list3.Count, list2.Count, list1.Count, list0.Count];
 
@@ -211,7 +211,7 @@ namespace Nintenlord.Collections
                 return items[x6, x5, x4, x3, x2, x1, x0];
             }
         }
-        public static TOut[,,,,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7>(this List<TIn0> list0, List<TIn1> list1, List<TIn2> list2, List<TIn3> list3, List<TIn4> list4, List<TIn5> list5, List<TIn6> list6, List<TIn7> list7, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TOut> product)
+        public static TOut[,,,,,,,] TensorProduct<TOut, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7>(this IReadOnlyList<TIn0> list0, IReadOnlyList<TIn1> list1, IReadOnlyList<TIn2> list2, IReadOnlyList<TIn3> list3, IReadOnlyList<TIn4> list4, IReadOnlyList<TIn5> list5, IReadOnlyList<TIn6> list6, IReadOnlyList<TIn7> list7, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TOut> product)
         {
             TOut[,,,,,,,] result = new TOut[list7.Count, list6.Count, list5.Count, list4.Count, list3.Count, list2.Count, list1.Count, list0.Count];
 

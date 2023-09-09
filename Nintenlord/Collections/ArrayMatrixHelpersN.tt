@@ -20,7 +20,7 @@ for (int i = 2; i <= 8; i++)
 {
     var arrayType = "[" + string.Join(",", Enumerable.Range(0, i).Select(_ => "")) + "]";
     var listItemsTypes = Enumerable.Range(0, i).Select(n => $"TIn{n}").ToArray();
-    var listTypes = listItemsTypes.Select(item => $"List<{item}>");
+    var listTypes = listItemsTypes.Select(item => $"IReadOnlyList<{item}>");
     var listVariable = Enumerable.Range(0, i).Select(n => $"list{n}").ToArray();
     var listVariableR = listVariable.ToArray().Reverse();
     var indexis = Enumerable.Range(0, i).Select(n => $"x{n}").ToArray();
