@@ -791,25 +791,34 @@ namespace Nintenlord.Trees
 
         public static IEnumerable<T> RandomWalk<T>(this IForest<T> forest, T root, Random random)
         {
-            List<T> childBuffer = new List<T>();
+            var childBuffer = new List<T>();
+
+            T RandomChoise(IEnumerable<T> children)
+            {
+                childBuffer.Clear();
+                childBuffer.AddRange(children);
+
+                var length = childBuffer.Count;
+
+                var index = random.Next(0, length);
+
+                return childBuffer[index];
+            }
+
+            return forest.Walk(root, RandomChoise);
+        }
+
+        public static IEnumerable<T> Walk<T>(this IForest<T> forest, T root, Func<IEnumerable<T>, T> chooseBranch)
+        {
             T current = root;
             yield return current;
             while (true)
             {
                 var children = forest.GetChildren(current);
-
                 if (children.Any())
                 {
-                    childBuffer.Clear();
-                    childBuffer.AddRange(children);
-
-                    var length = childBuffer.Count;
-
-                    var index = random.Next(0, length);
-
-                    var value = childBuffer[index];
-
-                    yield return value;
+                    current = chooseBranch(children);
+                    yield return current;
                 }
                 else
                 {
