@@ -18,6 +18,7 @@ namespace Nintenlord.StateMachines.Finite
 
             var reachableStates = graph.BreadthFirstTraversal(machine.StartState).ToList();
 
+            //TODO: Find better data structure for this
             var grouping = reachableStates.GroupBy(machine.IsFinalState).Select(x => x.ToHashSet()).ToList();
 
             List<HashSet<TState>> ToIterate(List<HashSet<TState>> grouping)
