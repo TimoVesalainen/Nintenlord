@@ -20,7 +20,7 @@ for (int i = 2; i < 8; i++)
     var folderTypes = inputTypes.Zip(stateTypes.Zip(outputTypes, (state, output) => (state, output)), (input, t) => $"IFolder<{input}, {t.state}, {t.output}>").ToArray();
 
 #>
-    public sealed class EitherFolder<<#= string.Join(", ", inputTypes) #>, <#= string.Join(", ", stateTypes) #>, <#= string.Join(", ", outputTypes) #>> : IFolder<Either<<#= string.Join(", ", inputTypes) #>>, (<#= string.Join(", ", stateTypes)#>), ( <#= string.Join(", ", outputTypes) #>)>
+    public sealed class EitherFolder<<#= string.Join(", ", inputTypes) #>, <#= string.Join(", ", stateTypes) #>, <#= string.Join(", ", outputTypes) #>> : IFolder<Either<<#= string.Join(", ", inputTypes) #>>, (<#= string.Join(", ", stateTypes)#>), (<#= string.Join(", ", outputTypes) #>)>
     {
 <#
     foreach (var (type, name) in folderTypes.Zip(folderNames, (a,b) => (a,b)))

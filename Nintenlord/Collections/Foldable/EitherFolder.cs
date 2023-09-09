@@ -3,7 +3,7 @@ using System;
 
 namespace Nintenlord.Collections.Foldable
 {
-    public sealed class EitherFolder<TIn0, TIn1, TState0, TState1, TOut0, TOut1> : IFolder<Either<TIn0, TIn1>, (TState0, TState1), ( TOut0, TOut1)>
+    public sealed class EitherFolder<TIn0, TIn1, TState0, TState1, TOut0, TOut1> : IFolder<Either<TIn0, TIn1>, (TState0, TState1), (TOut0, TOut1)>
     {
         readonly IFolder<TIn0, TState0, TOut0> folder0;
         readonly IFolder<TIn1, TState1, TOut1> folder1;
@@ -26,7 +26,7 @@ namespace Nintenlord.Collections.Foldable
             return (folder0.Transform(state.Item1), folder1.Transform(state.Item2));
         }
     }
-    public sealed class EitherFolder<TIn0, TIn1, TIn2, TState0, TState1, TState2, TOut0, TOut1, TOut2> : IFolder<Either<TIn0, TIn1, TIn2>, (TState0, TState1, TState2), ( TOut0, TOut1, TOut2)>
+    public sealed class EitherFolder<TIn0, TIn1, TIn2, TState0, TState1, TState2, TOut0, TOut1, TOut2> : IFolder<Either<TIn0, TIn1, TIn2>, (TState0, TState1, TState2), (TOut0, TOut1, TOut2)>
     {
         readonly IFolder<TIn0, TState0, TOut0> folder0;
         readonly IFolder<TIn1, TState1, TOut1> folder1;
@@ -51,7 +51,7 @@ namespace Nintenlord.Collections.Foldable
             return (folder0.Transform(state.Item1), folder1.Transform(state.Item2), folder2.Transform(state.Item3));
         }
     }
-    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TState0, TState1, TState2, TState3, TOut0, TOut1, TOut2, TOut3> : IFolder<Either<TIn0, TIn1, TIn2, TIn3>, (TState0, TState1, TState2, TState3), ( TOut0, TOut1, TOut2, TOut3)>
+    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TState0, TState1, TState2, TState3, TOut0, TOut1, TOut2, TOut3> : IFolder<Either<TIn0, TIn1, TIn2, TIn3>, (TState0, TState1, TState2, TState3), (TOut0, TOut1, TOut2, TOut3)>
     {
         readonly IFolder<TIn0, TState0, TOut0> folder0;
         readonly IFolder<TIn1, TState1, TOut1> folder1;
@@ -78,7 +78,7 @@ namespace Nintenlord.Collections.Foldable
             return (folder0.Transform(state.Item1), folder1.Transform(state.Item2), folder2.Transform(state.Item3), folder3.Transform(state.Item4));
         }
     }
-    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TIn4, TState0, TState1, TState2, TState3, TState4, TOut0, TOut1, TOut2, TOut3, TOut4> : IFolder<Either<TIn0, TIn1, TIn2, TIn3, TIn4>, (TState0, TState1, TState2, TState3, TState4), ( TOut0, TOut1, TOut2, TOut3, TOut4)>
+    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TIn4, TState0, TState1, TState2, TState3, TState4, TOut0, TOut1, TOut2, TOut3, TOut4> : IFolder<Either<TIn0, TIn1, TIn2, TIn3, TIn4>, (TState0, TState1, TState2, TState3, TState4), (TOut0, TOut1, TOut2, TOut3, TOut4)>
     {
         readonly IFolder<TIn0, TState0, TOut0> folder0;
         readonly IFolder<TIn1, TState1, TOut1> folder1;
@@ -107,7 +107,7 @@ namespace Nintenlord.Collections.Foldable
             return (folder0.Transform(state.Item1), folder1.Transform(state.Item2), folder2.Transform(state.Item3), folder3.Transform(state.Item4), folder4.Transform(state.Item5));
         }
     }
-    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TState0, TState1, TState2, TState3, TState4, TState5, TOut0, TOut1, TOut2, TOut3, TOut4, TOut5> : IFolder<Either<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>, (TState0, TState1, TState2, TState3, TState4, TState5), ( TOut0, TOut1, TOut2, TOut3, TOut4, TOut5)>
+    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TState0, TState1, TState2, TState3, TState4, TState5, TOut0, TOut1, TOut2, TOut3, TOut4, TOut5> : IFolder<Either<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>, (TState0, TState1, TState2, TState3, TState4, TState5), (TOut0, TOut1, TOut2, TOut3, TOut4, TOut5)>
     {
         readonly IFolder<TIn0, TState0, TOut0> folder0;
         readonly IFolder<TIn1, TState1, TOut1> folder1;
@@ -138,7 +138,7 @@ namespace Nintenlord.Collections.Foldable
             return (folder0.Transform(state.Item1), folder1.Transform(state.Item2), folder2.Transform(state.Item3), folder3.Transform(state.Item4), folder4.Transform(state.Item5), folder5.Transform(state.Item6));
         }
     }
-    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TState0, TState1, TState2, TState3, TState4, TState5, TState6, TOut0, TOut1, TOut2, TOut3, TOut4, TOut5, TOut6> : IFolder<Either<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>, (TState0, TState1, TState2, TState3, TState4, TState5, TState6), ( TOut0, TOut1, TOut2, TOut3, TOut4, TOut5, TOut6)>
+    public sealed class EitherFolder<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TState0, TState1, TState2, TState3, TState4, TState5, TState6, TOut0, TOut1, TOut2, TOut3, TOut4, TOut5, TOut6> : IFolder<Either<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>, (TState0, TState1, TState2, TState3, TState4, TState5, TState6), (TOut0, TOut1, TOut2, TOut3, TOut4, TOut5, TOut6)>
     {
         readonly IFolder<TIn0, TState0, TOut0> folder0;
         readonly IFolder<TIn1, TState1, TOut1> folder1;
