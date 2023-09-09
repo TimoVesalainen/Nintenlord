@@ -75,6 +75,20 @@ namespace Nintenlord.Utility
             return maybes.SelectMany(ToEnumerable);
         }
 
+        public static bool TryGetValue<T>(this Maybe<T> maybeValue, out T value)
+        {
+            if (maybeValue.HasValue)
+            {
+                value = maybeValue.Value;
+                return true;
+            }
+            else
+            {
+                value = default;
+                return false;
+            }
+        }
+
         public static T GetValueOrDefault<T>(this Maybe<T> maybe, T defaultValue = default)
         {
             if (maybe.HasValue)
@@ -500,20 +514,6 @@ namespace Nintenlord.Utility
                     return actualValue;
                 }
                 return Maybe<T>.Nothing;
-            }
-        }
-
-        public static bool TryGetValue<T>(this Maybe<T> maybeValue, out T value)
-        {
-            if (maybeValue.HasValue)
-            {
-                value = maybeValue.Value;
-                return true;
-            }
-            else
-            {
-                value = default;
-                return false;
             }
         }
 
