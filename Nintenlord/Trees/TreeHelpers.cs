@@ -382,5 +382,24 @@ namespace Nintenlord.Trees
 
             return new LambdaTree<Maybe<T>>(Maybe<T>.Nothing, GetChildren);
         }
+
+        public static ITree<T> CombineTrees<T>(this IEnumerable<ITree<T>> trees, T newParent, IEqualityComparer<T> comparer = null)
+        {
+            comparer ??= EqualityComparer<T>.Default;
+
+            IEnumerable<T> GetChildren(T node)
+            {
+                if (comparer.Equals(node, newParent))
+                {
+                    return trees.Select(tree => tree.Root);
+                }
+                else
+                {
+                    return trees.SelectMany(tree => tree.GetChildren(node));
+                }
+            }
+
+            return new LambdaTree<T>(newParent, GetChildren);
+        }
     }
 }
