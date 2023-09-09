@@ -2,6 +2,7 @@
 using Nintenlord.Collections.Comparers;
 using Nintenlord.Collections.Lists;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -473,27 +474,27 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static Maybe<object> TryGetValue(this Array list, int index)
+        public static Maybe<object> TryGetValue(this IList list, int index)
         {
-            if (index < 0 || index >= list.Length)
+            if (index < 0 || index >= list.Count)
             {
                 return Maybe<object>.Nothing;
             }
             else
             {
-                return list.GetValue(index);
+                return list[index];
             }
         }
 
-        public static Maybe<T> TryGetValue<T>(this Array list, int index)
+        public static Maybe<T> TryGetValue<T>(this IList list, int index)
         {
-            if (index < 0 || index >= list.Length)
+            if (index < 0 || index >= list.Count)
             {
                 return Maybe<T>.Nothing;
             }
             else
             {
-                var value = list.GetValue(index);
+                var value = list[index];
                 if (value is T actualValue)
                 {
                     return actualValue;
