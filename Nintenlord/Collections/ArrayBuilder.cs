@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Collections
 {
+    [Obsolete]
     /// <summary>
     /// A lightweight structure for building arrays if size is known beforehand.
     /// </summary>

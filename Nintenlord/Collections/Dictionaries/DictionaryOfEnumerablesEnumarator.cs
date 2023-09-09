@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Nintenlord.Collections.Dictionaries
 {
+    [Obsolete]
     /// <summary>
     /// Enumerates an enumerable of keys and enumerable of values 
     /// as a enumerable of keys and values.

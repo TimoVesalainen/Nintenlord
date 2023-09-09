@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Nintenlord.Collections.Dictionaries
 {
+    [Obsolete("Use SortedList instead")]
     public class ArrayDictionary<TKey, TValue> :
         List<KeyValuePair<TKey, TValue>>,
         IDictionary<TKey, TValue>
