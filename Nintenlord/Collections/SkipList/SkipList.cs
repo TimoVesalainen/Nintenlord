@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nintenlord.Collections
+namespace Nintenlord.Collections.SkipList
 {
     /// <summary>
     /// ftp://ftp.cs.umd.edu/pub/skipLists/skiplists.pdf
@@ -141,8 +141,8 @@ namespace Nintenlord.Collections
 
         void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            SkipListNode<TKey, TValue> current = this.head[0];
-            for (int i = 0; i < this.count; i++)
+            SkipListNode<TKey, TValue> current = head[0];
+            for (int i = 0; i < count; i++)
             {
                 array[i + arrayIndex] = (KeyValuePair<TKey, TValue>)current;
                 current = current[0];
@@ -155,21 +155,21 @@ namespace Nintenlord.Collections
 
         void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item)
         {
-            this.Add(item.Key, item.Value);
+            Add(item.Key, item.Value);
         }
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item)
         {
-            return this.TryGetValue(item.Key, out TValue value)
+            return TryGetValue(item.Key, out TValue value)
                 && EqualityComparer<TValue>.Default.Equals(value, item.Value);
         }
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item)
         {
-            if (this.TryGetValue(item.Key, out TValue value)
+            if (TryGetValue(item.Key, out TValue value)
                 && EqualityComparer<TValue>.Default.Equals(value, item.Value))
             {
-                return this.Remove(item.Key);
+                return Remove(item.Key);
             }
             else
             {
@@ -183,7 +183,7 @@ namespace Nintenlord.Collections
 
         public void Add(TKey key, TValue value)
         {
-            this.Insert(key, value, true);
+            Insert(key, value, true);
         }
 
         protected void Insert(TKey key, TValue value, bool addNew)
@@ -222,7 +222,7 @@ namespace Nintenlord.Collections
             }
             else
             {
-                int newLevel = this.NewLevel();
+                int newLevel = NewLevel();
                 SkipListNode<TKey, TValue> newNode = new SkipListNode<TKey, TValue>(key, value, newLevel);
                 if (newLevel == currentMaxLevel)
                 {
@@ -235,7 +235,7 @@ namespace Nintenlord.Collections
                     newNode[i] = toUpdate[i][i];
                     toUpdate[i][i] = newNode;
                 }
-                this.count++;
+                count++;
             }
         }
 

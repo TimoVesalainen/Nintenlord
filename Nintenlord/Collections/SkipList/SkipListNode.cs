@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Collections
+namespace Nintenlord.Collections.SkipList
 {
     public class SkipListNode<TKey, TValue>
     {
@@ -45,7 +45,7 @@ namespace Nintenlord.Collections
 
         internal bool Validate()
         {
-            return this.next.All(t => t != this);
+            return next.All(t => t != this);
         }
     }
 }

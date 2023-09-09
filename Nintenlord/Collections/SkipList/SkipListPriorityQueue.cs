@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nintenlord.Collections
+namespace Nintenlord.Collections.SkipList
 {
     public class SkipListPriorityQueue<TPriority, TValue> : IPriorityQueue<TPriority, TValue>
     {
@@ -45,13 +45,13 @@ namespace Nintenlord.Collections
             this.random = random;
             this.comparer = comparer;
             this.maxLevel = maxLevel;
-            this.currentMaxLevel = 1;
-            this.count = 0;
-            this.version = 0;
-            this.head = new SkipListNode<TPriority, TValue>(maxLevel);
+            currentMaxLevel = 1;
+            count = 0;
+            version = 0;
+            head = new SkipListNode<TPriority, TValue>(maxLevel);
             for (int i = 0; i < maxLevel; i++)
             {
-                this.head[i] = head;
+                head[i] = head;
             }
         }
 
@@ -113,7 +113,7 @@ namespace Nintenlord.Collections
 
             _ = currentNode[0];
 
-            int newLevel = this.NewLevel();
+            int newLevel = NewLevel();
             SkipListNode<TPriority, TValue> newNode =
                 new SkipListNode<TPriority, TValue>(priority, value, newLevel);
 
@@ -133,7 +133,7 @@ namespace Nintenlord.Collections
             {
                 throw new FormatException("Nawt");
             }
-            this.version++;
+            version++;
             count++;
         }
 
@@ -149,7 +149,7 @@ namespace Nintenlord.Collections
                 head[i] = first[i];
             }
             UpdateLevel(currentMaxLevel);
-            this.version++;
+            version++;
             count--;
             return first.Value;
         }
@@ -273,7 +273,7 @@ namespace Nintenlord.Collections
                     }
                     UpdateLevel(currentMaxLevel);
                     count--;
-                    this.version++;
+                    version++;
                     return true;
                 }
                 for (int i = 0; i < currentNode.AmountOfNodes; i++)
@@ -292,7 +292,7 @@ namespace Nintenlord.Collections
             {
                 head[i] = head;
             }
-            this.version++;
+            version++;
             count = 0;
         }
 
@@ -320,7 +320,7 @@ namespace Nintenlord.Collections
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         #endregion
