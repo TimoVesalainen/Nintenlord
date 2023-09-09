@@ -198,6 +198,7 @@ namespace Nintenlord.Collections.Lists
             return minIndex;
         }
 
+        /// Finds index such that if the item were inserted to it, the list would remain sorted
         /// <param name="items">Sorted list of items</param>
         /// <returns>Index i such that items[i] <= item (< items[i+i] if exists)</returns>
         public static int FindSortedIndex<T>(this IReadOnlyList<T> items, T item, IComparer<T> comparer = null)
