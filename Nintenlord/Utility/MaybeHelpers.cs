@@ -86,7 +86,7 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static T GetValueOrThrow<T>(this Maybe<T> maybe, Exception exception)
+        public static T GetValueOrThrow<T>(this Maybe<T> maybe, Exception exception = null)
         {
             if (maybe.HasValue)
             {
@@ -94,7 +94,7 @@ namespace Nintenlord.Utility
             }
             else
             {
-                throw exception;
+                throw exception ?? throw new InvalidOperationException("No value in maybe");
             }
         }
 
