@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -558,26 +559,32 @@ namespace Nintenlord.Numerics
 
             return result;
         }
-        public static int CountOneBits(this int number)
+
+        public static TResult CountOneBits<T, TResult>(this T number)
+            where T : 
+            IBitwiseOperators<T, T, T>, 
+            IComparisonOperators<T, T, bool>, 
+            IAdditiveIdentity<T, T>,
+            IDecrementOperators<T>
+            where TResult : IIncrementOperators<TResult>, IAdditiveIdentity<TResult, TResult>
         {
-            int result = 0;
-            while (number > 0)
+            TResult result = TResult.AdditiveIdentity;
+            while (number > T.AdditiveIdentity)
             {
-                number &= number - 1;
+                number &= --number;
                 result++;
             }
             return result;
         }
 
+        public static int CountOneBits(this int number)
+        {
+            return CountOneBits<int, int>(number);
+        }
+
         public static int CountOneBits(this long number)
         {
-            int result = 0;
-            while (number > 0)
-            {
-                number &= number - 1;
-                result++;
-            }
-            return result;
+            return CountOneBits<long, int>(number);
         }
 
         public static int Shift(this int value, int by)
