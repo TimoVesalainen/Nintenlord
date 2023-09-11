@@ -131,6 +131,11 @@ namespace Nintenlord.Trees
             return tree.GetPaths(tree.Root);
         }
 
+        public static IEnumerable<ImmutableList<TResult>> GetPaths<TNode, TResult>(this ITree<TNode> tree, Func<TNode, TResult> selector)
+        {
+            return tree.GetPaths(tree.Root, selector);
+        }
+
         public static TOut ZipAggregate<TNode1, TNode2, TOut>(this
             ITree<TNode1> tree1, ITree<TNode2> tree2,
             Func<TNode1, TNode2, TOut> zipper,
@@ -255,6 +260,16 @@ namespace Nintenlord.Trees
         public static ITree<TNode2> SelectTree<TNode, TNode2>(this ITree<TNode> tree, Func<TNode, TNode2> select1, Func<TNode2, TNode> select2)
         {
             return new SelectTree<TNode2, TNode>(select2, select1, tree);
+        }
+
+        public static ITree<(TNode, int depth)> GetToMaxDepth<TNode>(this ITree<TNode> tree, int maxDepth)
+        {
+            if (tree is null)
+            {
+                throw new ArgumentNullException(nameof(tree));
+            }
+
+            return tree.GetToMaxDepth(tree.Root, maxDepth);
         }
 
         public static bool StructuralEquality<TNode1, TNode2>(this ITree<TNode1> tree1, ITree<TNode2> tree2)
