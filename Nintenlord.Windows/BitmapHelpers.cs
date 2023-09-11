@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
+/*
 namespace Nintenlord.Drawing
 {
     public static class BitmapHelpers
@@ -555,3 +556,4 @@ namespace Nintenlord.Drawing
         #endregion
     }
 }
+*/
