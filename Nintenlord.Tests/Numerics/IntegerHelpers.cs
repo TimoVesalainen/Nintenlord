@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using Nintenlord.Numerics;
-using Nintenlord.Utility.Primitives;
 using NUnit.Framework;
 
 namespace Nintenlord.Tests.Numerics

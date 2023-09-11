@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Nintenlord.Collections.Comparers;
 
 namespace Nintenlord.Tests.Collections.Comparers

@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using System;
-using System.Collections.Generic;
-using Nintenlord.Collections;
-
-namespace Nintenlord.Distributions.Continous
+﻿namespace Nintenlord.Distributions.Continous
 {
     public interface IContinousDistribution<T> : IDistribution<T>
     {

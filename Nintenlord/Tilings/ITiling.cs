@@ -1,7 +1,4 @@
-﻿using System.Numerics;
-using System.Text;
-
-namespace Nintenlord.Tilings
+﻿namespace Nintenlord.Tilings
 {
     public interface ITiling<T>
     {

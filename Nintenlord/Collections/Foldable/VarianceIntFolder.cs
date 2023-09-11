@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Nintenlord.Collections.Foldable
+﻿namespace Nintenlord.Collections.Foldable
 {
     public sealed class VarianceIntFolder : IFolder<long, (long, double, double), double>
     {

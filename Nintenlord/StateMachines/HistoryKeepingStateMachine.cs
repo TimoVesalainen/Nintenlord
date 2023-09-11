@@ -1,6 +1,4 @@
 ﻿using Nintenlord.Utility;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Nintenlord.StateMachines

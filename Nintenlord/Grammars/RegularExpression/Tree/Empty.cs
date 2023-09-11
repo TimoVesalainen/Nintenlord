@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Nintenlord.Grammars.RegularExpression.Tree
+﻿namespace Nintenlord.Grammars.RegularExpression.Tree
 {
     public sealed class Empty<TLetter> : IRegExExpressionNode<TLetter>
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nintenlord.Collections.Foldable
+﻿namespace Nintenlord.Collections.Foldable
 {
     public sealed class MeanFloatFolder : IFolder<double, (double mean, long count), double>
     {

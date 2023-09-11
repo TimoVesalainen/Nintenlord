@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Nintenlord.Collections.Foldable
 {

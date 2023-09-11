@@ -1,11 +1,9 @@
 ﻿using Nintenlord.Collections.Lists;
 using Nintenlord.Trees;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using static Nintenlord.Collections.Lists.Matching;
 
 namespace Nintenlord.Tests.Collections.Lists

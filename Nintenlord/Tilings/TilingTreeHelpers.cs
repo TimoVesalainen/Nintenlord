@@ -1,5 +1,4 @@
-﻿using Nintenlord.Collections.Lists;
-using Nintenlord.Trees;
+﻿using Nintenlord.Trees;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;

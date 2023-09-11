@@ -6,7 +6,6 @@ using Nintenlord.StateMachines;
 using Nintenlord.StateMachines.Finite;
 using Nintenlord.Trees;
 using Nintenlord.Utility;
-using Nintenlord.Utility.Primitives;
 using System;
 using System.Collections;
 using System.Collections.Generic;

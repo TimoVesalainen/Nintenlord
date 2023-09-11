@@ -1,6 +1,5 @@
 ﻿using Nintenlord.Numerics;
 using Nintenlord.StateMachines;
-using Nintenlord.Utility.Primitives;
 using System;
 using System.Linq;
 using System.Numerics;

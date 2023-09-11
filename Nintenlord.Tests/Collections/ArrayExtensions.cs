@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using static Nintenlord.Collections.ArrayExtensions;
 
 namespace Nintenlord.Tests.Collections
 {

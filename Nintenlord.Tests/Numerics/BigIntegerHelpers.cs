@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
-using Nintenlord.Utility.Primitives;
 using System.Linq;
 using Nintenlord.Numerics;
 
