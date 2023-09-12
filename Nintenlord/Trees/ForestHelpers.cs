@@ -521,6 +521,21 @@ namespace Nintenlord.Trees
             return new LambdaForest<(TNode1, TNode2)>(pair => forest1.GetChildren(pair.Item1).Zip(forest2.GetChildren(pair.Item2), (x, y) => (x, y)));
         }
 
+        public static ITree<(TNode1, TNode2)> ZipTree<TNode1, TNode2>(this IForest<TNode1> forest1, TNode1 root1, IForest<TNode2> forest2, TNode2 root2)
+        {
+            if (forest1 is null)
+            {
+                throw new ArgumentNullException(nameof(forest1));
+            }
+
+            if (forest2 is null)
+            {
+                throw new ArgumentNullException(nameof(forest2));
+            }
+
+            return new LambdaTree<(TNode1, TNode2)>((root1, root2), pair => forest1.GetChildren(pair.Item1).Zip(forest2.GetChildren(pair.Item2), (x, y) => (x, y)));
+        }
+
         public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this IForest<TNode> forest, IEnumerable<TChild> toCombine, TNode root)
         {
             if (forest is null)

@@ -214,7 +214,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(tree2));
             }
 
-            return new LambdaTree<(TNode1, TNode2)>((tree1.Root, tree2.Root), pair => tree1.GetChildren(pair.Item1).Zip(tree2.GetChildren(pair.Item2), (x, y) => (x, y)));
+            return tree1.ZipTree(tree1.Root, tree2, tree2.Root);
         }
 
         public static ITree<(TNode, Maybe<TChild>)> ZipChildren<TChild, TNode>(this ITree<TNode> tree, IEnumerable<TChild> toCombine)
