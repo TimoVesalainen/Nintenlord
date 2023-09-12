@@ -104,8 +104,7 @@ namespace Nintenlord.Collections
                 }
                 splitOccurred = true;
                 items.Sort(start, length, comparer);
-                var half = length / 2;
-                splitIndicis.Insert(i, start + half);
+                splitIndicis.Insert(i, start + length / 2);
                 i += 1;
             }
 
