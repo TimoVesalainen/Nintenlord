@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Nintenlord.Collections;
+using NUnit.Framework;
 
 namespace Nintenlord.Tests.Collections
 {
