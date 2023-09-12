@@ -119,7 +119,7 @@ namespace Nintenlord.Collections
                 return items.Count;
             }
 
-            return i == splitIndicis.Count ? splitIndicis[i - 1] + 1 : splitIndicis[i];
+            return i == splitIndicis.Count ? items.Count : splitIndicis[i];
         }
 
         private int GetPartitionStartIndex(int i)
