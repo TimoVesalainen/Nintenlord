@@ -55,6 +55,10 @@ namespace Nintenlord.Collections
             return GetPartition(partitionIndex);
         }
 
+        /// <summary>
+        /// Splits existing partitions based on comparison returning zero
+        /// </summary>
+        /// <returns>True if a split occured, false otherwise</returns>
         public bool Split(IComparer<T> comparer)
         {
             bool splitOccurred = false;
