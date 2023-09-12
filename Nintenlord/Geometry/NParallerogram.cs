@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Nintenlord.Collections;
 
 namespace Nintenlord.Geometry
 {
@@ -30,8 +31,7 @@ namespace Nintenlord.Geometry
         }
         private TVector GetOpposite()
         {
-            var start = this.start;
-            return edges.Aggregate(start, (aggregate, edge) => aggregate + edge);
+            return edges.Sum(this.start);
         }
     }
 }
