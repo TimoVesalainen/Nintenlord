@@ -43,7 +43,18 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            return collection.Aggregate(T.AdditiveIdentity, (a, b) => a + b);
+            return collection.Sum(T.AdditiveIdentity);
+        }
+
+        public static T Sum<T>(this IEnumerable<T> collection, T start)
+            where T : IAdditionOperators<T, T, T>
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            return collection.Aggregate(start, (a, b) => a + b);
         }
 
         public static T Product<T>(this IEnumerable<T> collection)
@@ -54,7 +65,18 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            return collection.Aggregate(T.MultiplicativeIdentity, (a, b) => a * b);
+            return collection.Product(T.MultiplicativeIdentity);
+        }
+
+        public static T Product<T>(this IEnumerable<T> collection, T start)
+            where T : IMultiplyOperators<T, T, T>
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            return collection.Aggregate(start, (a, b) => a * b);
         }
 
         public static T Max<T>(this IEnumerable<T> collection, IComparer<T> comp = null)
