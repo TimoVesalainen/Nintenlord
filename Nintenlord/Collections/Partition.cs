@@ -85,6 +85,33 @@ namespace Nintenlord.Collections
             return splitOccurred;
         }
 
+        /// <summary>
+        /// Splits existing partitions to lower and upper halfs
+        /// </summary>
+        /// <returns>True if a split occured, false otherwise</returns>
+        public bool SplitToHalf(IComparer<T> comparer)
+        {
+            bool splitOccurred = false;
+
+            for (var i = 0; i <= splitIndicis.Count; i++)
+            {
+                var start = GetPartitionStartIndex(i);
+                var end = GetPartitionEnd(i);
+                int length = end - start;
+                if (length < 2)
+                {
+                    continue;
+                }
+                splitOccurred = true;
+                items.Sort(start, length, comparer);
+                var half = length / 2;
+                splitIndicis.Insert(i, start + half);
+                i += 1;
+            }
+
+            return splitOccurred;
+        }
+
         private int GetPartitionEnd(int i)
         {
             if (splitIndicis.Count == 0)
