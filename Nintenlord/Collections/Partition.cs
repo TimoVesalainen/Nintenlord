@@ -1,8 +1,8 @@
-﻿using Nintenlord.Collections.EqualityComparer;
-using Nintenlord.Collections.Comparers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nintenlord.Collections.Comparers;
+using Nintenlord.Collections.EqualityComparer;
 
 namespace Nintenlord.Collections
 {
@@ -62,21 +62,30 @@ namespace Nintenlord.Collections
         public bool Split(IComparer<T> comparer)
         {
             bool splitOccurred = false;
-            for (var i = 0; i < splitIndicis.Count; i++)
+
+            int SortItems(int i, int start, int end)
             {
-                var start = GetPartitionStartIndex(i);
-                var end = GetPartitionEnd(i);
+                var splitCount = 0;
                 items.Sort(start, end - start, comparer);
 
                 for (var j = start; j < end - 1; j++)
                 {
                     if (comparer.Compare(items[j], items[j + 1]) != 0)
                     {
-                        splitIndicis.Insert(i + 1, j);
-                        i++;
-                        splitOccurred = true;
+                        splitIndicis.Insert(i + splitCount, j);
+                        splitCount++;
                     }
                 }
+                return splitCount;
+            }
+
+            for (var i = 0; i <= splitIndicis.Count; i++)
+            {
+                var start = GetPartitionStartIndex(i);
+                var end = GetPartitionEnd(i);
+                var splitCount = SortItems(i, start, end);
+                splitOccurred = splitOccurred || splitCount > 0;
+                i += splitCount;
             }
 
             return splitOccurred;
@@ -84,7 +93,12 @@ namespace Nintenlord.Collections
 
         private int GetPartitionEnd(int i)
         {
-            return splitIndicis[i];
+            if (splitIndicis.Count == 0)
+            {
+                return items.Count;
+            }
+
+            return i == splitIndicis.Count ? splitIndicis[i - 1] + 1 : splitIndicis[i];
         }
 
         private int GetPartitionStartIndex(int i)
