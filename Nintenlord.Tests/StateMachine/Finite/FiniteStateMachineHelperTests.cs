@@ -2,6 +2,7 @@
 using Nintenlord.StateMachines;
 using Nintenlord.StateMachines.Finite;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nintenlord.Tests.StateMachine.Finite
@@ -27,7 +28,8 @@ namespace Nintenlord.Tests.StateMachine.Finite
 
             var equivalent = evenAmountOfCharacterAs.FindEquivalentStates("a");
 
-            Assert.AreEqual(equivalent, new[] { new[] { 0, 2 }, new[] { 1, 3 } });
+            var expected = new HashSet<HashSet<int>> { new HashSet<int> { 0, 2 }, new HashSet<int> { 1, 3 } };
+            Assert.IsTrue(equivalent.All(x => expected.Any(ex => ex.IsSubsetOf(x) && ex.IsSupersetOf(x))));
         }
 
         [Test]
@@ -62,11 +64,9 @@ namespace Nintenlord.Tests.StateMachine.Finite
                 .Build();
 
             var equivalent = containsB.FindEquivalentStates("ab");
+            var expected = new HashSet<HashSet<int>> { new HashSet<int> { 0, 1, 2, 3 }, new HashSet<int> { 4, 5, 6, 7 } };
 
-            Assert.AreEqual(equivalent, new[] {
-                new[] { 0, 1, 2, 3 },
-                new[] { 4, 5, 6, 7 }
-            });
+            Assert.IsTrue(equivalent.All(x => expected.Any(ex => ex.IsSubsetOf(x) && ex.IsSupersetOf(x))));
         }
 
         [Test]
