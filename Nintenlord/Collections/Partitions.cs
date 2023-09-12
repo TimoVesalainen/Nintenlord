@@ -6,7 +6,7 @@ using Nintenlord.Collections.EqualityComparer;
 
 namespace Nintenlord.Collections
 {
-    public sealed class Partition<T>
+    public sealed class Partitions<T>
     {
         readonly List<T> items;
         readonly List<int> splitIndicis = new();
@@ -17,7 +17,7 @@ namespace Nintenlord.Collections
 
         public int PartitionCount => splitIndicis.Count + 1;
 
-        public Partition(IEnumerable<T> items)
+        public Partitions(IEnumerable<T> items)
         {
             this.items = items?.ToList() ?? throw new ArgumentNullException(nameof(items));
         }

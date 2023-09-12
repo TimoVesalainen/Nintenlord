@@ -19,7 +19,7 @@ namespace Nintenlord.StateMachines.Finite
 
             var reachableStates = graph.BreadthFirstTraversal(machine.StartState).ToList();
 
-            var partition = new Partition<TState>(reachableStates);
+            var partition = new Partitions<TState>(reachableStates);
 
             if (!partition.Split(Comparer<bool>.Default.Select<bool, TState>(machine.IsFinalState)))
             {

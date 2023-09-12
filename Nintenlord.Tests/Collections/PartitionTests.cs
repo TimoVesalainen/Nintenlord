@@ -16,7 +16,7 @@ namespace Nintenlord.Tests.Collections
         [Test]
         public static void TestPartitioningByParity()
         {
-            var partition = new Partition<int>(Enumerable.Range(0, 10));
+            var partition = new Partitions<int>(Enumerable.Range(0, 10));
             var wasSplit = partition.Split(Comparer<int>.Default.Select<int, int>(item => item % 2));
 
             Assert.AreEqual(true, wasSplit);
@@ -28,7 +28,7 @@ namespace Nintenlord.Tests.Collections
         [Test]
         public static void TestPartitioningByHalf()
         {
-            var partition = new Partition<int>(Enumerable.Range(0, 16));
+            var partition = new Partitions<int>(Enumerable.Range(0, 16));
 
             Assert.AreEqual(true, partition.SplitToHalf(Comparer<int>.Default));
             Assert.AreEqual(true, partition.SplitToHalf(Comparer<int>.Default));
