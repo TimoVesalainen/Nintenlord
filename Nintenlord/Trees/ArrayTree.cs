@@ -107,19 +107,12 @@ namespace Nintenlord.Trees
         /// <remarks>Indecis are no longer valid after this</remarks>
         public static ArrayTree<T> AddNewRoot(ArrayTree<T> old, T newRoot)
         {
-            int childMaxCount;
-            switch (old.treeStructure)
+            var childMaxCount = old.treeStructure switch
             {
-                case IndexBinaryTree _:
-                    childMaxCount = 2;
-                    break;
-                case IndexNTree nTree:
-                    childMaxCount = nTree.ChildCount;
-                    break;
-                default:
-                    throw new ArgumentException("No way to know childCount");
-            }
-
+                IndexBinaryTree _ => 2,
+                IndexNTree nTree => nTree.ChildCount,
+                _ => throw new ArgumentException("No way to know childCount"),
+            };
             var newArray = IndexNTree.CopyToNewArray(old.nodes, childMaxCount);
 
             var result = new ArrayTree<T>(newArray, old.treeStructure);
