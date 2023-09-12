@@ -14,7 +14,7 @@ namespace Nintenlord.Tests.Collections
     internal class PartitionTests
     {
         [Test]
-        public static void TestEquivalenceFindingEvenNumberOfAs()
+        public static void TestPartitioningByParity()
         {
             var partition = new Partition<int>(Enumerable.Range(0, 10));
             var wasSplit = partition.Split(Comparer<int>.Default.Select<int, int>(item => item % 2));
