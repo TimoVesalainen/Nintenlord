@@ -1,12 +1,13 @@
-﻿using Nintenlord.Graph.Colouring;
-using Nintenlord.Graph;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nintenlord.Graph;
+using Nintenlord.Graph.Colouring;
 using Nintenlord.Collections;
 using Nintenlord.Collections.EqualityComparer;
 using Nintenlord.Distributions;
 using Nintenlord.Distributions.Discrete;
+using Nintenlord.Collections.Comparers;
 
 namespace Nintenlord.StateMachines.Finite
 {
@@ -18,32 +19,42 @@ namespace Nintenlord.StateMachines.Finite
 
             var reachableStates = graph.BreadthFirstTraversal(machine.StartState).ToList();
 
-            //TODO: Find better data structure for this
-            var grouping = reachableStates.GroupBy(machine.IsFinalState).Select(x => x.ToHashSet()).ToList();
+            var partition = new Partition<TState>(reachableStates);
 
-            List<HashSet<TState>> ToIterate(List<HashSet<TState>> grouping)
+            if (!partition.Split(Comparer<bool>.Default.Select<bool, TState>(machine.IsFinalState)))
             {
-                return inputs.Aggregate(grouping, (prev, input) =>
-                {
-                    return reachableStates.GroupBy(state =>
-                    {
-                        var next = machine.Transition(state, input);
-                        return prev.First(group => group.Contains(next));
-                    }).SelectMany(groupingTrans =>
-                    {
-                        return prev.Select(group2 =>
-                        {
-                            var t = group2.ToHashSet();
-                            t.IntersectWith(groupingTrans);
-                            return t;
-                        });
-                    }).Where(x => x.Count > 0).ToList();
-                });
+                return reachableStates.Select(x => new HashSet<TState>{ x }).ToList();
             }
 
-            return EnumerableExtensions.Iterate(ToIterate, grouping).UntilNotDistinct(
-                ByLengthComparer<HashSet<TState>>.Instance as IEqualityComparer<List<HashSet<TState>>>
-                ).Last();
+            var partitionDict = new Dictionary<TState, int>(partition.Count);
+
+            IComparer<TState> CreateComparer(TInput input)
+            {
+                foreach (var (items, index) in partition.GetPartitions()
+                    .Select((partitionItems, index) => (partitionItems, index)))
+                {
+                    foreach (var item in items)
+                    {
+                        partitionDict[item] = index;
+                    }
+                }
+                return Comparer<int>.Default.Select<int, TState>(state => partitionDict[machine.Transition(state, input)]);
+            }
+
+            var continueSplitting = true;
+            while (continueSplitting)
+            {
+                foreach (var input in inputs)
+                {
+                    if (!partition.Split(CreateComparer(input)))
+                    {
+                        continueSplitting = false;
+                        break;
+                    }
+
+                }
+            }
+            return partition.GetPartitions().Select(partition => partition.ToHashSet()).ToList();
         }
 
         /// <summary>
