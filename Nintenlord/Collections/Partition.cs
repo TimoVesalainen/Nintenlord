@@ -63,8 +63,10 @@ namespace Nintenlord.Collections
         {
             bool splitOccurred = false;
 
-            int SortItems(int i, int start, int end)
+            for (var i = 0; i <= splitIndicis.Count; i++)
             {
+                var start = GetPartitionStartIndex(i);
+                var end = GetPartitionEnd(i);
                 var splitCount = 0;
                 items.Sort(start, end - start, comparer);
 
@@ -72,18 +74,10 @@ namespace Nintenlord.Collections
                 {
                     if (comparer.Compare(items[j], items[j + 1]) != 0)
                     {
-                        splitIndicis.Insert(i + splitCount, j);
+                        splitIndicis.Insert(i + splitCount, j + 1);
                         splitCount++;
                     }
                 }
-                return splitCount;
-            }
-
-            for (var i = 0; i <= splitIndicis.Count; i++)
-            {
-                var start = GetPartitionStartIndex(i);
-                var end = GetPartitionEnd(i);
-                var splitCount = SortItems(i, start, end);
                 splitOccurred = splitOccurred || splitCount > 0;
                 i += splitCount;
             }
