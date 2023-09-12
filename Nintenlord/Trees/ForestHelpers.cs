@@ -776,7 +776,7 @@ namespace Nintenlord.Trees
         public static ArrayTree<TOut> ConvertTo<T, TOut>(this IForest<T> tree, T root, int n, Func<T, TOut> selector)
         {
             var treeStructure = TreeHelpers.GetIndexTree(n);
-            ArrayTree<TOut> result = new ArrayTree<TOut>(treeStructure);
+            var result = new ArrayTree<TOut>(treeStructure);
 
             foreach (var (node, index) in tree.SetRoot(root).ZipTree(treeStructure).BreadthFirstTraversal())
             {
