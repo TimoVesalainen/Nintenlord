@@ -6,7 +6,7 @@ namespace Nintenlord.Collections.Comparers
     public sealed class FunctionComparer<T> : IComparer<T>
     {
         private readonly Func<T, int> valueFunction;
-        private static IComparer<int> comparer = Comparer<int>.Default;
+        private static readonly IComparer<int> comparer = Comparer<int>.Default;
 
         public FunctionComparer(Func<T, int> valueFunction)
         {
