@@ -8,7 +8,6 @@ namespace Nintenlord.Geometry
 {
     public static partial class SplitTree
     {
-
         public static ITree<NParallerogram<TVector>> GetTree<TVector>(TVector start, TVector[] edges)
             where TVector : IAdditionOperators<TVector, TVector, TVector>,
             IDivisionOperators<TVector, double, TVector>
