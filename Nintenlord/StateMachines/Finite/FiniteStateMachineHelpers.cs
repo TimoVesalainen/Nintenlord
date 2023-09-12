@@ -41,17 +41,11 @@ namespace Nintenlord.StateMachines.Finite
                 return Comparer<int>.Default.Select<int, TState>(state => partitionDict[machine.Transition(state, input)]);
             }
 
-            var continueSplitting = true;
-            while (continueSplitting)
+            while (true)
             {
-                foreach (var input in inputs)
+                if (!inputs.Select(input => partition.Split(CreateComparer(input))).Or())
                 {
-                    if (!partition.Split(CreateComparer(input)))
-                    {
-                        continueSplitting = false;
-                        break;
-                    }
-
+                    break;
                 }
             }
             return partition.GetPartitions().Select(partition => partition.ToHashSet()).ToList();
