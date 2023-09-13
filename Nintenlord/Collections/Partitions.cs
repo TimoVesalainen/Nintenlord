@@ -22,39 +22,6 @@ namespace Nintenlord.Collections
             this.items = items?.ToList() ?? throw new ArgumentNullException(nameof(items));
         }
 
-        int GetPartitionIndex(int index)
-        {
-            var partition = splitIndicis.BinarySearch(index);
-
-            if (partition < 0)
-            {
-                return ~partition;
-            }
-            else
-            {
-                return partition;
-            }
-        }
-
-        IEnumerable<T> GetPartition(int partitionIndex)
-        {
-            var start = GetPartitionStartIndex(partitionIndex);
-            var end = GetPartitionEnd(partitionIndex);
-            return Enumerable.Range(start, end - start).Select(i => items[i]);
-        }
-
-        public IEnumerable<T> GetPartition(T item, IEqualityComparer<T> comparer = null)
-        {
-            comparer ??= EqualityComparer<T>.Default;
-            var index = items.FindIndex(other => comparer.Equals(other, item));
-            if (index < 0)
-            {
-                return Enumerable.Empty<T>();
-            }
-            var partitionIndex = GetPartitionIndex(index);
-            return GetPartition(partitionIndex);
-        }
-
         /// <summary>
         /// Splits existing partitions based on comparison returning zero
         /// </summary>
@@ -111,6 +78,50 @@ namespace Nintenlord.Collections
             return splitOccurred;
         }
 
+        public Partition GetPartition(T item, IEqualityComparer<T> comparer = null)
+        {
+            comparer ??= EqualityComparer<T>.Default;
+            var index = items.FindIndex(other => comparer.Equals(other, item));
+            if (index < 0)
+            {
+                return new Partition(this, 0, 0);
+            }
+            var partitionIndex = GetPartitionIndex(index);
+            return GetPartition(partitionIndex);
+        }
+
+        public IEnumerable<Partition> GetPartitions()
+        {
+            for (var i = 0; i <= splitIndicis.Count; i++)
+            {
+                yield return GetPartition(i);
+            }
+        }
+
+        public readonly struct Partition
+        {
+            readonly Partitions<T> partition;
+            readonly int start;
+            readonly int length;
+
+            public Partition(Partitions<T> partition, int start, int length)
+            {
+                this.partition = partition ?? throw new ArgumentNullException(nameof(partition));
+                this.start = start;
+                this.length = length;
+            }
+
+            public int Count => length;
+
+            public IEnumerable<T> Items => GetItems();
+
+            private IEnumerable<T> GetItems()
+            {
+                var partition = this.partition;
+                return Enumerable.Range(start, length).Select(index => partition.items[index]);
+            }
+        }
+
         private int GetPartitionEnd(int i)
         {
             if (splitIndicis.Count == 0)
@@ -126,15 +137,26 @@ namespace Nintenlord.Collections
             return i == 0 ? 0 : splitIndicis[i - 1];
         }
 
-        public IEnumerable<IEnumerable<T>> GetPartitions()
+        private Partition GetPartition(int index)
         {
-            var index = 0;
-            foreach (var item in splitIndicis)
+            var start = GetPartitionStartIndex(index);
+            var end = GetPartitionEnd(index);
+            var length = end - start;
+            return new Partition(this, start, length);
+        }
+
+        int GetPartitionIndex(int index)
+        {
+            var partition = splitIndicis.BinarySearch(index);
+
+            if (partition < 0)
             {
-                yield return Enumerable.Range(index, item - index).Select(i => items[i]);
-                index = item;
+                return ~partition;
             }
-            yield return Enumerable.Range(index, items.Count - index).Select(i => items[i]);
+            else
+            {
+                return partition;
+            }
         }
     }
 }

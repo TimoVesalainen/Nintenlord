@@ -33,7 +33,7 @@ namespace Nintenlord.StateMachines.Finite
                 foreach (var (items, index) in partition.GetPartitions()
                     .Select((partitionItems, index) => (partitionItems, index)))
                 {
-                    foreach (var item in items)
+                    foreach (var item in items.Items)
                     {
                         partitionDict[item] = index;
                     }
@@ -48,7 +48,7 @@ namespace Nintenlord.StateMachines.Finite
                     break;
                 }
             }
-            return partition.GetPartitions().Select(partition => partition.ToHashSet()).ToList();
+            return partition.GetPartitions().Select(partition => partition.Items.ToHashSet()).ToList();
         }
 
         /// <summary>
