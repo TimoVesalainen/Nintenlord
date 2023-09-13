@@ -25,6 +25,12 @@ namespace Nintenlord.Collections.DisjointSet
             indexSet = new DisjointIntSet(this.items.Length);
         }
 
+        public DisjointSet(T[] items, DisjointIntSet indexSet)
+        {
+            this.items = items ?? throw new ArgumentNullException(nameof(items));
+            this.indexSet = indexSet ?? throw new ArgumentNullException(nameof(indexSet));
+        }
+
         private int GetIndex(T item1)
         {
             return Array.IndexOf(items, item1);

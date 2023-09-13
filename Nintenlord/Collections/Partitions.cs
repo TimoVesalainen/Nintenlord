@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nintenlord.Collections.Comparers;
+using Nintenlord.Collections.DisjointSet;
 using Nintenlord.Collections.EqualityComparer;
 
 namespace Nintenlord.Collections
@@ -76,6 +77,22 @@ namespace Nintenlord.Collections
             }
 
             return splitOccurred;
+        }
+
+        public DisjointSet<T> GetDisjointSet()
+        {
+            var indexSet = DisjointIntSet.Create(GetPartitionIndexs());
+            return new DisjointSet<T>(items.ToArray(), indexSet);
+        }
+
+        private IEnumerable<IEnumerable<int>> GetPartitionIndexs()
+        {
+            for (var i = 0; i <= splitIndicis.Count; i++)
+            {
+                var start = GetPartitionStartIndex(i);
+                var end = GetPartitionEnd(i);
+                yield return Enumerable.Range(start, end - start);
+            }
         }
 
         public Partition GetPartition(T item, IEqualityComparer<T> comparer = null)
