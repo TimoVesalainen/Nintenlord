@@ -31,6 +31,43 @@ namespace Nintenlord.Collections.DisjointSet
             }
         }
 
+        private DisjointIntSet(int[] parents, int[] descendants)
+        {
+            this.parents = parents ?? throw new ArgumentNullException(nameof(parents));
+            this.descendants = descendants ?? throw new ArgumentNullException(nameof(descendants));
+        }
+
+        public static DisjointIntSet Create(IEnumerable<IEnumerable<int>> partitions)
+        {
+            var parents = new List<int>();
+            var descendants = new List<int>();
+
+            foreach (var partition in partitions)
+            {
+                int parent = -1;
+                int count = 0;
+                foreach (var child in partition)
+                {
+                    if (parent == -1)
+                    {
+                        parent = child;
+                    }
+                    while (parents.Count <= child)
+                    {
+                        parents.Add(parents.Count);
+                        descendants.Add(1);
+                    }
+                    parents[child] = parent;
+                    count++;
+                }
+                if (parent != -1)
+                {
+                    descendants[parent] = count;
+                }
+            }
+            return new DisjointIntSet(parents.ToArray(), descendants.ToArray());
+        }
+
         public int FindRepresentative(int item)
         {
             if (parents[item] != item)
