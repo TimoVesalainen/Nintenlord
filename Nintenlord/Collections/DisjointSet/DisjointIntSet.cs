@@ -18,7 +18,7 @@ namespace Nintenlord.Collections.DisjointSet
         {
             if (amount < 0)
             {
-                throw new ArgumentException(nameof(amount), "Negative size");
+                throw new ArgumentException("Negative size", nameof(amount));
             }
 
             parents = new int[amount];
