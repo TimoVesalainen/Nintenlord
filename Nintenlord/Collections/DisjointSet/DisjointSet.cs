@@ -25,7 +25,29 @@ namespace Nintenlord.Collections.DisjointSet
             indexSet = new DisjointIntSet(this.items.Length);
         }
 
-        public DisjointSet(T[] items, DisjointIntSet indexSet)
+        public static DisjointSet<T> Create(IEnumerable<IEnumerable<T>> items)
+        {
+            var itemList = new List<T>();
+            var lengths = new List<int>();
+            foreach (var partition in items)
+            {
+                int partitionCount = 0;
+                foreach (var item in partition)
+                {
+                    itemList.Add(item);
+                    partitionCount++;
+                }
+                if (partitionCount > 0)
+                {
+                    lengths.Add(partitionCount);
+                }
+            }
+
+            var indexSet = DisjointIntSet.Create(lengths);
+            return new DisjointSet<T>(itemList.ToArray(), indexSet);
+        }
+
+        private DisjointSet(T[] items, DisjointIntSet indexSet)
         {
             this.items = items ?? throw new ArgumentNullException(nameof(items));
             this.indexSet = indexSet ?? throw new ArgumentNullException(nameof(indexSet));

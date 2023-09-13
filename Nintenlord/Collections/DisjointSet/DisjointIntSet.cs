@@ -68,6 +68,27 @@ namespace Nintenlord.Collections.DisjointSet
             return new DisjointIntSet(parents.ToArray(), descendants.ToArray());
         }
 
+        public static DisjointIntSet Create(IEnumerable<int> lengths)
+        {
+            var parents = new List<int>();
+            var descendants = new List<int>();
+
+            int index = 0;
+            foreach (var item in lengths)
+            {
+                parents.AddRange(Enumerable.Repeat(index, item));
+                descendants.Add(item);
+                if (item > 1)
+                {
+                    descendants.AddRange(Enumerable.Repeat(1, item - 1));
+                }
+
+                index += item;
+            }
+
+            return new DisjointIntSet(parents.ToArray(), descendants.ToArray());
+        }
+
         public int FindRepresentative(int item)
         {
             if (parents[item] != item)

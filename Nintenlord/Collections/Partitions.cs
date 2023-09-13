@@ -81,8 +81,7 @@ namespace Nintenlord.Collections
 
         public DisjointSet<T> GetDisjointSet()
         {
-            var indexSet = DisjointIntSet.Create(GetPartitionIndexs());
-            return new DisjointSet<T>(items.ToArray(), indexSet);
+            return DisjointSet<T>.Create(this.GetPartitions().Select(partition => partition.Items));
         }
 
         private IEnumerable<IEnumerable<int>> GetPartitionIndexs()
