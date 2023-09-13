@@ -98,7 +98,7 @@ namespace Nintenlord.Collections
         public Partition GetPartition(T item, IEqualityComparer<T> comparer = null)
         {
             comparer ??= EqualityComparer<T>.Default;
-            var index = items.FindIndex(other => comparer.Equals(other, item));
+            var index = items.FindIndex(comparer.GetPredicate(item));
             if (index < 0)
             {
                 return new Partition(this, 0, 0);

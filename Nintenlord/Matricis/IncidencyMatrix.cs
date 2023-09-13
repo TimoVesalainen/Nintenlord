@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Collections.EqualityComparer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,7 @@ namespace Nintenlord.Matricis
             this.comparer = comparer ?? EqualityComparer<T>.Default;
         }
 
-        public int this[int x, int y] => morphism(values[y]).Count(item => comparer.Equals(values[x], item));
+        public int this[int x, int y] => morphism(values[y]).Count(comparer.GetPredicateFunc(values[x]));
 
         public int Width => values.Length;
 

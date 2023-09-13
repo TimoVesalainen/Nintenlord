@@ -1,4 +1,5 @@
-﻿using Nintenlord.Utility;
+﻿using Nintenlord.Collections.EqualityComparer;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,7 +111,7 @@ namespace Nintenlord.Collections
             {
                 foreach (var (itemX, row) in valuesArray)
                 {
-                    matrix[column, row] = morphism(itemY).Count(item => comparer.Equals(item, itemX));
+                    matrix[column, row] = morphism(itemY).Count(comparer.GetPredicateFunc(itemX));
                 }
             }
 

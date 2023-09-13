@@ -51,5 +51,15 @@ namespace Nintenlord.Collections.EqualityComparer
 
             return EnumerableEqualityComparer<T>.Create(comparer);
         }
+
+        public static Predicate<T> GetPredicate<T>(this IEqualityComparer<T> comparer, T item)
+        {
+            return otherItem => comparer.Equals(item, otherItem);
+        }
+
+        public static Func<T, bool> GetPredicateFunc<T>(this IEqualityComparer<T> comparer, T item)
+        {
+            return otherItem => comparer.Equals(item, otherItem);
+        }
     }
 }

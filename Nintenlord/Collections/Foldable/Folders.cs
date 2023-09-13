@@ -1,4 +1,5 @@
-﻿using Nintenlord.Utility;
+﻿using Nintenlord.Collections.EqualityComparer;
+using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -56,7 +57,7 @@ namespace Nintenlord.Collections.Foldable
         public static AnyFolder<T> Contains<T>(T item, IEqualityComparer<T> comparer = null)
         {
             comparer ??= EqualityComparer<T>.Default;
-            return new(otherItem => comparer.Equals(otherItem, item));
+            return new(comparer.GetPredicate(item));
         }
         public static FindFolder<T> Find<T>(Predicate<T> predicate) => new(predicate);
         public static FirstIndexOfFolder<T> FirstIndexOf<T>(Predicate<T> predicate) => new(predicate);
