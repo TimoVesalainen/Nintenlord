@@ -22,6 +22,7 @@ namespace Nintenlord.Collections.DisjointSet
             }
 
             parents = new int[amount];
+            descendants = new int[amount];
 
             for (int i = 0; i < parents.Length; i++)
             {
