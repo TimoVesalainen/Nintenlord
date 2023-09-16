@@ -129,6 +129,8 @@ namespace Nintenlord.Collections
 
             public int Count => length;
 
+            public T this[int index] => partition.items[start + index];
+
             public IEnumerable<T> Items => GetItems();
 
             private IEnumerable<T> GetItems()
