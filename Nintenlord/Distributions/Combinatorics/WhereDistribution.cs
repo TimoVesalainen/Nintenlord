@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Distributions
+namespace Nintenlord.Distributions.Combinatorics
 {
     public sealed class WhereDistribution<T> : IDistribution<T>
     {
@@ -15,7 +15,7 @@ namespace Nintenlord.Distributions
 
         public T Sample()
         {
-            while (true) 
+            while (true)
             {
                 var sample = distribution.Sample();
                 if (predicate(sample))

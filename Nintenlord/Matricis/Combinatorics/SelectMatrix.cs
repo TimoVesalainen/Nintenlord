@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Matricis
+namespace Nintenlord.Matricis.Combinatorics
 {
     public sealed class SelectMatrix<TIn, TOut> : IMatrix<TOut>
     {

@@ -47,17 +47,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FuncTemplate.tt</DependentUpon>
     </None>
-    <None Include="StateMachines\CombinedStateMachine.cs">
+    <None Include="StateMachines\Combinatorics\CombinedStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CombinedStateMachine.tt</DependentUpon>
     </None>
-    <None Include="StateMachines\ParallelStateMachine.cs">
+    <None Include="StateMachines\Combinatorics\ParallelStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ParallelStateMachine.tt</DependentUpon>
     </None>
-    <None Include="StateMachines\UnionStateMachine.cs">
+    <None Include="StateMachines\Combinatorics\UnionStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>UnionStateMachine.tt</DependentUpon>
@@ -118,15 +118,15 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FuncTemplate.cs</LastGenOutput>
     </None>
-    <None Update="StateMachines\CombinedStateMachine.tt">
+    <None Update="StateMachines\Combinatorics\CombinedStateMachine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CombinedStateMachine.cs</LastGenOutput>
     </None>
-    <None Update="StateMachines\ParallelStateMachine.tt">
+    <None Update="StateMachines\Combinatorics\ParallelStateMachine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ParallelStateMachine.cs</LastGenOutput>
     </None>
-    <None Update="StateMachines\UnionStateMachine.tt">
+    <None Update="StateMachines\Combinatorics\UnionStateMachine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UnionStateMachine.cs</LastGenOutput>
     </None>
@@ -188,17 +188,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FuncTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="StateMachines\CombinedStateMachine.cs">
+    <Compile Update="StateMachines\Combinatorics\CombinedStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CombinedStateMachine.tt</DependentUpon>
     </Compile>
-    <Compile Update="StateMachines\ParallelStateMachine.cs">
+    <Compile Update="StateMachines\Combinatorics\ParallelStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ParallelStateMachine.tt</DependentUpon>
     </Compile>
-    <Compile Update="StateMachines\UnionStateMachine.cs">
+    <Compile Update="StateMachines\Combinatorics\UnionStateMachine.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>UnionStateMachine.tt</DependentUpon>

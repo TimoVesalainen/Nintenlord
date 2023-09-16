@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Distributions
+namespace Nintenlord.Distributions.Combinatorics
 {
     public sealed class SelectDistribution<TIn, TOut> : IDistribution<TOut>
     {

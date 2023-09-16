@@ -1,7 +1,7 @@
 ﻿using Nintenlord.Utility;
 using System.Linq;
 
-namespace Nintenlord.StateMachines
+namespace Nintenlord.StateMachines.Combinatorics
 {
     public sealed class HistoryKeepingStateMachine<TState, TInput>
         : IStateMachine<TState[], Either<TInput, HistoryKeepingStateMachine<TState, TInput>.GoBack>>

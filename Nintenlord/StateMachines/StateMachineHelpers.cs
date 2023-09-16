@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Nintenlord.StateMachines.Combinatorics;
 using Nintenlord.StateMachines.Finite;
 using Nintenlord.Utility;
 using System;

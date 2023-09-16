@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Matricis
+namespace Nintenlord.Matricis.Combinatorics
 {
     public sealed class ZipMatrix<TIn1, TIn2, TOut> : IMatrix<TOut>
     {

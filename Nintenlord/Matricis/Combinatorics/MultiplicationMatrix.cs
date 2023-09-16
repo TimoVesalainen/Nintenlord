@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nintenlord.Matricis
+namespace Nintenlord.Matricis.Combinatorics
 {
     public sealed class MultiplicationMatrix<TIn1, TIn2, TOut> : IMatrix<TOut>
     {

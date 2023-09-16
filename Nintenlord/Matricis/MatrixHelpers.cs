@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections;
+using Nintenlord.Matricis.Combinatorics;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;

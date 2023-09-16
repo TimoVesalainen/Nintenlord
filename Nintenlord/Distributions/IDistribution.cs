@@ -1,6 +1,7 @@
 ﻿using Nintenlord.Collections;
 using Nintenlord.Collections.Comparers;
 using Nintenlord.Collections.EqualityComparer;
+using Nintenlord.Distributions.Combinatorics;
 using Nintenlord.Distributions.Discrete;
 using Nintenlord.Numerics;
 using System;

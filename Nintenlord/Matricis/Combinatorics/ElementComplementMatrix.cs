@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Matricis
+namespace Nintenlord.Matricis.Combinatorics
 {
     /// <summary>
     /// Skips given row and column of the parent matrix

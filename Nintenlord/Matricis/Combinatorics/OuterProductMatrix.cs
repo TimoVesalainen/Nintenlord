@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nintenlord.Matricis;
 
-namespace Nintenlord.Matricis
+namespace Nintenlord.Matricis.Combinatorics
 {
     public sealed class OuterProductMatrix<TIn1, TIn2, TOut> : IMatrix<TOut>
     {

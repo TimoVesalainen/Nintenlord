@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Matricis
+﻿namespace Nintenlord.Matricis.Combinatorics
 {
     public sealed class ComplementsMatrix<T> : IMatrix<IMatrix<T>>
     {
