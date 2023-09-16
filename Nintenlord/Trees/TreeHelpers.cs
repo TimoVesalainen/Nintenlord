@@ -342,6 +342,11 @@ namespace Nintenlord.Trees
             return tree.Walk(tree.Root, chooseBranch);
         }
 
+        public static IEnumerable<T> Walk<T>(this ITree<T> tree, TryGetDelegate<IEnumerable<T>, T> chooseBranch)
+        {
+            return tree.Walk(tree.Root, chooseBranch);
+        }
+
         public static IEnumerable<T> OrderedEnumeration<T, TKey>(this ITree<T> tree, Func<T, TKey> getKey, IComparer<TKey> comparer = null)
         {
             return tree.OrderedEnumeration(tree.Root, getKey, comparer);

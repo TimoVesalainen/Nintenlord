@@ -842,6 +842,25 @@ namespace Nintenlord.Trees
             }
         }
 
+        public static IEnumerable<T> Walk<T>(this IForest<T> forest, T root, TryGetDelegate<IEnumerable<T>, T> chooseBranch)
+        {
+            T current = root;
+            yield return current;
+            while (true)
+            {
+                var children = forest.GetChildren(current);
+                if (chooseBranch(children, out var nextReal))
+                {
+                    current = nextReal;
+                    yield return current;
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+        }
+
         /// <remarks>
         /// x is parent of y => getKey(x) <= getKey(y)
         /// </remarks>
