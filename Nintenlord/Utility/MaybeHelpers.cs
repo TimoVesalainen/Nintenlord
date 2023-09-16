@@ -274,69 +274,6 @@ namespace Nintenlord.Utility
         private delegate bool TryGetFromSpanDelegate<TKey1, TKey2, TValue>(ReadOnlySpan<char> text, TKey1 key1, TKey2 key2, out TValue value);
         private delegate bool TryGetFromSpanDelegate<TKey1, TKey2, TKey3, TValue>(ReadOnlySpan<char> text, TKey1 key1, TKey2 key2, TKey3 key3, out TValue value);
 
-        private delegate bool TryGetDelegate<TValue>(out TValue value);
-        private delegate bool TryGetDelegate<TKey, TValue>(TKey key, out TValue value);
-        private delegate bool TryGetDelegate<TKey1, TKey2, TValue>(TKey1 key1, TKey2 key2, out TValue value);
-        private delegate bool TryGetDelegate<TKey1, TKey2, TKey3, TValue>(TKey1 key1, TKey2 key2, TKey3 key3, out TValue value);
-        private delegate bool TryGetDelegate<TKey1, TKey2, TKey3, TKey4, TValue>(TKey1 key1, TKey2 key2, TKey3 key3, TKey4 key4, out TValue value);
-
-        private static Maybe<TValue> TryGetValueHelper<TValue>(TryGetDelegate<TValue> tryGetValue)
-        {
-            if (tryGetValue(out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TValue>.Nothing;
-            }
-        }
-        private static Maybe<TValue> TryGetValueHelper<TKey, TValue>(TryGetDelegate<TKey, TValue> tryGetValue, TKey key)
-        {
-            if (tryGetValue(key, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TValue>.Nothing;
-            }
-        }
-        private static Maybe<TValue> TryGetValueHelper<TKey1, TKey2, TValue>(TryGetDelegate<TKey1, TKey2, TValue> tryGetValue, TKey1 key1, TKey2 key2)
-        {
-            if (tryGetValue(key1, key2, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TValue>.Nothing;
-            }
-        }
-        private static Maybe<TValue> TryGetValueHelper<TKey1, TKey2, TKey3, TValue>(TryGetDelegate<TKey1, TKey2, TKey3, TValue> tryGetValue, TKey1 key1, TKey2 key2, TKey3 key3)
-        {
-            if (tryGetValue(key1, key2, key3, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TValue>.Nothing;
-            }
-        }
-        private static Maybe<TValue> TryGetValueHelper<TKey1, TKey2, TKey3, TKey4, TValue>(
-            TryGetDelegate<TKey1, TKey2, TKey3, TKey4, TValue> tryGetValue, TKey1 key1, TKey2 key2, TKey3 key3, TKey4 key4)
-        {
-            if (tryGetValue(key1, key2, key3, key4, out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return Maybe<TValue>.Nothing;
-            }
-        }
-
         private static Maybe<TValue> TryGetFromSpanValueHelper<TKey, TValue>(TryGetFromSpanDelegate<TKey, TValue> tryGetValue, ReadOnlySpan<char> span, TKey key)
         {
             if (tryGetValue(span, key, out var value))
@@ -375,7 +312,7 @@ namespace Nintenlord.Utility
 
         public static Maybe<TNumber> TryParseNumber<TNumber>(this string text, NumberStyles style, IFormatProvider provider)
             where TNumber : INumberBase<TNumber>
-            => TryGetValueHelper<string, NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
+            => TryGetHelpers.TryGetMaybe<string, NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
 
         public static Maybe<TNumber> TryParseNumber<TNumber>(this ReadOnlySpan<char> text, IFormatProvider provider)
             where TNumber : ISpanParsable<TNumber> => TryGetFromSpanValueHelper<IFormatProvider, TNumber>(TNumber.TryParse, text, provider);
@@ -383,49 +320,49 @@ namespace Nintenlord.Utility
         public static Maybe<TNumber> TryParseNumber<TNumber>(this ReadOnlySpan<char> text, NumberStyles style, IFormatProvider provider)
             where TNumber : INumberBase<TNumber> => TryGetFromSpanValueHelper<NumberStyles, IFormatProvider, TNumber>(TNumber.TryParse, text, style, provider);
 
-        public static Maybe<int> TryParseInt(this string text) => TryGetValueHelper<string, int>(int.TryParse, text);
+        public static Maybe<int> TryParseInt(this string text) => TryGetHelpers.TryGetMaybe<string, int>(int.TryParse, text);
         public static Maybe<int> TryParseInt(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<int>(text, style, provider);
-        public static Maybe<uint> TryParseUInt(this string text) => TryGetValueHelper<string, uint>(uint.TryParse, text);
+        public static Maybe<uint> TryParseUInt(this string text) => TryGetHelpers.TryGetMaybe<string, uint>(uint.TryParse, text);
         public static Maybe<uint> TryParseUInt(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<uint>(text, style, provider);
-        public static Maybe<short> TryParseShort(this string text) => TryGetValueHelper<string, short>(short.TryParse, text);
+        public static Maybe<short> TryParseShort(this string text) => TryGetHelpers.TryGetMaybe<string, short>(short.TryParse, text);
         public static Maybe<short> TryParseShort(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<short>(text, style, provider);
-        public static Maybe<ushort> TryParseUShort(this string text) => TryGetValueHelper<string, ushort>(ushort.TryParse, text);
+        public static Maybe<ushort> TryParseUShort(this string text) => TryGetHelpers.TryGetMaybe<string, ushort>(ushort.TryParse, text);
         public static Maybe<ushort> TryParseUShort(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<ushort>(text, style, provider);
-        public static Maybe<byte> TryParseByte(this string text) => TryGetValueHelper<string, byte>(byte.TryParse, text);
+        public static Maybe<byte> TryParseByte(this string text) => TryGetHelpers.TryGetMaybe<string, byte>(byte.TryParse, text);
         public static Maybe<byte> TryParseByte(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<byte>(text, style, provider);
-        public static Maybe<sbyte> TryParseSByte(this string text) => TryGetValueHelper<string, sbyte>(sbyte.TryParse, text);
+        public static Maybe<sbyte> TryParseSByte(this string text) => TryGetHelpers.TryGetMaybe<string, sbyte>(sbyte.TryParse, text);
         public static Maybe<sbyte> TryParseSByte(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<sbyte>(text, style, provider);
-        public static Maybe<long> TryParseLong(this string text) => TryGetValueHelper<string, long>(long.TryParse, text);
+        public static Maybe<long> TryParseLong(this string text) => TryGetHelpers.TryGetMaybe<string, long>(long.TryParse, text);
         public static Maybe<long> TryParseLong(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<long>(text, style, provider);
-        public static Maybe<ulong> TryParseULong(this string text) => TryGetValueHelper<string, ulong>(ulong.TryParse, text);
+        public static Maybe<ulong> TryParseULong(this string text) => TryGetHelpers.TryGetMaybe<string, ulong>(ulong.TryParse, text);
         public static Maybe<ulong> TryParseULong(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<ulong>(text, style, provider);
-        public static Maybe<BigInteger> TryParseBigInteger(this string text) => TryGetValueHelper<string, BigInteger>(BigInteger.TryParse, text);
+        public static Maybe<BigInteger> TryParseBigInteger(this string text) => TryGetHelpers.TryGetMaybe<string, BigInteger>(BigInteger.TryParse, text);
         public static Maybe<BigInteger> TryParseBigInteger(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<BigInteger>(text, style, provider);
 
-        public static Maybe<double> TryParseDouble(this string text) => TryGetValueHelper<string, double>(double.TryParse, text);
+        public static Maybe<double> TryParseDouble(this string text) => TryGetHelpers.TryGetMaybe<string, double>(double.TryParse, text);
         public static Maybe<double> TryParseDouble(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<double>(text, style, provider);
-        public static Maybe<float> TryParseFloat(this string text) => TryGetValueHelper<string, float>(float.TryParse, text);
+        public static Maybe<float> TryParseFloat(this string text) => TryGetHelpers.TryGetMaybe<string, float>(float.TryParse, text);
         public static Maybe<float> TryParseFloat(this string text, NumberStyles style, IFormatProvider provider) => TryParseNumber<float>(text, style, provider);
 
-        public static Maybe<DateTime> TryParseDateTime(this string text) => TryGetValueHelper<string, DateTime>(DateTime.TryParse, text);
-        public static Maybe<DateTime> TryParseDateTime(this string text, IFormatProvider provider, DateTimeStyles styles) => TryGetValueHelper<string, IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParse, text, provider, styles);
-        public static Maybe<DateTime> TryParseDateTimeExact(this string text, string format, IFormatProvider provider, DateTimeStyles style) => TryGetValueHelper<string, string, IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParseExact, text, format, provider, style);
-        public static Maybe<DateTime> TryParseDateTimeExact(this string text, string[] formats, IFormatProvider provider, DateTimeStyles style) => TryGetValueHelper<string, string[], IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParseExact, text, formats, provider, style);
+        public static Maybe<DateTime> TryParseDateTime(this string text) => TryGetHelpers.TryGetMaybe<string, DateTime>(DateTime.TryParse, text);
+        public static Maybe<DateTime> TryParseDateTime(this string text, IFormatProvider provider, DateTimeStyles styles) => TryGetHelpers.TryGetMaybe<string, IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParse, text, provider, styles);
+        public static Maybe<DateTime> TryParseDateTimeExact(this string text, string format, IFormatProvider provider, DateTimeStyles style) => TryGetHelpers.TryGetMaybe<string, string, IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParseExact, text, format, provider, style);
+        public static Maybe<DateTime> TryParseDateTimeExact(this string text, string[] formats, IFormatProvider provider, DateTimeStyles style) => TryGetHelpers.TryGetMaybe<string, string[], IFormatProvider, DateTimeStyles, DateTime>(DateTime.TryParseExact, text, formats, provider, style);
 
-        public static Maybe<TimeSpan> TryParseTimeSpan(this string text) => TryGetValueHelper<string, TimeSpan>(TimeSpan.TryParse, text);
-        public static Maybe<TimeSpan> TryParseTimeSpan(this string text, IFormatProvider provider) => TryGetValueHelper<string, IFormatProvider, TimeSpan>(TimeSpan.TryParse, text, provider);
-        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string format, IFormatProvider provider) => TryGetValueHelper<string, string, IFormatProvider, TimeSpan>(TimeSpan.TryParseExact, text, format, provider);
-        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string[] formats, IFormatProvider provider) => TryGetValueHelper<string, string[], IFormatProvider, TimeSpan>(TimeSpan.TryParseExact, text, formats, provider);
-        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string format, IFormatProvider provider, TimeSpanStyles style) => TryGetValueHelper<string, string, IFormatProvider, TimeSpanStyles, TimeSpan>(TimeSpan.TryParseExact, text, format, provider, style);
-        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string[] formats, IFormatProvider provider, TimeSpanStyles style) => TryGetValueHelper<string, string[], IFormatProvider, TimeSpanStyles, TimeSpan>(TimeSpan.TryParseExact, text, formats, provider, style);
+        public static Maybe<TimeSpan> TryParseTimeSpan(this string text) => TryGetHelpers.TryGetMaybe<string, TimeSpan>(TimeSpan.TryParse, text);
+        public static Maybe<TimeSpan> TryParseTimeSpan(this string text, IFormatProvider provider) => TryGetHelpers.TryGetMaybe<string, IFormatProvider, TimeSpan>(TimeSpan.TryParse, text, provider);
+        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string format, IFormatProvider provider) => TryGetHelpers.TryGetMaybe<string, string, IFormatProvider, TimeSpan>(TimeSpan.TryParseExact, text, format, provider);
+        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string[] formats, IFormatProvider provider) => TryGetHelpers.TryGetMaybe<string, string[], IFormatProvider, TimeSpan>(TimeSpan.TryParseExact, text, formats, provider);
+        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string format, IFormatProvider provider, TimeSpanStyles style) => TryGetHelpers.TryGetMaybe<string, string, IFormatProvider, TimeSpanStyles, TimeSpan>(TimeSpan.TryParseExact, text, format, provider, style);
+        public static Maybe<TimeSpan> TryParseTimeSpanExact(this string text, string[] formats, IFormatProvider provider, TimeSpanStyles style) => TryGetHelpers.TryGetMaybe<string, string[], IFormatProvider, TimeSpanStyles, TimeSpan>(TimeSpan.TryParseExact, text, formats, provider, style);
 
-        public static Maybe<DateTimeOffset> TryParseDateTimeOffset(this string text) => TryGetValueHelper<string, DateTimeOffset>(DateTimeOffset.TryParse, text);
-        public static Maybe<DateTimeOffset> TryParseDateTimeOffset(this string text, IFormatProvider provider, DateTimeStyles styles) => TryGetValueHelper<string, IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParse, text, provider, styles);
-        public static Maybe<DateTimeOffset> TryParseDateTimeExactOffset(this string text, string format, IFormatProvider provider, DateTimeStyles style) => TryGetValueHelper<string, string, IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParseExact, text, format, provider, style);
-        public static Maybe<DateTimeOffset> TryParseDateTimeExactOffset(this string text, string[] formats, IFormatProvider provider, DateTimeStyles style) => TryGetValueHelper<string, string[], IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParseExact, text, formats, provider, style);
+        public static Maybe<DateTimeOffset> TryParseDateTimeOffset(this string text) => TryGetHelpers.TryGetMaybe<string, DateTimeOffset>(DateTimeOffset.TryParse, text);
+        public static Maybe<DateTimeOffset> TryParseDateTimeOffset(this string text, IFormatProvider provider, DateTimeStyles styles) => TryGetHelpers.TryGetMaybe<string, IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParse, text, provider, styles);
+        public static Maybe<DateTimeOffset> TryParseDateTimeExactOffset(this string text, string format, IFormatProvider provider, DateTimeStyles style) => TryGetHelpers.TryGetMaybe<string, string, IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParseExact, text, format, provider, style);
+        public static Maybe<DateTimeOffset> TryParseDateTimeExactOffset(this string text, string[] formats, IFormatProvider provider, DateTimeStyles style) => TryGetHelpers.TryGetMaybe<string, string[], IFormatProvider, DateTimeStyles, DateTimeOffset>(DateTimeOffset.TryParseExact, text, formats, provider, style);
 
-        public static Maybe<Guid> TryParseGuid(this string text) => TryGetValueHelper<string, Guid>(Guid.TryParse, text);
-        public static Maybe<Guid> TryParseGuidExact(this string text, string format) => TryGetValueHelper<string, string, Guid>(Guid.TryParseExact, text, format);
+        public static Maybe<Guid> TryParseGuid(this string text) => TryGetHelpers.TryGetMaybe<string, Guid>(Guid.TryParse, text);
+        public static Maybe<Guid> TryParseGuidExact(this string text, string format) => TryGetHelpers.TryGetMaybe<string, string, Guid>(Guid.TryParseExact, text, format);
 
         public static Maybe<TEnum> TryParseEnum<TEnum>(this string text) where TEnum : struct
         {
@@ -453,7 +390,7 @@ namespace Nintenlord.Utility
 
         public static Maybe<TValue> TryGetValue<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
         {
-            return TryGetValueHelper<TKey, TValue>(dictionary.TryGetValue, key);
+            return TryGetHelpers.TryGetMaybe<TKey, TValue>(dictionary.TryGetValue, key);
         }
 
         public static Maybe<T> TryGetValue<T>(this IReadOnlyList<T> list, int index)
