@@ -21,7 +21,7 @@ namespace Nintenlord.Distributions.Discrete
                 throw new ArgumentNullException(nameof(distribution));
             }
 
-            return distribution.Support().Select(t => distribution.Weight(t)).Sum();
+            return distribution.Support().Select(distribution.Weight).Sum();
         }
 
         public static double ExpectedValue(this IDiscreteDistribution<int> d) =>
