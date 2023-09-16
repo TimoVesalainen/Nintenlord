@@ -7,7 +7,7 @@ namespace Nintenlord.Utility
 {
     public static class MoreEitherHelpers
     {
-        public static Either<T, TException> TryCatch<T, TException>(this Func<T> function)where TException : Exception
+        public static Either<T, TException> TryCatch<T, TException>(this Func<T> function) where TException : Exception
         {
             try
             {
