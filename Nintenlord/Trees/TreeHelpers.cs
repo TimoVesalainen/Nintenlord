@@ -337,12 +337,12 @@ namespace Nintenlord.Trees
             return tree.RandomWalk(tree.Root, random);
         }
 
-        public static IEnumerable<T> Walk<T>(this ITree<T> tree, Func<IEnumerable<T>, T> chooseBranch)
+        public static IEnumerable<T> Walk<T>(this ITree<T> tree, Func<T, IEnumerable<T>, T> chooseBranch)
         {
             return tree.Walk(tree.Root, chooseBranch);
         }
 
-        public static IEnumerable<T> Walk<T>(this ITree<T> tree, TryGetDelegate<IEnumerable<T>, T> chooseBranch)
+        public static IEnumerable<T> Walk<T>(this ITree<T> tree, TryGetDelegate<T, IEnumerable<T>, T> chooseBranch)
         {
             return tree.Walk(tree.Root, chooseBranch);
         }

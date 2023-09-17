@@ -808,7 +808,7 @@ namespace Nintenlord.Trees
         {
             var childBuffer = new List<T>();
 
-            T RandomChoise(IEnumerable<T> children)
+            T RandomChoise(T parent, IEnumerable<T> children)
             {
                 childBuffer.Clear();
                 childBuffer.AddRange(children);
@@ -823,7 +823,7 @@ namespace Nintenlord.Trees
             return forest.Walk(root, RandomChoise);
         }
 
-        public static IEnumerable<T> Walk<T>(this IForest<T> forest, T root, Func<IEnumerable<T>, T> chooseBranch)
+        public static IEnumerable<T> Walk<T>(this IForest<T> forest, T root, Func<T, IEnumerable<T>, T> chooseBranch)
         {
             T current = root;
             yield return current;
@@ -832,7 +832,7 @@ namespace Nintenlord.Trees
                 var children = forest.GetChildren(current);
                 if (children.Any())
                 {
-                    current = chooseBranch(children);
+                    current = chooseBranch(current, children);
                     yield return current;
                 }
                 else
@@ -842,14 +842,14 @@ namespace Nintenlord.Trees
             }
         }
 
-        public static IEnumerable<T> Walk<T>(this IForest<T> forest, T root, TryGetDelegate<IEnumerable<T>, T> chooseBranch)
+        public static IEnumerable<T> Walk<T>(this IForest<T> forest, T root, TryGetDelegate<T, IEnumerable<T>, T> chooseBranch)
         {
             T current = root;
             yield return current;
             while (true)
             {
                 var children = forest.GetChildren(current);
-                if (chooseBranch(children, out var nextReal))
+                if (chooseBranch(current, children, out var nextReal))
                 {
                     current = nextReal;
                     yield return current;
