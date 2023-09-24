@@ -78,5 +78,18 @@ namespace Nintenlord.Tests.Collections
                 Assert.IsTrue(items.All(x => x.Count() == i));
             }
         }
+
+
+        [Test]
+        public void TestNTaking()
+        {
+            var toTest = Enumerable.Range(0, 10);
+
+            Assert.AreEqual(toTest.GetFirst2(), toTest.GetSequential2s().First());
+            Assert.AreEqual(toTest.GetFirst3(), toTest.GetSequential3s().First());
+            Assert.AreEqual(toTest.GetFirst4(), toTest.GetSequential4s().First());
+            Assert.AreEqual(toTest.GetFirst5(), toTest.GetSequential5s().First());
+            Assert.AreEqual(toTest.GetFirst6(), toTest.GetSequential6s().First());
+        }
     }
 }
