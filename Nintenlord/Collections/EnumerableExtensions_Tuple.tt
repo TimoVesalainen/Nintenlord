@@ -177,9 +177,123 @@ for(int i = 2; i < 9; i++)
             }
 
             return ZipInner();
-        }        
+        }
+
 <#
     }
+#>
+        public static IEnumerable<TOut> ZipLong<<#= string.Join(", ", typeParams) #>, TOut>(this <#= string.Join(", ", typeParams.Zip(enums, (t, v) => $"IEnumerable<{t}> {v}")) #>, Func<<#= string.Join(", ", typeParams) #>, TOut> zipper, <#= string.Join(", ", typeParams.Select((t, j) => $"Func<{t}, TOut> zipper{j}")) #>)
+        {
+<#
+        foreach (var v1 in enums)
+        {
+#>
+            if (<#= v1 #> is null)
+            {
+                throw new ArgumentNullException(nameof(<#= v1 #>));
+            }
+<#
+        }
+#>
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+<#
+        for (int j = 0; j < i; j++)
+        {
+#>
+            if (zipper<#= j #> is null)
+            {
+                throw new ArgumentNullException(nameof(zipper<#= j #>));
+            }
+<#
+        }
+#>
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+<#
+        foreach (var v1 in enums)
+        {
+#>
+                using var <#= v1 #>ator = <#= v1 #>.GetEnumerator();
+                bool hasItemIn<#= v1 #>;
+<#
+        }
+#>
+
+                while (<#= string.Join(" & ", enums.Select(v1 => $"(hasItemIn{v1} = {v1}ator.MoveNext())")) #>)
+                {
+                    yield return zipper(<#= string.Join(", ", enums.Select(enume => $"{enume}ator.Current")) #>);
+                }
+<#
+        foreach (var (v1, j) in enums.Select((x,j) => (x,j)))
+        {
+#>
+
+                if (hasItemIn<#= v1 #>)
+                {
+                    do
+                    {
+                        yield return zipper<#= j #>(<#= v1 #>ator.Current);
+                    }
+                    while (<#= v1 #>ator.MoveNext());
+                }
+                else
+<#
+        }
+#>
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<<#= string.Join(", ", typeParams) #>, TOut>(this <#= string.Join(", ", typeParams.Zip(enums, (t, v) => $"IEnumerable<{t}> {v}")) #>, Func<<#= string.Join(", ", typeParams.Select(t => $"Maybe<{t}>")) #>, TOut> zipper)
+        {
+<#
+        foreach (var v1 in enums)
+        {
+#>
+            if (<#= v1 #> is null)
+            {
+                throw new ArgumentNullException(nameof(<#= v1 #>));
+            }
+<#
+        }
+#>
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(<#= string.Join(", ", typeParams.Select((t, j) => $"{t} item{j}")) #>)
+            {
+                return zipper(<#= string.Join(", ", typeParams.Select((t, j) => $"item{j}")) #>);
+            }
+<#
+        foreach (var v1 in typeParams)
+        {
+#>
+
+            TOut Zip<#= v1 #>(<#= v1 #> t)
+            {
+                return zipper(<#= string.Join(", ", typeParams.Select(t => t == v1 ? "t" : $"Maybe<{t}>.Nothing")) #>);
+            }
+<#
+        }
+#>
+
+            return <#= enums.First() #>.ZipLong(<#= string.Join(", ", enums.Skip(1))  #>, ZipBoth, <#= string.Join(", ", typeParams.Select(t => $"Zip{t}")) #>);
+        }
+
+<#
 }
 #>
 	}

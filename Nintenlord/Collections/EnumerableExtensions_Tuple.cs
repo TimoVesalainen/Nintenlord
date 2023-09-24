@@ -108,6 +108,104 @@ namespace Nintenlord.Collections
             yield return tuple.Item2;
         }
 
+        public static IEnumerable<TOut> ZipLong<T0, T1, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, Func<T0, T1, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, Func<Maybe<T0>, Maybe<T1>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1)
+            {
+                return zipper(item0, item1);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, ZipBoth, ZipT0, ZipT1);
+        }
+
         public static (T0, T1, T2) Aggregate<T0, T1, T2, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2)
@@ -251,7 +349,135 @@ namespace Nintenlord.Collections
             }
 
             return ZipInner();
-        }        
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, Func<T0, T1, T2, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1, Func<T2, TOut> zipper2)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+            if (zipper2 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper2));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+                using var enum2ator = enum2.GetEnumerator();
+                bool hasItemInenum2;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()) & (hasItemInenum2 = enum2ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current, enum2ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum2)
+                {
+                    do
+                    {
+                        yield return zipper2(enum2ator.Current);
+                    }
+                    while (enum2ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, Func<Maybe<T0>, Maybe<T1>, Maybe<T2>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1, T2 item2)
+            {
+                return zipper(item0, item1, item2);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing, Maybe<T2>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t, Maybe<T2>.Nothing);
+            }
+
+            TOut ZipT2(T2 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, enum2, ZipBoth, ZipT0, ZipT1, ZipT2);
+        }
+
         public static (T0, T1, T2, T3) Aggregate<T0, T1, T2, T3, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3)
@@ -415,7 +641,164 @@ namespace Nintenlord.Collections
             }
 
             return ZipInner();
-        }        
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, Func<T0, T1, T2, T3, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1, Func<T2, TOut> zipper2, Func<T3, TOut> zipper3)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+            if (zipper2 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper2));
+            }
+            if (zipper3 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper3));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+                using var enum2ator = enum2.GetEnumerator();
+                bool hasItemInenum2;
+                using var enum3ator = enum3.GetEnumerator();
+                bool hasItemInenum3;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()) & (hasItemInenum2 = enum2ator.MoveNext()) & (hasItemInenum3 = enum3ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current, enum2ator.Current, enum3ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum2)
+                {
+                    do
+                    {
+                        yield return zipper2(enum2ator.Current);
+                    }
+                    while (enum2ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum3)
+                {
+                    do
+                    {
+                        yield return zipper3(enum3ator.Current);
+                    }
+                    while (enum3ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, Func<Maybe<T0>, Maybe<T1>, Maybe<T2>, Maybe<T3>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1, T2 item2, T3 item3)
+            {
+                return zipper(item0, item1, item2, item3);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t, Maybe<T2>.Nothing, Maybe<T3>.Nothing);
+            }
+
+            TOut ZipT2(T2 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, t, Maybe<T3>.Nothing);
+            }
+
+            TOut ZipT3(T3 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, enum2, enum3, ZipBoth, ZipT0, ZipT1, ZipT2, ZipT3);
+        }
+
         public static (T0, T1, T2, T3, T4) Aggregate<T0, T1, T2, T3, T4, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4)
@@ -599,7 +982,193 @@ namespace Nintenlord.Collections
             }
 
             return ZipInner();
-        }        
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, Func<T0, T1, T2, T3, T4, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1, Func<T2, TOut> zipper2, Func<T3, TOut> zipper3, Func<T4, TOut> zipper4)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+            if (zipper2 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper2));
+            }
+            if (zipper3 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper3));
+            }
+            if (zipper4 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper4));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+                using var enum2ator = enum2.GetEnumerator();
+                bool hasItemInenum2;
+                using var enum3ator = enum3.GetEnumerator();
+                bool hasItemInenum3;
+                using var enum4ator = enum4.GetEnumerator();
+                bool hasItemInenum4;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()) & (hasItemInenum2 = enum2ator.MoveNext()) & (hasItemInenum3 = enum3ator.MoveNext()) & (hasItemInenum4 = enum4ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current, enum2ator.Current, enum3ator.Current, enum4ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum2)
+                {
+                    do
+                    {
+                        yield return zipper2(enum2ator.Current);
+                    }
+                    while (enum2ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum3)
+                {
+                    do
+                    {
+                        yield return zipper3(enum3ator.Current);
+                    }
+                    while (enum3ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum4)
+                {
+                    do
+                    {
+                        yield return zipper4(enum4ator.Current);
+                    }
+                    while (enum4ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, Func<Maybe<T0>, Maybe<T1>, Maybe<T2>, Maybe<T3>, Maybe<T4>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1, T2 item2, T3 item3, T4 item4)
+            {
+                return zipper(item0, item1, item2, item3, item4);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing);
+            }
+
+            TOut ZipT2(T2 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, t, Maybe<T3>.Nothing, Maybe<T4>.Nothing);
+            }
+
+            TOut ZipT3(T3 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, t, Maybe<T4>.Nothing);
+            }
+
+            TOut ZipT4(T4 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, enum2, enum3, enum4, ZipBoth, ZipT0, ZipT1, ZipT2, ZipT3, ZipT4);
+        }
+
         public static (T0, T1, T2, T3, T4, T5) Aggregate<T0, T1, T2, T3, T4, T5, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4, Func<T5, TSource, T5> func5)
@@ -803,7 +1372,222 @@ namespace Nintenlord.Collections
             }
 
             return ZipInner();
-        }        
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, T5, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, Func<T0, T1, T2, T3, T4, T5, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1, Func<T2, TOut> zipper2, Func<T3, TOut> zipper3, Func<T4, TOut> zipper4, Func<T5, TOut> zipper5)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+            if (zipper2 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper2));
+            }
+            if (zipper3 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper3));
+            }
+            if (zipper4 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper4));
+            }
+            if (zipper5 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper5));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+                using var enum2ator = enum2.GetEnumerator();
+                bool hasItemInenum2;
+                using var enum3ator = enum3.GetEnumerator();
+                bool hasItemInenum3;
+                using var enum4ator = enum4.GetEnumerator();
+                bool hasItemInenum4;
+                using var enum5ator = enum5.GetEnumerator();
+                bool hasItemInenum5;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()) & (hasItemInenum2 = enum2ator.MoveNext()) & (hasItemInenum3 = enum3ator.MoveNext()) & (hasItemInenum4 = enum4ator.MoveNext()) & (hasItemInenum5 = enum5ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current, enum2ator.Current, enum3ator.Current, enum4ator.Current, enum5ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum2)
+                {
+                    do
+                    {
+                        yield return zipper2(enum2ator.Current);
+                    }
+                    while (enum2ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum3)
+                {
+                    do
+                    {
+                        yield return zipper3(enum3ator.Current);
+                    }
+                    while (enum3ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum4)
+                {
+                    do
+                    {
+                        yield return zipper4(enum4ator.Current);
+                    }
+                    while (enum4ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum5)
+                {
+                    do
+                    {
+                        yield return zipper5(enum5ator.Current);
+                    }
+                    while (enum5ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, T5, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, Func<Maybe<T0>, Maybe<T1>, Maybe<T2>, Maybe<T3>, Maybe<T4>, Maybe<T5>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1, T2 item2, T3 item3, T4 item4, T5 item5)
+            {
+                return zipper(item0, item1, item2, item3, item4, item5);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing);
+            }
+
+            TOut ZipT2(T2 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, t, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing);
+            }
+
+            TOut ZipT3(T3 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, t, Maybe<T4>.Nothing, Maybe<T5>.Nothing);
+            }
+
+            TOut ZipT4(T4 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, t, Maybe<T5>.Nothing);
+            }
+
+            TOut ZipT5(T5 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, enum2, enum3, enum4, enum5, ZipBoth, ZipT0, ZipT1, ZipT2, ZipT3, ZipT4, ZipT5);
+        }
+
         public static (T0, T1, T2, T3, T4, T5, T6) Aggregate<T0, T1, T2, T3, T4, T5, T6, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5, T6 seed6,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4, Func<T5, TSource, T5> func5, Func<T6, TSource, T6> func6)
@@ -1027,7 +1811,251 @@ namespace Nintenlord.Collections
             }
 
             return ZipInner();
-        }        
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, T5, T6, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, Func<T0, T1, T2, T3, T4, T5, T6, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1, Func<T2, TOut> zipper2, Func<T3, TOut> zipper3, Func<T4, TOut> zipper4, Func<T5, TOut> zipper5, Func<T6, TOut> zipper6)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+            if (enum6 is null)
+            {
+                throw new ArgumentNullException(nameof(enum6));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+            if (zipper2 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper2));
+            }
+            if (zipper3 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper3));
+            }
+            if (zipper4 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper4));
+            }
+            if (zipper5 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper5));
+            }
+            if (zipper6 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper6));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+                using var enum2ator = enum2.GetEnumerator();
+                bool hasItemInenum2;
+                using var enum3ator = enum3.GetEnumerator();
+                bool hasItemInenum3;
+                using var enum4ator = enum4.GetEnumerator();
+                bool hasItemInenum4;
+                using var enum5ator = enum5.GetEnumerator();
+                bool hasItemInenum5;
+                using var enum6ator = enum6.GetEnumerator();
+                bool hasItemInenum6;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()) & (hasItemInenum2 = enum2ator.MoveNext()) & (hasItemInenum3 = enum3ator.MoveNext()) & (hasItemInenum4 = enum4ator.MoveNext()) & (hasItemInenum5 = enum5ator.MoveNext()) & (hasItemInenum6 = enum6ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current, enum2ator.Current, enum3ator.Current, enum4ator.Current, enum5ator.Current, enum6ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum2)
+                {
+                    do
+                    {
+                        yield return zipper2(enum2ator.Current);
+                    }
+                    while (enum2ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum3)
+                {
+                    do
+                    {
+                        yield return zipper3(enum3ator.Current);
+                    }
+                    while (enum3ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum4)
+                {
+                    do
+                    {
+                        yield return zipper4(enum4ator.Current);
+                    }
+                    while (enum4ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum5)
+                {
+                    do
+                    {
+                        yield return zipper5(enum5ator.Current);
+                    }
+                    while (enum5ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum6)
+                {
+                    do
+                    {
+                        yield return zipper6(enum6ator.Current);
+                    }
+                    while (enum6ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, T5, T6, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, Func<Maybe<T0>, Maybe<T1>, Maybe<T2>, Maybe<T3>, Maybe<T4>, Maybe<T5>, Maybe<T6>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+            if (enum6 is null)
+            {
+                throw new ArgumentNullException(nameof(enum6));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6)
+            {
+                return zipper(item0, item1, item2, item3, item4, item5, item6);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing);
+            }
+
+            TOut ZipT2(T2 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, t, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing);
+            }
+
+            TOut ZipT3(T3 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, t, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing);
+            }
+
+            TOut ZipT4(T4 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, t, Maybe<T5>.Nothing, Maybe<T6>.Nothing);
+            }
+
+            TOut ZipT5(T5 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, t, Maybe<T6>.Nothing);
+            }
+
+            TOut ZipT6(T6 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, enum2, enum3, enum4, enum5, enum6, ZipBoth, ZipT0, ZipT1, ZipT2, ZipT3, ZipT4, ZipT5, ZipT6);
+        }
+
         public static (T0, T1, T2, T3, T4, T5, T6, T7) Aggregate<T0, T1, T2, T3, T4, T5, T6, T7, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1, T2 seed2, T3 seed3, T4 seed4, T5 seed5, T6 seed6, T7 seed7,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1, Func<T2, TSource, T2> func2, Func<T3, TSource, T3> func3, Func<T4, TSource, T4> func4, Func<T5, TSource, T5> func5, Func<T6, TSource, T6> func6, Func<T7, TSource, T7> func7)
@@ -1271,6 +2299,279 @@ namespace Nintenlord.Collections
             }
 
             return ZipInner();
-        }        
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, IEnumerable<T7> enum7, Func<T0, T1, T2, T3, T4, T5, T6, T7, TOut> zipper, Func<T0, TOut> zipper0, Func<T1, TOut> zipper1, Func<T2, TOut> zipper2, Func<T3, TOut> zipper3, Func<T4, TOut> zipper4, Func<T5, TOut> zipper5, Func<T6, TOut> zipper6, Func<T7, TOut> zipper7)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+            if (enum6 is null)
+            {
+                throw new ArgumentNullException(nameof(enum6));
+            }
+            if (enum7 is null)
+            {
+                throw new ArgumentNullException(nameof(enum7));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+            
+            if (zipper0 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper0));
+            }
+            if (zipper1 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper1));
+            }
+            if (zipper2 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper2));
+            }
+            if (zipper3 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper3));
+            }
+            if (zipper4 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper4));
+            }
+            if (zipper5 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper5));
+            }
+            if (zipper6 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper6));
+            }
+            if (zipper7 is null)
+            {
+                throw new ArgumentNullException(nameof(zipper7));
+            }
+
+            IEnumerable<TOut> ZipLongInner()
+            {
+                using var enum0ator = enum0.GetEnumerator();
+                bool hasItemInenum0;
+                using var enum1ator = enum1.GetEnumerator();
+                bool hasItemInenum1;
+                using var enum2ator = enum2.GetEnumerator();
+                bool hasItemInenum2;
+                using var enum3ator = enum3.GetEnumerator();
+                bool hasItemInenum3;
+                using var enum4ator = enum4.GetEnumerator();
+                bool hasItemInenum4;
+                using var enum5ator = enum5.GetEnumerator();
+                bool hasItemInenum5;
+                using var enum6ator = enum6.GetEnumerator();
+                bool hasItemInenum6;
+                using var enum7ator = enum7.GetEnumerator();
+                bool hasItemInenum7;
+
+                while ((hasItemInenum0 = enum0ator.MoveNext()) & (hasItemInenum1 = enum1ator.MoveNext()) & (hasItemInenum2 = enum2ator.MoveNext()) & (hasItemInenum3 = enum3ator.MoveNext()) & (hasItemInenum4 = enum4ator.MoveNext()) & (hasItemInenum5 = enum5ator.MoveNext()) & (hasItemInenum6 = enum6ator.MoveNext()) & (hasItemInenum7 = enum7ator.MoveNext()))
+                {
+                    yield return zipper(enum0ator.Current, enum1ator.Current, enum2ator.Current, enum3ator.Current, enum4ator.Current, enum5ator.Current, enum6ator.Current, enum7ator.Current);
+                }
+
+                if (hasItemInenum0)
+                {
+                    do
+                    {
+                        yield return zipper0(enum0ator.Current);
+                    }
+                    while (enum0ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum1)
+                {
+                    do
+                    {
+                        yield return zipper1(enum1ator.Current);
+                    }
+                    while (enum1ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum2)
+                {
+                    do
+                    {
+                        yield return zipper2(enum2ator.Current);
+                    }
+                    while (enum2ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum3)
+                {
+                    do
+                    {
+                        yield return zipper3(enum3ator.Current);
+                    }
+                    while (enum3ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum4)
+                {
+                    do
+                    {
+                        yield return zipper4(enum4ator.Current);
+                    }
+                    while (enum4ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum5)
+                {
+                    do
+                    {
+                        yield return zipper5(enum5ator.Current);
+                    }
+                    while (enum5ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum6)
+                {
+                    do
+                    {
+                        yield return zipper6(enum6ator.Current);
+                    }
+                    while (enum6ator.MoveNext());
+                }
+                else
+
+                if (hasItemInenum7)
+                {
+                    do
+                    {
+                        yield return zipper7(enum7ator.Current);
+                    }
+                    while (enum7ator.MoveNext());
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+
+            return ZipLongInner();
+        }
+
+        public static IEnumerable<TOut> ZipLong<T0, T1, T2, T3, T4, T5, T6, T7, TOut>(this IEnumerable<T0> enum0, IEnumerable<T1> enum1, IEnumerable<T2> enum2, IEnumerable<T3> enum3, IEnumerable<T4> enum4, IEnumerable<T5> enum5, IEnumerable<T6> enum6, IEnumerable<T7> enum7, Func<Maybe<T0>, Maybe<T1>, Maybe<T2>, Maybe<T3>, Maybe<T4>, Maybe<T5>, Maybe<T6>, Maybe<T7>, TOut> zipper)
+        {
+            if (enum0 is null)
+            {
+                throw new ArgumentNullException(nameof(enum0));
+            }
+            if (enum1 is null)
+            {
+                throw new ArgumentNullException(nameof(enum1));
+            }
+            if (enum2 is null)
+            {
+                throw new ArgumentNullException(nameof(enum2));
+            }
+            if (enum3 is null)
+            {
+                throw new ArgumentNullException(nameof(enum3));
+            }
+            if (enum4 is null)
+            {
+                throw new ArgumentNullException(nameof(enum4));
+            }
+            if (enum5 is null)
+            {
+                throw new ArgumentNullException(nameof(enum5));
+            }
+            if (enum6 is null)
+            {
+                throw new ArgumentNullException(nameof(enum6));
+            }
+            if (enum7 is null)
+            {
+                throw new ArgumentNullException(nameof(enum7));
+            }
+
+            if (zipper is null)
+            {
+                throw new ArgumentNullException(nameof(zipper));
+            }
+
+            TOut ZipBoth(T0 item0, T1 item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6, T7 item7)
+            {
+                return zipper(item0, item1, item2, item3, item4, item5, item6, item7);
+            }
+
+            TOut ZipT0(T0 t)
+            {
+                return zipper(t, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT1(T1 t)
+            {
+                return zipper(Maybe<T0>.Nothing, t, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT2(T2 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, t, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT3(T3 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, t, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT4(T4 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, t, Maybe<T5>.Nothing, Maybe<T6>.Nothing, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT5(T5 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, t, Maybe<T6>.Nothing, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT6(T6 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, t, Maybe<T7>.Nothing);
+            }
+
+            TOut ZipT7(T7 t)
+            {
+                return zipper(Maybe<T0>.Nothing, Maybe<T1>.Nothing, Maybe<T2>.Nothing, Maybe<T3>.Nothing, Maybe<T4>.Nothing, Maybe<T5>.Nothing, Maybe<T6>.Nothing, t);
+            }
+
+            return enum0.ZipLong(enum1, enum2, enum3, enum4, enum5, enum6, enum7, ZipBoth, ZipT0, ZipT1, ZipT2, ZipT3, ZipT4, ZipT5, ZipT6, ZipT7);
+        }
+
 	}
 }
