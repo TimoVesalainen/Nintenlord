@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿using Nintenlord.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 
 namespace Nintenlord.Numerics
 {
@@ -49,6 +52,26 @@ namespace Nintenlord.Numerics
 
             return index1 < index2 + length2 && index1 >= index2 ||
             index2 < index1 + length1 && index2 >= index1;
+        }
+
+        /// <summary>
+        /// For convergent sequences, produces sequence that converges faster.
+        /// For divergent sequences, prodduces convergent series,
+        /// </summary>
+        public static IEnumerable<TNumber> ShanksTransformation<TNumber>(this IEnumerable<TNumber> series)
+            where TNumber : IAdditionOperators<TNumber, TNumber, TNumber>,
+            ISubtractionOperators<TNumber, TNumber, TNumber>,
+            IMultiplyOperators<TNumber, TNumber, TNumber>,
+            IDivisionOperators<TNumber, TNumber, TNumber>
+        {
+            return series.GetParts3s().Select((tuple) =>
+            {
+                var (t0, t1, t2) = tuple;
+
+                var above = t2 * t0 - t1 * t1;
+                var below = t2 - t1 - t1 + t0;
+                return above / below;
+            });
         }
     }
 }
