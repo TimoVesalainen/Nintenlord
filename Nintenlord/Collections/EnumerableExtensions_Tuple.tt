@@ -8,7 +8,6 @@ using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Nintenlord.Collections
 {
@@ -109,17 +108,32 @@ for(int i = 2; i < 9; i++)
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (<#= iMaybes #>) MoveNext((<#= iMaybes #>) previous, Maybe<T> next)
+            IEnumerable<(<#= repeat("T") #>)> Inner()
             {
-                var (<#= string.Join(", ", tupleItems) #>) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (<#= string.Join(", ", tupleItems.Skip(1)) #>, next);
+<#
+                for (int j = 0; j < i; j++)
+                {
+#>
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n<#= j #> = enumerator.Current;
+<#
+                }
+#>
+
+                yield return (<#= string.Join(", ", Enumerable.Range(0, i).Select(j => $"n{j}")) #>);
+                while (enumerator.MoveNext())
+                {
+                    (<#= string.Join(", ", Enumerable.Range(0, i).Select(j => $"n{j}")) #>) = (<#= string.Join(", ", Enumerable.Range(1, i - 1).Select(j => $"n{j}")) #>, enumerator.Current);
+                    yield return (<#= string.Join(", ", Enumerable.Range(0, i).Select(j => $"n{j}")) #>);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((<#= repeat("Maybe<T>.Nothing") #>), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(<#= string.Join(", ", Enumerable.Range(0, i - 1).Select(x => $"tuple.Item{x+2}")) #>, (<#= string.Join(", ", tupleItems) #>) => (<#= string.Join(", ", tupleItems) #>)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(<#= repeat("T") #>)> GetPartitions<#= i #>s<T>(this IEnumerable<T> items)

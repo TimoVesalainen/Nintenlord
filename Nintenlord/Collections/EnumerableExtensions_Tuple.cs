@@ -83,17 +83,30 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T)> Inner()
             {
-                var (a0, a1) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+
+                yield return (n0, n1);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1) = (n1, enumerator.Current);
+                    yield return (n0, n1);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, (a0, a1) => (a0, a1)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T)> GetPartitions2s<T>(this IEnumerable<T> items)
@@ -200,17 +213,35 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T, T)> Inner()
             {
-                var (a0, a1, a2) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, a2, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n2 = enumerator.Current;
+
+                yield return (n0, n1, n2);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1, n2) = (n1, n2, enumerator.Current);
+                    yield return (n0, n1, n2);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, tuple.Item3, (a0, a1, a2) => (a0, a1, a2)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T, T)> GetPartitions3s<T>(this IEnumerable<T> items)
@@ -355,17 +386,40 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T, T, T)> Inner()
             {
-                var (a0, a1, a2, a3) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, a2, a3, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n2 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n3 = enumerator.Current;
+
+                yield return (n0, n1, n2, n3);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1, n2, n3) = (n1, n2, n3, enumerator.Current);
+                    yield return (n0, n1, n2, n3);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, tuple.Item3, tuple.Item4, (a0, a1, a2, a3) => (a0, a1, a2, a3)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T, T, T)> GetPartitions4s<T>(this IEnumerable<T> items)
@@ -525,17 +579,45 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T, T, T, T)> Inner()
             {
-                var (a0, a1, a2, a3, a4) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, a2, a3, a4, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n2 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n3 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n4 = enumerator.Current;
+
+                yield return (n0, n1, n2, n3, n4);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1, n2, n3, n4) = (n1, n2, n3, n4, enumerator.Current);
+                    yield return (n0, n1, n2, n3, n4);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, (a0, a1, a2, a3, a4) => (a0, a1, a2, a3, a4)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T, T, T, T)> GetPartitions5s<T>(this IEnumerable<T> items)
@@ -710,17 +792,50 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T, T, T, T, T)> Inner()
             {
-                var (a0, a1, a2, a3, a4, a5) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, a2, a3, a4, a5, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n2 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n3 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n4 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n5 = enumerator.Current;
+
+                yield return (n0, n1, n2, n3, n4, n5);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1, n2, n3, n4, n5) = (n1, n2, n3, n4, n5, enumerator.Current);
+                    yield return (n0, n1, n2, n3, n4, n5);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, (a0, a1, a2, a3, a4, a5) => (a0, a1, a2, a3, a4, a5)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T, T, T, T, T)> GetPartitions6s<T>(this IEnumerable<T> items)
@@ -910,17 +1025,55 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T, T, T, T, T, T)> Inner()
             {
-                var (a0, a1, a2, a3, a4, a5, a6) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, a2, a3, a4, a5, a6, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n2 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n3 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n4 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n5 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n6 = enumerator.Current;
+
+                yield return (n0, n1, n2, n3, n4, n5, n6);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1, n2, n3, n4, n5, n6) = (n1, n2, n3, n4, n5, n6, enumerator.Current);
+                    yield return (n0, n1, n2, n3, n4, n5, n6);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7, (a0, a1, a2, a3, a4, a5, a6) => (a0, a1, a2, a3, a4, a5, a6)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T, T, T, T, T, T)> GetPartitions7s<T>(this IEnumerable<T> items)
@@ -1125,17 +1278,60 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(items));
             }
 
-            (Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) MoveNext((Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>, Maybe<T>) previous, Maybe<T> next)
+            IEnumerable<(T, T, T, T, T, T, T, T)> Inner()
             {
-                var (a0, a1, a2, a3, a4, a5, a6, a7) = previous;
+                using var enumerator = items.GetEnumerator();
 
-                return (a1, a2, a3, a4, a5, a6, a7, next);
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n0 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n1 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n2 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n3 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n4 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n5 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n6 = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    yield break;
+                }
+                var n7 = enumerator.Current;
+
+                yield return (n0, n1, n2, n3, n4, n5, n6, n7);
+                while (enumerator.MoveNext())
+                {
+                    (n0, n1, n2, n3, n4, n5, n6, n7) = (n1, n2, n3, n4, n5, n6, n7, enumerator.Current);
+                    yield return (n0, n1, n2, n3, n4, n5, n6, n7);
+                }
             }
 
-            return items.Select(Maybe<T>.Just)
-                        .Scan((Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing, Maybe<T>.Nothing), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7, tuple.Item8, (a0, a1, a2, a3, a4, a5, a6, a7) => (a0, a1, a2, a3, a4, a5, a6, a7)))
-                        .GetValues();
+            return Inner();
         }
 
         public static IEnumerable<(T, T, T, T, T, T, T, T)> GetPartitions8s<T>(this IEnumerable<T> items)
