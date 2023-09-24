@@ -79,5 +79,27 @@ namespace Nintenlord.Numerics
                 return above / below;
             });
         }
+
+        public static IEnumerable<TNumber> ShanksTransformation<TNumber>(this IEnumerable<TNumber> series, int n)
+            where TNumber : IAdditionOperators<TNumber, TNumber, TNumber>,
+            ISubtractionOperators<TNumber, TNumber, TNumber>,
+            IMultiplyOperators<TNumber, TNumber, TNumber>,
+            IDivisionOperators<TNumber, TNumber, TNumber>
+        {
+            if (series is null)
+            {
+                throw new ArgumentNullException(nameof(series));
+            }
+            if (n < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(n), n, "Value was negative");
+            }
+
+            for (var i = 0; i < n; i++)
+            {
+                series = ShanksTransformation(series);
+            }
+            return series;
+        }
     }
 }
