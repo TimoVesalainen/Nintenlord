@@ -64,50 +64,6 @@ for(int i = 2; i < 9; i++)
                 throw new ArgumentNullException(nameof(items));
             }
 
-            static (<#= iMaybes #>) MoveNext((<#= iMaybes #>) previous, Maybe<T> next)
-            {
-                var (<#= string.Join(", ", tupleItems) #>) = previous;
-
-                return (<#= string.Join(", ", tupleItems.Skip(1)) #>, next);
-            }
-
-            return items.Select(Maybe<T>.Just)
-                        .Scan((<#= repeat("Maybe<T>.Nothing") #>), MoveNext)
-                        .Select(tuple => tuple.Item1.Zip(<#= string.Join(", ", Enumerable.Range(0, i - 1).Select(x => $"tuple.Item{x+2}")) #>, (<#= string.Join(", ", tupleItems) #>) => (<#= string.Join(", ", tupleItems) #>)))
-                        .GetValues();
-        }
-
-        public static (<#= string.Join(", ", Enumerable.Repeat("T", i)) #>) GetFirst<#= i #><T>(this IEnumerable<T> enumerable)
-        {
-            if (enumerable is null)
-            {
-                throw new ArgumentNullException(nameof(enumerable));
-            }
-            using var enumerator = enumerable.GetEnumerator();
-<#
-    foreach (var item in items)
-    {
-#>
-            if (!enumerator.MoveNext())
-            {
-                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
-            }
-            var <#= item #> = enumerator.Current;
-<#
-    }
-#>
-            return (<#= string.Join(", ", items) #>);
-            //Mostly equivalent to (current handles nulls better):
-            //return enumerable.GetSequential<#= i #>s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
-        }
-
-        public static IEnumerable<(<#= repeat("T") #>)> GetParts<#= i #>s<T>(this IEnumerable<T> items)
-        {
-            if (items is null)
-            {
-                throw new ArgumentNullException(nameof(items));
-            }
-
             IEnumerable<(<#= repeat("T") #>)> Inner()
             {
                 using var enumerator = items.GetEnumerator();
@@ -136,6 +92,30 @@ for(int i = 2; i < 9; i++)
             return Inner();
         }
 
+        public static (<#= string.Join(", ", Enumerable.Repeat("T", i)) #>) GetFirst<#= i #><T>(this IEnumerable<T> enumerable)
+        {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
+            using var enumerator = enumerable.GetEnumerator();
+<#
+    foreach (var item in items)
+    {
+#>
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable));
+            }
+            var <#= item #> = enumerator.Current;
+<#
+    }
+#>
+            return (<#= string.Join(", ", items) #>);
+            //Mostly equivalent to (current handles nulls better):
+            //return enumerable.GetSequential<#= i #>s().FirstSafe().GetValueOrThrow(() => new ArgumentException("Enumerable doesn't have enough items", nameof(enumerable)));
+        }
+
         public static IEnumerable<(<#= repeat("T") #>)> GetPartitions<#= i #>s<T>(this IEnumerable<T> items)
         {
             if (items is null)
@@ -143,7 +123,7 @@ for(int i = 2; i < 9; i++)
                 throw new ArgumentNullException(nameof(items));
             }
 
-            return items.GetParts<#= i #>s()
+            return items.GetSequential<#= i #>s()
                         .Select((x, i) => (x, i))
                         .Where(t => (t.i % <#= i #>) == 0)
                         .Select(t => t.x);

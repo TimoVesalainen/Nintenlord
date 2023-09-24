@@ -70,7 +70,7 @@ namespace Nintenlord.Numerics
                 throw new ArgumentNullException(nameof(series));
             }
 
-            return series.GetParts3s().Select((tuple) =>
+            return series.GetSequential3s().Select((tuple) =>
             {
                 var (t0, t1, t2) = tuple;
 

@@ -781,7 +781,7 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<(T current, T next)> GetSequentialPairs<T>(this IEnumerable<T> items)
         {
-            return items.GetParts2s();
+            return items.GetSequential2s();
         }
 
         public static IEnumerable<T> Return<T>(this T item)
