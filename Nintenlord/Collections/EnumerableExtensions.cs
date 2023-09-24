@@ -157,6 +157,21 @@ namespace Nintenlord.Collections
             return collection.Min(new SelectComparer<T, float>(comp));
         }
 
+        public static T GetNth<T>(this IEnumerable<T> collection, int index)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), index, "Negative value");
+            }
+
+            return collection.Skip(index).First();
+        }
+
         public static string ToElementWiseString<T>(this IEnumerable<T> collection, string separator = ", ", string beginning = "{", string end = "}")
         {
             if (collection is null)
