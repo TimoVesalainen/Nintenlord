@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -64,6 +65,11 @@ namespace Nintenlord.Numerics
             IMultiplyOperators<TNumber, TNumber, TNumber>,
             IDivisionOperators<TNumber, TNumber, TNumber>
         {
+            if (series is null)
+            {
+                throw new ArgumentNullException(nameof(series));
+            }
+
             return series.GetParts3s().Select((tuple) =>
             {
                 var (t0, t1, t2) = tuple;
