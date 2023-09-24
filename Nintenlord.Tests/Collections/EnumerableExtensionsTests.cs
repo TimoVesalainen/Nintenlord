@@ -81,7 +81,7 @@ namespace Nintenlord.Tests.Collections
 
 
         [Test]
-        public void TestNTaking()
+        public void TestNTakingFirst()
         {
             var toTest = Enumerable.Range(0, 10);
 
@@ -90,6 +90,39 @@ namespace Nintenlord.Tests.Collections
             Assert.AreEqual(toTest.GetFirst4(), toTest.GetSequential4s().First());
             Assert.AreEqual(toTest.GetFirst5(), toTest.GetSequential5s().First());
             Assert.AreEqual(toTest.GetFirst6(), toTest.GetSequential6s().First());
+        }
+
+        [Test]
+        public void TestTwoTaking()
+        {
+            var n = 10;
+            var toTest = Enumerable.Range(0, n + 2);
+
+            for (int i = 0; i < n; i++)
+            {
+                Assert.AreEqual(
+                    toTest.GetSequential2s().GetNth(i + 1).Enumerate().GetNth(0),
+                    toTest.GetSequential2s().GetNth(i).Enumerate().GetNth(1));
+            }
+        }
+
+
+        [Test]
+        public void TestThreeTaking()
+        {
+            var n = 10;
+            var toTest = Enumerable.Range(0, n + 3);
+
+            for (int i = 0; i < n; i++)
+            {
+                Assert.AreEqual(
+                    toTest.GetSequential3s().GetNth(i + 1).Enumerate().GetNth(0),
+                    toTest.GetSequential3s().GetNth(i).Enumerate().GetNth(1));
+
+                Assert.AreEqual(
+                    toTest.GetSequential3s().GetNth(i + 1).Enumerate().GetNth(1),
+                    toTest.GetSequential3s().GetNth(i).Enumerate().GetNth(2));
+            }
         }
     }
 }
