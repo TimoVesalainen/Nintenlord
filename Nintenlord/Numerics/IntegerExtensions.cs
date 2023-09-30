@@ -133,7 +133,7 @@ namespace Nintenlord.Numerics
                 throw new ArgumentOutOfRangeException(nameof(n), "n needs to be non-negative");
             }
 
-            return TNumber.MultiplicativeIdentity.Range(n)
+            return TNumber.MultiplicativeIdentity.Range(n).SkipLast(1)
                 .Select(k => (n + TNumber.MultiplicativeIdentity - k, k))
                 .Scan(TNumber.MultiplicativeIdentity, (acc, tuple) => acc * tuple.Item1 / tuple.k);
         }
