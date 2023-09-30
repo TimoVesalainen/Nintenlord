@@ -132,6 +132,19 @@ namespace Nintenlord.Tests.Numerics
         }
 
         [Test]
+        public void TestBinomialDistributionAll()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Assert.AreEqual(i + 1, IntegerExtensions.BinomialCoefficients(i).Count());
+                Assert.AreEqual(i + 1, IntegerExtensions.BinomialCoefficientRows<int>().Skip(i).Count());
+                Assert.AreEqual(
+                    IntegerExtensions.BinomialCoefficients(i),
+                    IntegerExtensions.BinomialCoefficientRows<int>().Skip(i).First());
+            }
+        }
+
+        [Test]
         public void TestIntersection()
         {
             Assert.IsTrue(NumberExtensions.Intersects(1, 1, 1, 1));
