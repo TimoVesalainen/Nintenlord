@@ -193,13 +193,14 @@ namespace Nintenlord.Numerics
             IAdditiveIdentity<TNumber, TNumber>,
             IDecrementOperators<TNumber>,
             IMultiplyOperators<TNumber, TNumber, TNumber>,
-            IAdditionOperators<TNumber, TNumber, TNumber>
+            IAdditionOperators<TNumber, TNumber, TNumber>,
+            IComparisonOperators<TNumber, TNumber, bool>
         {
             if (n == k)
             {
                 return TNumber.MultiplicativeIdentity;
             }
-            if (n == TNumber.AdditiveIdentity || k == TNumber.AdditiveIdentity)
+            if (k == TNumber.AdditiveIdentity || n < k)
             {
                 return TNumber.AdditiveIdentity;
             }
