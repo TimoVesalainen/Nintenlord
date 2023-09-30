@@ -144,5 +144,68 @@ namespace Nintenlord.Numerics
         {
             return BinomialCoefficientRowEnumerable<TNumber>.Instance;
         }
+
+        public static TNumber StirlingNumberFirstKind<TNumber>(TNumber n, TNumber k)
+            where TNumber : IEqualityOperators<TNumber, TNumber, bool>,
+            IMultiplicativeIdentity<TNumber, TNumber>,
+            IAdditiveIdentity<TNumber, TNumber>,
+            IDecrementOperators<TNumber>,
+            IMultiplyOperators<TNumber, TNumber, TNumber>,
+            IAdditionOperators<TNumber, TNumber, TNumber>
+        {
+            if (n == k)
+            {
+                return TNumber.MultiplicativeIdentity;
+            }
+            if (n == TNumber.AdditiveIdentity || k == TNumber.AdditiveIdentity)
+            {
+                return TNumber.AdditiveIdentity;
+            }
+
+            n--;
+            return n * StirlingNumberFirstKind(n, k) + StirlingNumberFirstKind(n, --k);
+        }
+
+        public static TNumber StirlingNumberSecondKind<TNumber>(TNumber n, TNumber k)
+            where TNumber : IEqualityOperators<TNumber, TNumber, bool>,
+            IMultiplicativeIdentity<TNumber, TNumber>,
+            IAdditiveIdentity<TNumber, TNumber>,
+            IDecrementOperators<TNumber>,
+            IMultiplyOperators<TNumber, TNumber, TNumber>,
+            IAdditionOperators<TNumber, TNumber, TNumber>
+        {
+            if (n == k)
+            {
+                return TNumber.MultiplicativeIdentity;
+            }
+            if (n == TNumber.AdditiveIdentity || k == TNumber.AdditiveIdentity)
+            {
+                return TNumber.AdditiveIdentity;
+            }
+
+            n--;
+            return k * StirlingNumberSecondKind(n, k) + StirlingNumberSecondKind(n, --k);
+        }
+
+        public static TNumber LahnNumber<TNumber>(TNumber n, TNumber k)
+            where TNumber : IEqualityOperators<TNumber, TNumber, bool>,
+            IMultiplicativeIdentity<TNumber, TNumber>,
+            IAdditiveIdentity<TNumber, TNumber>,
+            IDecrementOperators<TNumber>,
+            IMultiplyOperators<TNumber, TNumber, TNumber>,
+            IAdditionOperators<TNumber, TNumber, TNumber>
+        {
+            if (n == k)
+            {
+                return TNumber.MultiplicativeIdentity;
+            }
+            if (n == TNumber.AdditiveIdentity || k == TNumber.AdditiveIdentity)
+            {
+                return TNumber.AdditiveIdentity;
+            }
+
+            n--;
+            return (n + k) * LahnNumber(n, k) + LahnNumber(n, --k);
+        }
     }
 }
