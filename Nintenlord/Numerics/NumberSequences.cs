@@ -22,15 +22,27 @@ namespace Nintenlord.Numerics
             return collection.Sum(T.AdditiveIdentity);
         }
 
-        public static T Sum<T>(this IEnumerable<T> collection, T start)
-            where T : IAdditionOperators<T, T, T>
+        public static TSum Sum<T, TSum>(this IEnumerable<T> collection)
+            where TSum : IAdditiveIdentity<TSum, TSum>
+            where T : IAdditionOperators<T, TSum, TSum>
         {
             if (collection is null)
             {
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            return collection.Aggregate(start, (a, b) => a + b);
+            return collection.Sum(TSum.AdditiveIdentity);
+        }
+
+        public static TSum Sum<T, TSum>(this IEnumerable<T> collection, TSum start)
+            where T : IAdditionOperators<T, TSum, TSum>
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            return collection.Aggregate(start, (a, b) => b + a);
         }
 
         public static T Product<T>(this IEnumerable<T> collection)
@@ -44,15 +56,27 @@ namespace Nintenlord.Numerics
             return collection.Product(T.MultiplicativeIdentity);
         }
 
-        public static T Product<T>(this IEnumerable<T> collection, T start)
-            where T : IMultiplyOperators<T, T, T>
+        public static TProduct Product<T, TProduct>(this IEnumerable<T> collection)
+            where TProduct : IMultiplicativeIdentity<TProduct, TProduct>
+            where T : IMultiplyOperators<T, TProduct, TProduct>
         {
             if (collection is null)
             {
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            return collection.Aggregate(start, (a, b) => a * b);
+            return collection.Product(TProduct.MultiplicativeIdentity);
+        }
+
+        public static TProduct Product<T, TProduct>(this IEnumerable<T> collection, TProduct start)
+            where T : IMultiplyOperators<T, TProduct, TProduct>
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            return collection.Aggregate(start, (a, b) => b * a);
         }
 
         /// <summary>
