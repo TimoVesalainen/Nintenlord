@@ -142,7 +142,7 @@ namespace Nintenlord.Numerics
             var parityMultipliers = TNumber.MultiplicativeIdentity.UnAggregate(item => -item);
 
             return IntegerExtensions.BinomialCoefficientRows<TNumber>().Select(
-                multipliers => multipliers.Zip(parityMultipliers).Zip(series, (t, y) => t.First * t.Second * y).Sum());
+                multipliers => multipliers.Zip(parityMultipliers, series, (m, p, s) => p * m * s).Sum());
         }
     }
 }
