@@ -80,6 +80,7 @@ namespace Nintenlord.Numerics
         }
 
         /// <summary>
+        /// For geometric series, produces constant sequence.
         /// For convergent sequences, produces sequence that converges faster.
         /// For divergent sequences, prodduces convergent series.
         /// </summary>
