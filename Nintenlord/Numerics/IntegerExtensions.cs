@@ -187,7 +187,7 @@ namespace Nintenlord.Numerics
             return k * StirlingNumberSecondKind(n, k) + StirlingNumberSecondKind(n, --k);
         }
 
-        public static TNumber LahnNumber<TNumber>(TNumber n, TNumber k)
+        public static TNumber LahNumber<TNumber>(TNumber n, TNumber k)
             where TNumber : IEqualityOperators<TNumber, TNumber, bool>,
             IMultiplicativeIdentity<TNumber, TNumber>,
             IAdditiveIdentity<TNumber, TNumber>,
@@ -205,7 +205,7 @@ namespace Nintenlord.Numerics
             }
 
             n--;
-            return (n + k) * LahnNumber(n, k) + LahnNumber(n, --k);
+            return (n + k) * LahNumber(n, k) + LahNumber(n, --k);
         }
     }
 }
