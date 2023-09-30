@@ -682,6 +682,28 @@ namespace Nintenlord.Collections
             return ScanInner();
         }
 
+        public static IEnumerable<T> UnAggregate<TState, T>(this TState item, Func<TState, (TState, T)> unScanner)
+        {
+            ArgumentNullException.ThrowIfNull(unScanner);
+
+            IEnumerable<T> ScanInner()
+            {
+                var state = item;
+                while (true)
+                {
+                    var (newState, item) = unScanner(state);
+                    yield return item;
+                    state = newState;
+                }
+            }
+
+            return ScanInner();
+        }
+        public static IEnumerable<T> UnAggregate<T>(this T item, Func<T, T> unScanner)
+        {
+            return Iterate(unScanner, item);
+        }
+
         public static IEnumerable<(T current, T next)> GetSequentialPairs<T>(this IEnumerable<T> items)
         {
             return items.GetSequential2s();
