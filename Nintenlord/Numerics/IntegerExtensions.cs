@@ -137,5 +137,12 @@ namespace Nintenlord.Numerics
                 .Select(k => (n + TNumber.MultiplicativeIdentity - k, k))
                 .Scan(TNumber.MultiplicativeIdentity, (acc, tuple) => acc * tuple.Item1 / tuple.k);
         }
+
+        public static IEnumerable<IEnumerable<TNumber>> BinomialCoefficientRows<TNumber>()
+            where TNumber : IAdditionOperators<TNumber, TNumber, TNumber>,
+            IMultiplicativeIdentity<TNumber, TNumber>
+        {
+            return BinomialCoefficientRowEnumerable<TNumber>.Instance;
+        }
     }
 }
