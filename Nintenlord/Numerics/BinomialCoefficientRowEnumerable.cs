@@ -40,11 +40,18 @@ namespace Nintenlord.Numerics
 
             public bool MoveNext()
             {
-                cache2.Clear();
-                cache2.Add(TNumber.MultiplicativeIdentity);
-                cache2.AddRange(cache1.GetSequentialPairs().Select(t => t.current + t.next));
-                cache2.Add(TNumber.MultiplicativeIdentity);
-                (cache2, cache1) = (cache1, cache2);
+                if (cache1.Count == 0)
+                {
+                    cache1.Add(TNumber.MultiplicativeIdentity);
+                }
+                else
+                {
+                    cache2.Clear();
+                    cache2.Add(TNumber.MultiplicativeIdentity);
+                    cache2.AddRange(cache1.GetSequentialPairs().Select(t => t.current + t.next));
+                    cache2.Add(TNumber.MultiplicativeIdentity);
+                    (cache2, cache1) = (cache1, cache2);
+                }
                 return true;
             }
 
