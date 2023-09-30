@@ -1,4 +1,5 @@
 ﻿using Nintenlord.Collections.EqualityComparer;
+using Nintenlord.Numerics;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;

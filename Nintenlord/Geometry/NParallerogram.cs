@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using Nintenlord.Collections;
+using Nintenlord.Numerics;
 
 namespace Nintenlord.Geometry
 {
