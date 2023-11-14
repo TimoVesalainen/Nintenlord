@@ -926,5 +926,45 @@ namespace Nintenlord.Collections
             var indexDistribution = DiscreteUniformDistribution.Create(0, count - 1);
             return DiscreteDistribution<T>.Create(indexDistribution, items);
         }
+
+        public static IEnumerable<IEnumerable<T>> GetPrefixes<T>(this IEnumerable<T> items)
+        {
+            if (items.TryGetNonEnumeratedCount(out var count))
+            {
+                for (int i = 0; i <= count; i++)
+                {
+                    yield return items.Take(i);
+                }
+            }
+            else
+            {
+                for (int i = 0; i <= int.MaxValue; i++)
+                {
+                    bool reachedEnd = true;
+
+                    IEnumerable<T> Prefix()
+                    {
+                        int j = 0;
+                        foreach (var item in items)
+                        {
+                            yield return item;
+                            j++;
+                            if (j == i)
+                            {
+                                reachedEnd = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    yield return Prefix();
+
+                    if (reachedEnd)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
