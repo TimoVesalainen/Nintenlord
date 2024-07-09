@@ -124,5 +124,25 @@ namespace Nintenlord.Tests.Collections
                     toTest.GetSequential3s().GetNth(i).Enumerate().GetNth(2));
             }
         }
+
+        [TestCase(1,2)]
+        [TestCase(2, 6)]
+        [TestCase(6, 3)]
+        [TestCase(0, 3)]
+        [TestCase(6, 0)]
+        public void TestCartesianProduct(int length1, int length2)
+        {
+            var array1 = Enumerable.Range(0, length1);
+            var array2 = Enumerable.Range(0, length2);
+
+            var product = new[] { array1, array2 }.CartesianProduct();
+
+            Assert.AreEqual(length1 * length2, product.Count());
+
+            foreach (var item in product)
+            {
+                Assert.AreEqual(item.Count(), 2);
+            }
+        }
     }
 }
