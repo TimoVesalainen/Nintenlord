@@ -309,18 +309,25 @@ namespace Nintenlord.Distributions
             {
                 return SingletonDistribution<T[]>.Create(Enumerable.Repeat(singleton.Value, amount).ToArray());
             }
-            else if (amount == 1)
+            else if (distribution is IDiscreteDistribution<T> discrete)
             {
-                return distribution.Select(item => new[] { item });
-            }
-            else if (amount == 2)
-            {
-                return from first in distribution
-                       from second in distribution
-                       select new[] { first, second };
+                return ArrayDiscreteDistribution(discrete, amount, comparer ?? EqualityComparer<T>.Default);
             }
 
             return new ArrayDistribution<T>(distribution, amount);
+        }
+
+        private static IDistribution<T[]> ArrayDiscreteDistribution<T>(IDiscreteDistribution<T> distribution, int amount, IEqualityComparer<T> comparer)
+        {
+            var arrayComparer = comparer.ToArrayComparer();
+
+            var groups = Enumerable.Repeat(distribution.Support(), amount)
+                .CartesianProduct()
+                .Select(x => (key: x.ToArray(), sum: x.Select(distribution.Weight).Product()));
+
+            var gcd = groups.Select(x => x.sum).GreatestCommonDivisor();
+
+            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution(arrayComparer);
         }
 
         // TODO: Add selector IEnumerable<T> => TOut
