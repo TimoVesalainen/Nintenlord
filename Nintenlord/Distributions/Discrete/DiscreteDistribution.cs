@@ -51,7 +51,7 @@ namespace Nintenlord.Distributions.Discrete
             return new DiscreteDistribution<T>(underlying, itemsArray, weightDictionary);
         }
 
-        public DiscreteDistribution(IDiscreteDistribution<int> underlying, T[] items, Dictionary<T, int> weights)
+        private DiscreteDistribution(IDiscreteDistribution<int> underlying, T[] items, Dictionary<T, int> weights)
         {
             this.underlying = underlying ?? throw new ArgumentNullException(nameof(underlying));
             this.items = items ?? throw new ArgumentNullException(nameof(items));
