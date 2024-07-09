@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Nintenlord.Distributions
+namespace Nintenlord.Distributions.Combinatorics
 {
-    public sealed class ArrayDistribution<T> : IDistribution<T[]>
+    sealed class ArrayDistribution<T> : IDistribution<T[]>
     {
         readonly IDistribution<T> distribution;
         readonly int length;
