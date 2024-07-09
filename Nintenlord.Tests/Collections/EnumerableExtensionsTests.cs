@@ -125,7 +125,7 @@ namespace Nintenlord.Tests.Collections
             }
         }
 
-        [TestCase(1,2)]
+        [TestCase(1, 2)]
         [TestCase(2, 6)]
         [TestCase(6, 3)]
         [TestCase(0, 3)]
