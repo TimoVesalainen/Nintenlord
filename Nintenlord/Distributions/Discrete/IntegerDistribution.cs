@@ -128,5 +128,10 @@ namespace Nintenlord.Distributions.Discrete
             }
             return 0;
         }
+
+        public override string ToString()
+        {
+            return $"{string.Join(", ", weights.Select((weight, value) => $"({value}, weight {weight})"))}";
+        }
     }
 }
