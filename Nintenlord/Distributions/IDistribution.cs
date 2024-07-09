@@ -4,7 +4,9 @@ using Nintenlord.Collections.EqualityComparer;
 using Nintenlord.Distributions.Combinatorics;
 using Nintenlord.Distributions.Discrete;
 using Nintenlord.Numerics;
+using Nintenlord.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -319,6 +321,47 @@ namespace Nintenlord.Distributions
             }
 
             return new ArrayDistribution<T>(distribution, amount);
+        }
+
+        // TODO: Add selector IEnumerable<T> => TOut
+        public static IDistribution<IEnumerable<T>> Distributions<T>(
+          this IEnumerable<IDistribution<T>> distributions)
+        {
+            if (distributions is null)
+            {
+                throw new ArgumentNullException(nameof(distributions));
+            }
+
+            if (!distributions.Any())
+            {
+                return SingletonDistribution<IEnumerable<T>>.Create(Enumerable.Empty<T>());
+            }
+            else if (distributions.Any(x => x is EmptyDistribution<T>))
+            {
+                return EmptyDistribution<T[]>.Instance;
+            }
+            else if (distributions.All(x => x is SingletonDistribution<T>))
+            {
+                return SingletonDistribution<IEnumerable<T>>.Create(distributions.Select(x => (x as SingletonDistribution<T>).Value));
+            }
+            else if (distributions.All(x => x is IDiscreteDistribution<T>))
+            {
+                return DiscreteDistributions(distributions.Cast<IDiscreteDistribution<T>>());
+            }
+
+            return new Distributions<T>(distributions);
+        }
+
+        // TODO: Add selector IEnumerable<T> => TOut
+        private static IDiscreteDistribution<IEnumerable<T>> DiscreteDistributions<T>(this IEnumerable<IDiscreteDistribution<T>> distributions)
+        {
+            var groups = distributions.Select(d => d.Support())
+                .CartesianProduct()
+                .Select(array => (key: array, sum: array.Zip(distributions, (item, dis) => dis.Weight(item)).Product()));
+
+            var gcd = groups.Select(x => x.sum).GreatestCommonDivisor();
+
+            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution();
         }
     }
 }
