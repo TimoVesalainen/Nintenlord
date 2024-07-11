@@ -392,7 +392,7 @@ namespace Nintenlord.Distributions
         }
 
         // TODO: Add selector IEnumerable<T> => TOut
-        private static IDiscreteDistribution<IEnumerable<T>> DiscreteDistributions<T>(this IEnumerable<IDiscreteDistribution<T>> distributions)
+        private static IDiscreteDistribution<IEnumerable<T>> DiscreteDistributions<T>(this IEnumerable<IDiscreteDistribution<T>> distributions, IEqualityComparer<T> comparer)
         {
             var groups = distributions.Select(d => d.Support())
                 .CartesianProduct()
@@ -400,7 +400,7 @@ namespace Nintenlord.Distributions
 
             var gcd = groups.Select(x => x.sum).GreatestCommonDivisor();
 
-            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution();
+            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution(comparer.ToEnumerableComparer());
         }
     }
 }
