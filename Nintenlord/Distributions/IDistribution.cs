@@ -308,7 +308,7 @@ namespace Nintenlord.Distributions
             }
             else if (distribution is SingletonDistribution<T> singleton)
             {
-                return SingletonDistribution<T[]>.Create(Enumerable.Repeat(singleton.Value, amount).ToArray());
+                return SingletonDistribution<T[]>.Create(Enumerable.Repeat(singleton.Value, amount).ToArray(), comparer?.ToArrayComparer());
             }
             else if (distribution is IDiscreteDistribution<T> discrete)
             {
