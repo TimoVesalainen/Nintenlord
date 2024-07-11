@@ -283,6 +283,7 @@ namespace Nintenlord.Distributions
                    select comparer.Min(sample1, sample2);
         }
 
+        private const int TEMP = 1000;
 
         public static IDistribution<T[]> ArrayDistribution<T>(
           this IDistribution<T> distribution, int amount, IEqualityComparer<T> comparer = null)
@@ -311,7 +312,15 @@ namespace Nintenlord.Distributions
             }
             else if (distribution is IDiscreteDistribution<T> discrete)
             {
-                return ArrayDiscreteDistribution(discrete, amount, comparer ?? EqualityComparer<T>.Default);
+                if (discrete.Support().TryGetNonEnumeratedCount(out var count) && Math.Pow(count, amount) < TEMP)
+                {
+                    return ArrayDiscreteDistribution(discrete, amount, comparer ?? EqualityComparer<T>.Default);
+                }
+                else
+                {
+                    return new ArrayDiscreteDistributions<T>(discrete, amount);
+                }
+
             }
 
             return new ArrayDistribution<T>(distribution, amount);
@@ -332,7 +341,7 @@ namespace Nintenlord.Distributions
 
         // TODO: Add selector IEnumerable<T> => TOut
         public static IDistribution<IEnumerable<T>> Distributions<T>(
-          this IEnumerable<IDistribution<T>> distributions)
+          this IEnumerable<IDistribution<T>> distributions, IEqualityComparer<T> comparer = null)
         {
             if (distributions is null)
             {
@@ -353,7 +362,30 @@ namespace Nintenlord.Distributions
             }
             else if (distributions.All(x => x is IDiscreteDistribution<T>))
             {
-                return DiscreteDistributions(distributions.Cast<IDiscreteDistribution<T>>());
+                var casts = distributions.Cast<IDiscreteDistribution<T>>();
+                int supportSize = 1;
+                foreach (var cast in casts)
+                {
+                    if (cast.Support().TryGetNonEnumeratedCount(out var count))
+                    {
+                        supportSize *= count;
+                    }
+                    else
+                    {
+                        supportSize = 0;
+                        break;
+                    }
+                }
+
+                if (supportSize > 0 && supportSize < TEMP)
+                {
+                    return DiscreteDistributions(distributions.Cast<IDiscreteDistribution<T>>(),
+                        comparer ?? EqualityComparer<T>.Default);
+                }
+                else
+                {
+                    return new DiscreteDistributions<T>(casts);
+                }
             }
 
             return new Distributions<T>(distributions);
