@@ -283,7 +283,7 @@ namespace Nintenlord.Distributions
                    select comparer.Min(sample1, sample2);
         }
 
-        private const int TEMP = 1000;
+        private const int MAX_SIZE_DISCRETE_DISTRIBUTION = 1000;
 
         public static IDistribution<T[]> ArrayDistribution<T>(
           this IDistribution<T> distribution, int amount, IEqualityComparer<T> comparer = null)
@@ -312,7 +312,7 @@ namespace Nintenlord.Distributions
             }
             else if (distribution is IDiscreteDistribution<T> discrete)
             {
-                if (discrete.Support().TryGetNonEnumeratedCount(out var count) && Math.Pow(count, amount) < TEMP)
+                if (discrete.Support().TryGetNonEnumeratedCount(out var count) && Math.Pow(count, amount) < MAX_SIZE_DISCRETE_DISTRIBUTION)
                 {
                     return ArrayDiscreteDistribution(discrete, amount, comparer ?? EqualityComparer<T>.Default);
                 }
@@ -377,7 +377,7 @@ namespace Nintenlord.Distributions
                     }
                 }
 
-                if (supportSize > 0 && supportSize < TEMP)
+                if (supportSize > 0 && supportSize < MAX_SIZE_DISCRETE_DISTRIBUTION)
                 {
                     return DiscreteDistributions(distributions.Cast<IDiscreteDistribution<T>>(),
                         comparer ?? EqualityComparer<T>.Default);
