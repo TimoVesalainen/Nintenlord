@@ -14,9 +14,9 @@ namespace Nintenlord.Distributions
 
         private static readonly ConcurrentDictionary<T, SingletonDistribution<T>> cache = new();
 
-        public static SingletonDistribution<T> Create(T value)
+        public static SingletonDistribution<T> Create(T value, IEqualityComparer<T> comparer = null)
         {
-            return cache.GetOrAdd(value, x => new SingletonDistribution<T>(x, EqualityComparer<T>.Default));
+            return cache.GetOrAdd(value, x => new SingletonDistribution<T>(x, comparer ?? EqualityComparer<T>.Default));
         }
 
         public SingletonDistribution(T value, IEqualityComparer<T> comparer)
