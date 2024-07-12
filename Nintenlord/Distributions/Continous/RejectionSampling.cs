@@ -8,6 +8,13 @@ namespace Nintenlord.Distributions.Continous
         readonly IContinousDistribution<T> source;
         readonly double epsilon;
 
+        public RejectionSampling(Func<T, double> density, IContinousDistribution<T> source, double epsilon)
+        {
+            this.density = density ?? throw new ArgumentNullException(nameof(density));
+            this.source = source ?? throw new ArgumentNullException(nameof(source));
+            this.epsilon = epsilon;
+        }
+
         public double Density(T item)
         {
             return density(item);

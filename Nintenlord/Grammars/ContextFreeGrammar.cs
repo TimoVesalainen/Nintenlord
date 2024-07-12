@@ -16,6 +16,14 @@ namespace Nintenlord.Grammars
         public IEnumerable<T> Variables => variables;
         public IEnumerable<T> Terminals => terminals;
 
+        public ContextFreeGrammar(IDictionary<T, T[][]> productions, T startingSymbol, T[] variables, T[] terminals)
+        {
+            this.productions = productions ?? throw new ArgumentNullException(nameof(productions));
+            this.startingSymbol = startingSymbol;
+            this.variables = variables ?? throw new ArgumentNullException(nameof(variables));
+            this.terminals = terminals ?? throw new ArgumentNullException(nameof(terminals));
+        }
+
         public T[] DeriveRandom(Random random)
         {
             List<T> word = new List<T>(20) { startingSymbol };

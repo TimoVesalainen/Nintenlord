@@ -9,6 +9,12 @@ namespace Nintenlord.StateMachines
 
         public (TState1, TState2) StartState => (outerStateMachine.StartState, innerStateMachine(outerStateMachine.StartState).StartState);
 
+        public SelectManyStateMachine(IStateMachine<TState1, TInput> outerStateMachine, Func<TState1, IStateMachine<TState2, TInput>> innerStateMachine)
+        {
+            this.outerStateMachine = outerStateMachine ?? throw new ArgumentNullException(nameof(outerStateMachine));
+            this.innerStateMachine = innerStateMachine ?? throw new ArgumentNullException(nameof(innerStateMachine));
+        }
+
         public bool IsFinalState((TState1, TState2) state)
         {
             return outerStateMachine.IsFinalState(state.Item1) &&
