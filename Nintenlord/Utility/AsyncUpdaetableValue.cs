@@ -34,7 +34,7 @@ namespace Nintenlord.Utility
 
         public static implicit operator AsyncUpdaetableValue<T>(T item)
         {
-            return new AsyncUpdaetableValue<T>(async () => item, item);
+            return new AsyncUpdaetableValue<T>(() => Task.FromResult(item), item);
         }
     }
 }
