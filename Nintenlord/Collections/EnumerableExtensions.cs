@@ -514,6 +514,28 @@ namespace Nintenlord.Collections
             }
         }
 
+        public static IEnumerable<T> ConcatInfinite<T>(this IEnumerable<T> collection, T item)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            IEnumerable<T> Result()
+            {
+                foreach (var itemPrefix in collection)
+                {
+                    yield return itemPrefix;
+                }
+                while (true)
+                {
+                    yield return item;
+                }
+            }
+
+            return Result();
+        }
+
         public static IEnumerable<T> Flatten<T, TEnumarable>(this IEnumerable<TEnumarable> collection)
             where TEnumarable : IEnumerable<T>
         {
