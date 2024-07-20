@@ -554,6 +554,16 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> collection, params T[] args)
         {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            if (args is null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
             return collection.Concat((IEnumerable<T>)args);
         }
 
