@@ -12,6 +12,8 @@ namespace Nintenlord.Distributions.Discrete
 
         public int Count { get; }
 
+        int IDiscreteDistribution<int>.SupportCount => Count;
+
         private readonly IDiscreteDistribution<int> dist;
 
         public BinomialDistribution(int successWeight, int failureWeight, int count)

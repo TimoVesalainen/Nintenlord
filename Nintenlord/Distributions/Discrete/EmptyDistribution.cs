@@ -10,6 +10,8 @@ namespace Nintenlord.Distributions.Discrete
 
         private EmptyDistribution() { }
 
+        public int SupportCount => 0;
+
         public T Sample()
         {
             throw new InvalidOperationException("Cannot sample empty distribution");

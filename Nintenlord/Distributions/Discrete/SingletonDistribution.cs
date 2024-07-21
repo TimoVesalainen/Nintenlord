@@ -10,6 +10,8 @@ namespace Nintenlord.Distributions
     {
         public T Value { get; }
 
+        public int SupportCount => 1;
+
         private readonly IEqualityComparer<T> comparer;
 
         private static readonly ConcurrentDictionary<T, SingletonDistribution<T>> cache = new();

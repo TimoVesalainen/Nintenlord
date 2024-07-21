@@ -11,6 +11,8 @@ namespace Nintenlord.Distributions.Discrete
         private readonly IDistribution<int>[] distributions;
         private readonly int[] weights;
 
+        public int SupportCount { get; }
+
         private IntegerDistribution(IDistribution<int>[] distributions, int[] weights)
         {
             if (distributions.Length != weights.Length)
@@ -20,6 +22,7 @@ namespace Nintenlord.Distributions.Discrete
             this.distributionDistribution = DiscreteUniformDistribution.Create(0, weights.Length - 1);
             this.distributions = distributions ?? throw new ArgumentNullException(nameof(distributions));
             this.weights = weights ?? throw new ArgumentNullException(nameof(weights));
+            SupportCount = weights.Where(weight => weight > 0).Count();
         }
 
         public static IDiscreteDistribution<int> Create(IEnumerable<int> weights)

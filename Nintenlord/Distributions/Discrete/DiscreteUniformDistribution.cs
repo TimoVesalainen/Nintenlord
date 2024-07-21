@@ -11,6 +11,8 @@ namespace Nintenlord.Distributions.Discrete
         public int Min { get; }
         public int Max { get; }
 
+        public int SupportCount => Max - Min + 1;
+
         public static IDiscreteDistribution<int> Create(int min, int max)
         {
             if (min > max)

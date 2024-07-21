@@ -19,7 +19,10 @@ namespace Nintenlord.Distributions.Discrete
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
             this.count = count;
+            SupportCount = (int)Math.Pow(distribution.SupportCount, count);
         }
+
+        public int SupportCount { get; }
 
         public T[] Sample()
         {

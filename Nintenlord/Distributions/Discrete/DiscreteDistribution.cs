@@ -12,6 +12,8 @@ namespace Nintenlord.Distributions.Discrete
         private readonly T[] items;
         private readonly Dictionary<T, int> weights;
 
+        public int SupportCount => weights.Keys.Count;
+
         public static IDiscreteDistribution<T> Create(
             IDiscreteDistribution<int> underlying,
             IEnumerable<T> items,

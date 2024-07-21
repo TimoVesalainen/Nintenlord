@@ -312,7 +312,7 @@ namespace Nintenlord.Distributions
             }
             else if (distribution is IDiscreteDistribution<T> discrete)
             {
-                if (discrete.Support().TryGetNonEnumeratedCount(out var count) && Math.Pow(count, amount) < MAX_SIZE_DISCRETE_DISTRIBUTION)
+                if (Math.Pow(discrete.SupportCount, amount) < MAX_SIZE_DISCRETE_DISTRIBUTION)
                 {
                     return ArrayDiscreteDistribution(discrete, amount, comparer ?? EqualityComparer<T>.Default);
                 }
@@ -363,19 +363,7 @@ namespace Nintenlord.Distributions
             else if (distributions.All(x => x is IDiscreteDistribution<T>))
             {
                 var casts = distributions.Cast<IDiscreteDistribution<T>>();
-                int supportSize = 1;
-                foreach (var cast in casts)
-                {
-                    if (cast.Support().TryGetNonEnumeratedCount(out var count))
-                    {
-                        supportSize *= count;
-                    }
-                    else
-                    {
-                        supportSize = 0;
-                        break;
-                    }
-                }
+                int supportSize = casts.Select(dist => dist.SupportCount).Product();
 
                 if (supportSize > 0 && supportSize < MAX_SIZE_DISCRETE_DISTRIBUTION)
                 {

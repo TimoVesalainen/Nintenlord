@@ -68,6 +68,8 @@ namespace Nintenlord.Distributions.Discrete
             return Enumerable.Range(0, 2);
         }
 
+        public int SupportCount => 2;
+
         public int Weight(int t)
         {
             return t switch

@@ -13,7 +13,10 @@ namespace Nintenlord.Distributions.Discrete
         public DiscreteDistributions(IEnumerable<IDiscreteDistribution<T>> distributions)
         {
             this.distributions = distributions?.ToArray() ?? throw new ArgumentNullException(nameof(distributions));
+            SupportCount = distributions.Select(dist => dist.SupportCount).Product();
         }
+
+        public int SupportCount { get; }
 
         public IEnumerable<T> Sample()
         {

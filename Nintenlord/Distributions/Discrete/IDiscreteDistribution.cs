@@ -7,6 +7,8 @@ namespace Nintenlord.Distributions.Discrete
 {
     public interface IDiscreteDistribution<T> : IDistribution<T>
     {
+        int SupportCount { get; }
+
         IEnumerable<T> Support();
 
         int Weight(T item);
