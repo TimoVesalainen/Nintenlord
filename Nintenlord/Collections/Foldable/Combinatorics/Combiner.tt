@@ -52,6 +52,22 @@ for (int i = 2; i < 8; i++)
             return (<#= string.Join(", ", folderNames.Zip(stateNames, (folder, state) => $"{folder}.Fold({state}, input)")) #>);
         }
 
+        public ((<#= string.Join(", ", stateTypes) #>) state, bool skipRest) FoldMayEnd((<#= string.Join(", ", stateTypes) #>) state, TIn input)
+        {
+            var (<#= string.Join(", ", stateNames) #>) = state;
+<#
+    foreach(var (folderName, j) in folderNames.Select((x, j) => (x, j)))
+    {
+#>
+            var (newState<#= j #>, skipRest<#= j #>) = <#= folderName #>.FoldMayEnd(state<#= j #>, input);
+<#
+    }
+#>
+            var newState = (<#= string.Join(", ", Enumerable.Range(0, i).Select((index) => $"newState{index}")) #>);
+            var skipRest = <#= string.Join(" && ", Enumerable.Range(0, i).Select((index) => $"skipRest{index}")) #>;
+            return (newState, skipRest);
+        }
+
         public TOut Transform((<#= string.Join(", ", stateTypes) #>) state)
         {
             var (<#= string.Join(", ", stateNames) #>) = state;

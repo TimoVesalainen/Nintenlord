@@ -24,6 +24,16 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             return (folder0.Fold(state0, input), folder1.Fold(state1, input));
         }
 
+        public ((TState0, TState1) state, bool skipRest) FoldMayEnd((TState0, TState1) state, TIn input)
+        {
+            var (state0, state1) = state;
+            var (newState0, skipRest0) = folder0.FoldMayEnd(state0, input);
+            var (newState1, skipRest1) = folder1.FoldMayEnd(state1, input);
+            var newState = (newState0, newState1);
+            var skipRest = skipRest0 && skipRest1;
+            return (newState, skipRest);
+        }
+
         public TOut Transform((TState0, TState1) state)
         {
             var (state0, state1) = state;
@@ -53,6 +63,17 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             var (state0, state1, state2) = state;
 
             return (folder0.Fold(state0, input), folder1.Fold(state1, input), folder2.Fold(state2, input));
+        }
+
+        public ((TState0, TState1, TState2) state, bool skipRest) FoldMayEnd((TState0, TState1, TState2) state, TIn input)
+        {
+            var (state0, state1, state2) = state;
+            var (newState0, skipRest0) = folder0.FoldMayEnd(state0, input);
+            var (newState1, skipRest1) = folder1.FoldMayEnd(state1, input);
+            var (newState2, skipRest2) = folder2.FoldMayEnd(state2, input);
+            var newState = (newState0, newState1, newState2);
+            var skipRest = skipRest0 && skipRest1 && skipRest2;
+            return (newState, skipRest);
         }
 
         public TOut Transform((TState0, TState1, TState2) state)
@@ -88,6 +109,18 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             return (folder0.Fold(state0, input), folder1.Fold(state1, input), folder2.Fold(state2, input), folder3.Fold(state3, input));
         }
 
+        public ((TState0, TState1, TState2, TState3) state, bool skipRest) FoldMayEnd((TState0, TState1, TState2, TState3) state, TIn input)
+        {
+            var (state0, state1, state2, state3) = state;
+            var (newState0, skipRest0) = folder0.FoldMayEnd(state0, input);
+            var (newState1, skipRest1) = folder1.FoldMayEnd(state1, input);
+            var (newState2, skipRest2) = folder2.FoldMayEnd(state2, input);
+            var (newState3, skipRest3) = folder3.FoldMayEnd(state3, input);
+            var newState = (newState0, newState1, newState2, newState3);
+            var skipRest = skipRest0 && skipRest1 && skipRest2 && skipRest3;
+            return (newState, skipRest);
+        }
+
         public TOut Transform((TState0, TState1, TState2, TState3) state)
         {
             var (state0, state1, state2, state3) = state;
@@ -121,6 +154,19 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             var (state0, state1, state2, state3, state4) = state;
 
             return (folder0.Fold(state0, input), folder1.Fold(state1, input), folder2.Fold(state2, input), folder3.Fold(state3, input), folder4.Fold(state4, input));
+        }
+
+        public ((TState0, TState1, TState2, TState3, TState4) state, bool skipRest) FoldMayEnd((TState0, TState1, TState2, TState3, TState4) state, TIn input)
+        {
+            var (state0, state1, state2, state3, state4) = state;
+            var (newState0, skipRest0) = folder0.FoldMayEnd(state0, input);
+            var (newState1, skipRest1) = folder1.FoldMayEnd(state1, input);
+            var (newState2, skipRest2) = folder2.FoldMayEnd(state2, input);
+            var (newState3, skipRest3) = folder3.FoldMayEnd(state3, input);
+            var (newState4, skipRest4) = folder4.FoldMayEnd(state4, input);
+            var newState = (newState0, newState1, newState2, newState3, newState4);
+            var skipRest = skipRest0 && skipRest1 && skipRest2 && skipRest3 && skipRest4;
+            return (newState, skipRest);
         }
 
         public TOut Transform((TState0, TState1, TState2, TState3, TState4) state)
@@ -160,6 +206,20 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             return (folder0.Fold(state0, input), folder1.Fold(state1, input), folder2.Fold(state2, input), folder3.Fold(state3, input), folder4.Fold(state4, input), folder5.Fold(state5, input));
         }
 
+        public ((TState0, TState1, TState2, TState3, TState4, TState5) state, bool skipRest) FoldMayEnd((TState0, TState1, TState2, TState3, TState4, TState5) state, TIn input)
+        {
+            var (state0, state1, state2, state3, state4, state5) = state;
+            var (newState0, skipRest0) = folder0.FoldMayEnd(state0, input);
+            var (newState1, skipRest1) = folder1.FoldMayEnd(state1, input);
+            var (newState2, skipRest2) = folder2.FoldMayEnd(state2, input);
+            var (newState3, skipRest3) = folder3.FoldMayEnd(state3, input);
+            var (newState4, skipRest4) = folder4.FoldMayEnd(state4, input);
+            var (newState5, skipRest5) = folder5.FoldMayEnd(state5, input);
+            var newState = (newState0, newState1, newState2, newState3, newState4, newState5);
+            var skipRest = skipRest0 && skipRest1 && skipRest2 && skipRest3 && skipRest4 && skipRest5;
+            return (newState, skipRest);
+        }
+
         public TOut Transform((TState0, TState1, TState2, TState3, TState4, TState5) state)
         {
             var (state0, state1, state2, state3, state4, state5) = state;
@@ -197,6 +257,21 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             var (state0, state1, state2, state3, state4, state5, state6) = state;
 
             return (folder0.Fold(state0, input), folder1.Fold(state1, input), folder2.Fold(state2, input), folder3.Fold(state3, input), folder4.Fold(state4, input), folder5.Fold(state5, input), folder6.Fold(state6, input));
+        }
+
+        public ((TState0, TState1, TState2, TState3, TState4, TState5, TState6) state, bool skipRest) FoldMayEnd((TState0, TState1, TState2, TState3, TState4, TState5, TState6) state, TIn input)
+        {
+            var (state0, state1, state2, state3, state4, state5, state6) = state;
+            var (newState0, skipRest0) = folder0.FoldMayEnd(state0, input);
+            var (newState1, skipRest1) = folder1.FoldMayEnd(state1, input);
+            var (newState2, skipRest2) = folder2.FoldMayEnd(state2, input);
+            var (newState3, skipRest3) = folder3.FoldMayEnd(state3, input);
+            var (newState4, skipRest4) = folder4.FoldMayEnd(state4, input);
+            var (newState5, skipRest5) = folder5.FoldMayEnd(state5, input);
+            var (newState6, skipRest6) = folder6.FoldMayEnd(state6, input);
+            var newState = (newState0, newState1, newState2, newState3, newState4, newState5, newState6);
+            var skipRest = skipRest0 && skipRest1 && skipRest2 && skipRest3 && skipRest4 && skipRest5 && skipRest6;
+            return (newState, skipRest);
         }
 
         public TOut Transform((TState0, TState1, TState2, TState3, TState4, TState5, TState6) state)
