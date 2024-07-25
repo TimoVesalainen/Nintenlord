@@ -13,7 +13,7 @@ namespace Nintenlord.Collections.Foldable
 
         public bool Start => false;
 
-        public (bool state, bool skipRest) FoldMaybe(bool state, T input)
+        public (bool state, bool skipRest) FoldMayEnd(bool state, T input)
         {
             var newState = state || predicate(input);
 

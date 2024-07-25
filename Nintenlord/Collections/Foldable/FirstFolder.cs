@@ -16,7 +16,7 @@ namespace Nintenlord.Collections.Foldable
 
         public Maybe<T> Start => Maybe<T>.Nothing;
 
-        public (Maybe<T> state, bool skipRest) FoldMaybe(Maybe<T> state, T input)
+        public (Maybe<T> state, bool skipRest) FoldMayEnd(Maybe<T> state, T input)
         {
             if (state.HasValue)
             {

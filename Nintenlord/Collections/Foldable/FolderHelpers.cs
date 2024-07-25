@@ -13,7 +13,7 @@ namespace Nintenlord.Collections.Foldable
             var state = folder.Start;
             foreach (var item in enumerable)
             {
-                var (newState, skipRest) = folder.FoldMaybe(state, item);
+                var (newState, skipRest) = folder.FoldMayEnd(state, item);
 
                 if (skipRest)
                 {
@@ -35,7 +35,7 @@ namespace Nintenlord.Collections.Foldable
 
             await foreach (var item in enumerable)
             {
-                var (newState, skipRest) = folder.FoldMaybe(state, item);
+                var (newState, skipRest) = folder.FoldMayEnd(state, item);
 
                 if (skipRest)
                 {

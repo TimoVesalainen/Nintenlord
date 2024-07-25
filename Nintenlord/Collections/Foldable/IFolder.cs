@@ -9,7 +9,7 @@
 
         TState Fold(TState state, TIn input)
         {
-            var (newState, _) = FoldMaybe(state, input);
+            var (newState, _) = FoldMayEnd(state, input);
             return newState;
         }
 
@@ -17,7 +17,7 @@
         /// Fold method that allows early exit for folding.
         /// </summary>
         /// <returns>result.skipRest == true if for all inputs, result.state == Fold(result.state, input)</returns>
-        (TState state, bool skipRest) FoldMaybe(TState state, TIn input)
+        (TState state, bool skipRest) FoldMayEnd(TState state, TIn input)
         {
             return (Fold(state, input), false);
         }

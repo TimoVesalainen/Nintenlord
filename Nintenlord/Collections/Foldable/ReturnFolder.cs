@@ -21,7 +21,7 @@ namespace Nintenlord.Collections.Foldable
 
         public Unit Start => Unit.Default;
 
-        public (Unit state, bool skipRest) FoldMaybe(Unit state, TIn input)
+        public (Unit state, bool skipRest) FoldMayEnd(Unit state, TIn input)
         {
             return (state, true);
         }

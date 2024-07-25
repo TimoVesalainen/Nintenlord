@@ -8,7 +8,7 @@
 
         public bool Start => true;
 
-        public (bool state, bool skipRest) FoldMaybe(bool state, T input)
+        public (bool state, bool skipRest) FoldMayEnd(bool state, T input)
         {
             return (false, true);
         }
