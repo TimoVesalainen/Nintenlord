@@ -59,13 +59,13 @@ namespace Nintenlord.Collections.Foldable
             comparer ??= EqualityComparer<T>.Default;
             return new(comparer.GetPredicate(item));
         }
-        public static FindFolder<T> Find<T>(Predicate<T> predicate) => new(predicate);
+        public static FirstFolder<T> Find<T>(Predicate<T> predicate) => new(predicate);
         public static FirstIndexOfFolder<T> FirstIndexOf<T>(Predicate<T> predicate) => new(predicate);
         public static LastIndexOfFolder<T> LastIndexOf<T>(Predicate<T> predicate) => new(predicate);
         public static IFolder<(TKey, TValue), Maybe<(TKey, TValue)>, Maybe<TValue>> LookUp<TKey, TValue>(TKey key, IEqualityComparer<TKey> comparer = null)
         {
             comparer ??= EqualityComparer<TKey>.Default;
-            return new FindFolder<(TKey, TValue)>(pair => comparer.Equals(key, pair.Item1)).Select(pairMaybe => pairMaybe.Select(pair => pair.Item2));
+            return new FirstFolder<(TKey, TValue)>(pair => comparer.Equals(key, pair.Item1)).Select(pairMaybe => pairMaybe.Select(pair => pair.Item2));
         }
 
         public static ReturnFolder<T, TResult> Return<T, TResult>(TResult result) => ReturnFolder<T, TResult>.Create(result);
