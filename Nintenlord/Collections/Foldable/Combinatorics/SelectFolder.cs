@@ -20,6 +20,11 @@ namespace Nintenlord.Collections.Foldable.Combinatorics
             return original.FoldMayEnd(state, input);
         }
 
+        public TState Fold(TState state, TIn input)
+        {
+            return original.Fold(state, input);
+        }
+
         public TOut2 Transform(TState state)
         {
             return selector(original.Transform(state));
