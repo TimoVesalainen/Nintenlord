@@ -20,6 +20,7 @@ namespace Nintenlord.Collections.Foldable
         public static SumFolder<TNumber> Sum<TNumber>() where TNumber : IAdditiveIdentity<TNumber, TNumber>, IAdditionOperators<TNumber, TNumber, TNumber> => SumFolder<TNumber>.Instance;
         public static readonly SumFolder<int> SumI = Sum<int>();
         public static readonly SumFolder<long> SumL = Sum<long>();
+        public static readonly SumFolder<BigInteger> SumBig = Sum<BigInteger>();
         public static readonly SumFolder<float> SumF = Sum<float>();
         public static readonly SumFolder<double> SumD = Sum<double>();
 
@@ -34,6 +35,8 @@ namespace Nintenlord.Collections.Foldable
         public static AmountOfFolder<T, int> CountI<T>(Predicate<T> predicate) => new AmountOfFolder<T, int>(predicate);
         public static CountFolder<T, long> CountL<T>() => CountFolder<T, long>.Instance;
         public static AmountOfFolder<T, long> CountL<T>(Predicate<T> predicate) => new AmountOfFolder<T, long>(predicate);
+        public static CountFolder<T, BigInteger> CountBig<T>() => CountFolder<T, BigInteger>.Instance;
+        public static AmountOfFolder<T, BigInteger> CountBig<T>(Predicate<T> predicate) => new AmountOfFolder<T, BigInteger>(predicate);
 
         public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
         public static readonly MeanFloatFolder AverageFloat = MeanFloatFolder.Instance;
