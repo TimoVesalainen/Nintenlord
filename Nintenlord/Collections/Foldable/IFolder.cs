@@ -7,7 +7,16 @@
     {
         TState Start { get; }
 
-        TState Fold(TState state, TIn input);
+        TState Fold(TState state, TIn input)
+        {
+            var (newState, _) = FoldMaybe(state, input);
+            return newState;
+        }
+
+        (TState state, bool skipRest) FoldMaybe(TState state, TIn input)
+        {
+            return (Fold(state, input), false);
+        }
 
         TOut Transform(TState state);
     }

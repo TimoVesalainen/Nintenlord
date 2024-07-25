@@ -10,7 +10,18 @@ namespace Nintenlord.Collections.Foldable
     {
         public static TOut Fold<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IEnumerable<TIn> enumerable)
         {
-            return folder.Transform(enumerable.Aggregate(folder.Start, folder.Fold));
+            var state = folder.Start;
+            foreach (var item in enumerable)
+            {
+                var (newState, skipRest) = folder.FoldMaybe(state, item);
+
+                if (skipRest)
+                {
+                    return folder.Transform(newState);
+                }
+                state = newState;
+            }
+            return folder.Transform(state);
         }
 
         public static IEnumerable<TOut> Scan<TIn, TState, TOut>(this IFolder<TIn, TState, TOut> folder, IEnumerable<TIn> enumerable)
@@ -24,7 +35,13 @@ namespace Nintenlord.Collections.Foldable
 
             await foreach (var item in enumerable)
             {
-                state = folder.Fold(state, item);
+                var (newState, skipRest) = folder.FoldMaybe(state, item);
+
+                if (skipRest)
+                {
+                    return folder.Transform(newState);
+                }
+                state = newState;
             }
 
             return folder.Transform(state);
