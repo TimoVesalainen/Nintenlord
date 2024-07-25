@@ -16,19 +16,19 @@ namespace Nintenlord.Collections.Foldable
 
         public Maybe<T> Start => Maybe<T>.Nothing;
 
-        public Maybe<T> Fold(Maybe<T> state, T input)
+        public (Maybe<T> state, bool skipRest) FoldMaybe(Maybe<T> state, T input)
         {
             if (state.HasValue)
             {
-                return state;
+                return (state, true);
             }
             else if (predicate(input))
             {
-                return input;
+                return (input, true);
             }
             else
             {
-                return state;
+                return (state, false);
             }
         }
 

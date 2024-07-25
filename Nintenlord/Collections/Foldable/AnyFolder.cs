@@ -13,9 +13,11 @@ namespace Nintenlord.Collections.Foldable
 
         public bool Start => false;
 
-        public bool Fold(bool state, T input)
+        public (bool state, bool skipRest) FoldMaybe(bool state, T input)
         {
-            return state || predicate(input);
+            var newState = state || predicate(input);
+
+            return (newState, newState);
         }
 
         public bool Transform(bool state)

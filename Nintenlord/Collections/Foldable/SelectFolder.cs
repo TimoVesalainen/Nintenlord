@@ -15,9 +15,9 @@ namespace Nintenlord.Collections.Foldable
 
         public TState Start => original.Start;
 
-        public TState Fold(TState state, TIn input)
+        public (TState state, bool skipRest) FoldMaybe(TState state, TIn input)
         {
-            return original.Fold(state, input);
+            return original.FoldMaybe(state, input);
         }
 
         public TOut2 Transform(TState state)
