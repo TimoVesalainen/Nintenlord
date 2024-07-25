@@ -42,8 +42,8 @@ namespace Nintenlord.Utility.Strings
         public static string[] ShuntingYardAlgorithm(string s, IComparer<string> operatorComparer,
             Predicate<string> isOperator, Predicate<char> isValue)
         {
-            Stack<string> operators = new Stack<string>();
-            List<string> output = new List<string>();
+            Stack<string> operators = new();
+            List<string> output = new();
             bool wasValue = false;
             bool isNegative = false;
             for (int i = 0; i < s.Length; i++)
@@ -224,7 +224,7 @@ namespace Nintenlord.Utility.Strings
             IDictionary<TInput, Func<TOutput, TOutput>> unaryOperators,
             Func<TInput, TOutput> conversion)
         {
-            Stack<TOutput> values = new Stack<TOutput>();
+            Stack<TOutput> values = new();
             for (int i = index; i < index + length; i++)
             {
                 if (binaryOperators.ContainsKey(s[i]))
@@ -274,8 +274,8 @@ namespace Nintenlord.Utility.Strings
             {
                 return new string[] { };
             }
-            List<string> elements = new List<string>();
-            StringBuilder newElement = new StringBuilder(code.Length, code.Length);
+            List<string> elements = new();
+            StringBuilder newElement = new(code.Length, code.Length);
 
             int parenthDepth = 0;
             bool quote = false;
@@ -387,7 +387,7 @@ namespace Nintenlord.Utility.Strings
             }
             else
             {
-                StringBuilder newLine = new StringBuilder(endOfLine, line.Length);
+                StringBuilder newLine = new(endOfLine, line.Length);
 
                 bool firstRemoved = true;
                 for (int i = 0; i < endOfLine; i++)

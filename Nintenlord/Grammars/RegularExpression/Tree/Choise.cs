@@ -2,7 +2,7 @@
 {
     public sealed class Choise<TLetter> : IRegExExpressionNode<TLetter>
     {
-        public static readonly Choise<TLetter> Instance = new Choise<TLetter>();
+        public static readonly Choise<TLetter> Instance = new();
 
         private Choise()
         {

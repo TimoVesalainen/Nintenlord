@@ -32,11 +32,11 @@ namespace Nintenlord.Collections.Foldable
 
         public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
         public static CountFolder<T, int> CountI<T>() => CountFolder<T, int>.Instance;
-        public static AmountOfFolder<T, int> CountI<T>(Predicate<T> predicate) => new AmountOfFolder<T, int>(predicate);
+        public static AmountOfFolder<T, int> CountI<T>(Predicate<T> predicate) => new(predicate);
         public static CountFolder<T, long> CountL<T>() => CountFolder<T, long>.Instance;
-        public static AmountOfFolder<T, long> CountL<T>(Predicate<T> predicate) => new AmountOfFolder<T, long>(predicate);
+        public static AmountOfFolder<T, long> CountL<T>(Predicate<T> predicate) => new(predicate);
         public static CountFolder<T, BigInteger> CountBig<T>() => CountFolder<T, BigInteger>.Instance;
-        public static AmountOfFolder<T, BigInteger> CountBig<T>(Predicate<T> predicate) => new AmountOfFolder<T, BigInteger>(predicate);
+        public static AmountOfFolder<T, BigInteger> CountBig<T>(Predicate<T> predicate) => new(predicate);
 
         public static readonly MeanIntFolder AverageInteger = MeanIntFolder.Instance;
         public static readonly MeanFloatFolder AverageFloat = MeanFloatFolder.Instance;
@@ -57,9 +57,9 @@ namespace Nintenlord.Collections.Foldable
         public static ImmutableDictionaryFolder<TKey, TValue> ImmutableDictionary<TKey, TValue>() => ImmutableDictionaryFolder<TKey, TValue>.Instance;
 
         public static FirstFolder<T> First<T>() => FirstFolder<T>.Instance;
-        public static FirstFolder<T> First<T>(Predicate<T> predicate) => new FirstFolder<T>(predicate);
+        public static FirstFolder<T> First<T>(Predicate<T> predicate) => new(predicate);
         public static LastFolder<T> Last<T>() => LastFolder<T>.Instance;
-        public static LastFolder<T> Last<T>(Predicate<T> predicate) => new LastFolder<T>(predicate);
+        public static LastFolder<T> Last<T>(Predicate<T> predicate) => new(predicate);
 
         public static AnyFolder<T> Contains<T>(T item, IEqualityComparer<T> comparer = null)
         {

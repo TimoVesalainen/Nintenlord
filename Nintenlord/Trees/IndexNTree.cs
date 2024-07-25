@@ -8,7 +8,7 @@ namespace Nintenlord.Trees
 {
     public sealed class IndexNTree : ITree<int>, IParentForest<int>
     {
-        private static readonly ConcurrentDictionary<int, IndexNTree> indexTreeCache = new ConcurrentDictionary<int, IndexNTree>();
+        private static readonly ConcurrentDictionary<int, IndexNTree> indexTreeCache = new();
 
         public static IndexNTree GetTree(int n)
         {

@@ -187,7 +187,7 @@ namespace Nintenlord.Collections
             T[] array = list.ToArray();
             if (array.Length > 1)
             {
-                StringBuilder bldr = new StringBuilder();
+                StringBuilder bldr = new();
                 for (int i = 0; i < array.Length - 2; i++)
                 {
                     bldr.Append(array[i]);
@@ -425,7 +425,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(measure));
             }
 
-            List<T> bufferForLargestYet = new List<T>();
+            List<T> bufferForLargestYet = new();
             int currentLargestMeasure = int.MinValue;
 
             foreach (var item in items)
@@ -459,7 +459,7 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException(nameof(comparer));
             }
 
-            List<T> bufferForLargestYet = new List<T>();
+            List<T> bufferForLargestYet = new();
 
             foreach (var item in items)
             {
@@ -743,7 +743,7 @@ namespace Nintenlord.Collections
             }
 
             int conjugateClass = 0;
-            Dictionary<T, int> classes = new Dictionary<T, int>();
+            Dictionary<T, int> classes = new();
 
             int count = 0;
             foreach (var item in items)
@@ -759,7 +759,7 @@ namespace Nintenlord.Collections
                 count++;
             }
 
-            List<T> buffer = new List<T>(count);
+            List<T> buffer = new(count);
             for (int i = 0; i < conjugateClass; i++)
             {
                 buffer.AddRange(from keyValue in classes
@@ -787,7 +787,7 @@ namespace Nintenlord.Collections
                 }
             }
 
-            List<byte> tempArray = new List<byte>(0x100);
+            List<byte> tempArray = new(0x100);
             for (byte i = 1; i < nextConjugateClass; i++)
             {
                 for (int j = 0; j < conjugate.Length; j++)
@@ -819,7 +819,7 @@ namespace Nintenlord.Collections
                 }
             }
 
-            List<int> tempArray = new List<int>(length);
+            List<int> tempArray = new(length);
             for (int i = 1; i < nextConjugateClass; i++)
             {
                 for (int j = 0; j < conjugate.Length; j++)

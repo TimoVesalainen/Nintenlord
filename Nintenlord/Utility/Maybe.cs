@@ -8,7 +8,7 @@ namespace Nintenlord.Utility
         private readonly T value;
 
 
-        readonly static Maybe<T> nothing = new Maybe<T>(false, default);
+        readonly static Maybe<T> nothing = new(false, default);
         public static Maybe<T> Nothing => nothing;
 
         public bool HasValue => hasValue;

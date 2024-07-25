@@ -203,7 +203,7 @@ namespace Nintenlord.Matricis
 
         public BinaryMatrix Transpose()
         {
-            BinaryMatrix transpose = new BinaryMatrix(Height, Width);
+            BinaryMatrix transpose = new(Height, Width);
 
             for (int y = 0; y < Height; y++)
             {
@@ -223,7 +223,7 @@ namespace Nintenlord.Matricis
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
-            BinaryMatrix result = new BinaryMatrix(Height, other.Width);
+            BinaryMatrix result = new(Height, other.Width);
 
             var length = Width;
             for (int y = 0; y < result.Height; y++)
@@ -249,7 +249,7 @@ namespace Nintenlord.Matricis
                 throw new ArgumentException("Wrong size matrix", nameof(other));
             }
 
-            BinaryMatrix result = new BinaryMatrix(Height, other.Width);
+            BinaryMatrix result = new(Height, other.Width);
 
             var length = Width;
             for (int y = 0; y < result.Height; y++)

@@ -134,7 +134,7 @@ namespace Nintenlord.Collections.DataChange
         /// <returns>The string representation of this instance.</returns>
         public override string ToString()
         {
-            StringBuilder text = new StringBuilder();
+            StringBuilder text = new();
             foreach (KeyValuePair<int, T[]> item in dataToChange)
             {
                 text.Append(item.Key + ": ");
@@ -271,7 +271,7 @@ namespace Nintenlord.Collections.DataChange
                 throw new IndexOutOfRangeException();
             }
 
-            DataChange<T> result = new DataChange<T>();
+            DataChange<T> result = new();
             foreach (var item in (overlay as IEnumerable<KeyValuePair<int, int>>))
             {
                 T[] temp = new T[item.Value];

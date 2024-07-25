@@ -111,8 +111,8 @@ namespace Nintenlord.Collections.Lists
             comp ??= Comparer<T>.Default;
             if (list.Count > 1)
             {
-                SubList<T> first = new SubList<T>(list, 0, list.Count / 2);
-                SubList<T> second = new SubList<T>(list, first.Length, list.Count - first.Length);
+                SubList<T> first = new(list, 0, list.Count / 2);
+                SubList<T> second = new(list, first.Length, list.Count - first.Length);
                 first.MergeSort(comp);
                 second.MergeSort(comp);
                 SubList<T>.SortedMerge(first, second, comp);

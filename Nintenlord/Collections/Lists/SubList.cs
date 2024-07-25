@@ -127,7 +127,7 @@ namespace Nintenlord.Collections.Lists
                 throw new InvalidOperationException();
             }
 
-            SubList<T> result = new SubList<T>(first.MainList,
+            SubList<T> result = new(first.MainList,
                 Math.Min(first.Index, second.Index),
                 first.Length + second.Length);
 

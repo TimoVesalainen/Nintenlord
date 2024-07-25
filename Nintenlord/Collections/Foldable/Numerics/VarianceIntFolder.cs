@@ -2,7 +2,7 @@
 {
     public sealed class VarianceIntFolder : IFolder<long, (long, double, double), double>
     {
-        public static readonly VarianceIntFolder Instance = new VarianceIntFolder();
+        public static readonly VarianceIntFolder Instance = new();
 
         private VarianceIntFolder()
         {

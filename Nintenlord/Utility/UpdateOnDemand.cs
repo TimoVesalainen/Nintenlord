@@ -7,7 +7,7 @@ namespace Nintenlord.Utility
         private T item;
         private bool update;
         private readonly Func<T> valueFactory;
-        private readonly object lockObject = new object();
+        private readonly object lockObject = new();
 
         public T Value
         {

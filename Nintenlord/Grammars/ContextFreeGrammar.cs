@@ -26,7 +26,7 @@ namespace Nintenlord.Grammars
 
         public T[] DeriveRandom(Random random)
         {
-            List<T> word = new List<T>(20) { startingSymbol };
+            List<T> word = new(20) { startingSymbol };
             while (true)
             {
                 int i;

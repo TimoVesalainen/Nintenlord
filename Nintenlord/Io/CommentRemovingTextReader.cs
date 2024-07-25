@@ -7,7 +7,7 @@ namespace Nintenlord.IO
     public sealed class CommentRemovingTextReader : TextReader
     {
         private readonly TextReader mainReader;
-        private readonly StringBuilder currentLine = new StringBuilder(64);
+        private readonly StringBuilder currentLine = new(64);
         private int index = 0;
         private int blockCommentDepth = 0;
 

@@ -285,7 +285,7 @@ namespace Nintenlord.Trees
         public static ArrayTree<T> ConvertTo<T>(BinaryTree<T> tree)
         {
             var treeStructure = IndexBinaryTree.Instance;
-            ArrayTree<T> result = new ArrayTree<T>(treeStructure);
+            ArrayTree<T> result = new(treeStructure);
 
             foreach (var (node, index) in tree.ZipTree(treeStructure).BreadthFirstTraversal())
             {

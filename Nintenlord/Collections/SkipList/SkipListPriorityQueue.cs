@@ -115,7 +115,7 @@ namespace Nintenlord.Collections.SkipList
 
             int newLevel = NewLevel();
             SkipListNode<TPriority, TValue> newNode =
-                new SkipListNode<TPriority, TValue>(priority, value, newLevel);
+                new(priority, value, newLevel);
 
             if (newLevel == currentMaxLevel)
             {

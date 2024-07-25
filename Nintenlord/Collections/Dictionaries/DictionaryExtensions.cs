@@ -28,7 +28,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         public static IndexOverlay GetOverlay<T>(this IDictionary<int, T> dict, Func<T, int> measurement)
         {
-            IndexOverlay result = new IndexOverlay();
+            IndexOverlay result = new();
 
             foreach (var item in dict)
             {

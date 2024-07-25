@@ -9,9 +9,9 @@ namespace Nintenlord.Words
     public sealed class AsyncMorphicWord<T> : IWord<Task<T>>
     {
         readonly Func<T, Task<T[]>> morphism;
-        readonly List<T> generatedWords = new List<T>();
-        readonly List<T> cache = new List<T>();
-        readonly SemaphoreSlim lockSemaphore = new SemaphoreSlim(1, 1);
+        readonly List<T> generatedWords = new();
+        readonly List<T> cache = new();
+        readonly SemaphoreSlim lockSemaphore = new(1, 1);
 
         public AsyncMorphicWord(Func<T, Task<T[]>> morphism, T start)
         {

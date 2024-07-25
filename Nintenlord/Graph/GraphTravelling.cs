@@ -10,9 +10,9 @@ namespace Nintenlord.Graph
             this IGraph<TNode> graph,
             TNode startNode)
         {
-            HashSet<TNode> travelledNodes = new HashSet<TNode>();
+            HashSet<TNode> travelledNodes = new();
 
-            Queue<TNode> queue = new Queue<TNode>();
+            Queue<TNode> queue = new();
 
             queue.Enqueue(startNode);
             travelledNodes.Add(startNode);
@@ -47,7 +47,7 @@ namespace Nintenlord.Graph
             TNode startNode,
             DepthFirstTraversalOrdering ordering)
         {
-            HashSet<TNode> travelledNodes = new HashSet<TNode>();
+            HashSet<TNode> travelledNodes = new();
 
             switch (ordering)
             {
@@ -97,7 +97,7 @@ namespace Nintenlord.Graph
             this IGraph<TNode> graph,
             DepthFirstTraversalOrdering ordering)
         {
-            HashSet<TNode> travelledNodes = new HashSet<TNode>();
+            HashSet<TNode> travelledNodes = new();
 
             switch (ordering)
             {

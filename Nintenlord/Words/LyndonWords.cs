@@ -6,7 +6,7 @@ namespace Nintenlord.Words
     {
         public static IEnumerable<int[]> GetLyndonWords(int alphabetSize, int maxLength)
         {
-            List<int> currentWord = new List<int>(maxLength);
+            List<int> currentWord = new(maxLength);
             currentWord.Add(0);
             yield return currentWord.ToArray();
 

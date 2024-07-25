@@ -2,7 +2,7 @@
 {
     public sealed class VarianceFloatFolder : IFolder<double, (long, double, double), double>
     {
-        public static readonly VarianceFloatFolder Instance = new VarianceFloatFolder();
+        public static readonly VarianceFloatFolder Instance = new();
 
         private VarianceFloatFolder()
         {

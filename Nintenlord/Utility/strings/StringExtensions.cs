@@ -170,7 +170,7 @@ namespace Nintenlord.Utility.Strings
         }
         public static int[] GetIndexes(this string text, string toFind)
         {
-            List<int> results = new List<int>(text.Length);
+            List<int> results = new(text.Length);
             int lastIndex = text.IndexOf(toFind);
             while (lastIndex >= 0)
             {
@@ -221,10 +221,10 @@ namespace Nintenlord.Utility.Strings
         }
         public static string[] Split(this string line, char[] separators, char[][] uniters)
         {
-            List<string> parameters = new List<string>();
+            List<string> parameters = new();
 
             int begIndex = 0;
-            Stack<int> uniterIndexs = new Stack<int>();
+            Stack<int> uniterIndexs = new();
 
             for (int i = 0; i < line.Length; i++)
             {
@@ -265,9 +265,9 @@ namespace Nintenlord.Utility.Strings
         }
         public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters, out int nonClosedParenthesis)
         {
-            List<string> parameters = new List<string>();
+            List<string> parameters = new();
             int startIndex = 0;
-            Stack<char> uniterStack = new Stack<char>();
+            Stack<char> uniterStack = new();
             for (int j = 0; j < line.Length; j++)
             {
                 char currChar = line[j];
@@ -378,7 +378,7 @@ namespace Nintenlord.Utility.Strings
 
         public static string ToLinedString(this string[] lines)
         {
-            StringBuilder builder = new StringBuilder(lines.Length * 40);
+            StringBuilder builder = new(lines.Length * 40);
 
             foreach (string line in lines)
             {
@@ -444,7 +444,7 @@ namespace Nintenlord.Utility.Strings
         }
         public static StringBuilder Substring(this StringBuilder bldr, int index, int length)
         {
-            StringBuilder subBldr = new StringBuilder(length);
+            StringBuilder subBldr = new(length);
             for (int i = index; i < index + length; i++)
             {
                 subBldr.Append(bldr[i]);

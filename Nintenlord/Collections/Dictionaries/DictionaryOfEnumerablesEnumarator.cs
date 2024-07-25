@@ -26,7 +26,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         #region IEnumerator<KeyValuePair<TKey,TValue>> Members
 
-        public KeyValuePair<TKey, TValue> Current => new KeyValuePair<TKey, TValue>(
+        public KeyValuePair<TKey, TValue> Current => new(
                     currentCollection.Current.Key, currentValue.Current
                     );
 

@@ -68,7 +68,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             get
             {
-                List<TKey> keys = new List<TKey>(this.Count);
+                List<TKey> keys = new(this.Count);
                 keys.AddRange(this.Select(item => item.Key));
                 return keys;
             }
@@ -106,7 +106,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             get
             {
-                List<TValue> values = new List<TValue>(this.Count);
+                List<TValue> values = new(this.Count);
                 values.AddRange(this.Select(item => item.Value));
                 return values;
             }

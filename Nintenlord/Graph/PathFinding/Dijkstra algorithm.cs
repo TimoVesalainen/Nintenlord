@@ -11,7 +11,7 @@ namespace Nintenlord.Graph.PathFinding
             IEqualityComparer<TNode> nodeComparer, int movementLimit, IDictionary<TNode, int> costs = null)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            HashSet<TNode> closed = new(nodeComparer);
             costs ??= new Dictionary<TNode, int>();
 
             costs[toStartFrom] = 0;
@@ -42,7 +42,7 @@ namespace Nintenlord.Graph.PathFinding
                 }
             }
 
-            List<TNode> result = new List<TNode>(closed.Count);
+            List<TNode> result = new(closed.Count);
             result.AddRange(closed.Where(node => costs[node] < movementLimit));
             return result;
         }
@@ -52,7 +52,7 @@ namespace Nintenlord.Graph.PathFinding
         {
             costs ??= new Dictionary<TNode, int>();
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            HashSet<TNode> closed = new(nodeComparer);
 
             costs[toStartFrom] = 0;
             open.Enqueue(toStartFrom, 0);
@@ -88,7 +88,7 @@ namespace Nintenlord.Graph.PathFinding
             IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            HashSet<TNode> closed = new(nodeComparer);
             IDictionary<TNode, int> costs = new Dictionary<TNode, int>(nodeComparer)
             {
                 [toStartFrom] = 0
@@ -123,7 +123,7 @@ namespace Nintenlord.Graph.PathFinding
             IGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
             var open = new Queue<TNode>();
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            HashSet<TNode> closed = new(nodeComparer);
 
             open.Enqueue(toStartFrom);
 

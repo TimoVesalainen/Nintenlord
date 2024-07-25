@@ -18,7 +18,7 @@ namespace Nintenlord.Trees
                 throw new ArgumentNullException(nameof(forest));
             }
 
-            Queue<TNode> toTraverse = new Queue<TNode>();
+            Queue<TNode> toTraverse = new();
             toTraverse.Enqueue(start);
 
             yield return start;
@@ -42,8 +42,8 @@ namespace Nintenlord.Trees
             }
 
             bool isFirst = true;
-            List<TNode> first = new List<TNode>();
-            List<TNode> second = new List<TNode>();
+            List<TNode> first = new();
+            List<TNode> second = new();
 
             first.Add(start);
 

@@ -24,7 +24,7 @@ namespace Nintenlord.Graph.PathFinding
 
             IPriorityQueue<int, TNode> open =
                 new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            HashSet<TNode> closed = new(nodeComparer);
             IDictionary<TNode, TNode> parents = new Dictionary<TNode, TNode>(nodeComparer);
 
             open.Enqueue(start, 0);
@@ -69,7 +69,7 @@ namespace Nintenlord.Graph.PathFinding
             TNode last = open.Dequeue();
             open.Clear();
 
-            List<TNode> result = new List<TNode>();
+            List<TNode> result = new();
             while (parents.ContainsKey(last))
             {
                 result.Add(last);

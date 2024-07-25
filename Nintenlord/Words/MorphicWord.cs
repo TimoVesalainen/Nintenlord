@@ -7,8 +7,8 @@ namespace Nintenlord.Words
     public sealed class MorphicWord<T> : IWord<T>
     {
         readonly Func<T, T[]> morphism;
-        readonly List<T> generatedWords = new List<T>();
-        readonly List<T> cache = new List<T>();
+        readonly List<T> generatedWords = new();
+        readonly List<T> cache = new();
 
         public MorphicWord(Func<T, T[]> morphism, T start)
         {

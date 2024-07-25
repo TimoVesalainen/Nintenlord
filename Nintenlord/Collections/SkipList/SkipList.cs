@@ -223,7 +223,7 @@ namespace Nintenlord.Collections.SkipList
             else
             {
                 int newLevel = NewLevel();
-                SkipListNode<TKey, TValue> newNode = new SkipListNode<TKey, TValue>(key, value, newLevel);
+                SkipListNode<TKey, TValue> newNode = new(key, value, newLevel);
                 if (newLevel == currentMaxLevel)
                 {
                     head[newLevel - 1] = newNode;//Necessary?

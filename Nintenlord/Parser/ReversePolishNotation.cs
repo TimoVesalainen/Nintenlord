@@ -28,8 +28,8 @@ namespace Nintenlord.Parser
             Predicate<T> isParameterSeparator,
             IEqualityComparer<T> eq)
         {
-            Stack<T> operatorStack = new Stack<T>();
-            List<T> output = new List<T>();
+            Stack<T> operatorStack = new();
+            List<T> output = new();
             foreach (var token in tokens)
             {
                 if (parenthesis.ContainsKey(token))
@@ -133,7 +133,7 @@ namespace Nintenlord.Parser
 
         public static T Evaluate<T>(IEnumerable<T> rpnValue, IDictionary<T, OperatorInfo<T>> operators)
         {
-            Stack<T> stack = new Stack<T>(10);
+            Stack<T> stack = new(10);
             foreach (var token in rpnValue)
             {
                 if (operators.TryGetValue(token, out OperatorInfo<T> info))

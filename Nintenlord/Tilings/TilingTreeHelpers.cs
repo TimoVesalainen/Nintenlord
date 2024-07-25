@@ -10,8 +10,8 @@ namespace Nintenlord.Tilings
     {
         public static (int width, int height) GetSize<T>(this ITree<T> tree, Func<T, IEnumerable<(int relX, int relY)>> getChildRelativePosition)
         {
-            Dictionary<int, int> widths = new Dictionary<int, int>();
-            Dictionary<int, int> heights = new Dictionary<int, int>();
+            Dictionary<int, int> widths = new();
+            Dictionary<int, int> heights = new();
 
             (int x, int y, int w, int h) Combine((T, Maybe<(int x, int y)>) parent, IEnumerable<(int x, int y, int w, int h)> childRects)
             {

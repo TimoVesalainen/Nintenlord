@@ -64,7 +64,7 @@ namespace Nintenlord.Utility
     public sealed class CanCauseError<T>
     {
         private static readonly Dictionary<string, CanCauseError<T>> cachedErrors
-            = new Dictionary<string, CanCauseError<T>>();
+            = new();
         private T result;
         private bool error;
         private Lazy<string> errorMessage;
@@ -120,7 +120,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> NoError(T result)
         {
-            CanCauseError<T> results = new CanCauseError<T> { result = result, error = false };
+            CanCauseError<T> results = new() { result = result, error = false };
             return results;
         }
 
@@ -140,7 +140,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> Error(string errorMessages, params object[] objects)
         {
-            CanCauseError<T> result = new CanCauseError<T>
+            CanCauseError<T> result = new()
             {
                 error = true,
                 errorMessage = new Lazy<string>(() => string.Format(errorMessages, objects))
@@ -177,7 +177,7 @@ namespace Nintenlord.Utility
     {
         private static readonly CanCauseError noError;
         private static readonly Dictionary<string, CanCauseError> cachedErrors
-            = new Dictionary<string, CanCauseError>();
+            = new();
 
         static CanCauseError()
         {
@@ -406,7 +406,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T[]> Flatten<T>(this IEnumerable<CanCauseError<T>> results)
         {
-            List<T> builder = new List<T>();
+            List<T> builder = new();
 
             foreach (var item in results)
             {

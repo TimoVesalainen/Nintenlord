@@ -5,7 +5,7 @@ namespace Nintenlord.Collections
 {
     public sealed class AsyncCollection
     {
-        private readonly List<Task> tasks = new List<Task>();
+        private readonly List<Task> tasks = new();
 
         public void AddTask(Task task)
         {

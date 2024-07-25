@@ -309,7 +309,7 @@ namespace Nintenlord.Collections.DataChange
 
         private List<int> FindAllIndexes(int start, int length)
         {
-            List<int> items = new List<int>();
+            List<int> items = new();
 
             foreach (var item in indexes.Keys)
             {
@@ -347,7 +347,7 @@ namespace Nintenlord.Collections.DataChange
 
         public override string ToString()
         {
-            StringBuilder output = new StringBuilder("{\n");
+            StringBuilder output = new("{\n");
             foreach (var item in indexes)
             {
                 output.AppendFormat("{0}: {1},\n", item.Key, item.Value);

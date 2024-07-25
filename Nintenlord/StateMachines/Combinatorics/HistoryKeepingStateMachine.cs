@@ -10,7 +10,7 @@ namespace Nintenlord.StateMachines.Combinatorics
 
         public sealed class GoBack
         {
-            public static readonly GoBack Only = new GoBack();
+            public static readonly GoBack Only = new();
 
             private GoBack()
             {
