@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Collections
 {
     public sealed class ImmutableHashSetFolder<T> : IFolder<T, ImmutableHashSet<T>, ImmutableHashSet<T>>
     {

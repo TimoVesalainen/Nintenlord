@@ -6,7 +6,7 @@
 <#@ output extension=".cs" #>
 using System;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Combinatorics
 {
 <#
 for (int i = 2; i < 8; i++)

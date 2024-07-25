@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.EqualityComparers
 {
     public sealed class AmountOfFolder<T, TNumber> : IFolder<T, TNumber, TNumber>
         where TNumber : IAdditiveIdentity<TNumber, TNumber>, IIncrementOperators<TNumber>

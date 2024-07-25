@@ -1,16 +1,16 @@
-﻿namespace Nintenlord.Collections.Foldable
+﻿namespace Nintenlord.Collections.Foldable.Numerics
 {
-    public sealed class VarianceIntFolder : IFolder<long, (long, double, double), double>
+    public sealed class VarianceFloatFolder : IFolder<double, (long, double, double), double>
     {
-        public static readonly VarianceIntFolder Instance = new VarianceIntFolder();
+        public static readonly VarianceFloatFolder Instance = new VarianceFloatFolder();
 
-        private VarianceIntFolder()
+        private VarianceFloatFolder()
         {
         }
 
-        public (long, double, double) Start => (0,0,0);
+        public (long, double, double) Start => (0, 0, 0);
 
-        public (long, double, double) Fold((long, double, double) state, long input)
+        public (long, double, double) Fold((long, double, double) state, double input)
         {
             var (count, mean, m2) = state;
 

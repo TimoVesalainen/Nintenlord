@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Combinatorics
 {
     public sealed class SelectFolder<TIn, TState, TOut1, TOut2> : IFolder<TIn, TState, TOut2>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.EqualityComparers
 {
     public sealed class LastIndexOfFolder<T> : IFolder<T, (int index, int found), int>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Combinatorics
 {
     public sealed class Combiner<TIn, TState0, TState1, TOut0, TOut1, TOut> : IFolder<TIn, (TState0, TState1), TOut>
     {

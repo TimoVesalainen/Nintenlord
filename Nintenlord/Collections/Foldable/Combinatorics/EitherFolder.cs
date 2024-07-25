@@ -1,7 +1,7 @@
 ﻿using Nintenlord.Utility;
 using System;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Combinatorics
 {
     public sealed class EitherFolder<TIn0, TIn1, TState0, TState1, TOut0, TOut1> : IFolder<Either<TIn0, TIn1>, (TState0, TState1), (TOut0, TOut1)>
     {

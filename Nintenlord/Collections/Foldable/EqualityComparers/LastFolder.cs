@@ -1,7 +1,7 @@
 ﻿using Nintenlord.Utility;
 using System;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.EqualityComparers
 {
     public sealed class LastFolder<T> : IFolder<T, Maybe<T>, Maybe<T>>
     {

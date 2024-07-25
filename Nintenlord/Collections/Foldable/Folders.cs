@@ -1,4 +1,8 @@
 ﻿using Nintenlord.Collections.EqualityComparer;
+using Nintenlord.Collections.Foldable.Collections;
+using Nintenlord.Collections.Foldable.Comparers;
+using Nintenlord.Collections.Foldable.EqualityComparers;
+using Nintenlord.Collections.Foldable.Numerics;
 using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;

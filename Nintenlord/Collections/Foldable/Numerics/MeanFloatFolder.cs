@@ -1,16 +1,16 @@
-﻿namespace Nintenlord.Collections.Foldable
+﻿namespace Nintenlord.Collections.Foldable.Numerics
 {
-    public sealed class MeanIntFolder : IFolder<long, (double mean, long count), double>
+    public sealed class MeanFloatFolder : IFolder<double, (double mean, long count), double>
     {
-        public static readonly MeanIntFolder Instance = new();
+        public static readonly MeanFloatFolder Instance = new();
 
-        private MeanIntFolder()
+        private MeanFloatFolder()
         {
         }
 
         public (double mean, long count) Start => (0, 0);
 
-        public (double mean, long count) Fold((double mean, long count) state, long input)
+        public (double mean, long count) Fold((double mean, long count) state, double input)
         {
             var (mean, count) = state;
 

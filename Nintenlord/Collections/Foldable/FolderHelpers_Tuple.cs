@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nintenlord.Collections.Foldable.Combinatorics;
+using System;
 
 namespace Nintenlord.Collections.Foldable
 {

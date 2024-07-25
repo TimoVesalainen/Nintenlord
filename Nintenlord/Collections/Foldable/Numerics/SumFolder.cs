@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Numerics
 {
     public sealed class SumFolder<TNumber> : IFolder<TNumber, TNumber, TNumber>
         where TNumber : IAdditiveIdentity<TNumber, TNumber>, IAdditionOperators<TNumber, TNumber, TNumber>

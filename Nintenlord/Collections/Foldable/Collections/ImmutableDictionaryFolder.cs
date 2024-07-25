@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Collections
 {
     public sealed class ImmutableDictionaryFolder<TKey, TValue> : IFolder<(TKey key, TValue value), ImmutableDictionary<TKey, TValue>, ImmutableDictionary<TKey, TValue>>
     {

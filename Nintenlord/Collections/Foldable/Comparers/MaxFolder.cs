@@ -1,10 +1,12 @@
-﻿using Nintenlord.Collections.Comparers;
+﻿using Nintenlord.Collections;
+using Nintenlord.Collections.Comparers;
+using Nintenlord.Collections.Foldable;
 using Nintenlord.Utility;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Comparers
 {
     public sealed class MaxFolder<T> : IFolder<T, Maybe<T>, Maybe<T>>
     {

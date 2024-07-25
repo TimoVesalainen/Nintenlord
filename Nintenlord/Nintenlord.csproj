@@ -27,12 +27,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TupleEqualityComparer.tt</DependentUpon>
     </None>
-    <None Include="Collections\Foldable\Combiner.cs">
+    <None Include="Collections\Foldable\Combinatorics\Combiner.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Combiner.tt</DependentUpon>
     </None>
-    <None Include="Collections\Foldable\EitherFolder.cs">
+    <None Include="Collections\Foldable\Combinatorics\EitherFolder.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EitherFolder.tt</DependentUpon>
@@ -102,11 +102,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TupleEqualityComparer.cs</LastGenOutput>
     </None>
-    <None Update="Collections\Foldable\Combiner.tt">
+    <None Update="Collections\Foldable\Combinatorics\Combiner.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Combiner.cs</LastGenOutput>
     </None>
-    <None Update="Collections\Foldable\EitherFolder.tt">
+    <None Update="Collections\Foldable\Combinatorics\EitherFolder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EitherFolder.cs</LastGenOutput>
     </None>
@@ -168,12 +168,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TupleEqualityComparer.tt</DependentUpon>
     </Compile>
-    <Compile Update="Collections\Foldable\Combiner.cs">
+    <Compile Update="Collections\Foldable\Combinatorics\Combiner.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Combiner.tt</DependentUpon>
     </Compile>
-    <Compile Update="Collections\Foldable\EitherFolder.cs">
+    <Compile Update="Collections\Foldable\Combinatorics\EitherFolder.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EitherFolder.tt</DependentUpon>

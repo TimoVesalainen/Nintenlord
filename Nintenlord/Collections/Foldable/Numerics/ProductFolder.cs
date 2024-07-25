@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Nintenlord.Collections.Foldable
+namespace Nintenlord.Collections.Foldable.Numerics
 {
     public sealed class ProductFolder<TNumber> : IFolder<TNumber, TNumber, TNumber>
         where TNumber : IMultiplicativeIdentity<TNumber, TNumber>, IMultiplyOperators<TNumber, TNumber, TNumber>
