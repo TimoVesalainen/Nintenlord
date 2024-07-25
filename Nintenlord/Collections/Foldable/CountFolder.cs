@@ -16,7 +16,7 @@ namespace Nintenlord.Collections.Foldable
 
         public TNumber Fold(TNumber state, T input)
         {
-            return state++;
+            return ++state;
         }
 
         public TNumber Transform(TNumber state)

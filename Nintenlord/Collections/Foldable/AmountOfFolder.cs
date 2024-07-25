@@ -19,7 +19,7 @@ namespace Nintenlord.Collections.Foldable
         {
             if (predicate(input))
             {
-                return state++;
+                return ++state;
             }
             else
             {
