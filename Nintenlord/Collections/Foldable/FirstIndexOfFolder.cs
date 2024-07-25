@@ -13,21 +13,21 @@ namespace Nintenlord.Collections.Foldable
 
         public (int index, int found) Start => (0, -1);
 
-        public (int index, int found) Fold((int index, int found) state, T input)
+        public ((int index, int found) state, bool skipRest) FoldMaybe((int index, int found) state, T input)
         {
             var (index, found) = state;
-            if (found != -1)
+            if (found == -1)
             {
                 if (predicate(input))
                 {
-                    found = index;
+                    return ((index + 1, index), true);
                 }
 
-                return (index + 1, found);
+                return ((index + 1, found), false);
             }
             else
             {
-                return (index + 1, found);
+                return ((index + 1, found), true);
             }
         }
 
