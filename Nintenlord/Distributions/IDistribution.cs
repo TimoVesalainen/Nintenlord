@@ -285,62 +285,8 @@ namespace Nintenlord.Distributions
 
         private const int MAX_SIZE_DISCRETE_DISTRIBUTION = 1000;
 
-        public static IDistribution<T[]> ArrayDistribution<T>(
-          this IDistribution<T> distribution, int amount, IEqualityComparer<T> comparer = null)
-        {
-            if (distribution is null)
-            {
-                throw new ArgumentNullException(nameof(distribution));
-            }
-
-            if (amount < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(amount));
-            }
-
-            if (amount == 0)
-            {
-                return SingletonDistribution<T[]>.Create(Array.Empty<T>());
-            }
-            else if (distribution is EmptyDistribution<T>)
-            {
-                return EmptyDistribution<T[]>.Instance;
-            }
-            else if (distribution is SingletonDistribution<T> singleton)
-            {
-                return SingletonDistribution<T[]>.Create(Enumerable.Repeat(singleton.Value, amount).ToArray(), comparer?.ToArrayComparer());
-            }
-            else if (distribution is IDiscreteDistribution<T> discrete)
-            {
-                if (Math.Pow(discrete.SupportCount, amount) < MAX_SIZE_DISCRETE_DISTRIBUTION)
-                {
-                    return ArrayDiscreteDistribution(discrete, amount, comparer ?? EqualityComparer<T>.Default);
-                }
-                else
-                {
-                    return new ArrayDiscreteDistributions<T>(discrete, amount);
-                }
-
-            }
-
-            return new ArrayDistribution<T>(distribution, amount);
-        }
-
-        private static IDistribution<T[]> ArrayDiscreteDistribution<T>(IDiscreteDistribution<T> distribution, int amount, IEqualityComparer<T> comparer)
-        {
-            var arrayComparer = comparer.ToArrayComparer();
-
-            var groups = Enumerable.Repeat(distribution.Support(), amount)
-                .CartesianProduct()
-                .Select(x => (key: x.ToArray(), sum: x.Select(distribution.Weight).Product()));
-
-            var gcd = groups.Select(x => x.sum).GreatestCommonDivisor();
-
-            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution(arrayComparer);
-        }
-
         public static IDistribution<IEnumerable<T>> Distributions<T>(
-          this IEnumerable<IDistribution<T>> distributions, IEqualityComparer<T> comparer = null)
+          this IEnumerable<IDistribution<T>> distributions)
         {
             if (distributions is null)
             {
@@ -366,8 +312,7 @@ namespace Nintenlord.Distributions
 
                 if (supportSize > 0 && supportSize < MAX_SIZE_DISCRETE_DISTRIBUTION)
                 {
-                    return DiscreteDistributions(distributions.Cast<IDiscreteDistribution<T>>(),
-                        comparer ?? EqualityComparer<T>.Default);
+                    return DiscreteDistributions(distributions.Cast<IDiscreteDistribution<T>>());
                 }
                 else
                 {
@@ -378,7 +323,7 @@ namespace Nintenlord.Distributions
             return new Distributions<T>(distributions);
         }
 
-        private static IDiscreteDistribution<IEnumerable<T>> DiscreteDistributions<T>(this IEnumerable<IDiscreteDistribution<T>> distributions, IEqualityComparer<T> comparer)
+        private static IDiscreteDistribution<IEnumerable<T>> DiscreteDistributions<T>(this IEnumerable<IDiscreteDistribution<T>> distributions)
         {
             var groups = distributions.Select(d => d.Support())
                 .CartesianProduct()
@@ -386,7 +331,7 @@ namespace Nintenlord.Distributions
 
             var gcd = groups.Select(x => x.sum).GreatestCommonDivisor();
 
-            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution(comparer.ToEnumerableComparer());
+            return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution();
         }
     }
 }
