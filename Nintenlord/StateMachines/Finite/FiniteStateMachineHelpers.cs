@@ -87,8 +87,8 @@ namespace Nintenlord.StateMachines.Finite
         {
             IFiniteStateMachine<TState, TInput> Build(
                 TState startState,
-                bool[] finalsStates,
-                (TState start, TInput letter, TState end)[] transitions)
+                IEnumerable<bool> finalsStates,
+                IEnumerable<(TState start, TInput letter, TState end)> transitions)
             {
                 var randomMachineBuilder = new DictionaryStateMachine<TState, TInput>.Builder();
 
@@ -114,8 +114,8 @@ namespace Nintenlord.StateMachines.Finite
                              from end in randomState
                              from letter in randomInput
                              select (start, letter, end);
-            var finalStates = isFinal.ArrayDistribution(states.Count());
-            var transitions = transition.ArrayDistribution(transitionCount);
+            var finalStates = Enumerable.Repeat(isFinal, states.Count()).Distributions();
+            var transitions = Enumerable.Repeat(transition, transitionCount).Distributions();
 
             return from startState in randomState
                    from isFinalState in finalStates
