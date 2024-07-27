@@ -339,7 +339,6 @@ namespace Nintenlord.Distributions
             return groups.Select(group => (group.key, group.sum / gcd)).ToWeighedDistribution(arrayComparer);
         }
 
-        // TODO: Add selector IEnumerable<T> => TOut
         public static IDistribution<IEnumerable<T>> Distributions<T>(
           this IEnumerable<IDistribution<T>> distributions, IEqualityComparer<T> comparer = null)
         {
@@ -379,7 +378,6 @@ namespace Nintenlord.Distributions
             return new Distributions<T>(distributions);
         }
 
-        // TODO: Add selector IEnumerable<T> => TOut
         private static IDiscreteDistribution<IEnumerable<T>> DiscreteDistributions<T>(this IEnumerable<IDiscreteDistribution<T>> distributions, IEqualityComparer<T> comparer)
         {
             var groups = distributions.Select(d => d.Support())
