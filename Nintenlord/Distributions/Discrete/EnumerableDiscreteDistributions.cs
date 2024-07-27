@@ -6,12 +6,14 @@ using System.Linq;
 
 namespace Nintenlord.Distributions.Discrete
 {
-    public sealed class ArrayDiscreteDistributions<T> : IDiscreteDistribution<T[]>
+    public sealed class EnumerableDiscreteDistributions<T> : IDiscreteDistribution<IEnumerable<T>>
     {
         readonly IDiscreteDistribution<T> distribution;
         readonly int count;
 
-        public ArrayDiscreteDistributions(IDiscreteDistribution<T> distribution, int count)
+        public int SupportCount { get; }
+
+        public EnumerableDiscreteDistributions(IDiscreteDistribution<T> distribution, int count)
         {
             this.distribution = distribution ?? throw new ArgumentNullException(nameof(distribution));
             if (count < 1)
@@ -22,26 +24,20 @@ namespace Nintenlord.Distributions.Discrete
             SupportCount = (int)Math.Pow(distribution.SupportCount, count);
         }
 
-        public int SupportCount { get; }
-
-        public T[] Sample()
+        public IEnumerable<T> Sample()
         {
-            var sample = new T[count];
-
-            for (int i = 0; i < sample.Length; i++)
+            for (int i = 0; i < count; i++)
             {
-                sample[i] = distribution.Sample();
+                yield return distribution.Sample();
             }
-
-            return sample;
         }
 
-        public IEnumerable<T[]> Support()
+        public IEnumerable<IEnumerable<T>> Support()
         {
-            return Enumerable.Repeat(distribution.Support(), count).CartesianProduct().Select(item => item.ToArray());
+            return Enumerable.Repeat(distribution.Support(), count).CartesianProduct();
         }
 
-        public int Weight(T[] item)
+        public int Weight(IEnumerable<T> item)
         {
             return item.Select(distribution.Weight).Product();
         }
