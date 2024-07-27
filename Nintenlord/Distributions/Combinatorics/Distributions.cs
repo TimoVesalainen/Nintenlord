@@ -5,7 +5,7 @@ using Nintenlord.Distributions;
 
 namespace Nintenlord.Distributions.Combinatorics
 {
-    sealed class Distributions<T> : IDistribution<T[]>
+    sealed class Distributions<T> : IDistribution<IEnumerable<T>>
     {
         readonly IDistribution<T>[] distributions;
 
@@ -14,9 +14,9 @@ namespace Nintenlord.Distributions.Combinatorics
             this.distributions = distributions?.ToArray() ?? throw new ArgumentNullException(nameof(distributions));
         }
 
-        public T[] Sample()
+        public IEnumerable<T> Sample()
         {
-            return distributions.Select(distribution => distribution.Sample()).ToArray();
+            return distributions.Select(distribution => distribution.Sample());
         }
     }
 }
