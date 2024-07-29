@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Nintenlord.Utility;
 
-namespace Nintenlord.Distributions
+namespace Nintenlord.Distributions.Combinatorics
 {
     /// <summary>
     /// Helper for distributions with bijections between items.

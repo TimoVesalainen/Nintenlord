@@ -42,7 +42,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FolderHelpers_Tuple.tt</DependentUpon>
     </None>
-    <None Include="Distributions\FuncTemplate.cs">
+    <None Include="Distributions\Combinatorics\FuncTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>FuncTemplate.tt</DependentUpon>
@@ -114,7 +114,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FolderHelpers_Tuple.cs</LastGenOutput>
     </None>
-    <None Update="Distributions\FuncTemplate.tt">
+    <None Update="Distributions\Combinatorics\FuncTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FuncTemplate.cs</LastGenOutput>
     </None>
@@ -183,7 +183,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FolderHelpers_Tuple.tt</DependentUpon>
     </Compile>
-    <Compile Update="Distributions\FuncTemplate.cs">
+    <Compile Update="Distributions\Combinatorics\FuncTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>FuncTemplate.tt</DependentUpon>

@@ -77,7 +77,7 @@ namespace Nintenlord.Distributions
                     .ToWeighedDistribution();
             }
 
-            return new SelectDistribution<TIn, TOut>(distribution, selector);
+            return new FuncDistribution<TIn, TOut>(distribution, selector);
         }
 
         public static IDistribution<T> Where<T>(this IDistribution<T> distribution, Predicate<T> predicate)
