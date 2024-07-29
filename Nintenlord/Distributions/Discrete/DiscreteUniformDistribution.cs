@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,12 +7,15 @@ namespace Nintenlord.Distributions.Discrete
 {
     public sealed class DiscreteUniformDistribution : IDiscreteDistribution<int>
     {
-        readonly Random random;
+        static readonly Random randomInstance = new();
 
+        readonly Random random;
         public int Min { get; }
         public int Max { get; }
 
         public int SupportCount => Max - Min + 1;
+
+        readonly static ConcurrentDictionary<(int min, int max), DiscreteUniformDistribution> cache = new();
 
         public static IDiscreteDistribution<int> Create(int min, int max)
         {
@@ -23,10 +27,11 @@ namespace Nintenlord.Distributions.Discrete
             {
                 return SingletonDistribution<int>.Create(min);
             }
-            return new DiscreteUniformDistribution(new Random(), min, max);
+
+            return cache.GetOrAdd((min, max), (pair) => new DiscreteUniformDistribution(randomInstance, pair.min, pair.max));
         }
 
-        public DiscreteUniformDistribution(Random random, int min, int max)
+        private DiscreteUniformDistribution(Random random, int min, int max)
         {
             this.random = random ?? throw new ArgumentNullException(nameof(random));
 
