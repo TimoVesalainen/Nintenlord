@@ -303,7 +303,7 @@ namespace Nintenlord.Distributions
             }
             else if (distributions.All(x => x is SingletonDistribution<T>))
             {
-                return SingletonDistribution<IEnumerable<T>>.Create(distributions.Select(x => (x as SingletonDistribution<T>).Value));
+                return SingletonDistribution<IEnumerable<T>>.Create(distributions.Cast<SingletonDistribution<T>>().Select(x => x.Value));
             }
             else if (distributions.All(x => x is IDiscreteDistribution<T>))
             {
