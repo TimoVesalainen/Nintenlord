@@ -18,7 +18,11 @@ namespace Nintenlord.Distributions
 
         public static SingletonDistribution<T> Create(T value, IEqualityComparer<T> comparer = null)
         {
-            return cache.GetOrAdd(value, x => new SingletonDistribution<T>(x, comparer ?? EqualityComparer<T>.Default));
+            if (comparer == null || comparer == EqualityComparer<T>.Default)
+            {
+                return cache.GetOrAdd(value, x => new SingletonDistribution<T>(x, comparer ?? EqualityComparer<T>.Default));
+            }
+            return new SingletonDistribution<T>(value, comparer);
         }
 
         public SingletonDistribution(T value, IEqualityComparer<T> comparer)
