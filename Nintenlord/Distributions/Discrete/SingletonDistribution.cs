@@ -25,7 +25,7 @@ namespace Nintenlord.Distributions
             return new SingletonDistribution<T>(value, comparer);
         }
 
-        public SingletonDistribution(T value, IEqualityComparer<T> comparer)
+        private SingletonDistribution(T value, IEqualityComparer<T> comparer)
         {
             Value = value;
             this.comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));

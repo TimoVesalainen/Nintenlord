@@ -47,7 +47,7 @@ namespace Nintenlord.Distributions.Discrete
             }
             else if (weightDictionary.Count == 1)
             {
-                return new SingletonDistribution<T>(weightDictionary.Keys.Single(), equalityComparer);
+                return SingletonDistribution<T>.Create(weightDictionary.Keys.Single(), equalityComparer);
             }
 
             return new DiscreteDistribution<T>(underlying, itemsArray, weightDictionary);
