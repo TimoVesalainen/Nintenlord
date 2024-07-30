@@ -2,24 +2,24 @@
 
 namespace Nintenlord.Collections.Foldable.Numerics
 {
-    public sealed class SumFolder<TNumber> : IFolder<TNumber, TNumber, TNumber>
-        where TNumber : IAdditiveIdentity<TNumber, TNumber>, IAdditionOperators<TNumber, TNumber, TNumber>
+    public sealed class SumFolder<TNumber, TNumberResult> : IFolder<TNumber, TNumberResult, TNumberResult>
+        where TNumberResult : IAdditiveIdentity<TNumberResult, TNumberResult>, IAdditionOperators<TNumberResult, TNumber, TNumberResult>
     {
-        public static readonly SumFolder<TNumber> Instance = new();
+        public static readonly SumFolder<TNumber, TNumberResult> Instance = new();
 
         private SumFolder()
         {
 
         }
 
-        public TNumber Start => TNumber.AdditiveIdentity;
+        public TNumberResult Start => TNumberResult.AdditiveIdentity;
 
-        public TNumber Fold(TNumber state, TNumber input)
+        public TNumberResult Fold(TNumberResult state, TNumber input)
         {
             return state + input;
         }
 
-        public TNumber Transform(TNumber state)
+        public TNumberResult Transform(TNumberResult state)
         {
             return state;
         }

@@ -17,18 +17,18 @@ namespace Nintenlord.Collections.Foldable
         public static readonly AnyFolder<bool> Or = new(x => x);
         public static AnyFolder<T> Any<T>(Predicate<T> predicate) => new(predicate);
 
-        public static SumFolder<TNumber> Sum<TNumber>() where TNumber : IAdditiveIdentity<TNumber, TNumber>, IAdditionOperators<TNumber, TNumber, TNumber> => SumFolder<TNumber>.Instance;
-        public static readonly SumFolder<int> SumI = Sum<int>();
-        public static readonly SumFolder<long> SumL = Sum<long>();
-        public static readonly SumFolder<BigInteger> SumBig = Sum<BigInteger>();
-        public static readonly SumFolder<float> SumF = Sum<float>();
-        public static readonly SumFolder<double> SumD = Sum<double>();
+        public static SumFolder<TNumber, TNumber> Sum<TNumber>() where TNumber : IAdditiveIdentity<TNumber, TNumber>, IAdditionOperators<TNumber, TNumber, TNumber> => SumFolder<TNumber, TNumber>.Instance;
+        public static readonly SumFolder<int, int> SumI = Sum<int>();
+        public static readonly SumFolder<long, long> SumL = Sum<long>();
+        public static readonly SumFolder<BigInteger, BigInteger> SumBig = Sum<BigInteger>();
+        public static readonly SumFolder<float, float> SumF = Sum<float>();
+        public static readonly SumFolder<double, double> SumD = Sum<double>();
 
-        public static ProductFolder<TNumber> Product<TNumber>() where TNumber : IMultiplicativeIdentity<TNumber, TNumber>, IMultiplyOperators<TNumber, TNumber, TNumber> => ProductFolder<TNumber>.Instance;
-        public static readonly ProductFolder<int> ProductI = Product<int>();
-        public static readonly ProductFolder<long> ProductL = Product<long>();
-        public static readonly ProductFolder<float> ProductF = Product<float>();
-        public static readonly ProductFolder<double> ProductD = Product<double>();
+        public static ProductFolder<TNumber, TNumber> Product<TNumber>() where TNumber : IMultiplicativeIdentity<TNumber, TNumber>, IMultiplyOperators<TNumber, TNumber, TNumber> => ProductFolder<TNumber, TNumber>.Instance;
+        public static readonly ProductFolder<int, int> ProductI = Product<int>();
+        public static readonly ProductFolder<long, long> ProductL = Product<long>();
+        public static readonly ProductFolder<float, float> ProductF = Product<float>();
+        public static readonly ProductFolder<double, double> ProductD = Product<double>();
 
         public static EmptyFolder<T> Empty<T>() => EmptyFolder<T>.Instance;
         public static CountFolder<T, int> CountI<T>() => CountFolder<T, int>.Instance;

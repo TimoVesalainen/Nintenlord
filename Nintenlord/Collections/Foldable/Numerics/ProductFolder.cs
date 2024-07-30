@@ -2,24 +2,24 @@
 
 namespace Nintenlord.Collections.Foldable.Numerics
 {
-    public sealed class ProductFolder<TNumber> : IFolder<TNumber, TNumber, TNumber>
-        where TNumber : IMultiplicativeIdentity<TNumber, TNumber>, IMultiplyOperators<TNumber, TNumber, TNumber>
+    public sealed class ProductFolder<TNumber, TNumberResult> : IFolder<TNumber, TNumberResult, TNumberResult>
+        where TNumberResult : IMultiplicativeIdentity<TNumberResult, TNumberResult>, IMultiplyOperators<TNumberResult, TNumber, TNumberResult>
     {
-        public static readonly ProductFolder<TNumber> Instance = new();
+        public static readonly ProductFolder<TNumber, TNumberResult> Instance = new();
 
         private ProductFolder()
         {
 
         }
 
-        public TNumber Start => TNumber.MultiplicativeIdentity;
+        public TNumberResult Start => TNumberResult.MultiplicativeIdentity;
 
-        public TNumber Fold(TNumber state, TNumber input)
+        public TNumberResult Fold(TNumberResult state, TNumber input)
         {
             return state * input;
         }
 
-        public TNumber Transform(TNumber state)
+        public TNumberResult Transform(TNumberResult state)
         {
             return state;
         }
