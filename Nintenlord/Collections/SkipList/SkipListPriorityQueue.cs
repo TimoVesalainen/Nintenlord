@@ -93,7 +93,7 @@ namespace Nintenlord.Collections.SkipList
         {
             if (priority == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(priority));
             }
 
             SkipListNode<TPriority, TValue> currentNode = head;
@@ -182,7 +182,7 @@ namespace Nintenlord.Collections.SkipList
         {
             if (priority == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(priority));
             }
 
             SkipListNode<TPriority, TValue> currentNode = head;
@@ -242,7 +242,7 @@ namespace Nintenlord.Collections.SkipList
         {
             if (priority == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(priority));
             }
 
             SkipListNode<TPriority, TValue> currentNode = head;

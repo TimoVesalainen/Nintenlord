@@ -10,11 +10,11 @@ namespace Nintenlord.Collections
         {
             if (start == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(start));
             }
             if (end != null && start.List != end.List)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Node from different lists", nameof(end));
             }
 
             while (start != end)

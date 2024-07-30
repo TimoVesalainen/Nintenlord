@@ -52,17 +52,17 @@ namespace Nintenlord.Collections.DataChange
         {
             if (offset < 0)
             {
-                throw new IndexOutOfRangeException("Negative offset was passed.");
+                throw new ArgumentOutOfRangeException(nameof(offset), "Negative offset was passed.");
             }
 
             if (data == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(data));
             }
 
             if (index + count > data.Length)
             {
-                throw new IndexOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             List<int> intersectedKeys = GetIntersectingKeys(offset, count).ToList();

@@ -231,7 +231,7 @@ namespace Nintenlord.Utility.Strings
                 {
                     if (values.Count < 2)
                     {
-                        throw new ArgumentException();
+                        throw new ArgumentException("Invalid reverse polish notation", nameof(s));
                     }
                     else
                     {
@@ -244,7 +244,7 @@ namespace Nintenlord.Utility.Strings
                 {
                     if (values.Count < 1)
                     {
-                        throw new ArgumentException();
+                        throw new ArgumentException("Invalid reverse polish notation", nameof(s));
                     }
                     else
                     {
@@ -261,7 +261,7 @@ namespace Nintenlord.Utility.Strings
 
             if (values.Count != 1)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid reverse polish notation", nameof(s));
             }
             return values.Pop();
         }

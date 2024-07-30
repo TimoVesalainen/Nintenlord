@@ -190,7 +190,7 @@ namespace Nintenlord.Collections.SkipList
         {
             if (key == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(key));
             }
 
             SkipListNode<TKey, TValue> currentNode = head;
@@ -243,7 +243,7 @@ namespace Nintenlord.Collections.SkipList
         {
             if (key == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(key));
             }
             SkipListNode<TKey, TValue> currentNode = head;
 
@@ -269,7 +269,7 @@ namespace Nintenlord.Collections.SkipList
         {
             if (key == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(key));
             }
 
             SkipListNode<TKey, TValue> currentNode = head;

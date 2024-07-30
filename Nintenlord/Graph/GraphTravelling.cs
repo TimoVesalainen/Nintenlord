@@ -56,7 +56,7 @@ namespace Nintenlord.Graph
                 case DepthFirstTraversalOrdering.PostOrdering:
                     return DepthFirstTraversalVisitPostOrder(graph, startNode, travelledNodes);
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentOutOfRangeException(nameof(ordering));
             }
         }
 
@@ -127,7 +127,7 @@ namespace Nintenlord.Graph
                     }
                     break;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentOutOfRangeException(nameof(ordering));
             }
         }
 

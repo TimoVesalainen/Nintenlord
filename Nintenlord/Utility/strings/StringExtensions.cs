@@ -296,7 +296,7 @@ namespace Nintenlord.Utility.Strings
                     }
                     else
                     {
-                        throw new ArgumentException();
+                        throw new ArgumentException("Invalid string", nameof(line));
                     }
                 }
             }

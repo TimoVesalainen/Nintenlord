@@ -54,7 +54,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             if (ContainsKey(key))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Key already in dictionary", nameof(key));
             }
             this.Add(new KeyValuePair<TKey, TValue>(key, value));
         }

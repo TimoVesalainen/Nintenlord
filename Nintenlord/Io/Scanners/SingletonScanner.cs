@@ -32,7 +32,7 @@ namespace Nintenlord.IO.Scanners
                         read = true;
                         break;
                     default:
-                        throw new ArgumentException();
+                        throw new ArgumentOutOfRangeException(nameof(value));
                 }
             }
         }
@@ -56,9 +56,13 @@ namespace Nintenlord.IO.Scanners
 
         public IEnumerable<T> Substring(long offset, int length)
         {
-            if (offset != 0 || length < 0 || length > 1)
+            if (offset != 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+            if (length < 0 || length > 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
 
             if (length == 1)
