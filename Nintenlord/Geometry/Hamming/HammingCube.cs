@@ -1,8 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using Nintenlord.Graph;
+using Nintenlord.Trees;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Nintenlord.Graph;
-using Nintenlord.Trees;
 
 namespace Nintenlord.Geometry.Hamming
 {

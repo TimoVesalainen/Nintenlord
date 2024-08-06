@@ -130,7 +130,7 @@ namespace Nintenlord.Utility
             item = option1;
             return this.mode == Enum2.Item1;
         }
-	}
+    }
     [DataContract]
     public sealed class Either<T0, T1, T2> : IEquatable<Either<T0, T1, T2>>
     {
@@ -298,7 +298,7 @@ namespace Nintenlord.Utility
             item = option2;
             return this.mode == Enum3.Item2;
         }
-	}
+    }
     [DataContract]
     public sealed class Either<T0, T1, T2, T3> : IEquatable<Either<T0, T1, T2, T3>>
     {
@@ -511,7 +511,7 @@ namespace Nintenlord.Utility
             item = option3;
             return this.mode == Enum4.Item3;
         }
-	}
+    }
     [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4> : IEquatable<Either<T0, T1, T2, T3, T4>>
     {
@@ -774,7 +774,7 @@ namespace Nintenlord.Utility
             item = option4;
             return this.mode == Enum5.Item4;
         }
-	}
+    }
     [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4, T5> : IEquatable<Either<T0, T1, T2, T3, T4, T5>>
     {
@@ -1092,7 +1092,7 @@ namespace Nintenlord.Utility
             item = option5;
             return this.mode == Enum6.Item5;
         }
-	}
+    }
     [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4, T5, T6> : IEquatable<Either<T0, T1, T2, T3, T4, T5, T6>>
     {
@@ -1470,7 +1470,7 @@ namespace Nintenlord.Utility
             item = option6;
             return this.mode == Enum7.Item6;
         }
-	}
+    }
     [DataContract]
     public sealed class Either<T0, T1, T2, T3, T4, T5, T6, T7> : IEquatable<Either<T0, T1, T2, T3, T4, T5, T6, T7>>
     {
@@ -1913,5 +1913,5 @@ namespace Nintenlord.Utility
             item = option7;
             return this.mode == Enum8.Item7;
         }
-	}
+    }
 }

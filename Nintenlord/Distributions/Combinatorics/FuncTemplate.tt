@@ -4,8 +4,8 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-using System;
 using Nintenlord.Utility;
+using System;
 
 namespace Nintenlord.Distributions.Combinatorics
 {
@@ -16,7 +16,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<TIn> inDistribution;
         readonly Func<TIn, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<TIn> inDistribution, Func<TIn, TOut> selector)
@@ -46,7 +46,7 @@ for (int i = 2; i < 8; i++)
     {
         readonly <#= sourceDistribution #> inDistribution;
         readonly <#= funcParameter #> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(<#= sourceDistribution #> inDistribution, <#= funcParameter #> selector)

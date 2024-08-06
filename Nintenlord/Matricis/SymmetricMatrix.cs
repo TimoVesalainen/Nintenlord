@@ -37,7 +37,7 @@ namespace Nintenlord.Matricis
 
         private T Get(int u, int v)
         {
-            return values[GetIndex(u,v)];
+            return values[GetIndex(u, v)];
         }
 
         int GetIndex(int u, int v)

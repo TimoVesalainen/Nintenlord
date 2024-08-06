@@ -558,9 +558,9 @@ namespace Nintenlord.Numerics
         }
 
         public static TResult CountOneBits<T, TResult>(this T number)
-            where T : 
-            IBitwiseOperators<T, T, T>, 
-            IComparisonOperators<T, T, bool>, 
+            where T :
+            IBitwiseOperators<T, T, T>,
+            IComparisonOperators<T, T, bool>,
             IAdditiveIdentity<T, T>,
             IDecrementOperators<T>
             where TResult : IIncrementOperators<TResult>, IAdditiveIdentity<TResult, TResult>

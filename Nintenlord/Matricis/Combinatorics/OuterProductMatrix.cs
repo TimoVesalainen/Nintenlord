@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nintenlord.Matricis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nintenlord.Matricis;
 
 namespace Nintenlord.Matricis.Combinatorics
 {

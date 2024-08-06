@@ -26,7 +26,7 @@ namespace Nintenlord.Utility
         var funcType = $"Func<{string.Join(", ", inputTypes)}, T>";
         var funcTypeUnit = $"Func<{string.Join(", ", inputTypes)}, Unit>";
         var actionType = $"Action<{string.Join(", ", inputTypes)}>";
-        var curriedFuncType = inputTypes.Reverse().Aggregate("T", (ret, parameter) => $"Func<{parameter},{ret}>");
+        var curriedFuncType = inputTypes.Reverse().Aggregate("T", (ret, parameter) => $"Func<{parameter}, {ret}>");
 
         var tupleProperties = Enumerable.Range(1, paramCount).Select(index => $"Item{index}").ToArray();
         var lambdaParameters = Enumerable.Range(0, paramCount).Select(index => $"in{index}").ToArray();

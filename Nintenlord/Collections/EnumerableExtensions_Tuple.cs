@@ -6,7 +6,7 @@ using System.Linq;
 namespace Nintenlord.Collections
 {
     public static partial class EnumerableExtensions
-	{
+    {
         public static (T0, T1) Aggregate<T0, T1, TSource>(
             this IEnumerable<TSource> source, T0 seed0, T1 seed1,
             Func<T0, TSource, T0> func0, Func<T1, TSource, T1> func1)
@@ -123,7 +123,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -370,7 +370,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -666,7 +666,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -1011,7 +1011,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -1405,7 +1405,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -1848,7 +1848,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -2340,7 +2340,7 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException(nameof(zipper));
             }
-            
+
             if (zipper0 is null)
             {
                 throw new ArgumentNullException(nameof(zipper0));
@@ -2573,5 +2573,5 @@ namespace Nintenlord.Collections
             return enum0.ZipLong(enum1, enum2, enum3, enum4, enum5, enum6, enum7, ZipBoth, ZipT0, ZipT1, ZipT2, ZipT3, ZipT4, ZipT5, ZipT6, ZipT7);
         }
 
-	}
+    }
 }

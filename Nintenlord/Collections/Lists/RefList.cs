@@ -9,7 +9,7 @@ namespace Nintenlord.Collections.Lists
         T[] items;
         int count;
 
-        public RefList() : this(4) 
+        public RefList() : this(4)
         {
 
         }

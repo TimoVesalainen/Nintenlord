@@ -43,7 +43,7 @@ namespace Nintenlord.Collections.Lists
             get
             {
                 AssertNotEmpty();
-                return ToIndex(itemEndCacheIndex-1);
+                return ToIndex(itemEndCacheIndex - 1);
             }
         }
 
@@ -61,7 +61,7 @@ namespace Nintenlord.Collections.Lists
             get
             {
                 AssertNotEmpty();
-                return cache[itemEndCacheIndex-1];
+                return cache[itemEndCacheIndex - 1];
             }
         }
 

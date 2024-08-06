@@ -6,7 +6,6 @@ using Nintenlord.Distributions.Discrete;
 using Nintenlord.Numerics;
 using Nintenlord.Utility;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -122,8 +121,8 @@ namespace Nintenlord.Distributions
             {
                 throw new ArgumentNullException(nameof(selector));
             }
-            
-            return SelectMany(distribution, selector, (a,b) => b);
+
+            return SelectMany(distribution, selector, (a, b) => b);
         }
 
         public static IDistribution<TOut> SelectMany<TIn, TOut>(this IDistribution<TIn> distribution, Func<TIn, IDiscreteDistribution<TOut>> selector)

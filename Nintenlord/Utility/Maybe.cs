@@ -14,7 +14,7 @@ namespace Nintenlord.Utility
         public bool HasValue => hasValue;
         public T Value
         {
-            get 
+            get
             {
                 if (hasValue)
                 {

@@ -43,7 +43,7 @@ namespace Nintenlord.StateMachines
 
             public Enum2 Value { get; }
 
-            private SwitchTo( Enum2 value)
+            private SwitchTo(Enum2 value)
             {
                 Value = value;
             }
@@ -93,7 +93,7 @@ namespace Nintenlord.StateMachines
 
             public Enum3 Value { get; }
 
-            private SwitchTo( Enum3 value)
+            private SwitchTo(Enum3 value)
             {
                 Value = value;
             }
@@ -147,7 +147,7 @@ namespace Nintenlord.StateMachines
 
             public Enum4 Value { get; }
 
-            private SwitchTo( Enum4 value)
+            private SwitchTo(Enum4 value)
             {
                 Value = value;
             }
@@ -205,7 +205,7 @@ namespace Nintenlord.StateMachines
 
             public Enum5 Value { get; }
 
-            private SwitchTo( Enum5 value)
+            private SwitchTo(Enum5 value)
             {
                 Value = value;
             }
@@ -267,7 +267,7 @@ namespace Nintenlord.StateMachines
 
             public Enum6 Value { get; }
 
-            private SwitchTo( Enum6 value)
+            private SwitchTo(Enum6 value)
             {
                 Value = value;
             }
@@ -333,7 +333,7 @@ namespace Nintenlord.StateMachines
 
             public Enum7 Value { get; }
 
-            private SwitchTo( Enum7 value)
+            private SwitchTo(Enum7 value)
             {
                 Value = value;
             }

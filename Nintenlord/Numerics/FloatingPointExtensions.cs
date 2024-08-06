@@ -7,7 +7,7 @@ namespace Nintenlord.Numerics
     public static class FloatingPointExtensions
     {
         public static IEnumerable<TInt> GetIntegersBetween<TInt, TFloat>(TFloat min, TFloat max)
-            where TFloat : IFloatingPoint<TFloat> 
+            where TFloat : IFloatingPoint<TFloat>
             where TInt : INumberBase<TInt>, IComparisonOperators<TInt, TInt, bool>
         {
             if (min > max)
@@ -35,7 +35,7 @@ namespace Nintenlord.Numerics
         }
 
         public static TNumber SigmoidRP<TNumber>(this TNumber value, TNumber min, TNumber max)
-            where TNumber: IExponentialFunctions<TNumber>, IComparisonOperators<TNumber, TNumber, bool>
+            where TNumber : IExponentialFunctions<TNumber>, IComparisonOperators<TNumber, TNumber, bool>
         {
             if (min > max)
             {

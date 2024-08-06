@@ -78,7 +78,7 @@ namespace Nintenlord.ProceduralGeneration
         }
 
         public static readonly LindenmayerSystem<char> Algae =
-            new('A', new [] {
+            new('A', new[] {
                 ('A', "AB".AsEnumerable()),
                 ('B', "A")});
 

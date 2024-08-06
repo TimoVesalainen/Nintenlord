@@ -11,82 +11,82 @@ int[] single = new int[]{1};
 
 IEnumerable<IEnumerable<int>> Compositions(int number)
 {
-	IEnumerable<IEnumerable<int>> Inner()
-	{
-		if (number == 0)
-		{
-			yield return Enumerable.Empty<int>();
-		}
-		if (number == 1)
-		{
-			yield return single;
-		}
-		else
-		{
-			for (int i = 0; i < number; i++)
-			{
-				foreach (var item in Compositions(i))
-				{
-					yield return item.Prepend(number - i);
-				}
-			}
-		}
-	}
-	return Inner();
+    IEnumerable<IEnumerable<int>> Inner()
+    {
+        if (number == 0)
+        {
+            yield return Enumerable.Empty<int>();
+        }
+        if (number == 1)
+        {
+            yield return single;
+        }
+        else
+        {
+            for (int i = 0; i < number; i++)
+            {
+                foreach (var item in Compositions(i))
+                {
+                    yield return item.Prepend(number - i);
+                }
+            }
+        }
+    }
+    return Inner();
 };
 
 IEnumerable<string> GetEithers(IEnumerable<int> lengths, string[] atoms)
 {
-	int start = 0;
-	foreach(var length in lengths)
-	{
-		IEnumerable<string> GetAtoms()
-		{
-			for(int i = 0; i < length; i++)
-			{
-				yield return atoms[i + start];
-			}
-		}
+    int start = 0;
+    foreach(var length in lengths)
+    {
+        IEnumerable<string> GetAtoms()
+        {
+            for(int i = 0; i < length; i++)
+            {
+                yield return atoms[i + start];
+            }
+        }
 
-		if (length == 1)
-		{
-			yield return atoms[start];
-		}
-		else
-		{
-			yield return $"Either<{string.Join(", ", GetAtoms())}>";
-		}
-		start += length;
-	}
+        if (length == 1)
+        {
+            yield return atoms[start];
+        }
+        else
+        {
+            yield return $"Either<{string.Join(", ", GetAtoms())}>";
+        }
+        start += length;
+    }
 }
 
 IEnumerable<string> GetEithers2(IEnumerable<int> lengths, string[] atoms)
 {
-	int start = 0;
-	foreach(var length in lengths)
-	{
-		IEnumerable<string> GetAtoms()
-		{
-			for(int i = 0; i < length; i++)
-			{
-				yield return atoms[i + start];
-			}
-		}
+    int start = 0;
+    foreach(var length in lengths)
+    {
+        IEnumerable<string> GetAtoms()
+        {
+            for(int i = 0; i < length; i++)
+            {
+                yield return atoms[i + start];
+            }
+        }
 
-		if (length == 1)
-		{
-			yield return atoms[start];
-		}
-		else
-		{
-			var type = $"Either<{string.Join(", ", GetAtoms())}>";
-			for	(int i = 0; i < length; i++)
-			{
-				yield return type;
-			}
-		}
-		start += length;
-	}
+        if (length == 1)
+        {
+            yield return atoms[start];
+        }
+        else
+        {
+            var type = $"Either<{string.Join(", ", GetAtoms())}>";
+            for	(int i = 0; i < length; i++)
+            {
+                yield return type;
+            }
+        }
+        start += length;
+    }
 }
 
 #>
@@ -95,25 +95,25 @@ using System.Reactive.Linq;
 
 namespace Nintenlord.Utility
 {
-	public static partial class EitherHelpers
-	{
+    public static partial class EitherHelpers
+    {
 <#
-	for (int paramCount = startValue; paramCount <= endValue; paramCount++)
-	{
-		var indicis = Enumerable.Range(0, paramCount);
-		var typeParamNames = indicis.Select(index => $"T{index}").ToArray();
-		var typeParamResultNames = indicis.Select(index => $"TOut{index}").ToArray();
-		var typeParams = String.Join(", ", typeParamNames);
+    for (int paramCount = startValue; paramCount <= endValue; paramCount++)
+    {
+        var indicis = Enumerable.Range(0, paramCount);
+        var typeParamNames = indicis.Select(index => $"T{index}").ToArray();
+        var typeParamResultNames = indicis.Select(index => $"TOut{index}").ToArray();
+        var typeParams = String.Join(", ", typeParamNames);
         var propertyNames = indicis.Select(index => $"Option{index}").ToArray();
         var typeName = $"Either<{typeParams}>";
         var actionNames = indicis.Select(index => $"action{index}").ToArray();
         var actionTypes = typeParamNames.Select(type => $"Action<{type}>").ToArray();
         var funcNames = indicis.Select(index => $"func{index}").ToArray();
         var funcTypes = typeParamNames.Select(type => $"Func<{type}, T>").ToArray();
-		var observableNames = indicis.Select(index => $"observable{index}").ToArray();
+        var observableNames = indicis.Select(index => $"observable{index}").ToArray();
 
-		var creatorFunctions = indicis.Select(i => $"From{i}").ToArray();
-		
+        var creatorFunctions = indicis.Select(i => $"From{i}").ToArray();
+        
         for (int i = 0; i < paramCount; i++)
         {
 #>
@@ -132,133 +132,133 @@ namespace Nintenlord.Utility
 <#
         }
 
-		for (int i = 0; i < paramCount; i++)
-		{
-			var typeParamNames2 = typeParamNames.Select((x,index) => index == i ? "TOut" : x).ToArray();
-			var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames2)}>.{x}")
-											  .Select((x,index) => index == i ? $"item => {x}(selector(item))" : x).ToArray();
+        for (int i = 0; i < paramCount; i++)
+        {
+            var typeParamNames2 = typeParamNames.Select((x,index) => index == i ? "TOut" : x).ToArray();
+            var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames2)}>.{x}")
+                                              .Select((x,index) => index == i ? $"item => {x}(selector(item))" : x).ToArray();
 
 #>
 
-		public static Either<<#= string.Join(", ", typeParamNames2) #>> Select<#= i #><<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= typeName #> either, Func<<#= typeParamNames[i] #>, TOut> selector)
-		{
-			return either.Apply(<#= string.Join(", ", selectFunctions) #>);
-		}
+        public static Either<<#= string.Join(", ", typeParamNames2) #>> Select<#= i #><<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= typeName #> either, Func<<#= typeParamNames[i] #>, TOut> selector)
+        {
+            return either.Apply(<#= string.Join(", ", selectFunctions) #>);
+        }
 
 <#
-		}
-		
-			var typeParamNames2First = typeParamNames.Select((x,index) => index == 0 ? "TOut" : x).ToArray();
+        }
+        
+            var typeParamNames2First = typeParamNames.Select((x,index) => index == 0 ? "TOut" : x).ToArray();
 #>
-		public static Either<<#= string.Join(", ", typeParamNames2First) #>> Select<<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= typeName #> either, Func<<#= typeParamNames[0] #>, TOut> selector)
-		{
-			return either.Select0(selector);
-		}
-		
-		public static Either<<#= string.Join(", ", typeParamResultNames) #>> MultiSelect<<#= string.Join(", ", typeParamNames.Concat(typeParamResultNames)) #>>(this <#= typeName #> either, <#= string.Join(", ", funcNames.Zip(typeParamNames, (name,inType) => (name,inType)).Zip(typeParamResultNames, (pair, outType) => $"Func<{pair.inType}, {outType}> {pair.name}")) #>)
-		{
-			return either.Apply(<#= string.Join(", ", creatorFunctions.Zip(funcNames, (creator, func) => $"x => Either<{string.Join(", ", typeParamResultNames)}>.{creator}({func}(x))")) #>);
-		}
+        public static Either<<#= string.Join(", ", typeParamNames2First) #>> Select<<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= typeName #> either, Func<<#= typeParamNames[0] #>, TOut> selector)
+        {
+            return either.Select0(selector);
+        }
+
+        public static Either<<#= string.Join(", ", typeParamResultNames) #>> MultiSelect<<#= string.Join(", ", typeParamNames.Concat(typeParamResultNames)) #>>(this <#= typeName #> either, <#= string.Join(", ", funcNames.Zip(typeParamNames, (name,inType) => (name,inType)).Zip(typeParamResultNames, (pair, outType) => $"Func<{pair.inType}, {outType}> {pair.name}")) #>)
+        {
+            return either.Apply(<#= string.Join(", ", creatorFunctions.Zip(funcNames, (creator, func) => $"x => Either<{string.Join(", ", typeParamResultNames)}>.{creator}({func}(x))")) #>);
+        }
 
 <#
-		for (int i = 0; i < paramCount; i++)
-		{
-			var typeParamNames2 = typeParamNames.Select((x,index) => index == i ? "TIn" : x).ToArray();
-			var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames)}>.{x}")
-											  .Select((x,index) => index == i ? $"selector" : x).ToArray();
-			var typeName2 = $"Either<{string.Join(", ", typeParamNames2)}>";
+        for (int i = 0; i < paramCount; i++)
+        {
+            var typeParamNames2 = typeParamNames.Select((x,index) => index == i ? "TIn" : x).ToArray();
+            var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames)}>.{x}")
+                                              .Select((x,index) => index == i ? $"selector" : x).ToArray();
+            var typeName2 = $"Either<{string.Join(", ", typeParamNames2)}>";
 
 #>
-		public static Either<<#= string.Join(", ", typeParamNames) #>> SelectMany<#= i #><<#= string.Join(", ", typeParamNames) #>, TIn>(this <#= typeName2 #> either, Func<TIn, Either<<#= string.Join(", ", typeParamNames) #>>> selector)
-		{
-			return either.Apply(<#= string.Join(", ", selectFunctions) #>);
-		}
+        public static Either<<#= string.Join(", ", typeParamNames) #>> SelectMany<#= i #><<#= string.Join(", ", typeParamNames) #>, TIn>(this <#= typeName2 #> either, Func<TIn, Either<<#= string.Join(", ", typeParamNames) #>>> selector)
+        {
+            return either.Apply(<#= string.Join(", ", selectFunctions) #>);
+        }
 
 <#
-		}
-		
-			var typeParamNames2First2 = typeParamNames.Select((x,index) => index == 0 ? "TIn" : x).ToArray();
+        }
+        
+            var typeParamNames2First2 = typeParamNames.Select((x,index) => index == 0 ? "TIn" : x).ToArray();
 #>
-		public static <#= typeName #> SelectMany<<#= string.Join(", ", typeParamNames) #>, TIn>(this Either<<#= string.Join(", ", typeParamNames2First2) #>> either, Func<TIn, <#= typeName #>> selector)
-		{
-			return either.SelectMany0(selector);
-		}
-		
-		public static Either<<#= string.Join(", ", typeParamResultNames) #>> MultiSelectMany<<#= string.Join(", ", typeParamNames.Concat(typeParamResultNames)) #>>(this <#= typeName #> either, <#= string.Join(", ", funcNames.Zip(typeParamNames, (name,inType) => (name,inType)).Zip(typeParamResultNames, (pair, outType) => $"Func<{pair.inType}, Either<{ string.Join(", ", typeParamResultNames) }>> {pair.name}")) #>)
-		{
-			return either.Apply(<#= string.Join(", ", funcNames) #>);
-		}
+        public static <#= typeName #> SelectMany<<#= string.Join(", ", typeParamNames) #>, TIn>(this Either<<#= string.Join(", ", typeParamNames2First2) #>> either, Func<TIn, <#= typeName #>> selector)
+        {
+            return either.SelectMany0(selector);
+        }
+
+        public static Either<<#= string.Join(", ", typeParamResultNames) #>> MultiSelectMany<<#= string.Join(", ", typeParamNames.Concat(typeParamResultNames)) #>>(this <#= typeName #> either, <#= string.Join(", ", funcNames.Zip(typeParamNames, (name,inType) => (name,inType)).Zip(typeParamResultNames, (pair, outType) => $"Func<{pair.inType}, Either<{ string.Join(", ", typeParamResultNames) }>> {pair.name}")) #>)
+        {
+            return either.Apply(<#= string.Join(", ", funcNames) #>);
+        }
 
 <#
-		for (int i = 0; i < paramCount - 1; i++)
-		{
-			var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames)}>.{x}").ToArray();
+        for (int i = 0; i < paramCount - 1; i++)
+        {
+            var selectFunctions = creatorFunctions.Select(x => $"Either<{string.Join(", ", typeParamNames)}>.{x}").ToArray();
 #>
-		public static <#= typeName #> Where<#= i #><<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> either, Predicate<<#= typeParamNames[i] #>> predicate, <#= typeParamNames.Last() #> error = default)
-		{
-			return either.Apply(<#= string.Join(", ", Enumerable.Range(0, paramCount).Select(index => index == i ? "x => predicate(x) ? x : error" : selectFunctions[index])) #>);
-		}
+        public static <#= typeName #> Where<#= i #><<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> either, Predicate<<#= typeParamNames[i] #>> predicate, <#= typeParamNames.Last() #> error = default)
+        {
+            return either.Apply(<#= string.Join(", ", Enumerable.Range(0, paramCount).Select(index => index == i ? "x => predicate(x) ? x : error" : selectFunctions[index])) #>);
+        }
 
 <#
-		}
+        }
 #>
-		public static <#= typeName #> Where<<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> either, Predicate<<#= typeParamNames.First() #>> predicate, <#= typeParamNames.Last() #> error = default)
-		{
-			return Where0(either, predicate, error);
-		}
+        public static <#= typeName #> Where<<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> either, Predicate<<#= typeParamNames.First() #>> predicate, <#= typeParamNames.Last() #> error = default)
+        {
+            return Where0(either, predicate, error);
+        }
 
-		public static Func<<#= typeName #>, TOut> Combine<<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= string.Join(", ", funcNames.Zip(typeParamNames, (name, param) => $"Func<{param}, TOut> {name}")) #>)
-		{
-			return either => either.Apply(<#= string.Join(", ", funcNames) #>);
-		}
+        public static Func<<#= typeName #>, TOut> Combine<<#= string.Join(", ", typeParamNames) #>, TOut>(this <#= string.Join(", ", funcNames.Zip(typeParamNames, (name, param) => $"Func<{param}, TOut> {name}")) #>)
+        {
+            return either => either.Apply(<#= string.Join(", ", funcNames) #>);
+        }
 
-		public static IObservable<<#= typeName #>> MergeEither<<#= typeParams #>>(this <#= string.Join(", ", typeParamNames.Zip(observableNames, (type, name) => $"IObservable<{type}> {name}")) #>)
-		{
+        public static IObservable<<#= typeName #>> MergeEither<<#= typeParams #>>(this <#= string.Join(", ", typeParamNames.Zip(observableNames, (type, name) => $"IObservable<{type}> {name}")) #>)
+        {
 <#
-			if(paramCount == 2)
-			{
+            if(paramCount == 2)
+            {
 #>
-			return observable0.Select(Either<T0, T1>.From0).Merge(observable1.Select(Either<T0, T1>.From1));
+            return observable0.Select(Either<T0, T1>.From0).Merge(observable1.Select(Either<T0, T1>.From1));
 <#
-			}
-			else
-			{
+            }
+            else
+            {
 #>
-			// TODO: Reduce calls
-			return observable0.MergeEither(<#= string.Join(", ", observableNames.Skip(1).Take(paramCount - 2)) #>).Select(x => (<#= typeName #>)x).Merge(<#= observableNames[paramCount - 1] #>.Select(<#= typeName #>.<#= creatorFunctions.Last() #>));
+            // TODO: Reduce calls
+            return observable0.MergeEither(<#= string.Join(", ", observableNames.Skip(1).Take(paramCount - 2)) #>).Select(x => (<#= typeName #>)x).Merge(<#= observableNames[paramCount - 1] #>.Select(<#= typeName #>.<#= creatorFunctions.Last() #>));
 <#
-			}
+            }
 #>
-		}
+        }
 
-#region Associate for <#= paramCount #>
+        #region Associate for <#= paramCount #>
 <#
-		foreach(var composition in Compositions(paramCount))
-		{
-			var compositionArray = composition.ToArray();
-			if(compositionArray.Length == 1 || compositionArray.Length == paramCount)
-			{
-				continue;//Would be identity function
-			}
-			var paramType = $"Either<{string.Join(", ", GetEithers(compositionArray, typeParamNames))}>";
+        foreach(var composition in Compositions(paramCount))
+        {
+            var compositionArray = composition.ToArray();
+            if(compositionArray.Length == 1 || compositionArray.Length == paramCount)
+            {
+                continue;//Would be identity function
+            }
+            var paramType = $"Either<{string.Join(", ", GetEithers(compositionArray, typeParamNames))}>";
 #>
-		public static <#= typeName #> Associate<#= string.Join("And", compositionArray) #><<#= string.Join(", ", typeParamNames) #>>(this <#= paramType #> parameter)
-		{
-			return parameter.Apply<<#= typeName #>>(<#= string.Join(", ", compositionArray.Select(x => $"x => x"))#>);
-		}
+        public static <#= typeName #> Associate<#= string.Join("And", compositionArray) #><<#= string.Join(", ", typeParamNames) #>>(this <#= paramType #> parameter)
+        {
+            return parameter.Apply<<#= typeName #>>(<#= string.Join(", ", compositionArray.Select(x => $"x => x"))#>);
+        }
 
-		public static <#= paramType #> UnAssociate<#= string.Join("And", compositionArray) #><<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> parameter)
-		{
-			return parameter.Apply<<#= paramType #>>(<#= string.Join(", ", typeParamNames.Zip(GetEithers2(compositionArray, typeParamNames), (x, t) => $"x => ({t})x"))#>);
-		}
+        public static <#= paramType #> UnAssociate<#= string.Join("And", compositionArray) #><<#= string.Join(", ", typeParamNames) #>>(this <#= typeName #> parameter)
+        {
+            return parameter.Apply<<#= paramType #>>(<#= string.Join(", ", typeParamNames.Zip(GetEithers2(compositionArray, typeParamNames), (x, t) => $"x => ({t})x"))#>);
+        }
 <#
-		}
+        }
 #>
-#endregion Associate for <#= paramCount #>
+        #endregion Associate for <#= paramCount #>
 
-		//TODO: Commutative operations
+        //TODO: Commutative operations
 <#
-	}
+    }
 #>
-	}
+    }
 }

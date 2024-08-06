@@ -14,7 +14,7 @@ namespace Nintenlord.Distributions.Continous
         {
             if (headsPropability < 0 || headsPropability > 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(headsPropability), headsPropability, "Value not valid propability"); 
+                throw new ArgumentOutOfRangeException(nameof(headsPropability), headsPropability, "Value not valid propability");
             }
             this.heads = heads;
             this.tails = tails;

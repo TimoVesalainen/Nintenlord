@@ -45,12 +45,12 @@ namespace Nintenlord.Utility
             action(Tuple.Create(in0, in1));
         }
 
-        public static Func<TIn0,Func<TIn1,T>> Curry<T, TIn0, TIn1>(Func<TIn0, TIn1, T> func)
+        public static Func<TIn0, Func<TIn1, T>> Curry<T, TIn0, TIn1>(Func<TIn0, TIn1, T> func)
         {
             return in0 => in1 => func(in0, in1);
         }
 
-        public static Func<TIn0, TIn1, T> Uncurry<T, TIn0, TIn1>(Func<TIn0,Func<TIn1,T>> func)
+        public static Func<TIn0, TIn1, T> Uncurry<T, TIn0, TIn1>(Func<TIn0, Func<TIn1, T>> func)
         {
             return (in0, in1) => func(in0)(in1);
         }
@@ -129,12 +129,12 @@ namespace Nintenlord.Utility
             action(Tuple.Create(in0, in1, in2));
         }
 
-        public static Func<TIn0,Func<TIn1,Func<TIn2,T>>> Curry<T, TIn0, TIn1, TIn2>(Func<TIn0, TIn1, TIn2, T> func)
+        public static Func<TIn0, Func<TIn1, Func<TIn2, T>>> Curry<T, TIn0, TIn1, TIn2>(Func<TIn0, TIn1, TIn2, T> func)
         {
             return in0 => in1 => in2 => func(in0, in1, in2);
         }
 
-        public static Func<TIn0, TIn1, TIn2, T> Uncurry<T, TIn0, TIn1, TIn2>(Func<TIn0,Func<TIn1,Func<TIn2,T>>> func)
+        public static Func<TIn0, TIn1, TIn2, T> Uncurry<T, TIn0, TIn1, TIn2>(Func<TIn0, Func<TIn1, Func<TIn2, T>>> func)
         {
             return (in0, in1, in2) => func(in0)(in1)(in2);
         }
@@ -213,12 +213,12 @@ namespace Nintenlord.Utility
             action(Tuple.Create(in0, in1, in2, in3));
         }
 
-        public static Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,T>>>> Curry<T, TIn0, TIn1, TIn2, TIn3>(Func<TIn0, TIn1, TIn2, TIn3, T> func)
+        public static Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, T>>>> Curry<T, TIn0, TIn1, TIn2, TIn3>(Func<TIn0, TIn1, TIn2, TIn3, T> func)
         {
             return in0 => in1 => in2 => in3 => func(in0, in1, in2, in3);
         }
 
-        public static Func<TIn0, TIn1, TIn2, TIn3, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3>(Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,T>>>> func)
+        public static Func<TIn0, TIn1, TIn2, TIn3, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3>(Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, T>>>> func)
         {
             return (in0, in1, in2, in3) => func(in0)(in1)(in2)(in3);
         }
@@ -297,12 +297,12 @@ namespace Nintenlord.Utility
             action(Tuple.Create(in0, in1, in2, in3, in4));
         }
 
-        public static Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,Func<TIn4,T>>>>> Curry<T, TIn0, TIn1, TIn2, TIn3, TIn4>(Func<TIn0, TIn1, TIn2, TIn3, TIn4, T> func)
+        public static Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, T>>>>> Curry<T, TIn0, TIn1, TIn2, TIn3, TIn4>(Func<TIn0, TIn1, TIn2, TIn3, TIn4, T> func)
         {
             return in0 => in1 => in2 => in3 => in4 => func(in0, in1, in2, in3, in4);
         }
 
-        public static Func<TIn0, TIn1, TIn2, TIn3, TIn4, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3, TIn4>(Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,Func<TIn4,T>>>>> func)
+        public static Func<TIn0, TIn1, TIn2, TIn3, TIn4, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3, TIn4>(Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, T>>>>> func)
         {
             return (in0, in1, in2, in3, in4) => func(in0)(in1)(in2)(in3)(in4);
         }
@@ -381,12 +381,12 @@ namespace Nintenlord.Utility
             action(Tuple.Create(in0, in1, in2, in3, in4, in5));
         }
 
-        public static Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,Func<TIn4,Func<TIn5,T>>>>>> Curry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>(Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, T> func)
+        public static Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, Func<TIn5, T>>>>>> Curry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>(Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, T> func)
         {
             return in0 => in1 => in2 => in3 => in4 => in5 => func(in0, in1, in2, in3, in4, in5);
         }
 
-        public static Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>(Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,Func<TIn4,Func<TIn5,T>>>>>> func)
+        public static Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5>(Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, Func<TIn5, T>>>>>> func)
         {
             return (in0, in1, in2, in3, in4, in5) => func(in0)(in1)(in2)(in3)(in4)(in5);
         }
@@ -465,12 +465,12 @@ namespace Nintenlord.Utility
             action(Tuple.Create(in0, in1, in2, in3, in4, in5, in6));
         }
 
-        public static Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,Func<TIn4,Func<TIn5,Func<TIn6,T>>>>>>> Curry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, T> func)
+        public static Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, Func<TIn5, Func<TIn6, T>>>>>>> Curry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, T> func)
         {
             return in0 => in1 => in2 => in3 => in4 => in5 => in6 => func(in0, in1, in2, in3, in4, in5, in6);
         }
 
-        public static Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(Func<TIn0,Func<TIn1,Func<TIn2,Func<TIn3,Func<TIn4,Func<TIn5,Func<TIn6,T>>>>>>> func)
+        public static Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, T> Uncurry<T, TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(Func<TIn0, Func<TIn1, Func<TIn2, Func<TIn3, Func<TIn4, Func<TIn5, Func<TIn6, T>>>>>>> func)
         {
             return (in0, in1, in2, in3, in4, in5, in6) => func(in0)(in1)(in2)(in3)(in4)(in5)(in6);
         }

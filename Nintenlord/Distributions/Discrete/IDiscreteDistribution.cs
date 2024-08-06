@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nintenlord.Collections;
 
 namespace Nintenlord.Distributions.Discrete
 {
@@ -60,8 +59,8 @@ namespace Nintenlord.Distributions.Discrete
             var indexDistribution = IntegerDistribution.Create(weights.Select(x => x.Value));
 
             return DiscreteDistribution<T>.Create(
-                indexDistribution, 
-                weights.Select(x => x.Key), 
+                indexDistribution,
+                weights.Select(x => x.Key),
                 equalityComparer);
         }
 
@@ -75,8 +74,8 @@ namespace Nintenlord.Distributions.Discrete
             var indexDistribution = IntegerDistribution.Create(weights.Select(x => x.weight));
 
             return DiscreteDistribution<T>.Create(
-                indexDistribution, 
-                weights.Select(x => x.key), 
+                indexDistribution,
+                weights.Select(x => x.key),
                 equalityComparer);
         }
     }

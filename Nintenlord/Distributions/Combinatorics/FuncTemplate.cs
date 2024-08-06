@@ -1,5 +1,5 @@
-﻿using System;
-using Nintenlord.Utility;
+﻿using Nintenlord.Utility;
+using System;
 
 namespace Nintenlord.Distributions.Combinatorics
 {
@@ -10,7 +10,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<TIn> inDistribution;
         readonly Func<TIn, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<TIn> inDistribution, Func<TIn, TOut> selector)
@@ -32,7 +32,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<(TIn0, TIn1)> inDistribution;
         readonly Func<TIn0, TIn1, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<(TIn0, TIn1)> inDistribution, Func<TIn0, TIn1, TOut> selector)
@@ -54,7 +54,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<(TIn0, TIn1, TIn2)> inDistribution;
         readonly Func<TIn0, TIn1, TIn2, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<(TIn0, TIn1, TIn2)> inDistribution, Func<TIn0, TIn1, TIn2, TOut> selector)
@@ -76,7 +76,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<(TIn0, TIn1, TIn2, TIn3)> inDistribution;
         readonly Func<TIn0, TIn1, TIn2, TIn3, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<(TIn0, TIn1, TIn2, TIn3)> inDistribution, Func<TIn0, TIn1, TIn2, TIn3, TOut> selector)
@@ -98,7 +98,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<(TIn0, TIn1, TIn2, TIn3, TIn4)> inDistribution;
         readonly Func<TIn0, TIn1, TIn2, TIn3, TIn4, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<(TIn0, TIn1, TIn2, TIn3, TIn4)> inDistribution, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TOut> selector)
@@ -120,7 +120,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<(TIn0, TIn1, TIn2, TIn3, TIn4, TIn5)> inDistribution;
         readonly Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<(TIn0, TIn1, TIn2, TIn3, TIn4, TIn5)> inDistribution, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TOut> selector)
@@ -142,7 +142,7 @@ namespace Nintenlord.Distributions.Combinatorics
     {
         readonly IDistribution<(TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6)> inDistribution;
         readonly Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TOut> selector;
-        
+
         /// <param name="inDistribution">Original distributions</param>
         /// <param name="selector">Bijection between support of distributions</param>
         public FuncDistribution(IDistribution<(TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6)> inDistribution, Func<TIn0, TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TOut> selector)

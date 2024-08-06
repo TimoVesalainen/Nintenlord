@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Nintenlord.Graph;
-using Nintenlord.Graph.Colouring;
-using Nintenlord.Collections;
+﻿using Nintenlord.Collections;
+using Nintenlord.Collections.Comparers;
 using Nintenlord.Collections.EqualityComparer;
 using Nintenlord.Distributions;
 using Nintenlord.Distributions.Discrete;
-using Nintenlord.Collections.Comparers;
+using Nintenlord.Graph;
+using Nintenlord.Graph.Colouring;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.StateMachines.Finite
 {
@@ -23,7 +23,7 @@ namespace Nintenlord.StateMachines.Finite
 
             if (!partition.Split(Comparer<bool>.Default.Select<bool, TState>(machine.IsFinalState)))
             {
-                return reachableStates.Select(x => new HashSet<TState>{ x }).ToList();
+                return reachableStates.Select(x => new HashSet<TState> { x }).ToList();
             }
 
             var partitionDict = new Dictionary<TState, int>(partition.Count);
@@ -92,7 +92,7 @@ namespace Nintenlord.StateMachines.Finite
             {
                 var randomMachineBuilder = new DictionaryStateMachine<TState, TInput>.Builder();
 
-                foreach (var (state, isFinal) in states.Zip(finalsStates, (a,b) => (a,b)))
+                foreach (var (state, isFinal) in states.Zip(finalsStates, (a, b) => (a, b)))
                 {
                     randomMachineBuilder.AddState(state);
                     randomMachineBuilder.SetIsFinalState(state, isFinal);

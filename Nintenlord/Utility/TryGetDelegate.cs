@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nintenlord.Utility
+﻿namespace Nintenlord.Utility
 {
     public delegate bool TryGetDelegate<TOut>(out TOut value);
     public delegate bool TryGetDelegate<in TIn, TOut>(TIn input, out TOut result);

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Nintenlord.Collections.Comparers;
+﻿using Nintenlord.Collections.Comparers;
 using Nintenlord.Collections.DisjointSet;
 using Nintenlord.Collections.EqualityComparer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nintenlord.Collections
 {

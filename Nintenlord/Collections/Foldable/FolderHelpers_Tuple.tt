@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+using Nintenlord.Collections.Foldable.Combinatorics;
 using System;
 
 namespace Nintenlord.Collections.Foldable
@@ -17,10 +18,10 @@ for (int i = 2; i < 8; i++)
     var outputs = Enumerable.Range(0, i).Select(index => $"TOut{index}").ToArray();
     var states = Enumerable.Range(0, i).Select(index => $"TState{index}").ToArray();
     var folderNames = Enumerable.Range(0, i).Select(index => $"folder{index}").ToArray();
-    var folderTypesCombine = states.Zip(outputs, (state, output) => $" IFolder<TIn, {state}, {output}>");
-    var folderTypesEither = inputs.Zip(states.Zip(outputs, (state, output) => (state, output)), (input, tuple) => $" IFolder<{input}, {tuple.state}, {tuple.output}>");
+    var folderTypesCombine = states.Zip(outputs, (state, output) => $"IFolder<TIn, {state}, {output}>");
+    var folderTypesEither = inputs.Zip(states.Zip(outputs, (state, output) => (state, output)), (input, tuple) => $"IFolder<{input}, {tuple.state}, {tuple.output}>");
     var combiner = $"Combiner<TIn, {string.Join(", ", states)}, {string.Join(", ", outputs)}, TOut>";
-    var either = $"EitherFolder<{string.Join(", ", inputs)},  {string.Join(", ", states)}, {string.Join(", ", outputs)}>";
+    var either = $"EitherFolder<{string.Join(", ", inputs)}, {string.Join(", ", states)}, {string.Join(", ", outputs)}>";
 #>
         public static <#= combiner #> Combine<TIn, <#= string.Join(", ", states) #>, <#= string.Join(", ", outputs) #>, TOut>(this
 <#

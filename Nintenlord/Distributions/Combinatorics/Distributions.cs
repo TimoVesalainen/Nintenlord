@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nintenlord.Distributions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nintenlord.Distributions;
 
 namespace Nintenlord.Distributions.Combinatorics
 {

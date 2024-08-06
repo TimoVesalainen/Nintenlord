@@ -1,5 +1,5 @@
-﻿using System;
-using Nintenlord.Distributions.Continous;
+﻿using Nintenlord.Distributions.Continous;
+using System;
 
 namespace Nintenlord.Distributions
 {

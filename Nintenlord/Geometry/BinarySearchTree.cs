@@ -17,7 +17,7 @@ namespace Nintenlord.Geometry
             static ITree<(int start, int length)> Create(int length)
             {
                 return binarySearchForest.SetRoot((0, length));
-            }            
+            }
 
             return treesCache.GetOrAdd(itemCount, Create);
         }

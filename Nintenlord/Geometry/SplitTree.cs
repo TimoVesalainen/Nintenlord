@@ -17,11 +17,12 @@ namespace Nintenlord.Geometry
             IEnumerable<NParallerogram<TVector>> GetChildren(NParallerogram<TVector> node)
             {
                 var nextEdges = node.Edges.Select(edge => edge / 2).ToArray();
-                return BitArrayHelpers.GetAllArrays(edgeCount).Select(bits => {
+                return BitArrayHelpers.GetAllArrays(edgeCount).Select(bits =>
+                {
                     var start = bits.EnumerateBits()
                     .Zip(nextEdges, (include, end) => (include, end))
                     .Where(t => t.include)
-                    .Aggregate(node.Start, (accum, t) =>  accum + t.end);
+                    .Aggregate(node.Start, (accum, t) => accum + t.end);
 
                     return new NParallerogram<TVector>(start, nextEdges);
                 });

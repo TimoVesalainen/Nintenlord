@@ -24,7 +24,7 @@ namespace Nintenlord.StateMachines
         public TState Transition(TState currentState, Either<TInput1, TInput2> input)
         {
             return input.Apply(
-                originalInput => original.Transition(currentState, originalInput), 
+                originalInput => original.Transition(currentState, originalInput),
                 newInput => newTransitions(newInput, currentState)
                 );
 

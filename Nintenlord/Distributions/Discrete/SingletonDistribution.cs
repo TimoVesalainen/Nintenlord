@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nintenlord.Collections;
+using Nintenlord.Distributions.Discrete;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Nintenlord.Collections;
-using Nintenlord.Distributions.Discrete;
 
 namespace Nintenlord.Distributions
 {

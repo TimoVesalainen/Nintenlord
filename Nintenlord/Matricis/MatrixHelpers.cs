@@ -215,7 +215,7 @@ namespace Nintenlord.Matricis
             }
             else
             {
-                return BinaryMatrix.Create((x, y) => matrix[x,y], matrix.Width, matrix.Height);
+                return BinaryMatrix.Create((x, y) => matrix[x, y], matrix.Width, matrix.Height);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Nintenlord.Matricis
                 throw new ArgumentNullException(nameof(sum));
             }
 
-            return matrix.Rows().Select(x => x.Zip(vector, (a, b) => (a, b)).Aggregate(zero, (s,t) => sum(t.a, t.b, s)));
+            return matrix.Rows().Select(x => x.Zip(vector, (a, b) => (a, b)).Aggregate(zero, (s, t) => sum(t.a, t.b, s)));
         }
 
         public static IEnumerable<TOut> LinearTransformation<TIn1, TIn2, TOut>(this IMatrix<TIn1> matrix, IEnumerable<TIn2> vector)
@@ -528,7 +528,7 @@ namespace Nintenlord.Matricis
             {
                 for (int j = 0; j < matrix.Height; j++)
                 {
-                    if (comparer.Compare(matrix[i,j], result.Item3) > 0)
+                    if (comparer.Compare(matrix[i, j], result.Item3) > 0)
                     {
                         result = (i, j, matrix[i, j]);
                     }

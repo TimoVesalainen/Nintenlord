@@ -34,7 +34,7 @@ namespace Nintenlord.Tilings
                         {
                             widths[cx] = cw;
                         }
-                        else if(oldWidth != cw)
+                        else if (oldWidth != cw)
                         {
                             throw new Exception($"Widths in {cx} disagree, {oldWidth} VS {cw}");
                         }

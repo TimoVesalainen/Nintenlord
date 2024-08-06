@@ -12,10 +12,10 @@ namespace Nintenlord.Collections
 
             for (int x1 = 0; x1 < list1.Count; x1++)
             {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x1, x0] = product(list0[x0], list1[x1]);
-            }
+                for (int x0 = 0; x0 < list0.Count; x0++)
+                {
+                    result[x1, x0] = product(list0[x0], list1[x1]);
+                }
             }
 
             return result;
@@ -38,13 +38,13 @@ namespace Nintenlord.Collections
 
             for (int x2 = 0; x2 < list2.Count; x2++)
             {
-            for (int x1 = 0; x1 < list1.Count; x1++)
-            {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x2, x1, x0] = product(list0[x0], list1[x1], list2[x2]);
-            }
-            }
+                for (int x1 = 0; x1 < list1.Count; x1++)
+                {
+                    for (int x0 = 0; x0 < list0.Count; x0++)
+                    {
+                        result[x2, x1, x0] = product(list0[x0], list1[x1], list2[x2]);
+                    }
+                }
             }
 
             return result;
@@ -67,16 +67,16 @@ namespace Nintenlord.Collections
 
             for (int x3 = 0; x3 < list3.Count; x3++)
             {
-            for (int x2 = 0; x2 < list2.Count; x2++)
-            {
-            for (int x1 = 0; x1 < list1.Count; x1++)
-            {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3]);
-            }
-            }
-            }
+                for (int x2 = 0; x2 < list2.Count; x2++)
+                {
+                    for (int x1 = 0; x1 < list1.Count; x1++)
+                    {
+                        for (int x0 = 0; x0 < list0.Count; x0++)
+                        {
+                            result[x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3]);
+                        }
+                    }
+                }
             }
 
             return result;
@@ -99,19 +99,19 @@ namespace Nintenlord.Collections
 
             for (int x4 = 0; x4 < list4.Count; x4++)
             {
-            for (int x3 = 0; x3 < list3.Count; x3++)
-            {
-            for (int x2 = 0; x2 < list2.Count; x2++)
-            {
-            for (int x1 = 0; x1 < list1.Count; x1++)
-            {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4]);
-            }
-            }
-            }
-            }
+                for (int x3 = 0; x3 < list3.Count; x3++)
+                {
+                    for (int x2 = 0; x2 < list2.Count; x2++)
+                    {
+                        for (int x1 = 0; x1 < list1.Count; x1++)
+                        {
+                            for (int x0 = 0; x0 < list0.Count; x0++)
+                            {
+                                result[x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4]);
+                            }
+                        }
+                    }
+                }
             }
 
             return result;
@@ -134,22 +134,22 @@ namespace Nintenlord.Collections
 
             for (int x5 = 0; x5 < list5.Count; x5++)
             {
-            for (int x4 = 0; x4 < list4.Count; x4++)
-            {
-            for (int x3 = 0; x3 < list3.Count; x3++)
-            {
-            for (int x2 = 0; x2 < list2.Count; x2++)
-            {
-            for (int x1 = 0; x1 < list1.Count; x1++)
-            {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x5, x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4], list5[x5]);
-            }
-            }
-            }
-            }
-            }
+                for (int x4 = 0; x4 < list4.Count; x4++)
+                {
+                    for (int x3 = 0; x3 < list3.Count; x3++)
+                    {
+                        for (int x2 = 0; x2 < list2.Count; x2++)
+                        {
+                            for (int x1 = 0; x1 < list1.Count; x1++)
+                            {
+                                for (int x0 = 0; x0 < list0.Count; x0++)
+                                {
+                                    result[x5, x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4], list5[x5]);
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             return result;
@@ -172,25 +172,25 @@ namespace Nintenlord.Collections
 
             for (int x6 = 0; x6 < list6.Count; x6++)
             {
-            for (int x5 = 0; x5 < list5.Count; x5++)
-            {
-            for (int x4 = 0; x4 < list4.Count; x4++)
-            {
-            for (int x3 = 0; x3 < list3.Count; x3++)
-            {
-            for (int x2 = 0; x2 < list2.Count; x2++)
-            {
-            for (int x1 = 0; x1 < list1.Count; x1++)
-            {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x6, x5, x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4], list5[x5], list6[x6]);
-            }
-            }
-            }
-            }
-            }
-            }
+                for (int x5 = 0; x5 < list5.Count; x5++)
+                {
+                    for (int x4 = 0; x4 < list4.Count; x4++)
+                    {
+                        for (int x3 = 0; x3 < list3.Count; x3++)
+                        {
+                            for (int x2 = 0; x2 < list2.Count; x2++)
+                            {
+                                for (int x1 = 0; x1 < list1.Count; x1++)
+                                {
+                                    for (int x0 = 0; x0 < list0.Count; x0++)
+                                    {
+                                        result[x6, x5, x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4], list5[x5], list6[x6]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             return result;
@@ -213,28 +213,28 @@ namespace Nintenlord.Collections
 
             for (int x7 = 0; x7 < list7.Count; x7++)
             {
-            for (int x6 = 0; x6 < list6.Count; x6++)
-            {
-            for (int x5 = 0; x5 < list5.Count; x5++)
-            {
-            for (int x4 = 0; x4 < list4.Count; x4++)
-            {
-            for (int x3 = 0; x3 < list3.Count; x3++)
-            {
-            for (int x2 = 0; x2 < list2.Count; x2++)
-            {
-            for (int x1 = 0; x1 < list1.Count; x1++)
-            {
-            for (int x0 = 0; x0 < list0.Count; x0++)
-            {
-                result[x7, x6, x5, x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4], list5[x5], list6[x6], list7[x7]);
-            }
-            }
-            }
-            }
-            }
-            }
-            }
+                for (int x6 = 0; x6 < list6.Count; x6++)
+                {
+                    for (int x5 = 0; x5 < list5.Count; x5++)
+                    {
+                        for (int x4 = 0; x4 < list4.Count; x4++)
+                        {
+                            for (int x3 = 0; x3 < list3.Count; x3++)
+                            {
+                                for (int x2 = 0; x2 < list2.Count; x2++)
+                                {
+                                    for (int x1 = 0; x1 < list1.Count; x1++)
+                                    {
+                                        for (int x0 = 0; x0 < list0.Count; x0++)
+                                        {
+                                            result[x7, x6, x5, x4, x3, x2, x1, x0] = product(list0[x0], list1[x1], list2[x2], list3[x3], list4[x4], list5[x5], list6[x6], list7[x7]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             return result;

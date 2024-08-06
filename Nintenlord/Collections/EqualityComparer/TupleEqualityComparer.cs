@@ -11,7 +11,7 @@ namespace Nintenlord.Collections.EqualityComparer
 
         public static IEqualityComparer<(T0, T1)> Create(IEqualityComparer<T0> comparer0, IEqualityComparer<T1> comparer1)
         {
-            if (comparer0 ==  EqualityComparer<T0>.Default && comparer1 ==  EqualityComparer<T1>.Default)
+            if (comparer0 == EqualityComparer<T0>.Default && comparer1 == EqualityComparer<T1>.Default)
             {
                 return EqualityComparer<(T0, T1)>.Default;
             }
@@ -42,7 +42,7 @@ namespace Nintenlord.Collections.EqualityComparer
 
         public static IEqualityComparer<(T0, T1, T2)> Create(IEqualityComparer<T0> comparer0, IEqualityComparer<T1> comparer1, IEqualityComparer<T2> comparer2)
         {
-            if (comparer0 ==  EqualityComparer<T0>.Default && comparer1 ==  EqualityComparer<T1>.Default && comparer2 ==  EqualityComparer<T2>.Default)
+            if (comparer0 == EqualityComparer<T0>.Default && comparer1 == EqualityComparer<T1>.Default && comparer2 == EqualityComparer<T2>.Default)
             {
                 return EqualityComparer<(T0, T1, T2)>.Default;
             }
@@ -75,7 +75,7 @@ namespace Nintenlord.Collections.EqualityComparer
 
         public static IEqualityComparer<(T0, T1, T2, T3)> Create(IEqualityComparer<T0> comparer0, IEqualityComparer<T1> comparer1, IEqualityComparer<T2> comparer2, IEqualityComparer<T3> comparer3)
         {
-            if (comparer0 ==  EqualityComparer<T0>.Default && comparer1 ==  EqualityComparer<T1>.Default && comparer2 ==  EqualityComparer<T2>.Default && comparer3 ==  EqualityComparer<T3>.Default)
+            if (comparer0 == EqualityComparer<T0>.Default && comparer1 == EqualityComparer<T1>.Default && comparer2 == EqualityComparer<T2>.Default && comparer3 == EqualityComparer<T3>.Default)
             {
                 return EqualityComparer<(T0, T1, T2, T3)>.Default;
             }
@@ -110,7 +110,7 @@ namespace Nintenlord.Collections.EqualityComparer
 
         public static IEqualityComparer<(T0, T1, T2, T3, T4)> Create(IEqualityComparer<T0> comparer0, IEqualityComparer<T1> comparer1, IEqualityComparer<T2> comparer2, IEqualityComparer<T3> comparer3, IEqualityComparer<T4> comparer4)
         {
-            if (comparer0 ==  EqualityComparer<T0>.Default && comparer1 ==  EqualityComparer<T1>.Default && comparer2 ==  EqualityComparer<T2>.Default && comparer3 ==  EqualityComparer<T3>.Default && comparer4 ==  EqualityComparer<T4>.Default)
+            if (comparer0 == EqualityComparer<T0>.Default && comparer1 == EqualityComparer<T1>.Default && comparer2 == EqualityComparer<T2>.Default && comparer3 == EqualityComparer<T3>.Default && comparer4 == EqualityComparer<T4>.Default)
             {
                 return EqualityComparer<(T0, T1, T2, T3, T4)>.Default;
             }
@@ -147,7 +147,7 @@ namespace Nintenlord.Collections.EqualityComparer
 
         public static IEqualityComparer<(T0, T1, T2, T3, T4, T5)> Create(IEqualityComparer<T0> comparer0, IEqualityComparer<T1> comparer1, IEqualityComparer<T2> comparer2, IEqualityComparer<T3> comparer3, IEqualityComparer<T4> comparer4, IEqualityComparer<T5> comparer5)
         {
-            if (comparer0 ==  EqualityComparer<T0>.Default && comparer1 ==  EqualityComparer<T1>.Default && comparer2 ==  EqualityComparer<T2>.Default && comparer3 ==  EqualityComparer<T3>.Default && comparer4 ==  EqualityComparer<T4>.Default && comparer5 ==  EqualityComparer<T5>.Default)
+            if (comparer0 == EqualityComparer<T0>.Default && comparer1 == EqualityComparer<T1>.Default && comparer2 == EqualityComparer<T2>.Default && comparer3 == EqualityComparer<T3>.Default && comparer4 == EqualityComparer<T4>.Default && comparer5 == EqualityComparer<T5>.Default)
             {
                 return EqualityComparer<(T0, T1, T2, T3, T4, T5)>.Default;
             }
@@ -186,7 +186,7 @@ namespace Nintenlord.Collections.EqualityComparer
 
         public static IEqualityComparer<(T0, T1, T2, T3, T4, T5, T6)> Create(IEqualityComparer<T0> comparer0, IEqualityComparer<T1> comparer1, IEqualityComparer<T2> comparer2, IEqualityComparer<T3> comparer3, IEqualityComparer<T4> comparer4, IEqualityComparer<T5> comparer5, IEqualityComparer<T6> comparer6)
         {
-            if (comparer0 ==  EqualityComparer<T0>.Default && comparer1 ==  EqualityComparer<T1>.Default && comparer2 ==  EqualityComparer<T2>.Default && comparer3 ==  EqualityComparer<T3>.Default && comparer4 ==  EqualityComparer<T4>.Default && comparer5 ==  EqualityComparer<T5>.Default && comparer6 ==  EqualityComparer<T6>.Default)
+            if (comparer0 == EqualityComparer<T0>.Default && comparer1 == EqualityComparer<T1>.Default && comparer2 == EqualityComparer<T2>.Default && comparer3 == EqualityComparer<T3>.Default && comparer4 == EqualityComparer<T4>.Default && comparer5 == EqualityComparer<T5>.Default && comparer6 == EqualityComparer<T6>.Default)
             {
                 return EqualityComparer<(T0, T1, T2, T3, T4, T5, T6)>.Default;
             }

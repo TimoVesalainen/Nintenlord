@@ -32,7 +32,7 @@ for (int i = 2; i < 8; i++)
 
         public static IEqualityComparer<<#= tuple #>> Create(<#= string.Join(", ", parameters) #>)
         {
-            if (<#= string.Join(" && ", equalityComparerNames.Zip(types, (name, type) => $"{name} ==  EqualityComparer<{type}>.Default")) #>)
+            if (<#= string.Join(" && ", equalityComparerNames.Zip(types, (name, type) => $"{name} == EqualityComparer<{type}>.Default")) #>)
             {
                 return EqualityComparer<<#= tuple #>>.Default;
             }

@@ -6,10 +6,6 @@
 <#@ output extension=".cs" #>using Nintenlord.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nintenlord.Collections
 {
@@ -31,20 +27,20 @@ for (int i = 2; i <= 8; i++)
             TOut<#= arrayType #> result = new TOut[<#= string.Join(", ", listVariableR.Select(n => $"{n}.Count")) #>];
 
 <#
-            foreach (var (v, l) in indexisR.Zip(listVariableR, (a,b) => (a,b)))
+            foreach (var (v, l, p) in indexisR.Zip(listVariableR, (a,b) => (a,b)).Select((p,i) => (p.Item1, p.Item2, "".PadLeft(4 * i))))
             {
 #>
-            for (int <#= v #> = 0; <#= v #> < <#= l #>.Count; <#= v #>++)
-            {
+            <#= p #>for (int <#= v #> = 0; <#= v #> < <#= l #>.Count; <#= v #>++)
+            <#= p #>{
 <#
             }
 #>
-                result[<#= string.Join(", ", indexisR) #>] = product(<#= string.Join(", ", indexis.Zip(listVariable, (v, l) => $"{l}[{v}]")) #>);
+            <#= "".PadLeft(4 * i) #>result[<#= string.Join(", ", indexisR) #>] = product(<#= string.Join(", ", indexis.Zip(listVariable, (v, l) => $"{l}[{v}]")) #>);
 <#
-            foreach (var t in indexis)
+            foreach (var t in Enumerable.Range(0, i).Reverse())
             {
 #>
-            }
+            <#= "".PadLeft(4 * t) #>}
 <#
             }
 #>

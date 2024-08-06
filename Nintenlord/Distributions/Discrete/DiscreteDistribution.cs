@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nintenlord.Distributions;
+using Nintenlord.Numerics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nintenlord.Distributions;
-using Nintenlord.Numerics;
 
 namespace Nintenlord.Distributions.Discrete
 {

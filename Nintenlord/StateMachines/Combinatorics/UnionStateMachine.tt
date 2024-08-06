@@ -85,7 +85,7 @@ for (int i = 2; i < 8; i++)
 
             public <#= enumType #> Value { get; }
 
-            private SwitchTo( <#= enumType #> value)
+            private SwitchTo(<#= enumType #> value)
             {
                 Value = value;
             }

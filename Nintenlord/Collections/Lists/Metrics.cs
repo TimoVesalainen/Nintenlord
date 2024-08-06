@@ -121,7 +121,7 @@ namespace Nintenlord.Collections.Lists
             matrix[0, 0] = 0;
             for (int i = 1; i < matrix.Width; i++)
             {
-                matrix[i, 0] = matrix[i - 1, 0] + delCost(first[i- 1]);
+                matrix[i, 0] = matrix[i - 1, 0] + delCost(first[i - 1]);
             }
             for (int j = 1; j < matrix.Height; j++)
             {
@@ -137,7 +137,7 @@ namespace Nintenlord.Collections.Lists
                         matrix[i, j - 1] + insCost(second[j])),
                         matrix[i - 1, j - 1] + replaceCost(first[i], second[j]));
 
-                    if (i > 1 && j > 1 && areSame(first[i-1], second[j]) && areSame(first[i], second[j-1]))
+                    if (i > 1 && j > 1 && areSame(first[i - 1], second[j]) && areSame(first[i], second[j - 1]))
                     {
                         value = Math.Min(value, matrix[i - 2, j - 2] + transpositionCost(first[i], second[j]));
                     }

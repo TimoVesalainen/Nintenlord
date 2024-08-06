@@ -45,7 +45,7 @@ namespace Nintenlord.Distributions.Discrete
 
         private BernuelliDistribution(int zeroWeight, int oneWeight)
         {
-            if (zeroWeight <= 0) 
+            if (zeroWeight <= 0)
             {
                 throw new ArgumentException("Weight should be positive", nameof(zeroWeight));
             }

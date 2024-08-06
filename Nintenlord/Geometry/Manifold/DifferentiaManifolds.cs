@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nintenlord.Geometry.Manifold
 {
@@ -85,7 +83,8 @@ namespace Nintenlord.Geometry.Manifold
                 throw new ArgumentNullException(nameof(manifold));
             }
 
-            return Base.Select((baseVector, d) => {
+            return Base.Select((baseVector, d) =>
+            {
                 return manifold.MetricTensor(point, Base[c], baseVector) * manifold.GetChristoffelSymbol2(point, d, a, b);
             }).Sum();
         }
