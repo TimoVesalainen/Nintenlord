@@ -9,7 +9,7 @@ namespace Nintenlord.Tests.Words
         [Test]
         public void TestLength4()
         {
-            Assert.AreEqual(new int[][] { 
+            Assert.AreEqual(new int[][] {
                 new int[] { 0 },
                 new int[] { 0,0,0,1 },
                 new int[] { 0,0,1 },
@@ -17,17 +17,17 @@ namespace Nintenlord.Tests.Words
                 new int[] { 0,1 },
                 new int[] { 0,1,1 },
                 new int[] { 0,1,1,1 },
-                new int[] { 1 } 
+                new int[] { 1 }
             },
                 LyndonWords.GetLyndonWords(2, 4));
         }
 
-        [TestCase(1,2)]
-        [TestCase(2,19)]
-        [TestCase(3,11)]
-        [TestCase(4,7)]
-        [TestCase(5,4)]
-        [TestCase(6,2)]
+        [TestCase(1, 2)]
+        [TestCase(2, 19)]
+        [TestCase(3, 11)]
+        [TestCase(4, 7)]
+        [TestCase(5, 4)]
+        [TestCase(6, 2)]
         public void TestFirstLast(int length, int alphabetSize)
         {
             var words = LyndonWords.GetLyndonWords(alphabetSize, length).ToArray();
@@ -37,9 +37,9 @@ namespace Nintenlord.Tests.Words
         }
 
         [Test]
-        public void TestDecomposition() 
+        public void TestDecomposition()
         {
-            var word = new[] { 0, 1, 1, 0, 1, 0, 0, 1,0,1,1,1,0,0,0,0 };
+            var word = new[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0 };
 
             var lyndonWords = LyndonWords.GetLyndonWords(2, word.Length).ToArray();
 

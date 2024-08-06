@@ -51,7 +51,7 @@ namespace Nintenlord.Tests.Trees
         [Test]
         public void TestLeafs()
         {
-            var leaves = new[] {0, 1, 3, 5 };
+            var leaves = new[] { 0, 1, 3, 5 };
             Assert.AreEqual(leaves, tree.GetLeaves(tree.Root).Select(x => x.Value));
         }
 
@@ -70,7 +70,7 @@ namespace Nintenlord.Tests.Trees
         [Test]
         public void TestGenerations()
         {
-            Assert.AreEqual(new[] { new[] { 7 }, new[] { 4,6 }, new[] { 2,3,5 }, new[] { 0,1 } },
+            Assert.AreEqual(new[] { new[] { 7 }, new[] { 4, 6 }, new[] { 2, 3, 5 }, new[] { 0, 1 } },
                 tree.GetGenerations().Select(x => x.Select(x => x.Value)));
         }
 

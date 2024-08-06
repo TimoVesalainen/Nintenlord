@@ -16,7 +16,7 @@ namespace Nintenlord.Tests.Collections.Lists.Change
         {
             var diagonal = new DiagonalMatrix<bool>(Enumerable.Repeat(true, n), false).ToArray();
 
-            Assert.AreEqual(new []{ (0,0,n) }, ListDiff.FindLargestDiagonals(diagonal).ToArray());
+            Assert.AreEqual(new[] { (0, 0, n) }, ListDiff.FindLargestDiagonals(diagonal).ToArray());
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace Nintenlord.Tests.Collections.Lists.Change
         [TestCase(10)]
         public void FindLargestFromAllTrueTest(int n)
         {
-            var diagonal = new ConstMatrix<bool>(true, n ,n).ToArray();
+            var diagonal = new ConstMatrix<bool>(true, n, n).ToArray();
 
             Assert.AreEqual(new[] { (0, 0, n) }, ListDiff.FindLargestDiagonals(diagonal).ToArray());
         }
@@ -38,7 +38,7 @@ namespace Nintenlord.Tests.Collections.Lists.Change
         {
             var diagonal = new ConstMatrix<bool>(false, n, n).ToArray();
 
-            Assert.AreEqual(new(int, int, int)[0], ListDiff.FindLargestDiagonals(diagonal).ToArray());
+            Assert.AreEqual(new (int, int, int)[0], ListDiff.FindLargestDiagonals(diagonal).ToArray());
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Nintenlord.Tests.Collections.Lists.Change
             var array = Enumerable.Range(0, 10).ToArray();
             var array2 = array.Prepend(-1).ToArray();
 
-            Assert.AreEqual(new[] { IListChange<int>.Added(0, 1, array, array2)}, array.GetListDiff(array2).ToArray());
+            Assert.AreEqual(new[] { IListChange<int>.Added(0, 1, array, array2) }, array.GetListDiff(array2).ToArray());
         }
 
         [Test]
